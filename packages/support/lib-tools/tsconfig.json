@@ -1,0 +1,11 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    // https://github.com/rollup/rollup/issues/5199
+    "moduleResolution": "Bundler",
+    "outDir": "./dist",
+    "emitDeclarationOnly": false
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,11 @@
+@mixin FgColor($group, $option) {
+    color: var(--color-#{$group}-#{$option}-color);
+}
+
+@mixin VariantsFgColor($group, $options) {
+    @each $option in $options {
+        &-color-#{$option} {
+            @include FgColor($group, $option);
+        }
+    }
+}

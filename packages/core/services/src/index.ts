@@ -1,2 +1,1 @@
-export const bar = 'bar';
-export * from '~/Foo';
+export * from './Root';

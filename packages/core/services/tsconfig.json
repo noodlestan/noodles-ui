@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "paths": {
-      "~/*": ["./src/*"]
+      // "~/*": ["./src/*"]
     }
   },
-  "include": ["./src"]
+  "include": ["./src", "../../support/sandbox/src/providers/SystemUI"]
 }

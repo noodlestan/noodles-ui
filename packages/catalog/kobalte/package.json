@@ -1,0 +1,38 @@
+{
+  "name": "@noodles-ui/catalag-kobalte",
+  "version": "0.0.1",
+  "description": "Use Kobalte components in NoodlesUI",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "tokens",
+    "design-tokens",
+    "themes",
+    "design-system",
+    "ui-library",
+    "kobalte-ui",
+    "solid",
+    "solidjs"
+  ],
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vitest",
+    "test": "vitest --run --coverage",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@noodles-ui/core-services": "0.0.1",
+    "@noodles-ui/core-unstyled": "0.0.1"
+  },
+  "peerDependencies": {
+    "@kobalte/core": "^0.12.1",
+    "solid-js": "^1.8.14"
+  }
+}

@@ -7,13 +7,13 @@ const rules = {
             alphabetize: {
                 order: 'asc',
             },
-            pathGroups: [
-                {
-                    pattern: '~/**',
-                    group: 'external',
-                    position: 'after',
-                },
-            ],
+            // pathGroups: [
+            //     {
+            //         pattern: '~/**',
+            //         group: 'external',
+            //         position: 'after',
+            //     },
+            // ],
             'newlines-between': 'always',
             groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'object'],
         },

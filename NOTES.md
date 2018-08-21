@@ -1,4 +1,17 @@
+# Stack
+
+- [SolidJS](https://www.solidjs.com/)
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
+
 # DevX
+
+## Wishlist
+
+- Publish packages with [Changesets](https://github.com/changesets/changesets)
+- Switch from NVM to [ASDF](https://asdf-vm.com/)
+
+## Known issues
 
 ## Vitest issues noisy warning(s)
 

@@ -1,0 +1,35 @@
+{
+  "name": "@noodles-ui/core-unstyled",
+  "version": "0.0.1",
+  "description": "Noodles UI base library of unstyled components",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "headless",
+    "unstyled",
+    "components",
+    "component-library",
+    "ui-library",
+    "accessibility",
+    "aria",
+    "design-system",
+    "solid",
+    "solidjs"
+  ],
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vitest",
+    "test": "vitest --run --coverage",
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.14"
+  }
+}

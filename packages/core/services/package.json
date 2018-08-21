@@ -1,5 +1,5 @@
 {
-  "name": "@noodlestan/noodles-ui-core-services",
+  "name": "@noodles-ui/core-services",
   "version": "0.0.1",
   "description": "Noodles UI base library of unstyled components",
   "author": "Andre Torgal",
@@ -9,24 +9,22 @@
     "url": "https://github.com/noodlestan/noodles-ui"
   },
   "keywords": [
-    "solidjs",
-    "ui-library",
+    "design-system",
     "components",
     "component-library",
-    "design-system"
+    "ui-library",
+    "accessibility",
+    "aria",
+    "themes",
+    "solid",
+    "solidjs",
+    "headless",
+    "unstyled"
   ],
-  "main": "./dist/server.cjs",
-  "module": "./dist/server.js",
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.umd.js"
-    }
-  },
   "scripts": {
     "dev": "vitest",
     "test": "vitest --run --coverage",

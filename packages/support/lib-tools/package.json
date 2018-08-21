@@ -1,0 +1,27 @@
+{
+  "name": "@noodles-ui/lib-tools",
+  "version": "0.0.1",
+  "description": "Tooling for building Noodles UI libraries",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "component-library",
+    "ui-library",
+    "design-system"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "version": "tsc --version",
+    "build": "tsc --project ."
+  },
+  "dependencies": {
+    "vite": "^5.1.0"
+  }
+}

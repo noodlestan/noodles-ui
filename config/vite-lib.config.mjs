@@ -5,8 +5,9 @@ import typescript from '@rollup/plugin-typescript';
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
-export const defineViteConfig = (dir, libName) => {
+export const defineViteConfig = (dir, libName, config = {}) => {
     return defineConfig({
+        ...config,
         plugins: [
             typescript({
                 target: 'es2020',

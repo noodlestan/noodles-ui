@@ -1,0 +1,13 @@
+{
+  "tokens": {
+    "base": {
+      "global": {
+        "--type-base-fontSize": "14px",
+        "--type-body-fontSize": "16px",
+        "--type-medium-fontSize": "16px",
+        "--type-large-fontSize": "24px",
+        "--type-note-fontSize": "36px"
+      }
+    }
+  }
+}

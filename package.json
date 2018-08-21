@@ -9,26 +9,37 @@
     "url": "https://github.com/noodlestan/noodles-ui"
   },
   "workspaces": [
-    "packages/base",
+    "packages/catalog/**",
+    "packages/core/**",
     "packages/libs/**",
-    "packages/docs"
+    "packages/support/**",
+    "packages/sandbox/**"
   ],
   "private": true,
   "scripts": {
     "lint": "prettier . -c && eslint .",
     "lint:silent": "prettier . -c --log-level silent && eslint .",
     "test": "vitest --run --coverage",
-    "build": "npm run build:core && npm run build:libs && npm run build:docs",
-    "build:core": "npm run build:core:services && npm run build:core:components && npm run build:core:styles",
+    "build": "npm run build:support && npm run build:core && npm run build:catalog && npm run build:libs && npm run build:sandbox",
+    "build:support": "npm run build:support:lib-tools && npm run build:support:sandbox-components-solid",
+    "build:support:lib-tools": "npm run --prefix packages/support/lib-tools build",
+    "build:support:sandbox-components-solid": "npm run --prefix packages/support/sandbox-components-solid build",
+    "build:core": "npm run build:core:services && npm run build:core:unstyled && npm run build:core:styled",
     "build:core:services": "npm run --prefix packages/core/services build",
-    "build:core:components": "npm run --prefix packages/core/components build",
-    "build:core:styles": "npm run --prefix packages/core/styles build",
-    "build:libs": "npm run build:libs:standard-ui && npm run build:libs:proto-ui",
+    "build:core:unstyled": "npm run --prefix packages/core/unstyled build",
+    "build:core:styled": "npm run --prefix packages/core/styled build",
+    "build:catalog": "npm run build:catalog:kobalte",
+    "build:catalog:kobalte": "npm run --prefix packages/catalog/kobalte build",
+    "build:libs": "npm run build:libs:sandbox-ui && npm run build:libs:standard-ui && npm run build:libs:proto-ui",
+    "build:libs:sandbox-ui": "npm run --prefix packages/libs/sandbox-ui build",
     "build:libs:standard-ui": "npm run --prefix packages/libs/standard-ui build",
     "build:libs:proto-ui": "npm run --prefix packages/libs/proto-ui build",
-    "build:docs": "npm run --prefix packages/support/docs build"
+    "build:sandbox": "npm run build:sandbox:app-solid && npm run build:sandbox:app-solidstart",
+    "build:sandbox:app-solid": "npm run --prefix packages/sandbox/app-solid build",
+    "build:sandbox:app-solidstart": "npm run --prefix packages/sandbox/app-solidstart build"
   },
   "devDependencies": {
+    "sass": "latest",
     "@rollup/plugin-typescript": "^11.1.6",
     "@solidjs/testing-library": "^0.8.6",
     "@testing-library/jest-dom": "^6.4.2",
