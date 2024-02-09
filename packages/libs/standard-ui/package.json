@@ -1,0 +1,38 @@
+{
+  "name": "@noodlestan/standard-ui",
+  "version": "0.0.1",
+  "description": "Noodles UI standard design system",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "solidjs",
+    "ui-library",
+    "components",
+    "component-library",
+    "design-system"
+  ],
+  "main": "./dist/server.cjs",
+  "module": "./dist/server.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vitest",
+    "test": "vitest --run",
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.14"
+  }
+}

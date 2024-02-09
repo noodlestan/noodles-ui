@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "target": "esnext",
+    "newLine": "LF",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "jsxImportSource": "solid-js",
+    "strict": true,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "types": ["vitest/globals"]
+  },
+  "exclude": ["node_modules"]
+}

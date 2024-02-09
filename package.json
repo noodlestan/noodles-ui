@@ -1,0 +1,56 @@
+{
+  "name": "@noodlesta/noodles-ui",
+  "version": "0.0.1",
+  "description": "UI library framework (for SolidJS)",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "workspaces": [
+    "packages/base",
+    "packages/libs/**",
+    "packages/docs"
+  ],
+  "private": true,
+  "scripts": {
+    "lint": "prettier . -c && eslint .",
+    "lint:silent": "prettier . -c --log-level silent && eslint .",
+    "test": "vitest --run --coverage",
+    "build": "npm run build:core && npm run build:libs && npm run build:docs",
+    "build:core": "npm run build:core:services && npm run build:core:components && npm run build:core:styles",
+    "build:core:services": "npm run --prefix packages/core/services build",
+    "build:core:components": "npm run --prefix packages/core/components build",
+    "build:core:styles": "npm run --prefix packages/core/styles build",
+    "build:libs": "npm run build:libs:standard-ui && npm run build:libs:proto-ui",
+    "build:libs:standard-ui": "npm run --prefix packages/libs/standard-ui build",
+    "build:libs:proto-ui": "npm run --prefix packages/libs/proto-ui build",
+    "build:docs": "npm run --prefix packages/support/docs build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@solidjs/testing-library": "^0.8.6",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@types/eslint": "^8.44.8",
+    "@types/node": "^20.10.3",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "@vitest/coverage-v8": "^1.2.2",
+    "dotenv": "^16.3.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-security": "^1.7.1",
+    "eslint-plugin-solid": "^0.13.1",
+    "jsdom": "^24.0.0",
+    "lefthook": "^1.5.5",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2",
+    "vite": "^5.1.0",
+    "vite-plugin-solid": "^2.9.1",
+    "vite-plugin-solid-svg": "^0.8.0",
+    "vitest": "^1.2.2"
+  }
+}
