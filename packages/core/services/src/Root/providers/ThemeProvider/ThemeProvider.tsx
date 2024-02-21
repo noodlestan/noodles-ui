@@ -1,12 +1,9 @@
-import { Component, createContext, splitProps, useContext } from 'solid-js';
+import { Component, JSX, createContext, useContext } from 'solid-js';
 
-import {
-    ClassNamesElement,
-    ClassNamesElementProps,
-} from '../../_private/components/ClassNamesElement';
 import { ThemesError } from '../../errors';
 import { themesStore } from '../../stores/themesStore';
 import { Theme } from '../../types';
+import { TokensProvider } from '../TokensProvider';
 
 type ThemeContextState = { theme: () => Theme };
 
@@ -20,21 +17,22 @@ export const useThemeContext = (): ThemeContextState => {
     return context;
 };
 
-type ThemeProviderProps = ClassNamesElementProps & {
+type ThemeProviderProps = {
+    children?: JSX.Element;
     theme: string;
     shallow?: boolean;
 };
 
 export const ThemeProvider: Component<ThemeProviderProps> = props => {
-    const [local, rest] = splitProps(props, ['theme']);
-
     const { findTheme } = themesStore;
 
-    const value = () => ({ theme: () => findTheme(local.theme) });
+    const value = () => ({ theme: () => findTheme(props.theme) });
+
+    // TODO for themes to be nestable
 
     return (
         <ThemeContext.Provider value={value()}>
-            {props.shallow ? props.children : <ClassNamesElement {...rest} />}
+            {props.shallow ? props.children : <TokensProvider>{props.children}</TokensProvider>}
         </ThemeContext.Provider>
     );
 };

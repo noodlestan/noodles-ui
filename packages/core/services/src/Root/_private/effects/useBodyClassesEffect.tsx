@@ -1,23 +1,17 @@
 import { createEffect } from 'solid-js';
 
-import { NOODLES_PREFIX } from '../../constants';
-import { colourSchemeClassNames } from '../functions/colourSchemeClassNames';
+import { contextClassNames } from '../../functions/contextClassNames';
 import { isNoodlesClassName } from '../functions/isNoodlesClassName';
-import { surfaceClassNames } from '../functions/surfaceClassNames';
-import { themeClassNames } from '../functions/themeClassNames';
 
-export const useBodyClassesEffect = (): void => {
+export const useBodyClassesEffect = (classList?: () => { [key: string]: boolean }): void => {
     const updateClassList = () => {
-        const classNames = [
-            NOODLES_PREFIX,
-            ...colourSchemeClassNames(),
-            ...themeClassNames(),
-            ...surfaceClassNames(),
-        ];
+        const classNames = contextClassNames();
         const currentClasses = Array(...document.body.classList);
         const toRemove = currentClasses.filter(isNoodlesClassName);
         document.body.classList.remove(...toRemove);
         document.body.classList.add(...classNames);
+        const cl = classList ? classList() : {};
+        document.body.classList.add(...Object.keys(cl));
     };
 
     createEffect(updateClassList);

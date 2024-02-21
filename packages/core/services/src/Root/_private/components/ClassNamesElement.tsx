@@ -2,9 +2,7 @@ import { Component, JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 // import { colourSchemeClassList } from '../functions/colourSchemeClassList';
-import { classListFromClassNames } from '../functions/classListFromClassNames';
-import { surfaceClassNames } from '../functions/surfaceClassNames';
-import { themeClassNames } from '../functions/themeClassNames';
+import { surfaceClassList } from '../../functions/contextClassList';
 
 export type ClassNamesElementProps = JSX.HTMLAttributes<HTMLDivElement> & {
     tag?: string;
@@ -19,7 +17,7 @@ export const ClassNamesElement: Component<ClassNamesElementProps> = props => {
 
     const classList = () => ({
         ...props.classList,
-        ...classListFromClassNames([...themeClassNames(), ...surfaceClassNames()]),
+        ...surfaceClassList(),
     });
 
     return (

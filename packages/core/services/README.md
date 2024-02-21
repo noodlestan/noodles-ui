@@ -4,6 +4,28 @@
 
 Early days. See [root README](../../../README.md) for an introduction.
 
+## Concern
+
+Provide global context(s):
+
+- available Themes
+- available Surfaces
+- curent ColourScheme
+- current Theme
+- current Surface
+
+Generate CSS class names to switch context of CSS tokens
+
+// TODO: Resolve runtime tokens according to current colour scheme, theme and surface
+
+NOTE: might need isolated implementations for native/style/or specific adaptars (e.g.: leveraging the `data-scope` optimisation in [ark-ui](https://ark-ui.com/docs/styling/overview), or styling it with auto-generated panda snippets)
+
+In that case surface/theme providers should not be coupled with the implementation
+
+- css only (RootClasses)
+- runtime only (RootStyles)
+- both (RootHybrid) :-D
+
 ## License
 
 Copyright (c) 2024 [Andre Torgal](https://andretorgal.com/).

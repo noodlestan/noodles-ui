@@ -29,6 +29,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@noodles-ui/catalag-kobalte": "0.0.1",
     "@noodles-ui/core-services": "0.0.1",
     "@noodles-ui/core-styled": "0.0.1"
   },

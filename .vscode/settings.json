@@ -16,12 +16,14 @@
   "files.exclude": {
     "**/coverage": true,
     "**/dist": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/.vinxi": true
   },
   "search.exclude": {
     "**/coverage": true,
     "**/dist": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/.vinxi": true
   },
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

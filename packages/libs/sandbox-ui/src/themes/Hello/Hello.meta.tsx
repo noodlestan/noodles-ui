@@ -3,6 +3,8 @@ import { Component } from 'solid-js';
 
 import tokens from '../../generated/theme.Hello.tokens';
 
+import '../../generated/theme.Hello.css';
+
 const Comp: Component = () => <></>;
 
 export const Hello: Theme = {

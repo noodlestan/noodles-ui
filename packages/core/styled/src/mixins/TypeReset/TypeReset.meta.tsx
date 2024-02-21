@@ -1,4 +1,4 @@
 export const TypeReset = {
-    type: 'reset',
+    type: 'mixin',
     name: 'TypeReset',
 };

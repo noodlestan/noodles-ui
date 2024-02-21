@@ -1,4 +1,4 @@
-import { HeadingMeta as HeadingStyledMeta } from '@noodles-ui/core-unstyled';
+import { HeadingMeta as HeadingUnstyledMeta } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins';
 import { ContentColor, TypeVariant } from '../../variants';
@@ -8,7 +8,7 @@ import { Heading as Component } from './Heading';
 export const HeadingMeta = {
     type: 'component',
     name: 'Heading',
-    extend: HeadingStyledMeta,
+    extend: HeadingUnstyledMeta,
     component: Component,
     uses: [TypeReset],
     props: {

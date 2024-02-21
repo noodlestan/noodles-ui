@@ -20,7 +20,7 @@ export type Theme = {
             global: TokenMap;
             surfaces: SurfaceTokenMap;
         };
-        invert: {
+        [mode: string]: {
             global: TokenMap;
             surfaces: SurfaceTokenMap;
         };

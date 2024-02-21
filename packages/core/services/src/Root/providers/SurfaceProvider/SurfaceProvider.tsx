@@ -1,12 +1,9 @@
-import { Component, createContext, splitProps, useContext } from 'solid-js';
+import { Component, JSX, createContext, useContext } from 'solid-js';
 
-import {
-    ClassNamesElement,
-    ClassNamesElementProps,
-} from '../../_private/components/ClassNamesElement';
 import { ThemesError } from '../../errors';
 import { surfacesStore } from '../../stores/surfacesStore';
 import { Surface } from '../../types';
+import { TokensProvider } from '../TokensProvider';
 
 type SurfaceContextState = { surface: () => Surface };
 
@@ -20,21 +17,20 @@ export const useSurfacesContext = (): SurfaceContextState => {
     return context;
 };
 
-type SurfaceProviderProps = ClassNamesElementProps & {
+type SurfaceProviderProps = {
+    children?: JSX.Element;
     surface: string;
     shallow?: boolean;
 };
 
 export const SurfaceProvider: Component<SurfaceProviderProps> = props => {
-    const [local, rest] = splitProps(props, ['surface']);
-
     const { findSurface } = surfacesStore;
 
-    const value = () => ({ surface: () => findSurface(local.surface) });
+    const value = () => ({ surface: () => findSurface(props.surface) });
 
     return (
         <SurfaceContext.Provider value={value()}>
-            {props.shallow ? props.children : <ClassNamesElement {...rest} />}
+            {props.shallow ? props.children : <TokensProvider>{props.children}</TokensProvider>}
         </SurfaceContext.Provider>
     );
 };

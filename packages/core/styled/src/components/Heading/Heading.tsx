@@ -1,4 +1,3 @@
-import { classListFromClassNames } from '@noodles-ui/core-services';
 import {
     type HeadingLevel,
     Heading as UnstyledHeading,
@@ -6,11 +5,11 @@ import {
 } from '@noodles-ui/core-unstyled';
 import { Component } from 'solid-js';
 
-import { contentColorClassName } from '../../variants';
+import { contentColorClassList } from '../../variants';
 
 import styles from './Heading.module.scss';
 
-export type HeadingProps = Pick<UnstyledHeadingProps, 'tag' | 'children'> & {
+export type HeadingProps = UnstyledHeadingProps & {
     variant: string;
     color: string;
     level?: HeadingLevel;
@@ -29,7 +28,7 @@ export const Heading: Component<HeadingProps> = props => {
     const classList = () => ({
         [styles.Heading]: true,
         [styles[`Heading-variant-${props.variant}`]]: true,
-        ...classListFromClassNames([contentColorClassName(props.color)]),
+        ...contentColorClassList(props.color),
     });
     return <UnstyledHeading classList={classList()} {...props} level={level()} />;
 };
