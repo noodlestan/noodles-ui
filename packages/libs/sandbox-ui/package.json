@@ -19,24 +19,32 @@
     "ui-library",
     "tokens"
   ],
-  "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.umd.js",
   "module": "./src/index.ts",
-  "sideEffects": false,
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "vitest",
-    "test": "vitest --run",
-    "build": "vite build"
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n Tests,NUI,Vite -c \"green.bold\",\"red.bold\",\"yellow.bold\" \"npm run dev:test\" \"npm run dev:nui\" \"npm run dev:library\"",
+    "dev:test": "vitest",
+    "dev:nui": "ts-node ./nui.watch.ts",
+    "dev:library": "vite build --watch",
+    "test": "vitest --run --coverage",
+    "build": "npm run build:nui && npm run build:library",
+    "build:nui": "ts-node ./nui.build.ts",
+    "build:library": "vite build"
   },
   "dependencies": {
     "@noodles-ui/catalag-kobalte": "0.0.1",
     "@noodles-ui/core-services": "0.0.1",
-    "@noodles-ui/core-styled": "0.0.1"
+    "@noodles-ui/core-styled": "0.0.1",
+    "@noodles-ui/core-types": "0.0.1"
   },
   "peerDependencies": {
     "solid-js": "^1.8.14"
   },
   "devDependencies": {
-    "@types/css-modules": "^1.0.5"
+    "@noodles-ui/lib-tools": "^0.0.1",
+    "@types/css-modules": "^1.0.5",
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.2"
   }
 }

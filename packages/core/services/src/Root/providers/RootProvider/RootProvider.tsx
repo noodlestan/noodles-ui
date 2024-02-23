@@ -1,8 +1,8 @@
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Component, For, JSX } from 'solid-js';
 
 import { useBodyClassesEffect } from '../../_private/effects/useBodyClassesEffect';
 import { themesStore } from '../../stores';
-import { ColourSchemeName } from '../../types';
 import { ColourSchemeProvider } from '../ColourSchemeProvider';
 import { SurfaceProvider } from '../SurfaceProvider';
 import { ThemeProvider } from '../ThemeProvider';
@@ -29,7 +29,7 @@ export const RootProvider: Component<RootProviderProps> = props => {
     const { themes } = themesStore;
     return (
         <>
-            <For each={themes()}>{theme => <theme.Component />}</For>
+            <For each={themes()}>{Theme => <Theme.component />}</For>
             <ColourSchemeProvider>
                 <ThemeProvider theme={props.theme} shallow>
                     <SurfaceProvider surface={props.surface} shallow>

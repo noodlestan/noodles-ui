@@ -11,17 +11,33 @@
   "keywords": [
     "component-library",
     "ui-library",
-    "design-system"
+    "design-system",
+    "code-generator"
   ],
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "sideEffects": false,
   "scripts": {
-    "version": "tsc --version",
-    "build": "tsc --project ."
+    "lint": "prettier . -c && eslint . && tsc --noEmit",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --project tsconfig.build.esm.json",
+    "build:cjs": "tsc --project tsconfig.build.cjs.json",
+    "dev": "concurrently -k -p \"[{name}]\" -n ESM,CommonJS -c \"cyan.bold\",\"yellow.bold\" \"npm run dev:esm\" \"npm run dev:cjs\"",
+    "dev:esm": "tsc --watch --project tsconfig.build.esm.json",
+    "dev:cjs": "tsc --watch --project tsconfig.build.cjs.json",
+    "dev:tsc": "tsc --watch --project tsconfig.json "
   },
   "dependencies": {
-    "vite": "^5.1.0"
+    "@types/figlet": "^1.5.8",
+    "better-queue": "^3.8.12",
+    "chokidar": "^3.6.0",
+    "figlet": "^1.7.0",
+    "kleur": "^4.1.5",
+    "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "@noodles-ui/core-types": "0.0.1",
+    "@types/better-queue": "^3.8.6",
+    "concurrently": "^8.2.2"
   }
 }

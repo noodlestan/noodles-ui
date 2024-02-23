@@ -1,4 +1,4 @@
-import { Goodbye } from '../themes/Goodbye/Goodbye.meta';
-import { Hello } from '../themes/Hello/Hello.meta';
+import { GoodByeTheme } from '../themes/Goodbye/GoodbyeTheme';
+import { HelloTheme } from '../themes/Hello/HelloTheme';
 
-export default [Hello, Goodbye];
+export default [HelloTheme, GoodByeTheme];

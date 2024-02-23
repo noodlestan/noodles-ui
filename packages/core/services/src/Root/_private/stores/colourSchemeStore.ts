@@ -1,6 +1,5 @@
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Accessor, createSignal } from 'solid-js';
-
-import { ColourSchemeName } from '../../types';
 
 const [colourScheme, setColourScheme] = createSignal<ColourSchemeName>('dark');
 

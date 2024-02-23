@@ -1,8 +1,8 @@
+import { TokenMap } from '@noodles-ui/core-types';
 import { Component, JSX, createContext, useContext } from 'solid-js';
 
 import { ThemesError } from '../../errors';
 import { contextTokens } from '../../functions/contextTokens';
-import { TokenMap } from '../../types';
 import { useColourSchemeContext } from '../ColourSchemeProvider';
 import { useSurfacesContext } from '../SurfaceProvider';
 import { useThemeContext } from '../ThemeProvider';

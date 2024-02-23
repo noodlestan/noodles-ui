@@ -1,2 +1,2 @@
-export { AccordionMeta } from './Accordion/Accordion.meta';
+export { AccordionResource } from './Accordion/Accordion.nui';
 export { Accordion } from '@kobalte/core';

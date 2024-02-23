@@ -30,6 +30,9 @@
     "test": "vitest --run --coverage",
     "build": "vite build"
   },
+  "dependencies": {
+    "@noodles-ui/core-types": "0.0.1"
+  },
   "peerDependencies": {
     "solid-js": "^1.8.14"
   }

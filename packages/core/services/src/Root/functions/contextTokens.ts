@@ -1,8 +1,14 @@
+import type { ColourSchemeName, ThemeResource, TokenMap } from '@noodles-ui/core-types';
+
 import { surfacesStore } from '../stores/surfacesStore';
-import type { ColourSchemeName, Surface, Theme, TokenMap } from '../types';
+import type { Surface } from '../types';
 
 // TODO memo
-export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Surface): TokenMap => {
+export const contextTokens = (
+    mode: ColourSchemeName,
+    theme: ThemeResource,
+    surface: Surface,
+): TokenMap => {
     // TODO revalidate if type of theme.extends should be Array<Theme> or Array<string> (theme name, which requires the findTheme() as is currently in contextTokens() bellow )
 
     const { findSurface } = surfacesStore;
@@ -25,7 +31,7 @@ export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Sur
         ...theme.tokens.base.global,
         ...theme.tokens.base.surfaces[surface.name],
     };
-    const invertTokens =
+    const modeTokens =
         theme.mode !== mode && theme.tokens[mode]
             ? {
                   ...theme.tokens[mode].global,
@@ -37,6 +43,6 @@ export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Sur
         ...extendedThemes,
         ...extendedSurfaces,
         ...baseTokens,
-        ...invertTokens,
+        ...modeTokens,
     };
 };

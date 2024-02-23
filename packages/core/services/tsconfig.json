@@ -6,5 +6,5 @@
       // "~/*": ["./src/*"]
     }
   },
-  "include": ["./src", "../../support/sandbox/src/providers/SystemUI"]
+  "include": ["./src"]
 }

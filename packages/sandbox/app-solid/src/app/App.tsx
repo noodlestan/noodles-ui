@@ -1,3 +1,4 @@
+import { Surface } from '@noodles-ui/sandbox-ui';
 import { Route, Router } from '@solidjs/router';
 import { Component, JSX } from 'solid-js';
 
@@ -13,13 +14,15 @@ type RootProps = {
 
 export const Root: Component<RootProps> = props => {
     return (
-        <div>
-            <nav>
+        <>
+            <Surface tag="nav" variant="inverse">
                 <a href="/">Home</a>
                 <a href="/about">About</a>
-            </nav>
-            {props.children}
-        </div>
+            </Surface>
+            <Surface tag="main" variant="page">
+                {props.children}
+            </Surface>
+        </>
     );
 };
 

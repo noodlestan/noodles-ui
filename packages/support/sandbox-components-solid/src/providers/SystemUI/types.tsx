@@ -1,4 +1,4 @@
-import { ColourSchemeName } from '@noodles-ui/core-services';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Accessor, Setter } from 'solid-js';
 
 export type SystemUIContextState = {

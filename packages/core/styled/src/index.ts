@@ -1,3 +1,4 @@
 export * from './components';
 export * from './variants';
-export * from './mixins';
+
+export * from './index.nui';

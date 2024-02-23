@@ -14,7 +14,7 @@ export type SurfaceProps = SurfaceUnstyledProps & {
     children?: JSX.Element;
 };
 
-const SurfaceElement = (props: SurfaceProps) => {
+const SurfaceElement: Component<SurfaceProps> = props => {
     const classList = () => ({
         ...props.classList,
         ...contextClassList(),

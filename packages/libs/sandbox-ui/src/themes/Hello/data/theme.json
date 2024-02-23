@@ -56,7 +56,7 @@
         "card": {
           "--surface-base-bg": "#000000"
         },
-        "invert": {
+        "inverse": {
           "--surface-base-bg": "#000000"
         }
       }
@@ -73,7 +73,7 @@
         "card": {
           "--surface-base-bg": "#ffffff"
         },
-        "invert": {
+        "inverse": {
           "--color-content-primary-color": "#eeeeff",
           "--color-content-muted-color": "#ccccdd",
           "--color-content-disabled-color": "#888899",

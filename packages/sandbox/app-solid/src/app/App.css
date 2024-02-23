@@ -4,29 +4,3 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-
-main {
-    display: flex;
-    flex-direction: column;
-    place-items: stretch;
-    gap: var(--space-gap-1);
-}
-
-.AppMain {
-    flex: 1;
-    overflow: hidden;
-}
-
-.AppMain-container {
-    position: relative;
-    height: 100vh;
-}
-
-@media screen and (orientation: landscape) {
-    .AppMain {
-        flex-direction: row;
-    }
-    .AppMain-container {
-        width: 100%;
-    }
-}

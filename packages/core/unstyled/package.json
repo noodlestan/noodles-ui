@@ -20,16 +20,25 @@
     "solid",
     "solidjs"
   ],
-  "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.umd.js",
   "module": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "dev": "vitest",
+    "dev": "concurrently -k -p \"[{name}]\" -n Tests,Vite -c \"cyan.green\",\"orange.bold\" \"npm run dev:test\" \"npm run dev:watch\"",
+    "dev:test": "vitest",
+    "dev:watch": "vite build --watch",
     "test": "vitest --run --coverage",
     "build": "vite build"
   },
+  "dependencies": {
+    "@noodles-ui/core-services": "0.0.1",
+    "@noodles-ui/core-types": "0.0.1"
+  },
   "peerDependencies": {
     "solid-js": "^1.8.14"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

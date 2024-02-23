@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "emitDeclarationOnly": true,
     "declaration": true,
     "target": "esnext",
     "newLine": "LF",
@@ -8,9 +7,9 @@
     "esModuleInterop": true,
     "jsxImportSource": "solid-js",
     "strict": true,
+    "noEmitOnError": true,
     "sourceMap": true,
-    "jsx": "preserve",
-    "types": ["vitest/globals"]
+    "jsx": "preserve"
   },
   "exclude": ["node_modules"]
 }

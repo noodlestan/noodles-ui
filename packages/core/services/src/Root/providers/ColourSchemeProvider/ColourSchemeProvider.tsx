@@ -1,8 +1,8 @@
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Accessor, Component, JSX, createContext, createEffect, useContext } from 'solid-js';
 
 import { colourSchemeStore } from '../../_private/stores/colourSchemeStore';
 import { ThemesError } from '../../errors';
-import { ColourSchemeName } from '../../types';
 
 type ColourSchemeContextState = {
     colourScheme: Accessor<ColourSchemeName>;

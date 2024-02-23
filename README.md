@@ -18,9 +18,10 @@ See each package's README for more details.
 
 ### Core packages
 
+- [Types](./packages/core/services/README.md) - For modeling design systems
 - [Services](./packages/core/services/README.md) - Core services and providers
-- [Components](./packages/core/unstyled/README.md) - Collection of unstyled components and primitives
-- [Styles](./packages/core/styled/README.md) - Styles shared by the UI libraries
+- [Unstyled](./packages/core/unstyled/README.md) - Headless (unstyled) components and primitives
+- [Styled](./packages/core/styled/README.md) - Styling components and primitives
 
 ### UI libraries
 
@@ -33,8 +34,7 @@ See each package's README for more details.
 
 Use high quality components and primitives from headless libraries
 
-- [Lib tools](./packages/catalog/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
-- [Sandbox components](./packages/catalog/ark=ui/README.md) - Catalogue of [ArkUI](https://ark-ui.com/) components
+- [Kobalte](./packages/catalog/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
 
 ### Support packages
 

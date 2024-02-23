@@ -1,5 +1,4 @@
-import type { UserConfig } from 'vite';
-
+import { UserConfig } from './UserConfig.js';
 import { resolvePackage } from './resolvePackage.js';
 
 export const viteCssConfigForLibraryConsumers = (module: string): UserConfig => {

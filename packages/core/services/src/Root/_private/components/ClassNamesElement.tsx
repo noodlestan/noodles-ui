@@ -2,7 +2,7 @@ import { Component, JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 // import { colourSchemeClassList } from '../functions/colourSchemeClassList';
-import { surfaceClassList } from '../../functions/contextClassList';
+import { contextClassList } from '../../functions/contextClassList';
 
 export type ClassNamesElementProps = JSX.HTMLAttributes<HTMLDivElement> & {
     tag?: string;
@@ -17,7 +17,7 @@ export const ClassNamesElement: Component<ClassNamesElementProps> = props => {
 
     const classList = () => ({
         ...props.classList,
-        ...surfaceClassList(),
+        ...contextClassList(),
     });
 
     return (

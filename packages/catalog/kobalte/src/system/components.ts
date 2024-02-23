@@ -1,3 +1,3 @@
-import { AccordionMeta } from '../components/Accordion/Accordion.meta';
+import { AccordionResource } from '../components/Accordion/Accordion.nui';
 
-export default [AccordionMeta];
+export default [AccordionResource];

@@ -1,4 +1,4 @@
-import { ColourSchemeName } from '@noodles-ui/core-services';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Component, JSX, createSignal, useContext } from 'solid-js';
 
 import { SystemUIContext } from './private/SystemUIContext';

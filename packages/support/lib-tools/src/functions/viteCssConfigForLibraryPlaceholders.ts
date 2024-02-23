@@ -1,5 +1,3 @@
-// import { UserConfig } from 'vite';
-
 export const viteCssConfigForLibraryPlaceholders = (baseDir: string): unknown => {
     return {
         css: {

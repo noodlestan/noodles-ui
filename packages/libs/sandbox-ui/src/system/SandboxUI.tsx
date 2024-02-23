@@ -1,13 +1,9 @@
-import {
-    ColourSchemeName,
-    RootProvider,
-    surfacesStore,
-    themesStore,
-} from '@noodles-ui/core-services';
+import { RootProvider, surfacesStore, themesStore } from '@noodles-ui/core-services';
 import { surfaceClasslist } from '@noodles-ui/core-styled';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Component, JSX } from 'solid-js';
 
-import surfaces from './surfaces';
+import surfaces from './surfaces.nui';
 import themes from './themes';
 
 type ThemeProps = {
