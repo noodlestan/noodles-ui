@@ -1,15 +1,11 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "target": "esnext",
-    "newLine": "LF",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "jsxImportSource": "solid-js",
+    "newLine": "LF",
     "strict": true,
-    "noEmitOnError": true,
-    "sourceMap": true,
-    "jsx": "preserve"
+    "noImplicitAny": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules/**"]
 }

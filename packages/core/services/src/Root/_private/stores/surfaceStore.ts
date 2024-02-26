@@ -10,12 +10,12 @@ type SurfaceStore = {
     setSurface: (name: string) => void;
 };
 
-const { findSurface } = surfacesStore;
+const { surfaceByName } = surfacesStore;
 
 export const surfaceStore: SurfaceStore = {
-    surface: () => findSurface(surface()),
+    surface: () => surfaceByName(surface()),
     setSurface: (name: string) => {
-        findSurface(name);
+        surfaceByName(name);
         setSurface(name);
     },
 };

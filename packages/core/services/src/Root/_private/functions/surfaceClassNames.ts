@@ -6,9 +6,9 @@ import { Surface } from '../../types';
 import { makeNoodlesClassName } from './makeNoodlesClassName';
 
 const surfaceNames = (surface: Surface): string[] => {
-    const { findSurface } = surfacesStore;
+    const { surfaceByName } = surfacesStore;
 
-    return [surface.name, ...surface.extends.flatMap(s => surfaceNames(findSurface(s)))];
+    return [surface.name, ...surface.extend.flatMap(s => surfaceNames(surfaceByName(s)))];
 };
 
 export const surfaceClassNames = (): string[] => {

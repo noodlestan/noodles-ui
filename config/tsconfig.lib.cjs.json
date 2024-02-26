@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "moduleResolution": "node",
+    // "noEmitOnError": true,
+    // "rootDir": "./src/",
+    // "outDir": "./dist/cjs",
+    "strict": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+  // "include": ["src/"],
+  // "exclude": ["**/*.test.ts"]
+}

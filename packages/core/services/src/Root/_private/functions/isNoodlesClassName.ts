@@ -1,4 +1,3 @@
-import { NOODLES_PREFIX } from '../../constants';
+import { NUI_PREFIX } from '../../constants';
 
-export const isNoodlesClassName = (className: string): boolean =>
-    className.startsWith(NOODLES_PREFIX);
+export const isNoodlesClassName = (className: string): boolean => className.startsWith(NUI_PREFIX);

@@ -23,17 +23,21 @@
   "module": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
-    "dev": "vitest",
-    "test": "vitest --run --coverage",
-    "build": "vite build"
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:test": "echo 'TODO tests'",
+    "dev:lib": "vite build --watch --mode development",
+    "test": "echo 'TODO tests'",
+    "build": "vite build",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
-    "@noodles-ui/core-services": "0.0.1",
-    "@noodles-ui/core-types": "0.0.1",
-    "@noodles-ui/core-unstyled": "0.0.1"
+    "@noodles-ui/core-types": "^0.0.1"
   },
   "peerDependencies": {
     "@kobalte/core": "^0.12.1",
     "solid-js": "^1.8.14"
+  },
+  "devDependencies": {
+    "vitest": "^1.3.1"
   }
 }

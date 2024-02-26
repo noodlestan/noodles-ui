@@ -5,8 +5,10 @@ import { FSWatcher, watch as chok } from 'chokidar';
 import figlet from 'figlet';
 
 import { QueueSized } from '../api';
+import { loadProjectModules } from '../cli/loadProjectModules';
 import { logError } from '../cli/logError';
 import { logFilelist } from '../cli/logFilelist';
+import { logFilenameMessage } from '../cli/logFilenameMessage';
 import { logInfo } from '../cli/logInfo';
 import { logMessage } from '../cli/logMessage';
 import { logProjectBasicInfo } from '../cli/logProjectBasicInfo';
@@ -41,9 +43,11 @@ export const watch = async (): Promise<void> => {
         logInfo('reloading project...');
         const sources = getProjectFilenamesWatchlist(project);
         const watched = getWatcherWatchedFiles(watcher);
+        await loadProjectModules(project);
+
         watched.forEach(filename => {
             if (!sources.includes(filename)) {
-                console.info('- unwatch ', filename);
+                logFilenameMessage(project.build.modules, '- unwatch ', filename);
                 watcher.unwatch(filename);
             } else {
                 const index = sources.indexOf(filename);
@@ -51,7 +55,7 @@ export const watch = async (): Promise<void> => {
             }
         });
 
-        logFilelist('+ watch ', sources);
+        logFilelist(project.build.modules, '+ watch ', sources);
         watcher.add(sources);
     };
 

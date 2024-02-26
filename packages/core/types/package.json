@@ -19,17 +19,25 @@
     "component-library",
     "ui-library"
   ],
-  "type": "module",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
-  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "dev": "vitest",
-    "test": "vitest --run --coverage",
-    "build": "vite build"
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:test": "mocha -w -r ts-node/register ---watch-files 'src/**/*.ts' 'src/**/*.test.ts'",
+    "dev:lib": "tsc --watch --project tsconfig.lib.cjs.json",
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'",
+    "build": "npm run build:lib",
+    "build:lib": "npm run build:lib:cjs && npm run build:lib:esm",
+    "build:lib:esm": "tsc --project tsconfig.lib.esm.json",
+    "build:lib:cjs": "tsc --project tsconfig.lib.cjs.json",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
   },
-  "peerDependencies": {
-    "solid-js": "^1.8.14"
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "esm": "^3.2.25",
+    "expect": "^29.7.0",
+    "mocha": "^10.3.0",
+    "ts-node": "^10.9.2"
   }
 }

@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Counter /> > renders 1`] = `"<button class="_Counter_c43b9e">Clicks: 0</button>"`;

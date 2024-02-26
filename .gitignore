@@ -22,12 +22,14 @@ pids
 *.pid.lock
 
 # Cache directories
+.nui
 .npm
 .eslintcache
 .solid
 .output
 .vercel
 .netlify
+.vite
 .vinxi
 
 # Logs

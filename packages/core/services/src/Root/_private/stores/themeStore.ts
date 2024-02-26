@@ -10,12 +10,12 @@ type ThemeStore = {
     setTheme: (name: string) => void;
 };
 
-const { findTheme } = themesStore;
+const { themeByName } = themesStore;
 
 export const themeStore: ThemeStore = {
-    theme: () => findTheme(theme()),
+    theme: () => themeByName(theme()),
     setTheme: (name: string) => {
-        findTheme(name);
+        themeByName(name);
         setTheme(name);
     },
 };

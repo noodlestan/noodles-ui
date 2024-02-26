@@ -24,9 +24,9 @@ type ThemeProviderProps = {
 };
 
 export const ThemeProvider: Component<ThemeProviderProps> = props => {
-    const { findTheme } = themesStore;
+    const { themeByName } = themesStore;
 
-    const value = () => ({ theme: () => findTheme(props.theme) });
+    const value = () => ({ theme: () => themeByName(props.theme) });
 
     // TODO for themes to be nestable
 

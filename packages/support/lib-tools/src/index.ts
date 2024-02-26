@@ -1,6 +1,6 @@
-export * from './functions/viteCssConfigForLibraryConsumers.js';
-export * from './functions/viteCssConfigForLibraries.js';
-export * from './functions/viteCssConfigForLibraryPlaceholders.js';
-export * from './functions/resolvePackage.js';
+export * from './vite/viteCssConfigForLibraryConsumers';
+export * from './vite/viteCssConfigForLibraries';
+export * from './vite/viteCssConfigForLibraryPlaceholders';
+export * from './vite/resolvePackage';
 
-export * from './api.js';
+export * from './api';

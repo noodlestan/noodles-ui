@@ -1,4 +1,4 @@
-import { NOODLES_CLASSNAME_SEPARATOR, NOODLES_PREFIX } from '../../constants';
+import { NUI_CLASSNAME_SEPARATOR, NUI_PREFIX } from '../../constants';
 
 export const makeNoodlesClassName = (...className: string[]): string =>
-    `${NOODLES_PREFIX}${NOODLES_CLASSNAME_SEPARATOR}${className.join(NOODLES_CLASSNAME_SEPARATOR)}`;
+    `${NUI_PREFIX}${NUI_CLASSNAME_SEPARATOR}${className.join(NUI_CLASSNAME_SEPARATOR)}`;

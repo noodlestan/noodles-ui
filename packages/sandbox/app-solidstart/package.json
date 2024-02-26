@@ -12,6 +12,7 @@
     "start": "vinxi start"
   },
   "dependencies": {
+    "@noodles-ui/lib-tools": "^0.0.1",
     "@noodles-ui/sandbox-components-solid": "0.0.1",
     "@noodles-ui/sandbox-ui": "0.0.1",
     "@solid-primitives/storage": "^2.1.2",
@@ -25,7 +26,6 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@noodles-ui/lib-tools": "0.0.1",
     "sass": "^1.70.0"
   }
 }

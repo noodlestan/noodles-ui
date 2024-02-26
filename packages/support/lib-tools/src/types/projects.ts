@@ -6,7 +6,7 @@ import {
     VariantResource,
 } from '@noodles-ui/core-types';
 
-import { BuildContext } from './program';
+import { BuildContext, ProgramModuleContext } from './program';
 
 export type ItemContext<T> = {
     meta: T;
@@ -53,4 +53,5 @@ export type ProjectContext = {
     components: ComponentsContext;
     variants: VariantsContext;
     tokens: TokensContext;
+    modules?: Map<string, ProgramModuleContext>;
 };

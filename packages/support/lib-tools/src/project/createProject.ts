@@ -10,13 +10,13 @@ import {
     VariantsContext,
 } from '../types/projects';
 
-import { buildProgram } from './createProgram';
+import { createProgram } from './createProgram';
 
 export const createProject = async (projectFile: string): Promise<ProjectContext> => {
-    const build = await buildProgram(projectFile);
-
     const projectPath = dirname(projectFile);
     const rootPath = findRootPath(projectPath);
+
+    const build = await createProgram(projectFile, rootPath);
 
     const themes: ThemesContext = { items: new Map() };
     const surfaces: SurfacesContext = { items: new Map() };

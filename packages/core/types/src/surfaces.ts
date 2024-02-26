@@ -1,6 +1,6 @@
 export type SurfaceResource = {
     name: string;
-    extends: string[];
+    extend: string[];
 };
 
 export type Surface = SurfaceResource;

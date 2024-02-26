@@ -8,13 +8,15 @@ const [surfaces, setSurfaces] = createSignal<Surface[]>([]);
 type SurfacesStore = {
     surfaces: Accessor<Surface[]>;
     registerSurface: (theme: Surface) => void;
-    findSurface: (name: string) => Surface;
+    surfaceByName: (name: string) => Surface;
 };
 
-const surfaceByName = (name: string): Surface | undefined => surfaces().find(s => s.name === name);
+const findSurface = (name: string): Surface | undefined => {
+    return surfaces().find(surface => surface.name === name);
+};
 
-const findSurface = (name: string): Surface => {
-    const found = surfaceByName(name);
+const surfaceByName = (name: string): Surface => {
+    const found = findSurface(name);
     if (!found) {
         throw new ThemesError(`Unknown surface "${name}".`);
     }
@@ -22,13 +24,13 @@ const findSurface = (name: string): Surface => {
 };
 
 const registerSurface = (surface: Surface): void => {
-    if (!surfaceByName(surface.name)) {
+    if (!findSurface(surface.name)) {
         setSurfaces(s => [...s, surface]);
     }
 };
 
 export const surfacesStore: SurfacesStore = {
     surfaces,
-    findSurface,
+    surfaceByName,
     registerSurface,
 };

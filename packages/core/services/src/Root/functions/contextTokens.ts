@@ -1,29 +1,25 @@
-import type { ColourSchemeName, ThemeResource, TokenMap } from '@noodles-ui/core-types';
+import type { ColourSchemeName, TokenMap } from '@noodles-ui/core-types';
+import { merge } from 'ts-deepmerge';
 
+import { themesStore } from '../stores';
 import { surfacesStore } from '../stores/surfacesStore';
-import type { Surface } from '../types';
+import type { Surface, Theme } from '../types';
 
-// TODO memo
-export const contextTokens = (
-    mode: ColourSchemeName,
-    theme: ThemeResource,
-    surface: Surface,
-): TokenMap => {
-    // TODO revalidate if type of theme.extends should be Array<Theme> or Array<string> (theme name, which requires the findTheme() as is currently in contextTokens() bellow )
+export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Surface): TokenMap => {
+    const { themeByName } = themesStore;
+    const { surfaceByName } = surfacesStore;
 
-    const { findSurface } = surfacesStore;
-
-    const extendedThemes = theme.extends.reduce((acc, theme) => {
+    const extendedThemes = theme.extend.reduce((acc, themeName) => {
         return {
             ...acc,
-            ...contextTokens(mode, theme, surface),
+            ...contextTokens(mode, themeByName(themeName), surface),
         };
     }, {});
 
-    const extendedSurfaces = surface.extends.reduce((acc, surfaceName) => {
+    const extendedSurfaces = surface.extend.reduce((acc, surfaceName) => {
         return {
             ...acc,
-            ...contextTokens(mode, theme, findSurface(surfaceName)),
+            ...contextTokens(mode, theme, surfaceByName(surfaceName)),
         };
     }, {});
 
@@ -39,10 +35,5 @@ export const contextTokens = (
               }
             : {};
 
-    return {
-        ...extendedThemes,
-        ...extendedSurfaces,
-        ...baseTokens,
-        ...modeTokens,
-    };
+    return merge(extendedThemes, extendedSurfaces, baseTokens, modeTokens);
 };

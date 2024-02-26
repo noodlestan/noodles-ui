@@ -21,7 +21,7 @@
 import { realpathSync, statSync } from 'fs';
 import { basename, dirname, join } from 'path';
 
-import { rootPath } from './rootPath.js';
+import { rootPath } from './rootPath';
 
 type ENoEnt = {
     code: string;

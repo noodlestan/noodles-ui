@@ -5,8 +5,11 @@ export type BuildContext = {
     modules: Map<string, ProgramModuleContext>;
 };
 
-export type ProgramModuleContext = {
+export type ProgramModule = {
     name: string;
     path: string;
+};
+
+export type ProgramModuleContext = ProgramModule & {
     filenames: string[];
 };

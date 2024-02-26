@@ -2,32 +2,32 @@ import { Surface } from '@noodles-ui/core-services';
 
 const stage: Surface = {
     name: 'stage',
-    extends: [],
+    extend: [],
 };
 
 const page: Surface = {
     name: 'page',
-    extends: ['stage'],
+    extend: ['stage'],
 };
 
 const dialog: Surface = {
     name: 'dialog',
-    extends: ['page'],
+    extend: ['page'],
 };
 
 const card: Surface = {
     name: 'card',
-    extends: ['page'],
+    extend: ['page'],
 };
 
 const banner: Surface = {
     name: 'banner',
-    extends: ['page'],
+    extend: ['page'],
 };
 
 const inverse: Surface = {
     name: 'inverse',
-    extends: ['stage'],
+    extend: ['stage'],
 };
 
 export default [stage, page, dialog, card, banner, inverse];

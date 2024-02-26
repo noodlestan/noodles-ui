@@ -3,7 +3,8 @@ import { surfaceClasslist } from '@noodles-ui/core-styled';
 import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Component, JSX } from 'solid-js';
 
-import surfaces from './surfaces.nui';
+import surfaces from '../nui/surfaces.nui';
+
 import themes from './themes';
 
 type ThemeProps = {

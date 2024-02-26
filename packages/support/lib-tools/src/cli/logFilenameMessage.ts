@@ -1,10 +1,12 @@
+import { ProgramModuleContext } from '../types/program';
+
+import { formatFileName } from './formatFileName';
 import { logMessage } from './logMessage';
-import { stripFilename } from './stripFilename';
 
 export const logFilenameMessage = (
+    modules: Map<string, ProgramModuleContext>,
     message: string,
     filename: string,
-    pathToStrip?: string,
 ): void => {
-    logMessage(message, stripFilename(filename, pathToStrip));
+    logMessage(message, formatFileName(modules, filename, true));
 };

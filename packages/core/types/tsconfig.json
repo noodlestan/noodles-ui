@@ -1,10 +1,6 @@
 {
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "paths": {
-      // "~/*": ["./src/*"]
-    }
-  },
-  "include": ["./src", "../../support/sandbox/src/providers/SystemUI"]
+  "extends": "../../../config/tsconfig.node.json",
+  "compilerOptions": {},
+  "include": ["./src"],
+  "exclude": ["**/*.test.*"]
 }

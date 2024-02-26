@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { bold, underline, yellow } from 'kleur';
+
 import { logMessage } from './logMessage';
 
 export const logChildData = (prefix: string, data: string): void => {
     data.toString()
-        .trim()
         .split('\n')
-        .map((line: string) => logMessage(prefix, line));
+        .map((line: string) => logMessage(yellow().bold(prefix), line));
 };

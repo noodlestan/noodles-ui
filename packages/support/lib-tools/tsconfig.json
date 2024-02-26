@@ -1,8 +1,5 @@
 {
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "module": "esnext" // add this line
-  },
-  "include": ["./src", "node_modules"]
+  "extends": "../../../config/tsconfig.node.json",
+  "compilerOptions": {},
+  "include": ["./src"]
 }

@@ -3,7 +3,5 @@ pre-commit:
     commands:
         '1-lint':
             run: npm run lint:silent
-        '2-test':
-            run: npm run test
-        '3-build':
-            run: npm run build
+        '2-ci':
+            run: npm run ci

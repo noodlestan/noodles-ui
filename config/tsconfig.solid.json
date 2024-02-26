@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "jsxImportSource": "solid-js",
+    "jsx": "preserve",
+    // "noEmitOnError": true,
+    "strict": true,
+    "noImplicitAny": true
+  }
+}

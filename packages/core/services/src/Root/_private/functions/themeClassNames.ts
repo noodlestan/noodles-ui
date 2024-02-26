@@ -1,12 +1,14 @@
-import { ThemeResource } from '@noodles-ui/core-types';
-
 import { THEME_PREFIX } from '../../constants';
 import { useThemeContext } from '../../providers/ThemeProvider';
+import { themesStore } from '../../stores';
+import { Theme } from '../../types';
 
 import { makeNoodlesClassName } from './makeNoodlesClassName';
 
-const themeNames = (theme: ThemeResource): string[] => {
-    return [theme.name, ...theme.extends.flatMap(t => themeNames(t))];
+const themeNames = (theme: Theme): string[] => {
+    const { themeByName } = themesStore;
+
+    return [theme.name, ...theme.extend.flatMap(t => themeNames(themeByName(t)))];
 };
 
 export const themeClassNames = (): string[] => {

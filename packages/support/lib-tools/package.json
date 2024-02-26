@@ -15,19 +15,22 @@
     "code-generator"
   ],
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "module": "src/index.ts",
   "sideEffects": false,
   "scripts": {
     "lint": "prettier . -c && eslint . && tsc --noEmit",
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc --project tsconfig.build.esm.json",
-    "build:cjs": "tsc --project tsconfig.build.cjs.json",
-    "dev": "concurrently -k -p \"[{name}]\" -n ESM,CommonJS -c \"cyan.bold\",\"yellow.bold\" \"npm run dev:esm\" \"npm run dev:cjs\"",
-    "dev:esm": "tsc --watch --project tsconfig.build.esm.json",
-    "dev:cjs": "tsc --watch --project tsconfig.build.cjs.json",
-    "dev:tsc": "tsc --watch --project tsconfig.json "
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:test": "mocha -w -r ts-node/register ---watch-files 'src/**/*.ts' 'src/**/*.test.ts'",
+    "dev:lib": "tsc --watch --project tsconfig.lib.cjs.json",
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'",
+    "build": "npm run build:lib",
+    "build:lib": "npm run build:lib:cjs && npm run build:lib:esm",
+    "build:lib:esm": "tsc --project tsconfig.lib.esm.json",
+    "build:lib:cjs": "tsc --project tsconfig.lib.cjs.json",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
+    "@noodles-ui/core-types": "0.0.1",
     "@types/figlet": "^1.5.8",
     "better-queue": "^3.8.12",
     "chokidar": "^3.6.0",
@@ -36,8 +39,11 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
-    "@noodles-ui/core-types": "0.0.1",
     "@types/better-queue": "^3.8.6",
-    "concurrently": "^8.2.2"
+    "esm": "^3.2.25",
+    "expect": "^29.7.0",
+    "mocha": "^10.3.0",
+    "ts-node": "^10.9.2",
+    "type-fest": "^4.10.3"
   }
 }

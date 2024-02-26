@@ -24,14 +24,33 @@
   "module": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
-    "dev": "vitest",
-    "test": "vitest --run",
-    "build": "vite build"
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:NUI\",\"dev:lib\" -c \"green.bold\",\"red.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:nui\" \"npm run dev:lib\"",
+    "dev:test": "vitest",
+    "dev:nui": "ts-node ./nui.watch.ts",
+    "dev:lib": "vite build --watch --mode development",
+    "test": "vitest --run --coverage",
+    "build": "npm run build:nui && npm run build:lib",
+    "build:nui": "ts-node ./nui.build.ts",
+    "build:lib": "vite build",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@noodles-ui/core-styled": "^0.0.1",
+    "@noodles-ui/core-services": "^0.0.1",
+    "@noodles-ui/core-types": "^0.0.1",
+    "@noodles-ui/lib-tools": "^0.0.1"
   },
   "peerDependencies": {
     "solid-js": "^1.8.14"
   },
   "devDependencies": {
-    "@types/css-modules": "^1.0.5"
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@solidjs/testing-library": "^0.8.6",
+    "@vitest/coverage-v8": "^1.2.2",
+    "sass": "latest",
+    "ts-node": "^10.9.2",
+    "vite": "^5.1.0",
+    "vite-plugin-solid": "^2.10.1",
+    "vitest": "^1.3.1"
   }
 }

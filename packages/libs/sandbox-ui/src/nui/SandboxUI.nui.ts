@@ -11,4 +11,3 @@ export const SandboxUIResource: ProjectResource = {
     variants,
     components,
 };
-//

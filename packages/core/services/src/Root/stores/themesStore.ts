@@ -8,13 +8,15 @@ const [themes, setThemes] = createSignal<Theme[]>([]);
 type ThemesStore = {
     themes: Accessor<Theme[]>;
     registerTheme: (theme: Theme) => void;
-    findTheme: (name: string) => Theme;
+    themeByName: (name: string) => Theme;
 };
 
-const themeByName = (name: string): Theme | undefined => themes().find(t => t.name === name);
+const findTheme = (name: string): Theme | undefined => {
+    return themes().find(theme => theme.name === name);
+};
 
-const findTheme = (name: string): Theme => {
-    const found = themeByName(name);
+const themeByName = (name: string): Theme => {
+    const found = findTheme(name);
     if (!found) {
         throw new ThemesError(`Unknown theme "${name}".`);
     }
@@ -22,7 +24,7 @@ const findTheme = (name: string): Theme => {
 };
 
 const registerTheme = (theme: Theme): void => {
-    if (!themeByName(theme.name)) {
+    if (!findTheme(theme.name)) {
         setThemes(t => [...t, theme]);
     }
 };
@@ -30,5 +32,5 @@ const registerTheme = (theme: Theme): void => {
 export const themesStore: ThemesStore = {
     themes,
     registerTheme,
-    findTheme,
+    themeByName,
 };

@@ -24,9 +24,9 @@ type SurfaceProviderProps = {
 };
 
 export const SurfaceProvider: Component<SurfaceProviderProps> = props => {
-    const { findSurface } = surfacesStore;
+    const { surfaceByName } = surfacesStore;
 
-    const value = () => ({ surface: () => findSurface(props.surface) });
+    const value = () => ({ surface: () => surfaceByName(props.surface) });
 
     return (
         <SurfaceContext.Provider value={value()}>
