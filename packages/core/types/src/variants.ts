@@ -1,17 +1,12 @@
 import { ExtendWithParams } from './primitives/utils';
+import { Resource } from './resource';
 import { TokenResource } from './tokens';
 
 type VariantExtendParams = {
     params: { [key: string]: string };
 };
 
-export type VariantExtendResource = Partial<VariantOwnResource> & {
-    extend: VariantResource | ExtendWithParams<VariantResource, VariantExtendParams>;
-};
-
-export type VariantOwnResource = {
-    type: 'variant';
-    name: string;
+export type VariantOwnResource = Resource<'variant'> & {
     attribute?: string;
     options?: string[];
     defaultOption?: string;
@@ -20,7 +15,12 @@ export type VariantOwnResource = {
     };
     params?: string[];
     surface?: boolean;
-    tokens: TokenResource[];
+    tokens: Array<Omit<TokenResource, 'type' | 'module'>>;
+};
+
+export type VariantExtendResource = Partial<VariantOwnResource> & {
+    module: string;
+    extend: VariantResource | ExtendWithParams<VariantResource, VariantExtendParams>;
 };
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;

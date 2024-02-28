@@ -6,7 +6,8 @@ import { isNoodlesClassName } from '../functions/isNoodlesClassName';
 export const useBodyClassesEffect = (classList?: () => { [key: string]: boolean }): void => {
     const updateClassList = () => {
         const classNames = contextClassNames();
-        const currentClasses = Array(...document.body.classList);
+        const currentClasses = Array.from(document.body.classList);
+        // const currentClasses = Array(...document.body.classList); TODO print Typescript errors in compileFromProjectFile()
         const toRemove = currentClasses.filter(isNoodlesClassName);
         document.body.classList.remove(...toRemove);
         document.body.classList.add(...classNames);

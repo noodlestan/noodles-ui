@@ -5,8 +5,8 @@ import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, ThemeContext } from '../../types/projects';
 
 export const addTheme = (
-    theme: ThemeResource,
     project: ProjectContext,
+    theme: ThemeResource,
     context: Omit<ThemeContext, 'meta'>,
 ): void => {
     const { items } = project.themes;

@@ -2,7 +2,8 @@
   "extends": "../../../config/tsconfig.lib.esm.json",
   "compilerOptions": {
     "rootDir": "./src/",
-    "outDir": "./dist/esm"
+    "outDir": "./dist/esm",
+    "sourceMap": true
   },
   "include": ["src/"],
   "exclude": ["**/*.test.ts"]

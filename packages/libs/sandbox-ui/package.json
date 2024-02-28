@@ -29,13 +29,14 @@
     "dev:lib": "vite build --watch --mode development",
     "test": "vitest --run --coverage",
     "build": "npm run build:nui && npm run build:lib",
+    "build:nui:out": "ts-node ./nui.output.ts",
     "build:nui": "ts-node ./nui.build.ts",
     "build:lib": "vite build",
     "ci": "rm -rf dist/ && npm run nui && npm run test && npm run build:lib"
   },
   "dependencies": {
-    "@noodles-ui/core-styled": "^0.0.1",
     "@noodles-ui/core-services": "^0.0.1",
+    "@noodles-ui/core-styled": "^0.0.1",
     "@noodles-ui/core-types": "^0.0.1",
     "@noodles-ui/lib-tools": "^0.0.1"
   },

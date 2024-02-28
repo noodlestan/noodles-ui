@@ -5,9 +5,14 @@ import surfaces from './surfaces.nui';
 import themes from './themes.nui';
 import variants from './variants.nui';
 
-export const SandboxUIResource: ProjectResource = {
+const SandboxUIResource: ProjectResource = {
+    type: 'project',
+    name: 'Sandbox UI',
+    module: '@noodles-ui/sandbox-ui',
     themes,
     surfaces,
     variants,
     components,
 };
+
+export { SandboxUIResource };

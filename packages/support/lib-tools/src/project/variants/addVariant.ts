@@ -5,8 +5,8 @@ import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, VariantContext } from '../../types/projects';
 
 export const addVariant = (
-    variant: VariantResource,
     project: ProjectContext,
+    variant: VariantResource,
     context: Omit<VariantContext, 'meta'>,
 ): void => {
     const { items } = project.variants;

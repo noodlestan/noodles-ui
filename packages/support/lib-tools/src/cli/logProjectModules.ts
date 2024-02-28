@@ -1,4 +1,4 @@
-import { green } from 'kleur';
+import { green, yellow } from 'kleur';
 
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
 import { ProjectContext } from '../types/projects';
@@ -17,9 +17,12 @@ export const logProjectModules = (project: ProjectContext): void => {
         const module = modules.get(mod);
         if (module && module.filenames.length) {
             const { name, path, filenames } = module;
-            logMessage('+ module: ' + green(name));
-            logMessage('   path:', formatFileName(project.build.modules, path, true));
-            logMessage('   files:', filenames.length);
+            const lines = [
+                green(name),
+                '   path: ' + formatFileName(project.build.modules, path, true),
+                '   files: ' + yellow(filenames.length),
+            ];
+            logMessage('+ module:', lines.join('\n'));
         }
     });
 

@@ -2,13 +2,12 @@ import { HeadingResource as HeadingStyledResource } from '@noodles-ui/core-style
 import { ComponentResource } from '@noodles-ui/core-types';
 
 export const HeadingResource: ComponentResource = {
+    module: '@noodles-ui/sandbox-ui',
     extend: HeadingStyledResource,
-    api: {
-        override: {
-            variant: {
-                options: ['large', 'small'],
-                defaultOption: 'large',
-            },
+    override: {
+        variant: {
+            options: ['large', 'small'],
+            defaultOption: 'large',
         },
     },
 };

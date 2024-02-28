@@ -1,17 +1,17 @@
-import { dirname } from 'path';
-
 import { BuildContext } from '../types/program';
-import { compileFromProjectFile } from '../typescript/compileFromProjectFile';
+import { compileProject } from '../typescript/compileProject';
 
 import { getProjectModules } from './getProjectModules';
 
 export const createProgram = async (
     projectFile: string,
+    projectPath: string,
     rootPath?: string,
 ): Promise<BuildContext> => {
-    const projectPath = dirname(projectFile);
-    const program = await compileFromProjectFile(projectFile);
+    const program = await compileProject(projectFile);
     const modules = getProjectModules(program, projectPath, rootPath);
+
+    console.log('--> modules', modules);
 
     return { program, modules };
 };

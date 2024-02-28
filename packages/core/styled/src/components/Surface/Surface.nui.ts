@@ -4,10 +4,13 @@ import { SurfaceResource as SurfaceUnstyledResource } from '@noodles-ui/core-uns
 import { SurfaceVariant } from '../../variants/SurfaceVariant/SurfaceVariant.nui';
 
 export const SurfaceResource: ComponentResource = {
+    name: 'StyledSurface',
+    module: '@noodles-ui/core-styled',
     extend: SurfaceUnstyledResource,
     props: {
         variant: {
             extend: SurfaceVariant,
         },
+        styled: {},
     },
 };

@@ -17,7 +17,7 @@ import { stripFilename } from '../cli/stripFilename';
 import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
-import { NUI_BUILD_FILE } from '../resources/constants';
+import { ProjectContext } from '../types/projects';
 
 const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     const watchedFiles = watcher.getWatched();
@@ -26,24 +26,22 @@ const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     });
 };
 
-export const watch = async (): Promise<void> => {
+export const watch = async (fileName: string): Promise<void> => {
     console.info(figlet.textSync('Noodles UI'));
-    const projectFile = resolve(join('.', NUI_BUILD_FILE));
-    logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
 
-    const project = await createProject(projectFile);
-    logProjectBasicInfo(project);
+    const projectFile = resolve(fileName);
+    logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
 
     const watcher = chok(projectFile, {
         ignored: /(^|[/\\])\../,
         persistent: true,
     });
 
-    const refreshWatchers = async (): Promise<void> => {
+    const refreshWatchers = async (project: ProjectContext): Promise<void> => {
         logInfo('reloading project...');
+        await loadProjectModules(project);
         const sources = getProjectFilenamesWatchlist(project);
         const watched = getWatcherWatchedFiles(watcher);
-        await loadProjectModules(project);
 
         watched.forEach(filename => {
             if (!sources.includes(filename)) {
@@ -57,24 +55,28 @@ export const watch = async (): Promise<void> => {
 
         logFilelist(project.build.modules, '+ watch ', sources);
         watcher.add(sources);
+        logSuccess('Project reloaded');
     };
 
-    const buildNow = async (): Promise<void> => {
+    const buildNow = async (): Promise<ProjectContext> => {
+        const project = await createProject(projectFile);
         try {
+            logProjectBasicInfo(project);
+
             logInfo('building...');
             await execBuild();
             logSuccess('Build successful');
         } catch (err) {
             logError('Build error(s)', err as Error);
         }
+        return project;
     };
 
     const queue = new Queue(async (_: string, done) => {
-        await buildNow();
+        const project = await buildNow();
+        await refreshWatchers(project);
         done();
-        await refreshWatchers();
         setTimeout(() => {
-            logSuccess('Project reloaded');
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();

@@ -5,9 +5,10 @@ import { TypeReset } from '../../mixins/index.nui';
 import { ContentColor, TypeVariant } from '../../variants/index.nui';
 
 export const TextResource: ComponentResource = {
+    module: '@noodles-ui/core-styled',
     extend: TextUnstyledResource,
     uses: [TypeReset],
-    props: {
+    expose: {
         variant: {
             extend: [
                 TypeVariant,

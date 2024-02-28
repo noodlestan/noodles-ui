@@ -1,6 +1,5 @@
-export type SurfaceResource = {
-    name: string;
+import { Resource } from './resource';
+
+export type SurfaceResource = Resource<'surface'> & {
     extend: string[];
 };
-
-export type Surface = SurfaceResource;

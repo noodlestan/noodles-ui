@@ -5,8 +5,8 @@ import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, SurfaceContext } from '../../types/projects';
 
 export const addSurface = (
-    surface: SurfaceResource,
     project: ProjectContext,
+    surface: SurfaceResource,
     context: Omit<SurfaceContext, 'meta'>,
 ): void => {
     const { items } = project.surfaces;

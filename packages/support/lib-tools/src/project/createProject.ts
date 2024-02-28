@@ -11,12 +11,13 @@ import {
 } from '../types/projects';
 
 import { createProgram } from './createProgram';
+import { findLocalNodeModule } from './findLocalNodeModule';
 
 export const createProject = async (projectFile: string): Promise<ProjectContext> => {
-    const projectPath = dirname(projectFile);
+    const module = findLocalNodeModule('/', projectFile); // TODO cross-platform
+    const projectPath = module ? module.path : dirname(projectFile);
     const rootPath = findRootPath(projectPath);
-
-    const build = await createProgram(projectFile, rootPath);
+    const build = await createProgram(projectFile, projectPath, rootPath);
 
     const themes: ThemesContext = { items: new Map() };
     const surfaces: SurfacesContext = { items: new Map() };

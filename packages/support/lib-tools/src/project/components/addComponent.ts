@@ -5,8 +5,8 @@ import { logMessage } from '../../cli/logMessage';
 import { ComponentContext, ProjectContext } from '../../types/projects';
 
 export const addComponent = (
-    component: ComponentResource,
     project: ProjectContext,
+    component: ComponentResource,
     context: Omit<ComponentContext, 'meta'>,
 ): void => {
     const { items } = project.components;
@@ -17,12 +17,22 @@ export const addComponent = (
     }
 
     const key = component.name || '';
-    if (items.has(key)) {
-        logError('! duplicate component', key);
-        return;
+    if (context.public) {
+        if (items.has(key)) {
+            logError('! duplicate component', key);
+            return;
+        }
+        logMessage('+ component (public)', key);
+        const item = { meta: component, ...context };
+        items.set(key, item);
+    } else {
+        const privateKey = component.module + '/' + component.name;
+        if (items.has(privateKey)) {
+            logError('! already component', privateKey);
+            return;
+        }
+        logMessage('+ component', privateKey);
+        const item = { meta: component, ...context };
+        items.set(privateKey, item);
     }
-
-    logMessage('+ component', key);
-    const item = { meta: component, ...context };
-    items.set(key, item);
 };

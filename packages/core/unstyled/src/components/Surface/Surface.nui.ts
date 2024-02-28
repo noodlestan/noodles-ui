@@ -2,5 +2,9 @@ import { ComponentResource } from '@noodles-ui/core-types';
 
 export const SurfaceResource: ComponentResource = {
     type: 'component',
-    name: 'Surface',
+    name: 'UnstyledSurface',
+    module: '@noodles-ui/core-unstyled',
+    props: {
+        unstyled: {},
+    },
 };

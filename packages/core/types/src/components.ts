@@ -1,44 +1,45 @@
 import { MixinResource } from './mixins';
 import { Value } from './primitives/params';
 import { PropResource } from './props';
-import { VariantOwnResource } from './variants';
+import { Resource } from './resource';
+import { VariantExtendResource } from './variants';
 
-type ComponentExtendResource = Partial<ComponentOwnResource> & {
-    extend: ComponentResource;
-    api?: {
-        defaultValue?: {
-            [name: string]: {
-                value: Value;
-            };
-        };
-        hide?: {
-            [name: string]: {
-                value: Value;
-            };
-        };
-        override?: {
-            [name: string]: Partial<VariantOwnResource>;
-        };
-    };
-};
-
-type ComponentOwnResource = {
-    type: 'component';
-    name: string;
-    props?: {
-        [name: string]: PropResource;
-    };
-    uses?: MixinResource[];
-};
+type LocalPropResource = Omit<PropResource, 'module'> | Omit<VariantExtendResource, 'module'>;
 
 type ComponentPartResource = {
     name: string;
 };
 
-export type ComponentImportResource = {
-    type: 'component';
+export type ComponentOwnResource = Resource<'component'> & {
+    props?: {
+        [name: string]: LocalPropResource;
+    };
+    uses?: MixinResource[];
+};
+
+export type ComponentExtendResource = Partial<Omit<ComponentOwnResource, 'props'>> & {
     module: string;
-    name: string;
+    extend: ComponentResource;
+    defaults?: {
+        [name: string]: {
+            value: Value;
+        };
+    };
+    hide?: {
+        [name: string]: {
+            value: Value;
+        };
+    };
+    override?: {
+        [name: string]: LocalPropResource;
+    };
+    expose?: {
+        [name: string]: LocalPropResource;
+    };
+};
+
+export type ComponentImportResource = Resource<'component'> & {
+    module: string;
     alias?: string;
     docs?: string;
     expose: ComponentPartResource[];

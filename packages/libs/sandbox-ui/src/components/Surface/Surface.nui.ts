@@ -2,12 +2,13 @@ import { SurfaceResource as SurfaceStyledResource } from '@noodles-ui/core-style
 import { ComponentResource } from '@noodles-ui/core-types';
 
 export const SurfaceResource: ComponentResource = {
+    type: 'component',
+    name: ' woah',
+    module: '@noodles-ui/sandbox-ui',
     extend: SurfaceStyledResource,
-    api: {
-        override: {
-            variant: {
-                options: ['stage', 'page', 'card', 'inverse'],
-            },
+    override: {
+        variant: {
+            options: ['stage', 'page', 'card', 'inverse'],
         },
     },
 };

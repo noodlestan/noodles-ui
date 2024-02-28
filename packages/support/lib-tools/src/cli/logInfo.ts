@@ -3,6 +3,6 @@ import { blue, bold, underline, white } from 'kleur';
 
 export const logInfo = (message: string, detail?: string | number | boolean | object): void => {
     const header = blue().underline().bold(message);
-    const parts = ['\n' + header, detail || '', '\n'];
+    const parts = [header, detail || '', '\n'];
     console.info(...parts);
 };

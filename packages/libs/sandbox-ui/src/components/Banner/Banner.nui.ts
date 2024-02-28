@@ -3,13 +3,12 @@ import { ComponentResource } from '@noodles-ui/core-types';
 import { SurfaceResource } from '../Surface/Surface.nui';
 
 export const BannerResource: ComponentResource = {
-    extend: SurfaceResource,
     name: 'Banner',
-    api: {
-        hide: {
-            variant: {
-                value: 'banner',
-            },
+    module: '@noodles-ui/sandbox-ui',
+    extend: SurfaceResource,
+    hide: {
+        variant: {
+            value: 'banner',
         },
     },
 };

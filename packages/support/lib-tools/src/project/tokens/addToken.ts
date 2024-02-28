@@ -5,9 +5,9 @@ import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, TokenContext } from '../../types/projects';
 
 export const addToken = (
+    project: ProjectContext,
     token: TokenResource,
     option: string,
-    project: ProjectContext,
     context: Omit<TokenContext, 'meta'>,
 ): void => {
     const { items } = project.tokens;

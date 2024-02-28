@@ -1,4 +1,3 @@
-export type MixinResource = {
-    type: 'mixin';
-    name: string;
-};
+import { Resource } from './resource';
+
+export type MixinResource = Resource<'mixin'>;

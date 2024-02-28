@@ -1,20 +1,20 @@
 import { ExtendWithParams } from './primitives/utils';
-import { VariantExtendResource } from './variants';
+import { Resource } from './resource';
 
-export type PropType = 'prop' | 'prop:list';
-
-export type PropOwnResource = {
-    type: PropType;
-    name?: string;
-    options?: string[];
-    defaultOption?: string;
-};
 type PropExtendParams = {
     params: { [key: string]: string };
 };
 
+export type PropType = 'prop' | 'prop:list';
+
+export type PropOwnResource = Resource<PropType> & {
+    options?: string[];
+    defaultOption?: string;
+};
+
 export type PropExtendResource = Partial<PropOwnResource> & {
+    module: string;
     extend: PropResource | ExtendWithParams<PropResource, PropExtendParams>;
 };
 
-export type PropResource = PropOwnResource | PropExtendResource | VariantExtendResource;
+export type PropResource = PropOwnResource | PropExtendResource;

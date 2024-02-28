@@ -3,6 +3,7 @@ import { VariantResource } from '@noodles-ui/core-types';
 export const TypeVariant: VariantResource = {
     type: 'variant',
     name: 'TypeVariant',
+    module: '@noodles-ui/core-styled',
     attribute: 'variant',
     options: [],
     params: ['family'],
