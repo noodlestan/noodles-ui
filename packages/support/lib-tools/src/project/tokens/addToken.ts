@@ -1,29 +1,30 @@
-import { TokenResource } from '@noodles-ui/core-types';
-
-import { logError } from '../../cli/logError';
 import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, TokenContext } from '../../types/projects';
+import { getResourceKey } from '../resources/getResourceKey';
 
-export const addToken = (
-    project: ProjectContext,
-    token: TokenResource,
-    option: string,
-    context: Omit<TokenContext, 'meta'>,
-): void => {
+export const addToken = (project: ProjectContext, context: TokenContext): void => {
     const { items } = project.tokens;
+    const { resource, instance: token } = context;
 
-    if ('name' in token && !token.name) {
-        logError('! token name', { token, option });
+    if (!token) {
+        project.addDiagnostic(resource, 'No instance generated.');
         return;
     }
 
-    const key = 'name' in token ? token.name : token.pattern;
+    if ('name' in token && !token.name) {
+        project.addDiagnostic(resource, 'No token name.');
+        return;
+    }
+
+    // TODO these should already be all named tokens?
+    // or should we store the patterns as private resources as well? with source reference, etc...
+    const name = 'name' in token ? token.name : token.pattern;
+    const key = getResourceKey({ ...token, name });
     if (items.has(key)) {
-        logError('! duplicate token', key);
+        project.addDiagnostic(resource, `Duplicate token key "${key}".`);
         return;
     }
 
     logMessage('+ token', key);
-    const item = { meta: token, ...context };
-    items.set(key, item);
+    items.set(key, context);
 };

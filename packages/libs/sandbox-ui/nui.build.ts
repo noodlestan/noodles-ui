@@ -1,3 +1,3 @@
 import { build } from '@noodles-ui/lib-tools';
 
-build('./src/nui/SandboxUI.nui.ts'); //
+build('./src/nui/SandboxUI.nui.ts');

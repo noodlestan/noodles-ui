@@ -1,9 +1,6 @@
+import { Params } from './primitives/params';
 import { ExtendWithParams } from './primitives/utils';
 import { Resource } from './resource';
-
-type PropExtendParams = {
-    params: { [key: string]: string };
-};
 
 export type PropType = 'prop' | 'prop:list';
 
@@ -12,9 +9,12 @@ export type PropOwnResource = Resource<PropType> & {
     defaultOption?: string;
 };
 
-export type PropExtendResource = Partial<PropOwnResource> & {
+export type PropExtendResource = Partial<Omit<PropOwnResource, 'type'>> & {
     module: string;
-    extend: PropResource | ExtendWithParams<PropResource, PropExtendParams>;
+    extend: ExtendWithParams<PropResource, Params>;
 };
+
+export type PropInlineResource = Omit<PropOwnResource, 'module' | 'name'>;
+export type PropInlineExtendResource = Omit<PropExtendResource, 'module' | 'name'>;
 
 export type PropResource = PropOwnResource | PropExtendResource;

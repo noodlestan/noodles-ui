@@ -2,14 +2,16 @@ import { ProjectResource } from '@noodles-ui/core-types';
 
 import { logInfo } from '../../cli/logInfo';
 import { ProjectContext } from '../../types/projects';
+import { newPublicItemContext } from '../themes/newPublicItemContext';
 
-import { addSurface } from './addSurface';
+import { loadSurface } from './loadSurface';
 
-export const loadSurfaces = (project: ProjectContext, meta: ProjectResource): void => {
+export const loadSurfaces = (project: ProjectContext, projectResource: ProjectResource): void => {
     logInfo('loading surfaces...');
 
-    meta.surfaces.forEach(surface => {
-        addSurface(project, surface, { public: true });
+    projectResource.surfaces.forEach(surface => {
+        const context = newPublicItemContext(surface);
+        loadSurface(project, context);
     });
 
     console.info('');

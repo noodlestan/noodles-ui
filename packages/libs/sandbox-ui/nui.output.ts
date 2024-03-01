@@ -1,4 +1,4 @@
-import { SandboxUIResource } from './src/nui/SandboxUI.nui';
+import SandboxUIResource from './src/nui/SandboxUI.nui';
 
 const output = JSON.stringify(SandboxUIResource);
 

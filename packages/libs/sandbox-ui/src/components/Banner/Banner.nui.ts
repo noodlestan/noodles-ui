@@ -6,7 +6,7 @@ export const BannerResource: ComponentResource = {
     name: 'Banner',
     module: '@noodles-ui/sandbox-ui',
     extend: SurfaceResource,
-    hide: {
+    hides: {
         variant: {
             value: 'banner',
         },

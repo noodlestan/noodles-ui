@@ -1,28 +1,30 @@
-import { VariantResource } from '@noodles-ui/core-types';
-
-import { logError } from '../../cli/logError';
 import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, VariantContext } from '../../types/projects';
+import { getResourceKey } from '../resources/getResourceKey';
 
-export const addVariant = (
-    project: ProjectContext,
-    variant: VariantResource,
-    context: Omit<VariantContext, 'meta'>,
-): void => {
+export const addVariant = (project: ProjectContext, context: VariantContext): void => {
     const { items } = project.variants;
+    const { resource, instance: variant } = context;
 
-    if ('name' in variant && !variant.name) {
-        logError('! variant name', { variant });
+    if (!variant) {
+        project.addDiagnostic(resource, 'No instance generated');
         return;
     }
 
-    const key = variant.name || '';
-    if (items.has(key)) {
-        logError('! duplicate variant', key);
+    if ('name' in variant && !variant.name) {
+        project.addDiagnostic(resource, 'No variant name');
+        return;
+    }
+
+    const key = getResourceKey(variant);
+    const previous = items.get(key);
+    if (previous) {
+        context.consumers.forEach(consumer => previous.consumers.add(consumer));
+        // // TODO compare options/params/etc... and issue error if different
+        // project.addDiagnostic(resource, `Duplicate variant key "${key}".`);
         return;
     }
 
     logMessage('+ variant', key);
-    const item = { meta: variant, ...context };
-    items.set(key, item);
+    items.set(key, context);
 };

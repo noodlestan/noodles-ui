@@ -1,27 +1,48 @@
 import { ProjectResource } from '@noodles-ui/core-types';
-
-import { ProjectContext } from '../types/projects';
+import { gray } from 'kleur';
 
 import { logInfo } from './logInfo';
 import { logMessage } from './logMessage';
 
-export const logProjectResource = (
-    project: ProjectContext,
-    projectResource: ProjectResource,
-): void => {
-    logInfo(`project resources`);
+export const logProjectResource = (projectResource: ProjectResource): void => {
+    logInfo(`Project resources`);
     const { components, surfaces, themes, variants } = projectResource;
-    for (const item of components) {
-        logMessage('+ component', `${item.module}/${item.name}`);
+
+    const componentCount = Object.keys(components).length;
+    const surfaceCount = Object.keys(surfaces).length;
+    const themeCount = Object.keys(themes).length;
+    const variantCount = Object.keys(variants).length;
+
+    logMessage(`Surfaces (${surfaceCount})`);
+    if (!surfaceCount) {
+        logMessage('  ' + gray('<empty>'));
     }
     for (const item of surfaces) {
-        logMessage('+ surfaces', `${item.module}/${item.name}`);
+        logMessage('  ' + gray(item.module), item.name);
+    }
+
+    logMessage(`Themes (${themeCount})`);
+    if (!themeCount) {
+        logMessage('  ' + gray('<empty>'));
     }
     for (const item of themes) {
-        logMessage('+ themes', `${item.module}/${item.name}`);
+        logMessage('  ' + gray(item.module), item.name);
+    }
+
+    logMessage(`Variants (${variantCount})`);
+    if (!variantCount) {
+        logMessage('  ' + gray('<empty>'));
     }
     for (const item of variants) {
-        logMessage('+ variants', `${item.module}/${item.name}`);
+        logMessage('  ' + gray(item.module), item.name);
     }
     console.info('');
+
+    logMessage(`Components (${componentCount})`);
+    if (!componentCount) {
+        logMessage('  ' + gray('<empty>'));
+    }
+    for (const item of components) {
+        logMessage('  ' + gray(item.module), item.name);
+    }
 };

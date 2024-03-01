@@ -1,24 +1,19 @@
 import ts from 'typescript';
 
-import { isResourceFile } from '../resources/isResourceFile';
 import { ProgramModule, ProgramModuleContext } from '../types/program';
 
-import { findLocalNodeModule } from './findLocalNodeModule';
-import { getLastNodeModule } from './getLastNodeModule';
-
-const namedModule = (name: string, path: string): ProgramModuleContext => ({
-    name,
-    path,
-    filenames: [],
-});
-
-const PROJECT_NODULE_NAME = '<project>';
-const ROOT_NODULE_NAME = '<root>';
-const UNKNOWN_MODULE_NAME = '<unknown>';
-
-const PROJECT_MODULE_KEY = '.';
-const ROOT_MODULE_KEY = '..';
-const UNKNOWN_MODULE_KEY = '?';
+import {
+    PROJECT_MODULE_KEY,
+    PROJECT_NODULE_NAME,
+    ROOT_MODULE_KEY,
+    ROOT_NODULE_NAME,
+    UNKNOWN_MODULE_KEY,
+    UNKNOWN_MODULE_NAME,
+} from './constants';
+import { findLocalNodeModule } from './modules/findLocalNodeModule';
+import { getLastNodeModule } from './modules/getLastNodeModule';
+import { namedModule } from './modules/namedModule';
+import { isResourceFile } from './resources/isResourceFile';
 
 const storeNamedModule = (
     map: Map<string, ProgramModuleContext>,
@@ -75,7 +70,7 @@ const storeFileModule = (
     return storeUnknownModule(map);
 };
 
-export const getProjectModules = (
+export const getProgramModules = (
     program: ts.Program,
     projectPath: string,
     rootPath?: string,

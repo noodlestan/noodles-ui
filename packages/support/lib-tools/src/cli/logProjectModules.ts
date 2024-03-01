@@ -11,21 +11,21 @@ export const logProjectModules = (project: ProjectContext): void => {
     const sources = getProjectFilenamesWatchlist(project);
     const modules = project.build.modules;
 
-    logInfo('project sources');
+    const relevantModules = Array.from(modules.values()).filter(m => m.filenames.length > 0);
 
-    Array.from(modules.keys()).forEach(mod => {
-        const module = modules.get(mod);
-        if (module && module.filenames.length) {
+    logInfo('Project modules');
+    logMessage('files:', sources.length);
+    logMessage('modules:', relevantModules.length);
+    console.info('');
+
+    relevantModules.forEach(module => {
+        if (module) {
             const { name, path, filenames } = module;
-            const lines = [
-                green(name),
-                '   path: ' + formatFileName(project.build.modules, path, true),
-                '   files: ' + yellow(filenames.length),
-            ];
-            logMessage('+ module:', lines.join('\n'));
+            logMessage(green(name));
+            logMessage('   path: ' + formatFileName(project.build.modules, path, true));
+            logMessage('   files: ' + yellow(filenames.length));
         }
     });
 
-    logMessage('\nfiles:', sources.length);
     console.info('');
 };

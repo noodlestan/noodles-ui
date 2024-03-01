@@ -15,4 +15,4 @@ const SandboxUIResource: ProjectResource = {
     components,
 };
 
-export { SandboxUIResource };
+export default SandboxUIResource;

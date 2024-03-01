@@ -1,28 +1,27 @@
-import { SurfaceResource } from '@noodles-ui/core-types';
-
-import { logError } from '../../cli/logError';
 import { logMessage } from '../../cli/logMessage';
 import { ProjectContext, SurfaceContext } from '../../types/projects';
+import { getResourceKey } from '../resources/getResourceKey';
 
-export const addSurface = (
-    project: ProjectContext,
-    surface: SurfaceResource,
-    context: Omit<SurfaceContext, 'meta'>,
-): void => {
+export const addSurface = (project: ProjectContext, context: SurfaceContext): void => {
     const { items } = project.surfaces;
+    const { resource, instance: surface } = context;
 
-    if ('name' in surface && !surface.name) {
-        logError('! surface name', { surface });
+    if (!surface) {
+        project.addDiagnostic(resource, 'No instance generated.');
         return;
     }
 
-    const key = surface.name || '';
+    if ('name' in surface && !surface.name) {
+        project.addDiagnostic(resource, 'No surface name.');
+        return;
+    }
+
+    const key = getResourceKey(surface);
     if (items.has(key)) {
-        logError('! duplicate surface', key);
+        project.addDiagnostic(resource, `Duplicate surface key "${key}".`);
         return;
     }
 
     logMessage('+ surface', key);
-    const item = { meta: surface, ...context };
-    items.set(key, item);
+    items.set(key, context);
 };

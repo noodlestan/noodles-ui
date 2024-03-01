@@ -1,10 +1,9 @@
-import { VariantResource } from '@noodles-ui/core-types';
+import { VariantOwnResource } from '@noodles-ui/core-types';
 
-export const SurfaceVariant: VariantResource = {
+export const SurfaceVariant: VariantOwnResource = {
     type: 'variant',
     name: 'SurfaceVariant',
     module: '@noodles-ui/core-styled',
-    attribute: 'variant',
     options: ['stage', 'page', 'overlay'],
     vars: {
         state: ['base', 'interactive', 'active', 'disabled'],

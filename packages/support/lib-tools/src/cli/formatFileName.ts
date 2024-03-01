@@ -20,7 +20,7 @@ export const formatFileName = (
         if (colors) {
             return gray().bold(matches[0].name) + '/' + stripped;
         }
-        return module.name + ' / ' + stripped;
+        return module.name + '/' + stripped;
     }
     return fileName;
 };

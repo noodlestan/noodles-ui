@@ -1,38 +1,49 @@
-import { ComponentResource } from '@noodles-ui/core-types';
-
-import { logError } from '../../cli/logError';
 import { logMessage } from '../../cli/logMessage';
 import { ComponentContext, ProjectContext } from '../../types/projects';
+import { getResourceKey } from '../resources/getResourceKey';
 
-export const addComponent = (
-    project: ProjectContext,
-    component: ComponentResource,
-    context: Omit<ComponentContext, 'meta'>,
-): void => {
+export const addComponent = (project: ProjectContext, context: ComponentContext): void => {
     const { items } = project.components;
+    const { resource, instance: component } = context;
 
-    if ('name' in component && !component.name) {
-        logError('! component name', { component });
+    if (!component) {
+        project.addDiagnostic(resource, 'No instance generated.');
         return;
     }
 
-    const key = component.name || '';
+    if (!component.name) {
+        project.addDiagnostic(resource, 'No component name.');
+        return;
+    }
+
+    const key = getResourceKey(component);
     if (context.public) {
-        if (items.has(key)) {
-            logError('! duplicate component', key);
+        const previous = items.get(key);
+        if (previous) {
+            if (!previous.public) {
+                previous.public = true;
+                logMessage('  (+ public)', key);
+            } else {
+                project.addDiagnostic(resource, `Duplicate component key "${key}".`);
+            }
             return;
         }
         logMessage('+ component (public)', key);
-        const item = { meta: component, ...context };
-        items.set(key, item);
-    } else {
-        const privateKey = component.module + '/' + component.name;
-        if (items.has(privateKey)) {
-            logError('! already component', privateKey);
-            return;
-        }
-        logMessage('+ component', privateKey);
-        const item = { meta: component, ...context };
-        items.set(privateKey, item);
+        items.set(key, context);
+        return;
     }
+
+    if (items.has(key)) {
+        // TODO merge references
+        // TODO compare
+        // TODO stick diagnostics to components (and merge them)
+        // const d = project.addDiagnostic(...)
+        // context.diagnostics.push(f)
+        // OR simply:
+        // project.addDiagnostic(source, message, context?: ItemContext) <--
+        // and then do the initiatlization and push to context.diagnostics[] inside
+        return;
+    }
+    logMessage('+ component', key);
+    items.set(key, context);
 };

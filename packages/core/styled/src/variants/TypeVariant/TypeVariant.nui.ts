@@ -1,10 +1,10 @@
-import { VariantResource } from '@noodles-ui/core-types';
+import { VariantOwnResource } from '@noodles-ui/core-types';
 
-export const TypeVariant: VariantResource = {
+export const TypeVariant: VariantOwnResource = {
     type: 'variant',
     name: 'TypeVariant',
     module: '@noodles-ui/core-styled',
-    attribute: 'variant',
+    composable: true,
     options: [],
     params: ['family'],
     tokens: [

@@ -1,10 +1,10 @@
-import { VariantResource } from '@noodles-ui/core-types';
+import { VariantOwnResource } from '@noodles-ui/core-types';
 
-export const FgColor: VariantResource = {
+export const FgColor: VariantOwnResource = {
     type: 'variant',
     name: 'FgColor',
     module: '@noodles-ui/core-styled',
-    attribute: 'color',
+    composable: true,
     options: ['default'],
     defaultOption: 'default',
     params: ['group'],

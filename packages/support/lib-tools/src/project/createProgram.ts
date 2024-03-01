@@ -1,17 +1,18 @@
 import { BuildContext } from '../types/program';
-import { compileProject } from '../typescript/compileProject';
+import { compileProjectFile } from '../typescript/compileProjectFile';
 
-import { getProjectModules } from './getProjectModules';
+import { getProgramModules } from './getProgramModules';
+import { getProgramResourceFiles } from './getProgramResourceFiles';
 
 export const createProgram = async (
     projectFile: string,
     projectPath: string,
     rootPath?: string,
 ): Promise<BuildContext> => {
-    const program = await compileProject(projectFile);
-    const modules = getProjectModules(program, projectPath, rootPath);
+    const { program, success, result, diagnostics } = compileProjectFile(projectFile);
 
-    console.log('--> modules', modules);
+    const files = getProgramResourceFiles(program);
+    const modules = getProgramModules(program, projectPath, rootPath);
 
-    return { program, modules };
+    return { program, result, success, diagnostics, files, modules };
 };

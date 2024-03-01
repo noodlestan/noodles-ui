@@ -1,10 +1,14 @@
+import { green } from 'kleur';
+
 import { ProjectContext } from '../types/projects';
 
 import { logMessage } from './logMessage';
 
 export const logProjectBasicInfo = (project: ProjectContext): void => {
-    logMessage(`project: `, project.projectFile);
-    logMessage(`path: `, project.projectPath);
-    logMessage(`root: `, project.rootPath);
+    if (project.rootPath) {
+        logMessage(green('<root>'), project.rootPath);
+    }
+    logMessage(green('<project>'), project.projectPath);
+
     console.info('');
 };

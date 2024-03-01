@@ -1,11 +1,11 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-import { NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE } from '../resources/constants';
+import { NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE } from '../project/resources/constants';
 import { ProgramModuleContext } from '../types/program';
 import { ProjectContext } from '../types/projects';
 
-import { formatFileName } from './formatFileName';
+import { formatFileNameRelativeToProject } from './formatFileNameRelativeToProject';
 import { logSuccess } from './logSuccess';
 
 export const saveProjectModules = async (project: ProjectContext): Promise<void> => {
@@ -23,5 +23,5 @@ export const saveProjectModules = async (project: ProjectContext): Promise<void>
     const file = join(project.projectPath, NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE);
     await writeFile(file, json);
 
-    logSuccess('updated source cache', formatFileName(modules, file, true));
+    logSuccess('Updated modules cache', formatFileNameRelativeToProject(modules, file, true));
 };

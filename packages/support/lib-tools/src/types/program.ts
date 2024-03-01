@@ -1,7 +1,9 @@
 import ts from 'typescript';
 
-export type BuildContext = {
-    program: ts.Program;
+import { CompileResult } from '../typescript/types';
+
+export type BuildContext = CompileResult & {
+    files: ts.SourceFile[];
     modules: Map<string, ProgramModuleContext>;
 };
 

@@ -3,9 +3,8 @@ import { dirname, join } from 'path';
 
 import { PackageJson } from 'type-fest';
 
-import { ProgramModule } from '../types/program';
-
-import { readPackageJson } from './readPackageJson';
+import { ProgramModule } from '../../types/program';
+import { readPackageJson } from '../readPackageJson';
 
 const findPackageJson = (
     rootPath: string,

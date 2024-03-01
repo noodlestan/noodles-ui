@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 
-import { NUI_WORKSPACE_FILE } from '../resources/constants';
+import { NUI_WORKSPACE_FILE } from '../project/resources/constants';
 
 const findRoot = (path: string): string | undefined => {
     if (!existsSync(path)) {

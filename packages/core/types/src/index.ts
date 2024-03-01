@@ -3,6 +3,7 @@ export * from './components';
 export * from './mixins';
 export * from './projects';
 export * from './props';
+export * from './resource';
 export * from './surfaces';
 export * from './themes';
 export * from './tokens';

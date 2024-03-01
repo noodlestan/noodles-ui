@@ -1,41 +1,48 @@
 import { MixinResource } from './mixins';
-import { Value } from './primitives/params';
-import { PropResource } from './props';
+import { Params, Value } from './primitives/params';
+import { ExtendWithParams } from './primitives/utils';
+import { PropInlineResource } from './props';
 import { Resource } from './resource';
-import { VariantExtendResource } from './variants';
+import {
+    VariantInlineExtendResource,
+    VariantInlineReferenceResource,
+    VariantInlineResource,
+} from './variants';
 
-type LocalPropResource = Omit<PropResource, 'module'> | Omit<VariantExtendResource, 'module'>;
+export type LocalPropResource =
+    | PropInlineResource
+    | VariantInlineResource
+    | VariantInlineExtendResource
+    | VariantInlineReferenceResource;
 
 type ComponentPartResource = {
     name: string;
 };
 
 export type ComponentOwnResource = Resource<'component'> & {
+    uses?: MixinResource[];
+    defaults?: {
+        [name: string]: {
+            // TODO incomplete abstraction - will have us against the ropes :-/
+            value: Value;
+        };
+    };
+    hides?: {
+        [name: string]: {
+            value: Value;
+        };
+    };
+    overrides?: {
+        [name: string]: LocalPropResource;
+    };
     props?: {
         [name: string]: LocalPropResource;
     };
-    uses?: MixinResource[];
 };
 
-export type ComponentExtendResource = Partial<Omit<ComponentOwnResource, 'props'>> & {
+export type ComponentExtendResource = Partial<Omit<ComponentOwnResource, 'type'>> & {
     module: string;
-    extend: ComponentResource;
-    defaults?: {
-        [name: string]: {
-            value: Value;
-        };
-    };
-    hide?: {
-        [name: string]: {
-            value: Value;
-        };
-    };
-    override?: {
-        [name: string]: LocalPropResource;
-    };
-    expose?: {
-        [name: string]: LocalPropResource;
-    };
+    extend: ExtendWithParams<ComponentResource, Params>;
 };
 
 export type ComponentImportResource = Resource<'component'> & {

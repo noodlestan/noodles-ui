@@ -1,14 +1,16 @@
-import { ProjectResource } from '@noodles-ui/core-types';
+import { ProjectResource, ThemeResource } from '@noodles-ui/core-types';
 
 import { logInfo } from '../../cli/logInfo';
 import { ProjectContext } from '../../types/projects';
 
-import { addTheme } from './addTheme';
+import { loadTheme } from './loadTheme';
+import { newPublicItemContext } from './newPublicItemContext';
 
-export const loadThemes = (project: ProjectContext, meta: ProjectResource): void => {
+export const loadThemes = (project: ProjectContext, projectResource: ProjectResource): void => {
     logInfo('loading themes...');
-    meta.themes.forEach(theme => {
-        addTheme(project, theme, { public: true });
+    projectResource.themes.forEach(theme => {
+        const context = newPublicItemContext<ThemeResource>(theme);
+        loadTheme(project, context);
     });
     console.info('');
 };

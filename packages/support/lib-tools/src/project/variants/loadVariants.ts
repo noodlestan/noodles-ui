@@ -2,14 +2,16 @@ import { ProjectResource } from '@noodles-ui/core-types';
 
 import { logInfo } from '../../cli/logInfo';
 import { ProjectContext } from '../../types/projects';
+import { newPublicItemContext } from '../themes/newPublicItemContext';
 
-import { addVariant } from './addVariant';
+import { loadVariant } from './loadVariant';
 
-export const loadVariants = (project: ProjectContext, meta: ProjectResource): void => {
+export const loadVariants = (project: ProjectContext, projectResource: ProjectResource): void => {
     logInfo('loading variants...');
 
-    meta.variants.forEach(variant => {
-        addVariant(project, variant, { public: true });
+    projectResource.variants.forEach(variant => {
+        const context = newPublicItemContext(variant);
+        loadVariant(project, context);
     });
 
     console.info('');
