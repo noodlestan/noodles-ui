@@ -1,6 +1,6 @@
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '../../types/projects';
+import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
-import { formatFileNameRelativeToProject } from './formatFileNameRelativeToProject';
 import { logError } from './logError';
 import { logMessage } from './logMessage';
 import { logSuccess } from './logSuccess';

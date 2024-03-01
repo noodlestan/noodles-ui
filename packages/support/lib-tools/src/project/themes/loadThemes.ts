@@ -1,6 +1,6 @@
 import { ProjectResource, ThemeResource } from '@noodles-ui/core-types';
 
-import { logInfo } from '../../cli/logInfo';
+import { logInfo } from '../../cli/functions/logInfo';
 import { ProjectContext } from '../../types/projects';
 
 import { loadTheme } from './loadTheme';

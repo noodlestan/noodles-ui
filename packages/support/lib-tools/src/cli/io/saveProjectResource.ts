@@ -3,11 +3,10 @@ import { join } from 'path';
 
 import { ProjectResource } from '@noodles-ui/core-types';
 
-import { NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE } from '../project/resources/constants';
-import { ProjectContext } from '../types/projects';
-
-import { formatFileNameRelativeToProject } from './formatFileNameRelativeToProject';
-import { logSuccess } from './logSuccess';
+import { NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE } from '../../project/resources/constants';
+import { ProjectContext } from '../../types/projects';
+import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
+import { logSuccess } from '../functions/logSuccess';
 
 export const saveProjectResource = async (
     project: ProjectContext,

@@ -3,20 +3,6 @@ import { resolve } from 'path';
 import figlet from 'figlet';
 import { yellow } from 'kleur';
 
-import { logBuildOutcome } from '../cli/logBuildOutcome';
-import { logInfo } from '../cli/logInfo';
-import { logMessage } from '../cli/logMessage';
-import { logProgramDiagnostics } from '../cli/logProgramDiagnostics';
-import { logProjectBasicInfo } from '../cli/logProjectBasicInfo';
-import { logProjectData } from '../cli/logProjectData';
-import { logProjectDiagnostics } from '../cli/logProjectDiagnostics';
-import { logProjectDiagnosticsSummary } from '../cli/logProjectDiagnosticsSummary';
-import { logProjectModules } from '../cli/logProjectModules';
-import { logProjectResource } from '../cli/logProjectResource';
-import { logSuccess } from '../cli/logSuccess';
-import { saveProjectModules } from '../cli/saveProjectModules';
-import { saveProjectResource } from '../cli/saveProjectResource';
-import { stripFilename } from '../cli/stripFilename';
 import { loadComponents } from '../project/components/loadComponents';
 import { createProject } from '../project/createProject';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
@@ -24,6 +10,21 @@ import { loadSurfaces } from '../project/surfaces/loadSurfaces';
 import { loadThemes } from '../project/themes/loadThemes';
 import { loadTokens } from '../project/tokens/loadTokens';
 import { loadVariants } from '../project/variants/loadVariants';
+
+import { stripFilename } from './format/stripFilename';
+import { logBuildOutcome } from './functions/logBuildOutcome';
+import { logInfo } from './functions/logInfo';
+import { logMessage } from './functions/logMessage';
+import { logProgramDiagnostics } from './functions/logProgramDiagnostics';
+import { logProjectBasicInfo } from './functions/logProjectBasicInfo';
+import { logProjectData } from './functions/logProjectData';
+import { logProjectDiagnostics } from './functions/logProjectDiagnostics';
+import { logProjectDiagnosticsSummary } from './functions/logProjectDiagnosticsSummary';
+import { logProjectModules } from './functions/logProjectModules';
+import { logProjectResource } from './functions/logProjectResource';
+import { logSuccess } from './functions/logSuccess';
+import { saveProjectModules } from './io/saveProjectModules';
+import { saveProjectResource } from './io/saveProjectResource';
 
 export const build = async (fileName: string): Promise<void> => {
     console.info(figlet.textSync('Noodles UI'));

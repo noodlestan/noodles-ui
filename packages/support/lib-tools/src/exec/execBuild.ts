@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 
 import { red } from 'kleur';
 
-import { logChildData } from '../cli/logChildData';
+import { logChildData } from '../cli/functions/logChildData';
 
 export const execBuild = async (): Promise<number> => {
     return new Promise<number>((resolve, reject) => {

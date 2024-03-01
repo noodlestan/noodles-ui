@@ -2,8 +2,8 @@ import { relative } from 'path';
 
 import { gray, green } from 'kleur';
 
-import { PROJECT_MODULE_KEY } from '../project/constants';
-import { ProgramModuleContext } from '../types/program';
+import { PROJECT_MODULE_KEY } from '../../project/constants';
+import { ProgramModuleContext } from '../../types/program';
 
 export const formatFileNameRelativeToProject = (
     modules: Map<string, ProgramModuleContext>,

@@ -1,6 +1,6 @@
 import { gray } from 'kleur';
 
-import { ProgramModuleContext } from '../types/program';
+import { ProgramModuleContext } from '../../types/program';
 
 import { stripFilename } from './stripFilename';
 

@@ -4,20 +4,25 @@ import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
 import figlet from 'figlet';
 
-import { QueueSized } from '../api';
-import { loadProjectModules } from '../cli/loadProjectModules';
-import { logError } from '../cli/logError';
-import { logFilelist } from '../cli/logFilelist';
-import { logFilenameMessage } from '../cli/logFilenameMessage';
-import { logInfo } from '../cli/logInfo';
-import { logMessage } from '../cli/logMessage';
-import { logProjectBasicInfo } from '../cli/logProjectBasicInfo';
-import { logSuccess } from '../cli/logSuccess';
-import { stripFilename } from '../cli/stripFilename';
 import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
 import { ProjectContext } from '../types/projects';
+
+import { stripFilename } from './format/stripFilename';
+import { logError } from './functions/logError';
+import { logFilelist } from './functions/logFilelist';
+import { logFilenameMessage } from './functions/logFilenameMessage';
+import { logInfo } from './functions/logInfo';
+import { logMessage } from './functions/logMessage';
+import { logProjectBasicInfo } from './functions/logProjectBasicInfo';
+import { logSuccess } from './functions/logSuccess';
+import { loadProjectModules } from './io/loadProjectModules';
+
+// https://github.com/diamondio/better-queue/issues/55
+type QueueSized = Queue & {
+    length: number;
+};
 
 const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     const watchedFiles = watcher.getWatched();

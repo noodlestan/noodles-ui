@@ -1,8 +1,8 @@
 import { bold, gray, red, yellow } from 'kleur';
 
-import { getResourceName } from '../project/resources/getResourceName';
-import { getResourceType } from '../project/resources/getResourceType';
-import { ProjectDiagnostic, ProjectDiagnosticSource } from '../types/projects';
+import { getResourceName } from '../../project/resources/getResourceName';
+import { getResourceType } from '../../project/resources/getResourceType';
+import { ProjectDiagnostic, ProjectDiagnosticSource } from '../../types/projects';
 
 import { logError } from './logError';
 import { logMessage } from './logMessage';

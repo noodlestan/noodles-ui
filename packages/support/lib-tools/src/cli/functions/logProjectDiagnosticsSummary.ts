@@ -1,7 +1,7 @@
 import { red } from 'kleur';
 
-import { getResourceTypedKey } from '../project/resources/getResourceTypedKey';
-import { ProjectContext, ProjectDiagnosticSource } from '../types/projects';
+import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
+import { ProjectContext, ProjectDiagnosticSource } from '../../types/projects';
 
 import { logError } from './logError';
 import { logMessage } from './logMessage';

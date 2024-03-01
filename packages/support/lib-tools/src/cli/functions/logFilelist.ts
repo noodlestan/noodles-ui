@@ -1,4 +1,4 @@
-import { ProgramModuleContext } from '../types/program';
+import { ProgramModuleContext } from '../../types/program';
 
 import { logFilenameMessage } from './logFilenameMessage';
 

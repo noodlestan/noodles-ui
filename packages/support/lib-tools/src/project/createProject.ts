@@ -2,9 +2,9 @@ import { dirname } from 'path';
 
 import ts from 'typescript';
 
-import { formatFileName } from '../cli/formatFileName';
-import { logInfo } from '../cli/logInfo';
-import { logMessage } from '../cli/logMessage';
+import { formatFileName } from '../cli/format/formatFileName';
+import { logInfo } from '../cli/functions/logInfo';
+import { logMessage } from '../cli/functions/logMessage';
 import { findRootPath } from '../monorepo/findRootPath';
 import {
     ComponentsContext,

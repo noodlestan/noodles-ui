@@ -1,9 +1,9 @@
 import { green, yellow } from 'kleur';
 
-import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
-import { ProjectContext } from '../types/projects';
+import { getProjectFilenamesWatchlist } from '../../project/getProjectFilenamesWatchlist';
+import { ProjectContext } from '../../types/projects';
+import { formatFileName } from '../format/formatFileName';
 
-import { formatFileName } from './formatFileName';
 import { logInfo } from './logInfo';
 import { logMessage } from './logMessage';
 

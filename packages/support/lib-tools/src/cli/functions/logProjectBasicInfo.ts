@@ -1,6 +1,6 @@
 import { green } from 'kleur';
 
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '../../types/projects';
 
 import { logMessage } from './logMessage';
 

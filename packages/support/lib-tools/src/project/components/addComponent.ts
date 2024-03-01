@@ -1,4 +1,4 @@
-import { logMessage } from '../../cli/logMessage';
+import { logMessage } from '../../cli/functions/logMessage';
 import { ComponentContext, ProjectContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 

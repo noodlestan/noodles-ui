@@ -1,4 +1,4 @@
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '../../types/projects';
 
 import { logProjectDiagnostic } from './logProjectDiagnostic';
 

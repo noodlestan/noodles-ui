@@ -1,12 +1,11 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE } from '../project/resources/constants';
-import { ProgramModuleContext } from '../types/program';
-import { ProjectContext } from '../types/projects';
-
-import { formatFileNameRelativeToProject } from './formatFileNameRelativeToProject';
-import { logSuccess } from './logSuccess';
+import { NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE } from '../../project/resources/constants';
+import { ProgramModuleContext } from '../../types/program';
+import { ProjectContext } from '../../types/projects';
+import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
+import { logSuccess } from '../functions/logSuccess';
 
 export const loadProjectModules = async (project: ProjectContext): Promise<void> => {
     const modules = project.build.modules;

@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { gray, green, red, yellow } from 'kleur';
 
-import { getResourceModule } from '../project/resources/getResourceModule';
-import { getResourceName } from '../project/resources/getResourceName';
-import { getResourceType } from '../project/resources/getResourceType';
-import { getResourceTypedKey } from '../project/resources/getResourceTypedKey';
-import { ItemContext, ProjectContext, ProjectDiagnosticSource } from '../types/projects';
-import { UnknownResource } from '../types/resources';
+import { getResourceModule } from '../../project/resources/getResourceModule';
+import { getResourceName } from '../../project/resources/getResourceName';
+import { getResourceType } from '../../project/resources/getResourceType';
+import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
+import { ItemContext, ProjectContext, ProjectDiagnosticSource } from '../../types/projects';
+import { UnknownResource } from '../../types/resources';
 
 import { logInfo } from './logInfo';
 import { logMessage } from './logMessage';
