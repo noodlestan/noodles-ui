@@ -1,4 +1,4 @@
-import { Params } from './primitives/params';
+import { ExtendParams } from './primitives/params';
 import { ExtendWithParams } from './primitives/utils';
 import { Resource } from './resource';
 import { TokenResource } from './tokens';
@@ -18,7 +18,7 @@ export type VariantOwnResource = Resource<'variant'> & {
 
 export type VariantExtendResource = Partial<Omit<VariantOwnResource, 'type'>> & {
     module: string;
-    extend: ExtendWithParams<VariantResource, Params>;
+    extend: ExtendWithParams<VariantResource, ExtendParams>;
 };
 
 export type VariantInlineResource = Omit<VariantOwnResource, 'module'>;

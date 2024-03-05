@@ -1,5 +1,5 @@
 import { MixinResource } from './mixins';
-import { Params, Value } from './primitives/params';
+import { ExtendParams, Value } from './primitives/params';
 import { ExtendWithParams } from './primitives/utils';
 import { PropInlineResource } from './props';
 import { Resource } from './resource';
@@ -15,47 +15,57 @@ export type LocalPropResource =
     | VariantInlineExtendResource
     | VariantInlineReferenceResource;
 
-type ComponentPartResource = {
-    name: string;
-};
-
 export type ComponentOwnResource = Resource<'component'> & {
-    uses?: MixinResource[];
+    params?: string[];
+    use?: MixinResource[];
+    hides?: {
+        [name: string]: {
+            value: Value;
+        };
+    };
+    exposes?: string[];
     defaults?: {
         [name: string]: {
             // TODO incomplete abstraction - will have us against the ropes :-/
             value: Value;
         };
     };
-    hides?: {
-        [name: string]: {
-            value: Value;
-        };
-    };
     replaces?: {
         [name: string]: LocalPropResource;
     };
-    // overrides?: {
-    //     [name: string]: LocalPropResource;
-    // };
+    overrides?: {
+        [name: string]: PropInlineResource;
+    };
     props?: {
         [name: string]: LocalPropResource;
     };
 };
 
-export type ComponentExtendResource = Partial<Omit<ComponentOwnResource, 'type'>> & {
-    module: string;
-    extend: ExtendWithParams<ComponentResource, Params>;
+export type ComponentGeneratedResource = ComponentOwnResource & {
+    generated: true;
+    render: {
+        name: string;
+        from: ComponentImportResource;
+    };
 };
 
-export type ComponentImportResource = Resource<'component'> & {
-    module: string;
+export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name'> & {
+    name?: string;
+    extend: ExtendWithParams<ComponentResource, ExtendParams>;
+};
+
+export type ComponentImportPartResource = Omit<ComponentOwnResource, 'type' | 'module'> & {
+    // TODO alias
+};
+
+export type ComponentImportResource = ComponentOwnResource & {
     alias?: string;
     docs?: string;
-    expose: ComponentPartResource[];
+    parts: ComponentImportPartResource[];
 };
 
 export type ComponentResource =
-    | ComponentImportResource
     | ComponentOwnResource
+    | ComponentGeneratedResource
+    | ComponentImportResource
     | ComponentExtendResource;

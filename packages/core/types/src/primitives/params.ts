@@ -1,5 +1,5 @@
 export type Value = string | boolean | number | undefined;
 
-export type Params = {
-    [key: string]: Params | Value;
+export type ExtendParams = {
+    [key: string]: ExtendParams | Value;
 };

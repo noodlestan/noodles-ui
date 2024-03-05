@@ -1,3 +1,4 @@
+export * from './primitives/params';
 export * from './color-schemes';
 export * from './components';
 export * from './mixins';

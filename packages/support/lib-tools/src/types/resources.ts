@@ -1,11 +1,11 @@
-import { Params } from '@noodles-ui/core-types/src/primitives/params';
+import { ExtendParams } from '@noodles-ui/core-types/src/primitives/params';
 import { ExtendWithParams } from '@noodles-ui/core-types/src/primitives/utils';
 import { Resource } from '@noodles-ui/core-types/src/resource';
 
 type GenericResource = Partial<Resource<string>>;
 
 export type UnknownExtendResource = Omit<GenericResource, 'type' | 'name'> & {
-    extend: ExtendWithParams<UnknownExtendResource | GenericResource, Params>;
+    extend: ExtendWithParams<UnknownExtendResource | GenericResource, ExtendParams>;
 };
 
 export type UnknownReferenceResource = Omit<GenericResource, 'type' | 'name'> & {

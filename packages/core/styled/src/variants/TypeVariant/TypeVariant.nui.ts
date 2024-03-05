@@ -7,6 +7,10 @@ export const TypeVariant: VariantOwnResource = {
     composable: true,
     options: [],
     params: ['family'],
+    // mixin: {
+    //     source: '"@noodles-ui/core-styled/src/variants/TypeVariant/TypeVariant.scss";',
+    //     implementation: '@include VariantsTypeVariant(#{family}, $#{variable});',
+    // },
     tokens: [
         {
             pattern: '--type-#{family}-base-fontFamily',

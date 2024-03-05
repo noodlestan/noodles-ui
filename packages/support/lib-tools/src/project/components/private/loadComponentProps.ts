@@ -6,6 +6,7 @@ import {
     VariantInlineReferenceResource,
     VariantResource,
 } from '@noodles-ui/core-types';
+import { ExtendWithParams } from '@noodles-ui/core-types/src/primitives/utils';
 
 import { ComponentContext, ProjectContext } from '../../../types/projects';
 import { newContextResourceWithConsumer } from '../../context/newContextResourceWithConsumer';
@@ -47,7 +48,7 @@ const extendVariantExtends = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
-    extend: VariantInlineExtendResource,
+    extend: ExtendWithParams<VariantResource, Params>,
 ): { parent: VariantResource; params: Params } | undefined => {
     const { parent, params } = resolveExtendWithParams<VariantResource>(extend);
     const parentIsExtend = isVariantExtendResource(parent);
@@ -101,7 +102,6 @@ const resolveVariantExtends = (
         ...parent,
         module: component.module,
         ...rest,
-        composable: false,
         vars: Object.assign({}, parent.vars, Object.fromEntries(vars)),
     };
 
@@ -119,7 +119,7 @@ const loadExtendVariantProp = (
         const key = getResourceKey(variant);
         project.addDiagnostic(
             component,
-            `Can not extend variant "${key}" because it is not composable.`,
+            `Could not extend variant "${key}" because it is not composable.`,
         );
         return;
     }

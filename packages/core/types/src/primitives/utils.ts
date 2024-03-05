@@ -1,3 +1,3 @@
-import { Params } from './params';
+import { ExtendParams } from './params';
 
-export type ExtendWithParams<T, P extends Params> = T | [T, P];
+export type ExtendWithParams<T, P extends ExtendParams> = T | [T, P];

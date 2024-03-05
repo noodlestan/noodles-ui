@@ -1,17 +1,18 @@
-import {
-    TextResource as TextStyledResource,
-    TextTypeVariantResource,
-} from '@noodles-ui/core-styled';
-import { ComponentResource } from '@noodles-ui/core-types';
+import { TextResource as TextStyledResource } from '@noodles-ui/core-styled';
+import { ComponentExtendResource } from '@noodles-ui/core-types';
 
-export const TextResource: ComponentResource = {
+export const TextResource: ComponentExtendResource = {
     module: '@noodles-ui/sandbox-ui',
-    extend: TextStyledResource,
-    replaces: {
+    extend: [TextStyledResource, { family: 'text' }],
+    hides: {},
+    overrides: {
         variant: {
-            extend: TextTypeVariantResource,
             options: ['small', 'medium', 'large', 'x-large'],
             defaultOption: 'medium',
+        },
+        tag: {
+            options: ['p', 'div', 'span'],
+            defaultOption: 'span',
         },
     },
 };
