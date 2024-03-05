@@ -5,8 +5,8 @@ import {
 } from '@noodles-ui/core-types';
 
 import { ComponentContext, ProjectContext } from '../../../types/projects';
+import { resolveExtendWithParams } from '../../resources/resolveExtendWithParams';
 import { isVariantInlineReferenceResource } from '../../variants/private/isVariantInlineReferenceResource';
-import { resolveResourceParent } from '../resolveResourceParent';
 
 import { isComponentExtendResource } from './isComponentExtendResource';
 
@@ -15,7 +15,7 @@ const resolveParent = (
     context: ComponentContext,
     component: ComponentExtendResource,
 ): ComponentOwnResource | undefined => {
-    const { parent } = resolveResourceParent<ComponentResource>(component);
+    const { parent } = resolveExtendWithParams<ComponentResource>(component.extend);
     const componentExtends = isComponentExtendResource(parent);
     // TODO handle critical failure mode infinite recursion
     if (componentExtends) {
@@ -32,7 +32,7 @@ export const extendComponent = (
     context: ComponentContext,
     component: ComponentExtendResource,
 ): ComponentOwnResource | undefined => {
-    const { module, name, uses, defaults, hides, overrides, props } = component;
+    const { module, name, uses, defaults, hides, replaces, props } = component;
 
     const parent = resolveParent(project, context, component);
     if (!parent) {
@@ -70,21 +70,40 @@ export const extendComponent = (
             delete actualProps[name];
         }
     }
-    if (overrides) {
-        for (const name in overrides) {
+
+    // if (overrides) {
+    //     for (const name in overrides) {
+    //         if (!parent.props || !(name in parent.props)) {
+    //             project.addDiagnostic(
+    //                 component,
+    //                 `Could not extend component with prop overrides. Parent does not expose "${name}".`,
+    //             );
+    //         } else if (isVariantInlineReferenceResource(parent.props[name])) {
+    //             project.addDiagnostic(
+    //                 component,
+    //                 `Could not extend component with prop overrides. Prop "${name}" is a reference.`,
+    //             );
+    //         } else {
+    //             // TODO how are props/variants overriden?
+    //             actualProps[name] = Object.assign({}, actualProps[name], replaces[name]);
+    //         }
+    //     }
+    // }
+    if (replaces) {
+        for (const name in replaces) {
             if (!parent.props || !(name in parent.props)) {
                 project.addDiagnostic(
                     component,
-                    `Could not extend component with prop overrides. Parent does not expose "${name}".`,
+                    `Could not extend component with prop replaces. Parent does not expose "${name}".`,
                 );
             } else if (isVariantInlineReferenceResource(parent.props[name])) {
                 project.addDiagnostic(
                     component,
-                    `Could not extend component with prop overrides. Prop "${name}" is a reference.`,
+                    `Could not extend component with prop replaces. Prop "${name}" is a reference.`,
                 );
             } else {
                 // TODO how are props/variants overriden?
-                actualProps[name] = Object.assign({}, actualProps[name], overrides[name]);
+                actualProps[name] = replaces[name];
             }
         }
     }

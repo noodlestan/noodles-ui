@@ -3,6 +3,7 @@ import { ComponentResource, VariantInlineResource } from '@noodles-ui/core-types
 
 const variant: VariantInlineResource = {
     type: 'variant',
+    name: 'SomeOtherHeadingIdentifier',
     options: ['large', 'small'],
     defaultOption: 'large',
 };
@@ -10,7 +11,7 @@ const variant: VariantInlineResource = {
 export const HeadingResource: ComponentResource = {
     module: '@noodles-ui/sandbox-ui',
     extend: HeadingStyledResource,
-    overrides: {
+    replaces: {
         variant,
     },
 };

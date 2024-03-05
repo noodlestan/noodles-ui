@@ -8,6 +8,7 @@ export const SurfaceVariant: VariantOwnResource = {
     vars: {
         state: ['base', 'interactive', 'active', 'disabled'],
     },
+    surface: true,
     tokens: [
         {
             pattern: '--surface-#{state}-fg',

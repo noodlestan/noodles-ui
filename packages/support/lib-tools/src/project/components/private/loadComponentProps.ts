@@ -8,24 +8,30 @@ import {
 } from '@noodles-ui/core-types';
 
 import { ComponentContext, ProjectContext } from '../../../types/projects';
+import { newContextResourceWithConsumer } from '../../context/newContextResourceWithConsumer';
 import { getResourceKey } from '../../resources/getResourceKey';
 import { getResourceTypedKey } from '../../resources/getResourceTypedKey';
+import { resolveExtendWithParams } from '../../resources/resolveExtendWithParams';
 import { loadVariant } from '../../variants/loadVariant';
 import { isVariantExtendResource } from '../../variants/private/isVariantExtendResource';
 import { isVariantInlineReferenceResource } from '../../variants/private/isVariantInlineReferenceResource';
-import { newContextResourceWithConsumer } from '../newContextResourceWithConsumer';
-import { resolveResourceParent } from '../resolveResourceParent';
+
+type Value = string | boolean | number | undefined;
+
+type Params = {
+    [key: string]: Params | Value;
+};
 
 type Props = {
     [name: string]: LocalPropResource;
 };
 
-function loadReferenceProp(
+const loadReferenceProp = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     variantReference: VariantInlineReferenceResource,
-) {
+): LocalPropResource => {
     const newContext = newContextResourceWithConsumer<VariantResource, ComponentResource>(
         context,
         variantReference.reference,
@@ -33,41 +39,107 @@ function loadReferenceProp(
     );
     loadVariant(project, newContext);
     context.consumes.add(getResourceTypedKey(variantReference));
-}
 
-function loadExtendVariantProp(
+    return variantReference;
+};
+
+const extendVariantExtends = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
-    variantExtends: VariantInlineExtendResource,
-) {
-    const { parent } = resolveResourceParent<VariantResource>(variantExtends);
+    extend: VariantInlineExtendResource,
+): { parent: VariantResource; params: Params } | undefined => {
+    const { parent, params } = resolveExtendWithParams<VariantResource>(extend);
+    const parentIsExtend = isVariantExtendResource(parent);
+    if (parentIsExtend) {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        const actualParent = resolveVariantExtends(project, context, component, parentIsExtend);
+
+        if (!actualParent) {
+            return;
+        }
+
+        return { parent: actualParent, params };
+    }
+    return { parent, params };
+};
+
+const resolveVariantExtends = (
+    project: ProjectContext,
+    context: ComponentContext,
+    component: ComponentOwnResource,
+    variant: VariantInlineExtendResource,
+): VariantResource | undefined => {
+    const { extend, ...rest } = variant;
+
+    const resolved = extendVariantExtends(project, context, component, extend);
+    if (!resolved) {
+        return;
+    }
+
+    const { parent, params } = resolved;
+
+    let missingParams = 0;
+    const vars = new Map<string, [string]>();
+    parent.params?.forEach(param => {
+        if (!(param in params)) {
+            const variantKey = getResourceKey(parent);
+            project.addDiagnostic(
+                component,
+                `A param for "${param}" was not supplied while creating variant from ${variantKey}`,
+            );
+            missingParams++;
+        }
+        vars.set(param, [params[param] as string]);
+    });
+    if (missingParams > 0) {
+        return;
+    }
+
+    const ret = {
+        type: 'variant',
+        ...parent,
+        module: component.module,
+        ...rest,
+        composable: false,
+        vars: Object.assign({}, parent.vars, Object.fromEntries(vars)),
+    };
+
+    return ret;
+};
+
+const loadExtendVariantProp = (
+    project: ProjectContext,
+    context: ComponentContext,
+    component: ComponentOwnResource,
+    variant: VariantInlineExtendResource,
+): LocalPropResource | undefined => {
+    const { parent } = resolveExtendWithParams<VariantResource>(variant.extend);
     if (!parent.composable) {
-        const key = getResourceKey(variantExtends);
+        const key = getResourceKey(variant);
         project.addDiagnostic(
             component,
             `Can not extend variant "${key}" because it is not composable.`,
         );
+        return;
     }
-    // TODO resolve (nested) extension immediately
-    // streamline further process of options, defaultOptions, etc...
-    // TODO generate private instance of the variant (group, family, whatever it is called)
-}
+    return resolveVariantExtends(project, context, component, variant);
+};
 
 function loadProp(
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     prop: LocalPropResource,
-) {
-    const variantReference = isVariantInlineReferenceResource(prop);
-    if (variantReference) {
-        loadReferenceProp(project, context, component, variantReference);
-    }
-
+): LocalPropResource | undefined {
     const variantExtends = isVariantExtendResource(prop);
     if (variantExtends) {
-        loadExtendVariantProp(project, context, component, variantExtends);
+        return loadExtendVariantProp(project, context, component, variantExtends);
+    }
+
+    const variantReference = isVariantInlineReferenceResource(prop);
+    if (variantReference) {
+        return loadReferenceProp(project, context, component, variantReference);
     }
 
     return prop;
@@ -79,8 +151,12 @@ export const loadComponentProps = (
     component: ComponentOwnResource,
     props: Props,
 ): Props => {
+    const loadedProps: Props = {};
     for (const key in props) {
-        props[key] = loadProp(project, context, component, props[key]);
+        const prop = loadProp(project, context, component, props[key]);
+        if (prop) {
+            loadedProps[key] = prop;
+        }
     }
-    return props;
+    return loadedProps;
 };

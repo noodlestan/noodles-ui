@@ -1,23 +1,29 @@
-import { ComponentExtendResource, VariantInlineExtendResource } from '@noodles-ui/core-types';
+import {
+    ComponentExtendResource,
+    VariantExtendResource,
+    VariantInlineExtendResource,
+} from '@noodles-ui/core-types';
 import { HeadingResource as HeadingUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins/index.nui';
 import { ContentColor, TypeVariant } from '../../variants/index.nui';
 
-const variant: VariantInlineExtendResource = {
+export const HeadingTypeVariantResource: VariantExtendResource = {
+    // TODO catch this error (duplicate name)
+    module: '@noodles-ui/core-styled',
+    name: 'TextVariant',
     extend: [
         TypeVariant,
         {
-            type: 'TextVariant',
             family: 'heading',
         },
     ],
-    options: ['large', 'medium', 'body', 'note'],
+    options: ['foo', 'bar', 'body', 'note'],
     defaultOption: 'body',
 };
 
 const color: VariantInlineExtendResource = {
-    extend: ContentColor,
+    extend: [ContentColor, { group: 'placeholder' }],
 };
 
 export const HeadingResource: ComponentExtendResource = {
@@ -25,7 +31,7 @@ export const HeadingResource: ComponentExtendResource = {
     extend: HeadingUnstyledResource,
     uses: [TypeReset],
     props: {
-        variant,
+        variant: HeadingTypeVariantResource,
         color,
     },
 };

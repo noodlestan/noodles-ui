@@ -4,13 +4,14 @@ import { Resource } from './resource';
 import { TokenResource } from './tokens';
 
 export type VariantOwnResource = Resource<'variant'> & {
-    composable?: true;
+    composable?: boolean;
     options?: string[];
     defaultOption?: string;
     vars?: {
         [key: string]: string[];
     };
     params?: string[];
+    variable?: string;
     surface?: boolean;
     tokens?: Array<Omit<TokenResource, 'type' | 'module'>>;
 };
@@ -20,7 +21,7 @@ export type VariantExtendResource = Partial<Omit<VariantOwnResource, 'type'>> & 
     extend: ExtendWithParams<VariantResource, Params>;
 };
 
-export type VariantInlineResource = Omit<VariantOwnResource, 'module' | 'name'>;
+export type VariantInlineResource = Omit<VariantOwnResource, 'module'>;
 export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module' | 'name'>;
 export type VariantInlineReferenceResource = { reference: VariantResource };
 

@@ -1,23 +1,30 @@
-import { ComponentResource, VariantInlineExtendResource } from '@noodles-ui/core-types';
+import {
+    ComponentResource,
+    VariantExtendResource,
+    VariantInlineExtendResource,
+} from '@noodles-ui/core-types';
 import { TextResource as TextUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins/index.nui';
 import { ContentColor, TypeVariant } from '../../variants/index.nui';
 
-const variant: VariantInlineExtendResource = {
+export const TextTypeVariantResource: VariantExtendResource = {
+    module: '@noodles-ui/core-styled',
+    name: 'TextVariant',
     extend: [
         TypeVariant,
         {
-            type: 'TextVariant',
             family: 'text',
         },
     ],
+    composable: true,
+    params: [],
     options: ['large', 'medium', 'body', 'note'],
     defaultOption: 'body',
 };
 
 const color: VariantInlineExtendResource = {
-    extend: ContentColor,
+    extend: [ContentColor, { group: 'placeholder' }],
 };
 
 export const TextResource: ComponentResource = {
@@ -25,7 +32,7 @@ export const TextResource: ComponentResource = {
     extend: TextUnstyledResource,
     uses: [TypeReset],
     props: {
-        variant,
+        variant: TextTypeVariantResource,
         color,
     },
 };

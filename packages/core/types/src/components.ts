@@ -32,9 +32,12 @@ export type ComponentOwnResource = Resource<'component'> & {
             value: Value;
         };
     };
-    overrides?: {
+    replaces?: {
         [name: string]: LocalPropResource;
     };
+    // overrides?: {
+    //     [name: string]: LocalPropResource;
+    // };
     props?: {
         [name: string]: LocalPropResource;
     };

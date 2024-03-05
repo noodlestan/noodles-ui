@@ -6,15 +6,40 @@ Early days. See [root README](../../../README.md) for an introduction.
 
 ## Concern
 
-## Types
+CLI tool for library authors.
 
-Build time data aggregates the data seeded via `*Resource*` files and the information generated during the build process.
+Implements
+
+- `npm run dev:nui` - [watch.ts](./src/cli/watch.ts)
+- `npm run build:nui` - [build.ts](./src/cli/build.ts)
+
+### Types
+
+The `Context` types are build time data that aggregates both the data seeded
+via `*Resource*` files, information generated during the build process. And
+eventually will aggregate any linked metadata as well.
 
 Example: `ProjectContext`, `VariantsContext`, and `TokenContext`
 
-### Cli
+### CLI
 
-#### Build
+## Developing
+
+```bash
+npm run dev
+```
+
+## Building
+
+```bash
+npm run build
+```
+
+You can preview the build by running
+
+```bash
+npm run preview
+```
 
 #### Watch
 

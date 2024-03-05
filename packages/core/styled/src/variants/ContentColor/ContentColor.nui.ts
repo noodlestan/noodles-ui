@@ -9,7 +9,7 @@ export const ContentColor: VariantResource = {
     extend: [
         FgColor,
         {
-            params: { group: 'content' },
+            group: 'content',
         },
     ],
     options: ['primary', 'muted', 'disabled'],

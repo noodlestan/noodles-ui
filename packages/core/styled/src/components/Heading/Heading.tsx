@@ -15,15 +15,9 @@ export type HeadingProps = UnstyledHeadingProps & {
     level?: HeadingLevel;
 };
 
-const MAP_VARIANT_TO_LEVEL: Record<string, HeadingLevel> = {
-    page: 1,
-    section: 2,
-    group: 3,
-    item: 4,
-};
-
 export const Heading: Component<HeadingProps> = props => {
-    const level = () => props.level || MAP_VARIANT_TO_LEVEL[props.variant];
+    // const level = () => props.level || MAP_VARIANT_TO_LEVEL[props.variant];
+    const level = () => props.level;
 
     const classList = () => ({
         [styles.Heading]: true,

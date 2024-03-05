@@ -5,14 +5,14 @@ import {
 } from '@noodles-ui/core-types';
 
 import { ComponentContext, ProjectContext } from '../../types/projects';
+import { newContextResourceWithConsumer } from '../context/newContextResourceWithConsumer';
 import { getResourceTypedKey } from '../resources/getResourceTypedKey';
+import { resolveExtendWithParams } from '../resources/resolveExtendWithParams';
 
 import { addComponent } from './addComponent';
-import { newContextResourceWithConsumer } from './newContextResourceWithConsumer';
 import { extendComponent } from './private/extendComponent';
 import { isComponentExtendResource } from './private/isComponentExtendResource';
 import { loadComponentProps } from './private/loadComponentProps';
-import { resolveResourceParent } from './resolveResourceParent';
 
 const loadParentComponent = (
     project: ProjectContext,
@@ -34,7 +34,7 @@ const loadComponentExtend = (
     context: ComponentContext,
     component: ComponentExtendResource,
 ): void => {
-    const { parent } = resolveResourceParent<ComponentResource>(component);
+    const { parent } = resolveExtendWithParams<ComponentResource>(component.extend);
     loadParentComponent(project, context, parent, component);
     const extended = extendComponent(project, context, component);
     if (extended) {
@@ -52,10 +52,13 @@ const loadOwnComponent = (
     component: ComponentOwnResource,
 ): void => {
     const instance = structuredClone(component);
-    const { props = {} } = instance;
 
-    // TODO go through instance.uses and load mixins
-    instance.props = loadComponentProps(project, context, component, props);
+    if (context.public) {
+        const { props = {} } = instance;
+        instance.props = loadComponentProps(project, context, component, props);
+        // TODO also go through instance.uses and load mixins
+    }
+
     addComponent(project, { ...context, instance });
 };
 

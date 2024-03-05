@@ -2,7 +2,7 @@ import { VariantOwnResource } from '@noodles-ui/core-types';
 
 export const TypeVariant: VariantOwnResource = {
     type: 'variant',
-    name: 'TypeVariant',
+    name: 'ComposableTypeVariant',
     module: '@noodles-ui/core-styled',
     composable: true,
     options: [],
