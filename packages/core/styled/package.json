@@ -26,7 +26,7 @@
     "require": "./dist/index.umd.cjs"
   },
   "scripts": {
-    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:lib\" -c \"blue.bold\" \"npm run dev:lib\"",
     "dev:test": "vitest",
     "dev:lib": "vite build --watch --mode development",
     "test": "vitest --run --coverage",

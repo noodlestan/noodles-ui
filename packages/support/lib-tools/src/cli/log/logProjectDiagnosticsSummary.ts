@@ -1,23 +1,16 @@
 import { red } from 'kleur';
 
-import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
-import { ProjectContext, ProjectDiagnosticSource } from '../../types/projects';
+import { ProjectContext } from '../../types/projects';
+import { logError } from '../logger/logError';
+import { logMessage } from '../logger/logMessage';
 
-import { logError } from './logError';
-import { logMessage } from './logMessage';
-
-const getSourceKey = (source: ProjectDiagnosticSource): string => {
-    if (typeof source === 'string') {
-        return source;
-    }
-    return getResourceTypedKey(source);
-};
+import { getdiagnosticSourceKey } from './getdiagnosticSourceKey';
 
 export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
     const { diagnostics } = project;
     const sources = diagnostics.reduce(
         (acc, diagnostic) => {
-            const sourceKey = getSourceKey(diagnostic.source);
+            const sourceKey = getdiagnosticSourceKey(project, diagnostic.source);
             acc[sourceKey] = acc[sourceKey] || 0;
             acc[sourceKey]++;
             return acc;
@@ -29,9 +22,9 @@ export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
 
     if (diagnostics.length) {
         const issues = diagnostics.length;
-        logError('Project:', red(`${issues} ${plural(issues, 'issue')}`));
+        logError('Project errors:', red(`${issues} ${plural(issues, 'error')}`));
         Object.entries(sources).forEach(([sourceKey, i]) => {
-            logMessage('  ' + sourceKey, red(`(${i} ${plural(i, 'issue')})`));
+            logMessage('  ' + sourceKey, red(`(${i} ${plural(i, 'error')})`));
         });
         console.info(' ');
     }

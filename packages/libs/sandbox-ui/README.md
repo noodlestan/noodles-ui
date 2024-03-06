@@ -24,15 +24,36 @@ npm run dev:test  # tests
 npm run dev:lib   # build library
 ```
 
-To inspect the generated project data you can expand the branches with the `--expand` argument.
+To inspect loaded resources, generated project data, and errors you can expand details with the `--expand` argument.
+
+You can expand resources and build artefacts
+
+- by matching all or part of its **name**
+- by **type** (one of `surface`, `theme`, `variant`, `component`, `mixin`)
+- by matching all or part of its **module**'s name (when pattern starts with `@`).
+
+Examples (by name, by type, by module):
 
 ```bash
 npm run build:nui -- --expand Heading
-npm run build:test -- --expand themes
+npm run build:test -- --expand theme
 npm run build:lib -- --expand @core-styled
-# you can combine more than one (union, TODO intersection)
+```
+
+You can also expand details of build errors caught when linting generated files:
+
+```bash
+npm run build:nui -- --expand eslint
+```
+
+You can combine more than one pattern:
+
+```bash
 npm run build:nui -- --expand @core-styled --expand Heading
 ```
+
+Note: results in union filter
+TODO intersection filter
 
 ## Building
 

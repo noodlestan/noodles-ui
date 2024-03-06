@@ -4,49 +4,34 @@ import figlet from 'figlet';
 
 import { generateComponents } from '../generate/components/generateComponents';
 import { generateComponentsList } from '../generate/components/generateComponentsList';
-import { loadComponents } from '../project/components/loadComponents';
 import { createProject } from '../project/createProject';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
-import { loadSurfaces } from '../project/surfaces/loadSurfaces';
-import { loadThemes } from '../project/themes/loadThemes';
-import { loadTokens } from '../project/tokens/loadTokens';
-import { loadVariants } from '../project/variants/loadVariants';
 
+import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { stripFilename } from './format/stripFilename';
-import { logBuildOutcome } from './functions/logBuildOutcome';
-import { logError } from './functions/logError';
-import { logInfo } from './functions/logInfo';
-import { logMessage } from './functions/logMessage';
-import { logProgramDiagnostics } from './functions/logProgramDiagnostics';
-import { logProjectBasicInfo } from './functions/logProjectBasicInfo';
-import { logProjectData } from './functions/logProjectData';
-import { logProjectDiagnostics } from './functions/logProjectDiagnostics';
-import { logProjectDiagnosticsSummary } from './functions/logProjectDiagnosticsSummary';
-import { logProjectModules } from './functions/logProjectModules';
-import { logProjectResource } from './functions/logProjectResource';
-import { logSuccess } from './functions/logSuccess';
-import { saveProjectModules } from './io/saveProjectModules';
-import { saveProjectResource } from './io/saveProjectResource';
+import { saveProjectModulesCache } from './io/saveProjectModulesCache';
+import { saveProjectResourceCache } from './io/saveProjectResourceCache';
+import { loadProject } from './loadProject';
+import { logBuildOutcome } from './log/logBuildOutcome';
+import { logProgramDiagnostics } from './log/logProgramDiagnostics';
+import { logProjectBasicInfo } from './log/logProjectBasicInfo';
+import { logProjectData } from './log/logProjectData';
+import { logProjectDiagnostics } from './log/logProjectDiagnostics';
+import { logProjectDiagnosticsSummary } from './log/logProjectDiagnosticsSummary';
+import { logProjectModules } from './log/logProjectModules';
+import { logProjectResource } from './log/logProjectResource';
+import { logError } from './logger/logError';
+import { logInfo } from './logger/logInfo';
+import { logMessage } from './logger/logMessage';
+import { logSuccess } from './logger/logSuccess';
 
 export const build = async (fileName: string): Promise<void> => {
     console.info(figlet.textSync('Noodles UI'));
     const projectFile = resolve(fileName);
     logInfo(`Build project`, stripFilename(projectFile, resolve('.')));
 
-    const args = Array.from(process.argv);
-    const debug = [];
-    while (args.length) {
-        const flag = args.shift();
-        if (flag && flag.startsWith('--expand')) {
-            const value = args[0];
-            if (value && !value.startsWith('--expand')) {
-                args.shift();
-                debug.push(value);
-            }
-        }
-    }
-
-    const project = await createProject(projectFile, debug);
+    const expandPatterns = getExpandPatterns();
+    const project = await createProject(projectFile, expandPatterns);
     await ensureProjectCacheDir(project);
     logProjectBasicInfo(project);
     logProgramDiagnostics(project.build.diagnostics);
@@ -54,29 +39,24 @@ export const build = async (fileName: string): Promise<void> => {
 
     if (project.build.success) {
         logProjectModules(project);
-        await saveProjectModules(project);
+        await saveProjectModulesCache(project);
 
         // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
         const projectResource = require(resolve(fileName)).default;
         logProjectResource(projectResource);
-        await saveProjectResource(project, projectResource);
+        await saveProjectResourceCache(project, projectResource);
 
-        loadSurfaces(project, projectResource);
-        loadThemes(project, projectResource);
-        loadVariants(project, projectResource);
-        loadComponents(project, projectResource);
-        loadTokens(project, projectResource);
-
+        loadProject(project, projectResource);
         if (project.diagnostics.length) {
             logError(`Encountered ${project.diagnostics.length} issues during load`);
             logError(`Skipping code generation`);
         } else {
+            logInfo(`Generating code`);
             await generateComponentsList(project);
             await generateComponents(project);
         }
 
         if (project.diagnostics.length) {
-            logError(`Build completed with ${project.diagnostics.length} issues`);
             logProjectDiagnostics(project);
             logProjectData(project);
             logProjectDiagnosticsSummary(project);

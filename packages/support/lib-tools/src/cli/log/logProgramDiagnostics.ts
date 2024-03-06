@@ -1,8 +1,8 @@
 import { bold, gray, green, red } from 'kleur';
 import ts from 'typescript';
 
-import { logError } from './logError';
-import { logMessage } from './logMessage';
+import { logError } from '../logger/logError';
+import { logMessage } from '../logger/logMessage';
 
 // import codes from './diagnostics/codes.json';
 // console.log(codes);

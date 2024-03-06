@@ -5,10 +5,10 @@ import { dirname, relative } from 'path';
 import { ComponentResource } from '@noodles-ui/core-types';
 
 import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
-import { logSuccess } from '../../cli/functions/logSuccess';
+import { logSuccess } from '../../cli/logger/logSuccess';
 import { ComponentContext, ProjectContext } from '../../types/projects';
 import { removeExtension } from '../files/removeExtension';
-import { tsFileHeader } from '../files/tsFileHeader';
+import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { componentGeneratedFileName } from './paths/componentGeneratedFileName';
 import { componentPublicFileName } from './paths/componentPublicFileName';

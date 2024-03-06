@@ -1,44 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ProjectResource } from '@noodles-ui/core-types';
 import { gray, green, red, yellow } from 'kleur';
 
 import { getResourceModule } from '../../project/resources/getResourceModule';
 import { getResourceName } from '../../project/resources/getResourceName';
-import { getResourceType } from '../../project/resources/getResourceType';
 import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
-import { ItemContext, ProjectContext, ProjectDiagnosticSource } from '../../types/projects';
+import { ItemContext, ProjectContext } from '../../types/projects';
 import { UnknownResource } from '../../types/resources';
+import { logInfo } from '../logger/logInfo';
+import { logMessage } from '../logger/logMessage';
 
-import { logInfo } from './logInfo';
-import { logMessage } from './logMessage';
+import { getdiagnosticSourceKey } from './getdiagnosticSourceKey';
+import { shouldExpand } from './shouldExpand';
 
 type ItemsWithErrors = {
     [key: string]: number;
-};
-
-const debugMatch = (resource: UnknownResource) => {
-    const type = getResourceType(resource);
-    const name = getResourceName(resource);
-    const module = getResourceModule(resource);
-
-    return (pattern: string): boolean => {
-        if (pattern === type || pattern === type + 's') {
-            return true;
-        }
-        if (pattern.startsWith('@') && module.includes(pattern.substring(1))) {
-            return true;
-        }
-        if (name.includes(pattern)) {
-            return true;
-        }
-        return false;
-    };
-};
-
-const getSourceKey = (source: ProjectDiagnosticSource): string => {
-    if (typeof source === 'string') {
-        return source;
-    }
-    return getResourceTypedKey(source);
 };
 
 function logResourceGroup<T extends UnknownResource>(
@@ -54,8 +30,8 @@ function logResourceGroup<T extends UnknownResource>(
     }
     items.forEach(item => {
         const { resource, instance, public: isPublic } = item;
-        const isExpanded = project.debug.find(debugMatch(resource || instance));
-        const itemKey = getSourceKey(instance || resource);
+        const isExpanded = shouldExpand(project, resource || instance);
+        const itemKey = getResourceTypedKey(instance || resource);
         const name = instance ? getResourceName(instance) : red(getResourceName(resource));
         const mod = instance ? getResourceModule(instance) : red(getResourceModule(resource));
         const errors = (itemsWithErrors[itemKey] || 0) + (!instance ? 1 : 0);
@@ -80,7 +56,7 @@ export const logProjectData = (project: ProjectContext): void => {
     const { surfaces, themes, variants, components, tokens } = project;
 
     const itemsWithErrors = project.diagnostics.reduce((acc, item) => {
-        const sourceKey = getSourceKey(item.source);
+        const sourceKey = getdiagnosticSourceKey(project, item.source);
         acc[sourceKey] = acc[sourceKey] || 0;
         acc[sourceKey]++;
         return acc;

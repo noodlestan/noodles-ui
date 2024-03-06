@@ -1,9 +1,8 @@
 import { ProjectContext } from '../../types/projects';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
-
-import { logError } from './logError';
-import { logMessage } from './logMessage';
-import { logSuccess } from './logSuccess';
+import { logError } from '../logger/logError';
+import { logMessage } from '../logger/logMessage';
+import { logSuccess } from '../logger/logSuccess';
 
 export const logBuildOutcome = (project: ProjectContext): void => {
     const { build } = project;

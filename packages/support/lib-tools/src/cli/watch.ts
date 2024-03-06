@@ -10,14 +10,14 @@ import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatc
 import { ProjectContext } from '../types/projects';
 
 import { stripFilename } from './format/stripFilename';
-import { logError } from './functions/logError';
-import { logFilelist } from './functions/logFilelist';
-import { logFilenameMessage } from './functions/logFilenameMessage';
-import { logInfo } from './functions/logInfo';
-import { logMessage } from './functions/logMessage';
-import { logProjectBasicInfo } from './functions/logProjectBasicInfo';
-import { logSuccess } from './functions/logSuccess';
-import { loadProjectModules } from './io/loadProjectModules';
+import { loadProjectModulesCache } from './io/loadProjectModulesCache';
+import { logFilelist } from './log/logFilelist';
+import { logFilenameMessage } from './log/logFilenameMessage';
+import { logProjectBasicInfo } from './log/logProjectBasicInfo';
+import { logError } from './logger/logError';
+import { logInfo } from './logger/logInfo';
+import { logMessage } from './logger/logMessage';
+import { logSuccess } from './logger/logSuccess';
 
 // https://github.com/diamondio/better-queue/issues/55
 type QueueSized = Queue & {
@@ -44,7 +44,7 @@ export const watch = async (fileName: string): Promise<void> => {
 
     const refreshWatchers = async (project: ProjectContext): Promise<void> => {
         logInfo('reloading project...');
-        await loadProjectModules(project);
+        await loadProjectModulesCache(project);
         const sources = getProjectFilenamesWatchlist(project);
         const watched = getWatcherWatchedFiles(watcher);
 

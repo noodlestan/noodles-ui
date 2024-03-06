@@ -5,9 +5,9 @@ import { NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE } from '../../project/resource
 import { ProgramModuleContext } from '../../types/program';
 import { ProjectContext } from '../../types/projects';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
-import { logSuccess } from '../functions/logSuccess';
+import { logSuccess } from '../logger/logSuccess';
 
-export const loadProjectModules = async (project: ProjectContext): Promise<void> => {
+export const loadProjectModulesCache = async (project: ProjectContext): Promise<void> => {
     const modules = project.build.modules;
     const file = join(project.projectPath, NUI_CACHE_FOLDER, NUI_MODULES_CACHE_FILE);
 

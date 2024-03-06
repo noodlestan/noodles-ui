@@ -1,8 +1,8 @@
 import { ProjectResource } from '@noodles-ui/core-types';
 import { gray } from 'kleur';
 
-import { logInfo } from './logInfo';
-import { logMessage } from './logMessage';
+import { logInfo } from '../logger/logInfo';
+import { logMessage } from '../logger/logMessage';
 
 export const logProjectResource = (projectResource: ProjectResource): void => {
     logInfo(`Project resources`);

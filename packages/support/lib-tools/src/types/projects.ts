@@ -47,12 +47,19 @@ export type TokensContext = {
     items: Map<string, TokenContext>;
 };
 
-export type ProjectDiagnosticSource = string | UnknownResource;
+export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
 
 export type ProjectDiagnostic = {
     message: string;
     source: ProjectDiagnosticSource;
     data?: unknown;
+};
+
+export type ProjectDiagnosticFileError = {
+    fileName: string;
+    line: number;
+    column: number;
+    sourceCode?: string;
 };
 
 export type ProjectContext = {

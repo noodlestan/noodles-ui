@@ -1,7 +1,6 @@
 import { ProgramModuleContext } from '../../types/program';
 import { formatFileName } from '../format/formatFileName';
-
-import { logMessage } from './logMessage';
+import { logMessage } from '../logger/logMessage';
 
 export const logFilenameMessage = (
     modules: Map<string, ProgramModuleContext>,

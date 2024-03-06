@@ -3,8 +3,8 @@ import { dirname } from 'path';
 import ts from 'typescript';
 
 import { formatFileName } from '../cli/format/formatFileName';
-import { logInfo } from '../cli/functions/logInfo';
-import { logMessage } from '../cli/functions/logMessage';
+import { logInfo } from '../cli/logger/logInfo';
+import { logMessage } from '../cli/logger/logMessage';
 import { findRootPath } from '../monorepo/findRootPath';
 import {
     ComponentsContext,
@@ -24,7 +24,7 @@ import { namedModule } from './modules/namedModule';
 
 export const createProject = async (
     projectFile: string,
-    debug: string[] = [],
+    expandPatterns: string[] = [],
 ): Promise<ProjectContext> => {
     const module = findLocalNodeModule('/', projectFile); // TODO cross-platform
     const projectPath = module ? module.path : dirname(projectFile);
@@ -65,7 +65,7 @@ export const createProject = async (
         variants,
         components,
         tokens,
-        debug,
+        debug: expandPatterns,
     };
 
     return project;

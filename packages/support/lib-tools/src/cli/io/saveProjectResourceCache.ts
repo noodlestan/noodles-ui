@@ -6,9 +6,9 @@ import { ProjectResource } from '@noodles-ui/core-types';
 import { NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE } from '../../project/resources/constants';
 import { ProjectContext } from '../../types/projects';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
-import { logSuccess } from '../functions/logSuccess';
+import { logSuccess } from '../logger/logSuccess';
 
-export const saveProjectResource = async (
+export const saveProjectResourceCache = async (
     project: ProjectContext,
     resource: ProjectResource,
 ): Promise<void> => {

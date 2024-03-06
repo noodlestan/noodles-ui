@@ -3,9 +3,8 @@ import { green, yellow } from 'kleur';
 import { getProjectFilenamesWatchlist } from '../../project/getProjectFilenamesWatchlist';
 import { ProjectContext } from '../../types/projects';
 import { formatFileName } from '../format/formatFileName';
-
-import { logInfo } from './logInfo';
-import { logMessage } from './logMessage';
+import { logInfo } from '../logger/logInfo';
+import { logMessage } from '../logger/logMessage';
 
 export const logProjectModules = (project: ProjectContext): void => {
     const sources = getProjectFilenamesWatchlist(project);
