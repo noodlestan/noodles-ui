@@ -1,9 +1,12 @@
 import { ComponentGeneratedResource, ComponentResource } from '@noodles-ui/core-types';
-import ts from 'typescript';
+import ts, { JsxAttributeLike } from 'typescript';
 
-import { renderedComponentAlias } from './util/renderedComponentAlias';
+import { WithInstance } from '../../../types/projects';
 
-const factory = ts.factory;
+import { componentClassListStatement } from './body/componentClassListStatement';
+import { componentRenderStatement } from './body/componentRenderStatement';
+
+export const factory = ts.factory;
 
 const componentArrowFunction = (statements: ts.Statement[]): ts.Expression => {
     return factory.createArrowFunction(
@@ -25,23 +28,41 @@ const componentArrowFunction = (statements: ts.Statement[]): ts.Expression => {
     );
 };
 
-export const componentRenderStatement = (instance: ComponentGeneratedResource): ts.Statement => {
-    const alias = renderedComponentAlias(instance.render);
-    return factory.createReturnStatement(
-        factory.createJsxSelfClosingElement(
-            factory.createIdentifier(alias),
+const expressionCallProp = (propName: string): ts.JsxAttribute => {
+    return factory.createJsxAttribute(
+        factory.createIdentifier(propName),
+        factory.createJsxExpression(
             undefined,
-            factory.createJsxAttributes([
-                factory.createJsxSpreadAttribute(factory.createIdentifier('props')),
-            ]),
+            factory.createCallExpression(factory.createIdentifier(propName), undefined, []),
         ),
     );
 };
 
-export const exportComponent = (instance: ComponentResource): ts.Statement => {
+const getPropsForRenderedComponent = (
+    component: WithInstance<ComponentResource>,
+): JsxAttributeLike[] => {
+    for (const key in component.resource.props) {
+        console.log(key);
+    }
+    for (const key in component.instance.props) {
+        console.log(key);
+    }
+
+    const classListProp = expressionCallProp('classList');
+
+    return [classListProp];
+};
+
+export const exportComponent = (component: WithInstance<ComponentResource>): ts.Statement => {
+    const { instance } = component;
     const name = instance.name || '';
-    const renderStatement = componentRenderStatement(instance as ComponentGeneratedResource);
-    const statements: ts.Statement[] = [renderStatement];
+    const parentProps = getPropsForRenderedComponent(component);
+    const renderStatement = componentRenderStatement(
+        instance as ComponentGeneratedResource,
+        parentProps,
+    );
+    const classListStatement = componentClassListStatement(instance as ComponentGeneratedResource);
+    const statements: ts.Statement[] = [classListStatement, renderStatement];
     const componentDeclaration = factory.createVariableDeclaration(
         factory.createIdentifier(name),
         undefined,

@@ -2,8 +2,6 @@ import { dirname } from 'path';
 
 import { ESLint } from 'eslint';
 
-import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
-import { logError } from '../../cli/logger/logError';
 import { ProjectContext, ProjectDiagnosticFileError } from '../../types/projects';
 
 import { findEslintConfig } from './findEslintConfig';
@@ -29,10 +27,6 @@ export const formatTypescriptFile = async (
     await ESLint.outputFixes(results);
 
     if (results && results[0] && results[0].errorCount) {
-        logError(
-            'ESLint errors generating',
-            formatFileNameRelativeToProject(project.build.modules, fileName),
-        );
         results[0].messages.forEach(m => {
             const source: ProjectDiagnosticFileError = {
                 fileName,

@@ -17,6 +17,10 @@ export type ItemContext<T> = {
     instance?: T;
 };
 
+export type WithInstance<T> = ItemContext<T> & {
+    instance: T;
+};
+
 export type SurfaceContext = ItemContext<SurfaceResource>;
 
 export type SurfacesContext = {

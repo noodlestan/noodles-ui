@@ -1,4 +1,6 @@
-import { ProjectContext } from '../../types/projects';
+import { ComponentResource } from '@noodles-ui/core-types';
+
+import { ProjectContext, WithInstance } from '../../types/projects';
 
 import { generateComponent } from './generateComponent';
 
@@ -10,7 +12,7 @@ export const generateComponents = async (project: ProjectContext): Promise<void>
             if (!item.instance) {
                 throw new Error('Missing instance');
             }
-            return generateComponent(project, key, item, item.instance);
+            return generateComponent(project, key, item as WithInstance<ComponentResource>);
         });
     await Promise.all(promises);
 };
