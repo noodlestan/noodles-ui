@@ -5,6 +5,8 @@ const tag: PropInlineResource = {
     defaultOption: 'p',
 };
 
+const children: PropInlineResource = {};
+
 export const TextResource: ComponentImportResource = {
     type: 'component',
     name: 'Text',
@@ -14,6 +16,7 @@ export const TextResource: ComponentImportResource = {
             name: 'Text',
             props: {
                 tag,
+                children,
             },
         },
     ],

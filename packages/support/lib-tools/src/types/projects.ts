@@ -52,6 +52,7 @@ export type ProjectDiagnosticSource = string | UnknownResource;
 export type ProjectDiagnostic = {
     message: string;
     source: ProjectDiagnosticSource;
+    data?: unknown;
 };
 
 export type ProjectContext = {
@@ -60,7 +61,7 @@ export type ProjectContext = {
     rootPath?: string;
     build: BuildContext;
     diagnostics: ProjectDiagnostic[];
-    addDiagnostic: (source: ProjectDiagnosticSource, message: string) => void;
+    addDiagnostic: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
     surfaces: SurfacesContext;
     themes: ThemesContext;
     components: ComponentsContext;

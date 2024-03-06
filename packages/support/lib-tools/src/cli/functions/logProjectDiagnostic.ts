@@ -30,4 +30,7 @@ export const logProjectDiagnostic = (diagnostic: ProjectDiagnostic): void => {
     const { source, message } = diagnostic;
     logError(`error`, red(message));
     logDiagnosticSource(source);
+    if (diagnostic.data) {
+        logMessage('detais', diagnostic.data);
+    }
 };

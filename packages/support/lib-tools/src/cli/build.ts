@@ -1,8 +1,9 @@
 import { resolve } from 'path';
 
 import figlet from 'figlet';
-import { yellow } from 'kleur';
 
+import { generateComponents } from '../generate/components/generateComponents';
+import { generateComponentsList } from '../generate/components/generateComponentsList';
 import { loadComponents } from '../project/components/loadComponents';
 import { createProject } from '../project/createProject';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
@@ -13,6 +14,7 @@ import { loadVariants } from '../project/variants/loadVariants';
 
 import { stripFilename } from './format/stripFilename';
 import { logBuildOutcome } from './functions/logBuildOutcome';
+import { logError } from './functions/logError';
 import { logInfo } from './functions/logInfo';
 import { logMessage } from './functions/logMessage';
 import { logProgramDiagnostics } from './functions/logProgramDiagnostics';
@@ -65,10 +67,16 @@ export const build = async (fileName: string): Promise<void> => {
         loadComponents(project, projectResource);
         loadTokens(project, projectResource);
 
-        const issues = project.diagnostics;
+        if (project.diagnostics.length) {
+            logError(`Encountered ${project.diagnostics.length} issues during load`);
+            logError(`Skipping code generation`);
+        } else {
+            await generateComponentsList(project);
+            await generateComponents(project);
+        }
 
-        if (issues.length) {
-            logSuccess(yellow(`Build completed with ${issues.length} issues`));
+        if (project.diagnostics.length) {
+            logError(`Build completed with ${project.diagnostics.length} issues`);
             logProjectDiagnostics(project);
             logProjectData(project);
             logProjectDiagnosticsSummary(project);

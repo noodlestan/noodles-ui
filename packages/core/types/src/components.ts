@@ -15,6 +15,11 @@ export type LocalPropResource =
     | VariantInlineExtendResource
     | VariantInlineReferenceResource;
 
+export type RenderedComponentResource = {
+    name: string;
+    from: ComponentImportResource;
+};
+
 export type ComponentOwnResource = Resource<'component'> & {
     params?: string[];
     use?: MixinResource[];
@@ -39,14 +44,12 @@ export type ComponentOwnResource = Resource<'component'> & {
     props?: {
         [name: string]: LocalPropResource;
     };
+    render?: RenderedComponentResource;
 };
 
 export type ComponentGeneratedResource = ComponentOwnResource & {
     generated: true;
-    render: {
-        name: string;
-        from: ComponentImportResource;
-    };
+    render: RenderedComponentResource;
 };
 
 export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name'> & {

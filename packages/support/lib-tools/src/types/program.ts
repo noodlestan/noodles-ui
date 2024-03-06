@@ -3,6 +3,7 @@ import ts from 'typescript';
 import { CompileResult } from '../typescript/types';
 
 export type BuildContext = CompileResult & {
+    timestamp: Date;
     files: ts.SourceFile[];
     modules: Map<string, ProgramModuleContext>;
 };

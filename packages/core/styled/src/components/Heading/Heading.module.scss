@@ -1,7 +1,0 @@
-@import '../../mixins/TypeReset/TypeReset.scss';
-@import '../../variants/TypeVariant/TypeVariant.scss';
-
-.Heading {
-    @include TypeReset();
-    @include VariantsTypeVariant('heading', $HeadingVariant);
-}

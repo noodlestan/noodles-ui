@@ -4,7 +4,7 @@ import { ComponentExtendResource } from '@noodles-ui/core-types';
 export const TextResource: ComponentExtendResource = {
     module: '@noodles-ui/sandbox-ui',
     extend: [TextStyledResource, { family: 'text' }],
-    hides: {},
+    exposes: ['tag', 'children'],
     overrides: {
         variant: {
             options: ['small', 'medium', 'large', 'x-large'],

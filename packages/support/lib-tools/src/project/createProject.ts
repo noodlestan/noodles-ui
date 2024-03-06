@@ -41,10 +41,11 @@ export const createProject = async (
 
     const diagnostics: ProjectDiagnostic[] = [];
 
-    const addDiagnostic = (source: ProjectDiagnosticSource, message: string) =>
+    const addDiagnostic = (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
         diagnostics.push({
             message,
             source,
+            data,
         });
 
     const themes: ThemesContext = { items: new Map() };

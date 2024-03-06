@@ -118,6 +118,7 @@ const mergeProps = (
                     component,
                     `Could not extend component with a default prop. Parent does not expose "${name}".`,
                 );
+                continue;
             }
             actualProps[name] = exposeProp(
                 project,
@@ -144,6 +145,7 @@ const mergeProps = (
                     component,
                     `Could not extend component with a hidden prop. Parent does not expose "${name}".`,
                 );
+                continue;
             }
             // TODO store default value?
         }
@@ -161,12 +163,13 @@ const mergeProps = (
     }
 
     if (!hides && exposes) {
-        for (const name in exposes) {
+        for (const name of exposes) {
             if (!parentProps || !(name in parentProps)) {
                 project.addDiagnostic(
                     component,
                     `Could not extend component with a parent prop. Parent does not expose "${name}".`,
                 );
+                continue;
             }
             actualProps[name] = exposeProp(
                 project,
@@ -185,21 +188,23 @@ const mergeProps = (
                     component,
                     `Could not extend component with prop overrides. Parent does not expose "${name}".`,
                 );
-            } else if (isVariantInlineReferenceResource(parentProps[name])) {
+                continue;
+            }
+            if (isVariantInlineReferenceResource(parentProps[name])) {
                 project.addDiagnostic(
                     component,
                     `Could not extend component with prop overrides. Prop "${name}" is a reference.`,
                 );
-            } else {
-                actualProps[name] = exposeProp(
-                    project,
-                    context,
-                    component,
-                    parentProps[name],
-                    parentParams || {},
-                    overrides[name],
-                );
+                continue;
             }
+            actualProps[name] = exposeProp(
+                project,
+                context,
+                component,
+                parentProps[name],
+                parentParams || {},
+                overrides[name],
+            );
         }
     }
 
@@ -210,14 +215,17 @@ const mergeProps = (
                     component,
                     `Could not extend component with prop replaces. Parent does not expose "${name}".`,
                 );
-            } else if (isVariantInlineReferenceResource(parentProps[name])) {
+                continue;
+            }
+
+            if (isVariantInlineReferenceResource(parentProps[name])) {
                 project.addDiagnostic(
                     component,
                     `Could not extend component with prop replaces. Prop "${name}" is a reference.`,
                 );
-            } else {
-                actualProps[name] = replaces[name];
+                continue;
             }
+            actualProps[name] = replaces[name];
         }
     }
 
@@ -228,9 +236,10 @@ const mergeProps = (
                     component,
                     `Could not extend component with a new prop. Prop "${name}" is already inherited from parent, use "override" instead of "props".`,
                 );
-            } else {
-                actualProps[name] = props[name];
+                continue;
             }
+
+            actualProps[name] = props[name];
         }
     }
 
@@ -286,11 +295,14 @@ export const extendComponent = (
     const actualProps = mergeProps(project, context, component, parentProps, params);
     const actualUses = (parent.use || []).concat(use || []);
 
+    const render = parent.render;
+
     return {
         name: actualName,
         module,
         type: 'component',
         props: actualProps,
         use: actualUses,
+        render,
     };
 };

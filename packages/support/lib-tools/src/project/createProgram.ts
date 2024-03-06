@@ -11,8 +11,9 @@ export const createProgram = async (
 ): Promise<BuildContext> => {
     const { program, success, result, diagnostics } = compileProjectFile(projectFile);
 
+    const timestamp = new Date();
     const files = getProgramResourceFiles(program);
     const modules = getProgramModules(program, projectPath, rootPath);
 
-    return { program, result, success, diagnostics, files, modules };
+    return { timestamp, program, result, success, diagnostics, files, modules };
 };
