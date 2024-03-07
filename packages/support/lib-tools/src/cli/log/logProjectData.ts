@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ProjectResource } from '@noodles-ui/core-types';
 import { gray, green, red, yellow } from 'kleur';
 
 import { getResourceModule } from '../../project/resources/getResourceModule';
@@ -7,6 +6,7 @@ import { getResourceName } from '../../project/resources/getResourceName';
 import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
 import { ItemContext, ProjectContext } from '../../types/projects';
 import { UnknownResource } from '../../types/resources';
+import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
@@ -45,6 +45,7 @@ function logResourceGroup<T extends UnknownResource>(
             logMessage('  ' + gray(mod), formatedName);
             console.info('');
             console.info('instance', instance);
+            console.info('public', item.public);
             console.info('consumes', item.consumes);
             console.info('consumers', item.consumers);
             console.info('');
@@ -62,7 +63,10 @@ export const logProjectData = (project: ProjectContext): void => {
         return acc;
     }, {} as ItemsWithErrors);
 
-    logInfo('Project data', project.diagnostics.length ? red('maybe incomplete') : '');
+    logInfo('Project data');
+    if (project.diagnostics.length) {
+        logError('Attention:', red('data may be incomplete and generated code may contain errors'));
+    }
     logResourceGroup(project, 'Surfaces', surfaces.items, itemsWithErrors);
     logResourceGroup(project, 'Themes', themes.items, itemsWithErrors);
     logResourceGroup(project, 'Variants', variants.items, itemsWithErrors);

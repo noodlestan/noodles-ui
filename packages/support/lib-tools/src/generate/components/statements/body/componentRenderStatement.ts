@@ -1,8 +1,9 @@
 import { ComponentGeneratedResource } from '@noodles-ui/core-types';
 import ts, { JsxAttributeLike } from 'typescript';
 
-import { factory } from '../exportComponent';
 import { renderedComponentAlias } from '../util/renderedComponentAlias';
+
+export const factory = ts.factory;
 
 export const componentRenderStatement = (
     instance: ComponentGeneratedResource,

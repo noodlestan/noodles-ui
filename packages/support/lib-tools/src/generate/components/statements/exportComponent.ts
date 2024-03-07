@@ -1,6 +1,7 @@
 import { ComponentGeneratedResource, ComponentResource } from '@noodles-ui/core-types';
 import ts, { JsxAttributeLike } from 'typescript';
 
+import { logInfo } from '../../../cli/logger/logInfo';
 import { WithInstance } from '../../../types/projects';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
@@ -41,11 +42,12 @@ const expressionCallProp = (propName: string): ts.JsxAttribute => {
 const getPropsForRenderedComponent = (
     component: WithInstance<ComponentResource>,
 ): JsxAttributeLike[] => {
+    // TODO resolve props for rendered component
     for (const key in component.resource.props) {
-        console.log(key);
+        logInfo('getPropsForRenderedComponent()', key);
     }
     for (const key in component.instance.props) {
-        console.log(key);
+        logInfo('getPropsForRenderedComponent()', key);
     }
 
     const classListProp = expressionCallProp('classList');

@@ -26,11 +26,13 @@ export const generateComponentPrivate = async (
     const { instance } = component;
     const fileName = componentGeneratedFileName(project, instance);
 
+    const importJSX = !!instance.props?.children;
+
     const statements = [
-        importFrameworkComponent(),
+        importFrameworkComponent(importJSX),
         importRenderedComponent(component),
         importComponentStyles(component),
-        exportComponentProps(component),
+        exportComponentProps(project, component),
         exportComponent(component),
     ];
 

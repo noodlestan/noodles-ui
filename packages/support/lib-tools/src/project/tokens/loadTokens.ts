@@ -1,5 +1,6 @@
 import { ProjectResource } from '@noodles-ui/core-types';
 
+import { logMessage } from '../../cli/logger/logMessage';
 import { ProjectContext } from '../../types/projects';
 
 export const loadTokens = (project: ProjectContext, projectResource: ProjectResource): void => {
@@ -8,6 +9,6 @@ export const loadTokens = (project: ProjectContext, projectResource: ProjectReso
     //   loadToken(project, context); => addToken()
     // });
     if (project && projectResource) {
-        console.info('');
+        logMessage('! no tokens loaded');
     }
 };

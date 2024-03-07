@@ -4,8 +4,10 @@ import figlet from 'figlet';
 
 import { generateComponents } from '../generate/components/generateComponents';
 import { generateComponentsList } from '../generate/components/generateComponentsList';
+import { generateVariants } from '../generate/variants/generateVariants';
 import { createProject } from '../project/createProject';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
+import { ProjectContext } from '../types/projects';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { stripFilename } from './format/stripFilename';
@@ -25,7 +27,7 @@ import { logInfo } from './logger/logInfo';
 import { logMessage } from './logger/logMessage';
 import { logSuccess } from './logger/logSuccess';
 
-export const build = async (fileName: string): Promise<void> => {
+export const build = async (fileName: string): Promise<ProjectContext> => {
     console.info(figlet.textSync('Noodles UI'));
     const projectFile = resolve(fileName);
     logInfo(`Build project`, stripFilename(projectFile, resolve('.')));
@@ -54,17 +56,20 @@ export const build = async (fileName: string): Promise<void> => {
             logInfo(`Generating code`);
             await generateComponentsList(project);
             await generateComponents(project);
+            await generateVariants(project);
         }
 
         if (project.diagnostics.length) {
             logProjectDiagnostics(project);
             logProjectData(project);
             logProjectDiagnosticsSummary(project);
-            return;
+            return project;
         }
 
         logSuccess('Build successful');
         logProjectData(project);
         logMessage('\n \\o/\n  |\n / \\\n\n');
     }
+
+    return project;
 };

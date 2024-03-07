@@ -1,12 +1,13 @@
 import { MixinResource } from './mixins';
 import { ExtendParams, Value } from './primitives/params';
 import { ExtendWithParams } from './primitives/utils';
-import { PropInlineResource } from './props';
+import { PropInlineResource, PropOverrides } from './props';
 import { Resource } from './resource';
 import {
     VariantInlineExtendResource,
     VariantInlineReferenceResource,
     VariantInlineResource,
+    VariantOverrides,
 } from './variants';
 
 export type LocalPropResource =
@@ -15,9 +16,15 @@ export type LocalPropResource =
     | VariantInlineExtendResource
     | VariantInlineReferenceResource;
 
+export type LocalPropOverrides = PropOverrides | VariantOverrides;
+
 export type RenderedComponentResource = {
     name: string;
     from: ComponentImportResource;
+};
+
+export type ComponentPropsResource = {
+    [name: string]: LocalPropResource;
 };
 
 export type ComponentOwnResource = Resource<'component'> & {
@@ -35,14 +42,10 @@ export type ComponentOwnResource = Resource<'component'> & {
             value: Value;
         };
     };
-    replaces?: {
-        [name: string]: LocalPropResource;
-    };
+    replaces?: ComponentPropsResource;
+    props?: ComponentPropsResource;
     overrides?: {
-        [name: string]: PropInlineResource;
-    };
-    props?: {
-        [name: string]: LocalPropResource;
+        [name: string]: LocalPropOverrides;
     };
     render?: RenderedComponentResource;
 };

@@ -1,7 +1,7 @@
 import { ComponentResource, RenderedComponentResource } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
-import { WithInstance } from '../../../types/projects';
+import { ProjectContext, WithInstance } from '../../../types/projects';
 
 import { getComponentProps } from './props/getComponentProps';
 import { renderedComponentAlias } from './util/renderedComponentAlias';
@@ -9,6 +9,7 @@ import { renderedComponentAlias } from './util/renderedComponentAlias';
 export const factory = ts.factory;
 
 export const exportComponentProps = (
+    project: ProjectContext,
     component: WithInstance<ComponentResource>,
 ): ts.TypeAliasDeclaration => {
     const { instance } = component;
@@ -17,7 +18,7 @@ export const exportComponentProps = (
     const alias = renderedComponentAlias(rendered);
     const extendedPropsType = alias + 'Props';
 
-    const props = getComponentProps(component);
+    const props = getComponentProps(project, component);
     return factory.createTypeAliasDeclaration(
         [factory.createToken(ts.SyntaxKind.ExportKeyword)],
         factory.createIdentifier(name + 'Props'),

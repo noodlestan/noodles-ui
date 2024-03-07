@@ -36,7 +36,6 @@ export const logProjectResource = (projectResource: ProjectResource): void => {
     for (const item of variants) {
         logMessage('  ' + gray(item.module), item.name);
     }
-    console.info('');
 
     logMessage(`Components (${componentCount})`);
     if (!componentCount) {
@@ -45,4 +44,6 @@ export const logProjectResource = (projectResource: ProjectResource): void => {
     for (const item of components) {
         logMessage('  ' + gray(item.module), item.name);
     }
+
+    console.info('');
 };

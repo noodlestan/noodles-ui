@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { factory } from '../exportComponent';
+export const factory = ts.factory;
 
 export const classListDeclaration = (
     objectLiteral: ts.ObjectLiteralExpression,

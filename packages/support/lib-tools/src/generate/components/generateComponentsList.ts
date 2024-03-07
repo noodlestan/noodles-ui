@@ -4,8 +4,10 @@ import { dirname, relative } from 'path';
 import { ComponentResource } from '@noodles-ui/core-types';
 
 import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
+import { logError } from '../../cli/logger/logError';
 import { logSuccess } from '../../cli/logger/logSuccess';
 import { ComponentContext, ProjectContext } from '../../types/projects';
+import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { removeExtension } from '../files/removeExtension';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -42,6 +44,14 @@ export const generateComponentsList = async (project: ProjectContext): Promise<v
     const fileName = componentListFileName(project);
     const output = tsFileHeader(project, fileName) + content + '\n';
     await writeFile(fileName, output);
+    const success = await formatTypescriptFile(project, fileName);
 
-    logSuccess('generated', formatFileNameRelativeToProject(project.build.modules, fileName));
+    if (success) {
+        logSuccess('generated', formatFileNameRelativeToProject(project.build.modules, fileName));
+    } else {
+        logError(
+            'Error generating',
+            formatFileNameRelativeToProject(project.build.modules, fileName),
+        );
+    }
 };

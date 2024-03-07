@@ -6,6 +6,8 @@ export const HeadingResource: ComponentResource = {
     module: '@noodles-ui/core-unstyled',
     props: {
         tag: {
+            type: 'variant',
+            name: 'HeadingTag',
             options: ['h1', 'h2', 'h3', 'h4', 'p', 'span'],
         },
     },

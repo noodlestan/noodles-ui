@@ -16,13 +16,18 @@ export type VariantOwnResource = Resource<'variant'> & {
     tokens?: Array<Omit<TokenResource, 'type' | 'module'>>;
 };
 
-export type VariantExtendResource = Partial<Omit<VariantOwnResource, 'type'>> & {
+export type VariantOverrides = Partial<Omit<VariantOwnResource, 'type'>> & {
+    name: string;
+};
+
+export type VariantExtendResource = VariantOverrides & {
     module: string;
+    name: string;
     extend: ExtendWithParams<VariantResource, ExtendParams>;
 };
 
 export type VariantInlineResource = Omit<VariantOwnResource, 'module'>;
-export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module' | 'name'>;
+export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module'>;
 export type VariantInlineReferenceResource = { reference: VariantResource };
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;

@@ -1,9 +1,9 @@
 import { ComponentGeneratedResource } from '@noodles-ui/core-types';
 import ts, { PropertyName } from 'typescript';
 
-import { factory } from '../exportComponent';
-
 import { classListDeclaration } from './classListDeclaration';
+
+export const factory = ts.factory;
 
 const classListItem = (property: PropertyName) =>
     factory.createPropertyAssignment(property, factory.createTrue());

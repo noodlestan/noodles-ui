@@ -1,6 +1,12 @@
-import { ComponentImportResource, PropInlineResource } from '@noodles-ui/core-types';
+import {
+    ComponentImportResource,
+    PropInlineResource,
+    VariantInlineResource,
+} from '@noodles-ui/core-types';
 
-const tag: PropInlineResource = {
+const tag: VariantInlineResource = {
+    type: 'variant',
+    name: '',
     options: ['p'],
     defaultOption: 'p',
 };

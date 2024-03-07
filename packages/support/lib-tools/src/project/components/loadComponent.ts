@@ -10,9 +10,9 @@ import { getResourceTypedKey } from '../resources/getResourceTypedKey';
 import { resolveExtendWithParams } from '../resources/resolveExtendWithParams';
 
 import { addComponent } from './addComponent';
-import { extendComponent } from './private/extendComponent';
-import { isComponentExtendResource } from './private/isComponentExtendResource';
-import { loadComponentProps } from './private/loadComponentProps';
+import { extendComponent } from './extend/extendComponent';
+import { isComponentExtendResource } from './extend/isComponentExtendResource';
+import { loadComponentProps } from './props/loadComponentProps';
 
 const loadParentComponent = (
     project: ProjectContext,
