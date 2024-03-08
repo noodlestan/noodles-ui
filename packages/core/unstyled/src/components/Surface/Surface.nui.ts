@@ -1,7 +1,15 @@
-import { ComponentResource } from '@noodles-ui/core-types';
+import { ComponentImportResource } from '@noodles-ui/core-types';
 
-export const SurfaceResource: ComponentResource = {
+export const SurfaceResource: ComponentImportResource = {
     type: 'component',
-    name: 'Surface',
+    name: 'Text',
     module: '@noodles-ui/core-unstyled',
+    parts: [
+        {
+            name: 'Surface',
+            props: {
+                children: {},
+            },
+        },
+    ],
 };

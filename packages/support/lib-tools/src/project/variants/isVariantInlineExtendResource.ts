@@ -1,6 +1,6 @@
 import { LocalPropResource, VariantInlineExtendResource } from '@noodles-ui/core-types';
 
-export const isVariantExtendResource = (
+export const isVariantInlineExtendResource = (
     prop: LocalPropResource,
 ): VariantInlineExtendResource | undefined => {
     if ((prop as VariantInlineExtendResource).extend) {

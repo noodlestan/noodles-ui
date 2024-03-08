@@ -1,11 +1,9 @@
 import { writeFile } from 'fs/promises';
 
-import { VariantResource } from '@noodles-ui/core-types';
-
 import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
 import { logError } from '../../cli/logger/logError';
 import { logSuccess } from '../../cli/logger/logSuccess';
-import { ProjectContext, WithInstance } from '../../types/projects';
+import { ProjectContext, VariantContextWithInstance } from '../../types/projects';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -13,7 +11,7 @@ import { variantsConstantsFileName } from './paths/variantsConstantsFileName';
 
 const generateTypeImportLine = (
     project: ProjectContext,
-    variants: WithInstance<VariantResource>[],
+    variants: VariantContextWithInstance[],
 ): string => {
     const names = variants.map(item => item.instance.name);
     return `import { ${names.join(', ')} } from './variants.types';`;
@@ -21,12 +19,12 @@ const generateTypeImportLine = (
 
 const generateVariantLine = (
     project: ProjectContext,
-    variant: WithInstance<VariantResource>,
+    variant: VariantContextWithInstance,
 ): string => {
     const { instance } = variant;
     const name = `${instance.name}DefaultOption`;
     const type = instance.name;
-    const value = `${JSON.stringify(instance.defaultOption)}`;
+    const value = `${JSON.stringify(instance.defaultValue)}`;
     return `export const ${name}: ${type} = ${value};`;
 };
 
@@ -35,8 +33,8 @@ export const generateVariantsConstants = async (project: ProjectContext): Promis
         if (!item.instance) {
             throw new Error('Missing instance');
         }
-        return item.instance?.defaultOption;
-    }) as WithInstance<VariantResource>[];
+        return item.instance?.defaultValue;
+    }) as VariantContextWithInstance[];
 
     const importsLine = generateTypeImportLine(project, variants);
     const constantsLines = variants.map(item => generateVariantLine(project, item));

@@ -1,11 +1,9 @@
 import { writeFile } from 'fs/promises';
 
-import { VariantResource } from '@noodles-ui/core-types';
-
 import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
 import { logError } from '../../cli/logger/logError';
 import { logSuccess } from '../../cli/logger/logSuccess';
-import { ProjectContext, WithInstance } from '../../types/projects';
+import { ProjectContext, VariantContextWithInstance } from '../../types/projects';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -13,7 +11,7 @@ import { variantsTypesFileName } from './paths/variantsTypesFileName';
 
 const generateVariantLine = (
     project: ProjectContext,
-    variant: WithInstance<VariantResource>,
+    variant: VariantContextWithInstance,
 ): string => {
     const { instance } = variant;
     const options = instance.options?.map(option => `'${option}'`).join(' | ');
@@ -26,7 +24,7 @@ export const generateVariantsTypes = async (project: ProjectContext): Promise<vo
             throw new Error('Missing instance');
         }
         return item;
-    }) as WithInstance<VariantResource>[];
+    }) as VariantContextWithInstance[];
 
     const lines = variants.map(item => generateVariantLine(project, item));
     const content = [...lines].join('\n');

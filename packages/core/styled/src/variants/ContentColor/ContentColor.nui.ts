@@ -6,12 +6,7 @@ export const ContentColor: VariantResource = {
     name: 'ContentColor',
     module: '@noodles-ui/core-styled',
     composable: true,
-    extend: [
-        FgColor,
-        {
-            group: 'content',
-        },
-    ],
+    extend: FgColor,
     options: ['primary', 'muted', 'disabled'],
-    defaultOption: 'primary',
+    defaultValue: 'primary',
 };

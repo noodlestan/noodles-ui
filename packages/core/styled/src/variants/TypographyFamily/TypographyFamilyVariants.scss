@@ -1,4 +1,4 @@
-@mixin TypeVariant($family, $option) {
+@mixin TypographyFamilyVariantsItem($family, $option) {
     font-family: var(--type-#{$family}-base-fontFamily);
     font-size: var(--type-#{$family}-#{$option}-fontSize);
     line-height: var(--type-#{$family}-#{$option}-lineHeight);
@@ -6,10 +6,10 @@
     letter-spacing: var(--type-#{$family}-#{$option}-letterSpacing);
 }
 
-@mixin VariantsTypeVariant($family, $options) {
+@mixin TypographyFamilyVariants($family, $options) {
     @each $option in $options {
-        &-variant-#{$option} {
-            @include TypeVariant($family, $option);
+        &#{$option} {
+            @include TypographyFamilyVariantsItem($family, $option);
         }
     }
 }

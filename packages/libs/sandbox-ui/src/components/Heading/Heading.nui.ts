@@ -5,7 +5,7 @@ const variant: VariantInlineResource = {
     type: 'variant',
     name: 'SomeOtherHeadingIdentifier',
     options: ['large', 'small'],
-    defaultOption: 'large',
+    defaultValue: 'large',
 };
 
 export const HeadingResource: ComponentResource = {

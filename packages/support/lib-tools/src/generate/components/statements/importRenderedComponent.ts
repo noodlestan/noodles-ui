@@ -1,16 +1,15 @@
-import { ComponentResource, RenderedComponentResource } from '@noodles-ui/core-types';
+import { ComponentOwnResource, RenderedComponentResource } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
-import { WithInstance } from '../../../types/projects';
+import { ComponentContextWithInstance } from '../../../types/projects';
 
 import { renderedComponentAlias } from './util/renderedComponentAlias';
 
 const factory = ts.factory;
 
-export const importRenderedComponent = (
-    component: WithInstance<ComponentResource>,
-): ts.Statement => {
-    const rendered = component.instance.render as RenderedComponentResource;
+export const importRenderedComponent = (component: ComponentContextWithInstance): ts.Statement => {
+    const instance = component.instance as ComponentOwnResource;
+    const rendered = instance.render as RenderedComponentResource;
     const { name = '', from } = rendered;
     const alias = renderedComponentAlias(rendered);
     return factory.createImportDeclaration(

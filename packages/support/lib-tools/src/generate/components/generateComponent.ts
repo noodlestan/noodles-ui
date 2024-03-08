@@ -1,6 +1,4 @@
-import { ComponentResource } from '@noodles-ui/core-types';
-
-import { ProjectContext, WithInstance } from '../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '../../types/projects';
 
 import { generateComponentPrivate } from './generateComponentPrivate';
 import { generateComponentPublic } from './generateComponentPublic';
@@ -8,7 +6,7 @@ import { generateComponentPublic } from './generateComponentPublic';
 export const generateComponent = async (
     project: ProjectContext,
     key: string,
-    component: WithInstance<ComponentResource>,
+    component: ComponentContextWithInstance,
 ): Promise<void> => {
     const p2 = generateComponentPublic(project, key, component);
     const p1 = generateComponentPrivate(project, key, component);

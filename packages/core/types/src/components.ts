@@ -1,7 +1,6 @@
 import { MixinResource } from './mixins';
-import { ExtendParams, Value } from './primitives/params';
-import { ExtendWithParams } from './primitives/utils';
-import { PropInlineResource, PropOverrides } from './props';
+import { Value } from './primitives/params';
+import { PropInlineResource, PropInstance, PropOverrides } from './props';
 import { Resource } from './resource';
 import {
     VariantInlineExtendResource,
@@ -35,7 +34,7 @@ export type ComponentOwnResource = Resource<'component'> & {
             value: Value;
         };
     };
-    exposes?: string[];
+    exposes?: '*' | string[];
     defaults?: {
         [name: string]: {
             // TODO incomplete abstraction - will have us against the ropes :-/
@@ -47,24 +46,26 @@ export type ComponentOwnResource = Resource<'component'> & {
     overrides?: {
         [name: string]: LocalPropOverrides;
     };
-    render?: RenderedComponentResource;
+    render: RenderedComponentResource;
 };
 
 export type ComponentGeneratedResource = ComponentOwnResource & {
     generated: true;
-    render: RenderedComponentResource;
 };
 
-export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name'> & {
+export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name' | 'render'> & {
     name?: string;
-    extend: ExtendWithParams<ComponentResource, ExtendParams>;
+    extend: ComponentResource;
 };
 
-export type ComponentImportPartResource = Omit<ComponentOwnResource, 'type' | 'module'> & {
+export type ComponentImportPartResource = Omit<
+    ComponentOwnResource,
+    'type' | 'module' | 'render'
+> & {
     // TODO alias
 };
 
-export type ComponentImportResource = ComponentOwnResource & {
+export type ComponentImportResource = Omit<ComponentOwnResource, 'render'> & {
     alias?: string;
     docs?: string;
     parts: ComponentImportPartResource[];
@@ -75,3 +76,18 @@ export type ComponentResource =
     | ComponentGeneratedResource
     | ComponentImportResource
     | ComponentExtendResource;
+
+export type ComponentInstanceProps = {
+    [name: string]: PropInstance;
+};
+
+export type ComponentOwnInstance = Omit<ComponentOwnResource, 'use' | 'props'> & {
+    use: MixinResource[];
+    props: ComponentInstanceProps;
+};
+
+export type ComponentImportInstance = Omit<ComponentImportResource, 'use' | 'props'> & {
+    props: ComponentInstanceProps;
+};
+
+export type ComponentInstance = ComponentOwnInstance | ComponentImportInstance;

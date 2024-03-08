@@ -44,10 +44,15 @@ function logResourceGroup<T extends UnknownResource>(
             console.info('');
             logMessage('  ' + gray(mod), formatedName);
             console.info('');
-            console.info('instance', instance);
-            console.info('public', item.public);
-            console.info('consumes', item.consumes);
-            console.info('consumers', item.consumers);
+            console.info('public:', item.public);
+            console.info('---');
+            const ignore = ['name', 'type', 'module'];
+            Object.entries(instance || {})
+                .filter(([key]) => !ignore.includes(key))
+                .forEach(([key, value]) => console.info(key, value));
+            console.info('---');
+            console.info('consumes:', item.consumes);
+            console.info('consumers:', item.consumers);
             console.info('');
         }
     });

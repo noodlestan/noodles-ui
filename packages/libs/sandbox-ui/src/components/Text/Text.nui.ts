@@ -1,28 +1,49 @@
+// import { TypographyVariant } from '@noodles-ui/core-styled';
+// import { ComponentOwnResource, VariantExtendResource } from '@noodles-ui/core-types';
+// import { TextResource as TextUnstyledResource } from '@noodles-ui/core-unstyled';
+
+// export const TextTypeVariantResource: VariantExtendResource = {
+//     module: '@noodles-ui/core-styled',
+//     name: 'TextVariant',
+//     extend: TypographyVariant,
+//     options: ['large', 'medium', 'body', 'note'],
+//     defaultValue: 'body',
+// };
+
+// export const TextResource: ComponentOwnResource = {
+//     type: 'component',
+//     name: 'Text',
+//     module: '@noodles-ui/sandbox-ui',
+//     // exposes: ['tag', 'children'],
+//     props: {
+//         something: {
+//             defaultValue: 'something else',
+//         },
+//         variant: TextTypeVariantResource,
+//     },
+//     hides: {},
+//     render: {
+//         name: 'Text',
+//         from: TextUnstyledResource,
+//     },
+// };
 import { TextResource as TextStyledResource } from '@noodles-ui/core-styled';
 import { ComponentExtendResource } from '@noodles-ui/core-types';
 
 export const TextResource: ComponentExtendResource = {
     module: '@noodles-ui/sandbox-ui',
-    extend: [TextStyledResource, { family: 'text' }],
-    exposes: ['tag', 'children'],
-    props: {
-        variantx: {
-            type: 'variant',
-            name: 'TextVariant',
-            options: ['small', 'medium', 'large', 'x-large'],
-            defaultOption: 'medium',
-        },
-    },
+    extend: TextStyledResource,
+    exposes: '*',
     overrides: {
-        tag: {
-            name: 'TextTag',
-            options: ['p', 'div', 'span'],
-            defaultOption: 'span',
-        },
         variant: {
             name: 'TextVariant',
             options: ['small', 'medium', 'large', 'x-large'],
-            defaultOption: 'medium',
+            vars: { family: 'text' },
+            defaultValue: 'medium',
+        },
+        tag: {
+            name: 'TextTag',
+            options: ['p', 'span'],
         },
     },
 };

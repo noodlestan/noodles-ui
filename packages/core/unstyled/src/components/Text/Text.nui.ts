@@ -6,9 +6,9 @@ import {
 
 const tag: VariantInlineResource = {
     type: 'variant',
-    name: '',
+    name: 'TextTag',
     options: ['p'],
-    defaultOption: 'p',
+    defaultValue: 'p',
 };
 
 const children: PropInlineResource = {};

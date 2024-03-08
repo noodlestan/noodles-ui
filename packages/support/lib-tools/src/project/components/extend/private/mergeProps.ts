@@ -1,4 +1,4 @@
-import { ComponentResource, ExtendParams } from '@noodles-ui/core-types';
+import { ComponentResource } from '@noodles-ui/core-types';
 
 import { ComponentContext, ProjectContext } from '../../../../types/projects';
 import { isVariantInlineReferenceResource } from '../../../variants/isVariantInlineReferenceResource';
@@ -11,7 +11,6 @@ export const mergeProps = (
     context: ComponentContext,
     component: ComponentResource,
     parentProps: Props,
-    parentParams?: ExtendParams,
 ): Props => {
     const { hides, exposes, defaults, replaces = {}, overrides = {}, props } = component;
     const actualProps: Props = {};
@@ -25,14 +24,9 @@ export const mergeProps = (
                 );
                 continue;
             }
-            const prop = exposeProp(
-                project,
-                context,
-                component,
-                parentProps[name],
-                parentParams || {},
-                { defaultValue: defaults[name].value },
-            );
+            const prop = exposeProp(project, context, component, parentProps[name], {
+                defaultValue: defaults[name].value,
+            });
             if (prop) {
                 actualProps[name] = prop;
             }
@@ -59,13 +53,7 @@ export const mergeProps = (
         }
         for (const name in parentProps) {
             if (!(name in hides) && !(name in replaces) && !(name in overrides)) {
-                const prop = exposeProp(
-                    project,
-                    context,
-                    component,
-                    parentProps[name],
-                    parentParams || {},
-                );
+                const prop = exposeProp(project, context, component, parentProps[name]);
                 if (prop) {
                     actualProps[name] = prop;
                 }
@@ -74,23 +62,28 @@ export const mergeProps = (
     }
 
     if (!hides && exposes) {
-        for (const name of exposes) {
-            if (!parentProps || !(name in parentProps)) {
-                project.addDiagnostic(
-                    component,
-                    `Could not extend component with a parent prop. Parent does not expose "${name}".`,
-                );
-                continue;
+        if (exposes !== '*') {
+            for (const name of exposes) {
+                if (!parentProps || !(name in parentProps)) {
+                    project.addDiagnostic(
+                        component,
+                        `Could not extend component with a parent prop. Parent does not expose "${name}".`,
+                    );
+                    continue;
+                }
             }
-            const prop = exposeProp(
-                project,
-                context,
-                component,
-                parentProps[name],
-                parentParams || {},
-            );
-            if (prop) {
-                actualProps[name] = prop;
+        }
+
+        for (const name in parentProps) {
+            if (
+                (exposes === '*' || exposes.includes(name)) &&
+                !(name in replaces) &&
+                !(name in overrides)
+            ) {
+                const prop = exposeProp(project, context, component, parentProps[name]);
+                if (prop) {
+                    actualProps[name] = prop;
+                }
             }
         }
     }
@@ -116,7 +109,6 @@ export const mergeProps = (
                 context,
                 component,
                 parentProps[name],
-                parentParams || {},
                 overrides[name],
             );
             if (prop) {

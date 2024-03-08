@@ -1,22 +1,27 @@
+import { VariantInstance } from '@noodles-ui/core-types';
+
 import { logMessage } from '../../cli/logger/logMessage';
 import { ProjectContext, VariantContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
-export const addVariant = (project: ProjectContext, context: VariantContext): void => {
+export const addVariant = (
+    project: ProjectContext,
+    context: VariantContext,
+): VariantInstance | undefined => {
     const { items } = project.variants;
-    const { resource, instance: variant } = context;
+    const { resource, instance } = context;
 
-    if (!variant) {
+    if (!instance) {
         project.addDiagnostic(resource, 'No instance generated');
         return;
     }
 
-    if ('name' in variant && !variant.name) {
-        project.addDiagnostic(resource, 'No variant name');
+    if (!instance.name) {
+        project.addDiagnostic(resource, 'Empty variant name');
         return;
     }
 
-    const key = getResourceKey(variant);
+    const key = getResourceKey(instance);
     const previous = items.get(key);
     if (previous) {
         context.consumers.forEach(consumer => previous.consumers.add(consumer));
@@ -27,4 +32,6 @@ export const addVariant = (project: ProjectContext, context: VariantContext): vo
 
     logMessage('+ variant', key);
     items.set(key, context);
+
+    return instance;
 };

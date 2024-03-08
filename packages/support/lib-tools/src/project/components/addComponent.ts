@@ -1,22 +1,27 @@
+import { ComponentInstance } from '@noodles-ui/core-types';
+
 import { logMessage } from '../../cli/logger/logMessage';
-import { ComponentContext, ProjectContext } from '../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
-export const addComponent = (project: ProjectContext, context: ComponentContext): void => {
+export const addComponent = (
+    project: ProjectContext,
+    context: ComponentContextWithInstance,
+): ComponentInstance | undefined => {
     const { items } = project.components;
-    const { resource, instance: component } = context;
+    const { resource, instance } = context;
 
-    if (!component) {
+    if (!instance) {
         project.addDiagnostic(resource, 'No instance generated.');
         return;
     }
 
-    if (!component.name) {
+    if (!instance.name) {
         project.addDiagnostic(resource, 'No component name.');
         return;
     }
 
-    const key = getResourceKey(component);
+    const key = getResourceKey(instance);
     if (context.public) {
         const previous = items.get(key);
         if (previous) {
@@ -46,4 +51,6 @@ export const addComponent = (project: ProjectContext, context: ComponentContext)
     }
     logMessage('+ component', key);
     items.set(key, context);
+
+    return instance;
 };

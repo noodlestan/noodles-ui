@@ -1,38 +1,47 @@
-import { ComponentOwnResource, LocalPropResource } from '@noodles-ui/core-types';
+import {
+    ComponentOwnResource,
+    LocalPropResource,
+    PropInstance,
+    PropOwnResource,
+} from '@noodles-ui/core-types';
 
 import { ComponentContext, ProjectContext } from '../../../../types/projects';
-import { isVariantExtendResource } from '../../../variants/isVariantExtendResource';
+import { isVariantInline } from '../../../variants/isVariantInline';
+import { isVariantInlineExtendResource } from '../../../variants/isVariantInlineExtendResource';
 import { isVariantInlineReferenceResource } from '../../../variants/isVariantInlineReferenceResource';
-import { isPropVariant } from '../isVariantProp';
 
 import { loadReferenceProp } from './loadReferenceProp';
-import { loadVariantProp } from './loadVariantProp';
+import { loadVariantExtendProp } from './loadVariantExtendProp';
+import { loadVariantInlineProp } from './loadVariantInlineProp';
 
 export const loadComponentProp = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
+    key: string,
     prop: LocalPropResource,
-): LocalPropResource | undefined => {
-    const variant = isPropVariant(prop);
+): PropInstance | undefined => {
+    const variant = isVariantInline(prop);
     if (variant) {
-        return loadVariantProp(project, context, component, variant);
+        return loadVariantInlineProp(project, context, component, key, variant);
     }
 
-    const variantExtends = isVariantExtendResource(prop);
+    const variantExtends = isVariantInlineExtendResource(prop);
     if (variantExtends) {
-        // TODO make this type more restrictive
-        // at the loading props stage things are already resolved
-        // the code already works like that but this exception remains
-        // until the stricter typing (exclude VariantInlineExtend)
-        // is removed
-        project.addDiagnostic(component, 'Unexpected unresolved variant extension');
+        return loadVariantExtendProp(project, context, component, key, variantExtends);
     }
 
     const variantReference = isVariantInlineReferenceResource(prop);
     if (variantReference) {
-        return loadReferenceProp(project, context, component, variantReference);
+        return loadReferenceProp(project, context, component, key, variantReference);
     }
 
-    return prop;
+    const { type = 'prop', name = key, module = component.module } = prop as PropOwnResource;
+
+    return {
+        ...prop,
+        type,
+        name,
+        module,
+    };
 };

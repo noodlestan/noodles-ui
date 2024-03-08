@@ -83,6 +83,7 @@ export const logProjectDiagnostic = (
     if (diagnostic.data) {
         const data = diagnostic.data as { [key: string]: unknown };
         for (const key in data) {
+            // NOTE: key can be something like "eslintOptions"
             if (shouldExpand(project, key)) {
                 logMessage('details:' + key, data[key] || '');
             }

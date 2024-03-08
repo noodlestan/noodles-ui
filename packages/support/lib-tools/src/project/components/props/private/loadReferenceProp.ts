@@ -1,8 +1,8 @@
 import {
     ComponentOwnResource,
-    ComponentResource,
-    LocalPropResource,
+    PropVariantReference,
     VariantInlineReferenceResource,
+    VariantInstance,
     VariantResource,
 } from '@noodles-ui/core-types';
 
@@ -15,15 +15,32 @@ export const loadReferenceProp = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
+    key: string,
     variantReference: VariantInlineReferenceResource,
-): LocalPropResource => {
-    const newContext = newContextResourceWithConsumer<VariantResource, ComponentResource>(
+): PropVariantReference | undefined => {
+    const newResource = structuredClone(variantReference.reference);
+    const newContext = newContextResourceWithConsumer<VariantResource, VariantInstance>(
         context,
-        variantReference.reference,
+        newResource,
         component,
     );
-    loadVariant(project, newContext);
+
+    const variant = loadVariant(project, newContext);
+    if (!variant) {
+        project.addDiagnostic(
+            component,
+            `Could not load prop "${key}" because variant resolution failed.`,
+        );
+        return;
+    }
+
     context.consumes.add(getResourceTypedKey(variantReference));
 
-    return variantReference;
+    return {
+        type: 'prop',
+        name: key,
+        module: variant.module,
+        defaultValue: variantReference.defaultValue || variant.defaultValue,
+        reference: variant,
+    };
 };

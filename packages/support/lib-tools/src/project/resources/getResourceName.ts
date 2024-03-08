@@ -6,13 +6,11 @@ import {
     UnknownResource,
 } from '../../types/resources';
 
-import { getExtendedResource } from './getExtendedResource';
-
 export const getResourceName = (resource: UnknownResource): string => {
     const { name } = resource as Resource<string>;
     const { extend } = resource as UnknownExtendResource;
     if (extend) {
-        return name ?? getResourceName(getExtendedResource(extend));
+        return name ?? getResourceName(extend);
     }
     const { reference } = resource as UnknownReferenceResource;
     if (reference) {

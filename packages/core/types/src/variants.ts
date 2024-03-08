@@ -1,15 +1,18 @@
-import { ExtendParams } from './primitives/params';
-import { ExtendWithParams } from './primitives/utils';
+import { MixinInlineResource } from './mixins';
+import { Value } from './primitives/params';
 import { Resource } from './resource';
 import { TokenResource } from './tokens';
 
+export type VariantVars = {
+    [key: string]: string | string[];
+};
+
 export type VariantOwnResource = Resource<'variant'> & {
     composable?: boolean;
+    mixin?: MixinInlineResource;
     options?: string[];
-    defaultOption?: string;
-    vars?: {
-        [key: string]: string[];
-    };
+    defaultValue?: Value;
+    vars?: VariantVars;
     params?: string[];
     variable?: string;
     surface?: boolean;
@@ -23,11 +26,16 @@ export type VariantOverrides = Partial<Omit<VariantOwnResource, 'type'>> & {
 export type VariantExtendResource = VariantOverrides & {
     module: string;
     name: string;
-    extend: ExtendWithParams<VariantResource, ExtendParams>;
+    extend: VariantResource;
 };
 
 export type VariantInlineResource = Omit<VariantOwnResource, 'module'>;
 export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module'>;
-export type VariantInlineReferenceResource = { reference: VariantResource };
+export type VariantInlineReferenceResource = { reference: VariantResource; defaultValue?: Value };
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;
+export type VariantInstance = Omit<VariantOwnResource, 'params' | 'composable' | 'vars'> & {
+    vars: VariantVars;
+};
+
+export type VariantReference = { reference: VariantInstance };

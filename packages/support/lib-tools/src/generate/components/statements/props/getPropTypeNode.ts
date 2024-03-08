@@ -1,18 +1,19 @@
-import { ComponentResource, LocalPropResource } from '@noodles-ui/core-types';
+import { PropInstance } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
-import { isPropVariant } from '../../../../project/components/props/isVariantProp';
-import { ProjectContext, WithInstance } from '../../../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '../../../../types/projects';
 
-export const factory = ts.factory;
+import { isPropVariantInstance } from './isPropVariantInstance';
+import { isPropVariantReference } from './isPropVariantReference';
+
+const factory = ts.factory;
 
 export const getPropTypeNode = (
     project: ProjectContext,
-    component: WithInstance<ComponentResource>,
-    name: string,
-    prop: LocalPropResource,
+    component: ComponentContextWithInstance,
+    prop: PropInstance,
 ): ts.TypeNode | undefined => {
-    if (name === 'children') {
+    if (prop.name === 'children') {
         return factory.createTypeReferenceNode(
             factory.createQualifiedName(
                 factory.createIdentifier('JSX'),
@@ -21,13 +22,28 @@ export const getPropTypeNode = (
             undefined,
         );
     }
-    const variant = isPropVariant(prop);
-    if (variant) {
-        if (!variant.name) {
-            project.addDiagnostic(component.instance, `Unnamed variant at prop ${name}.`);
+    const propVariant = isPropVariantInstance(prop);
+    if (propVariant) {
+        if (!propVariant.variant.name) {
+            project.addDiagnostic(component.instance, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
-        return factory.createTypeReferenceNode(factory.createIdentifier(variant.name), undefined);
+        return factory.createTypeReferenceNode(
+            factory.createIdentifier(propVariant.variant.name),
+            undefined,
+        );
+    }
+
+    const propReference = isPropVariantReference(prop);
+    if (propReference) {
+        if (!propReference.reference.name) {
+            project.addDiagnostic(component.instance, `Unnamed variant at prop ${prop.name}.`);
+            return;
+        }
+        return factory.createTypeReferenceNode(
+            factory.createIdentifier(propReference.reference.name),
+            undefined,
+        );
     }
     return factory.createLiteralTypeNode(factory.createStringLiteral('string'));
 };

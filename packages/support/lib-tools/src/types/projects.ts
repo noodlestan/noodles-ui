@@ -1,24 +1,26 @@
 import {
+    ComponentInstance,
     ComponentResource,
     SurfaceResource,
     ThemeResource,
     TokenResource,
+    VariantInstance,
     VariantResource,
 } from '@noodles-ui/core-types';
 
 import { BuildContext } from './program';
 import { UnknownResource } from './resources';
 
-export type ItemContext<T> = {
+export type ItemContext<T, P = T> = {
     resource: T;
     public: boolean;
     consumes: Set<string>;
     consumers: Set<string>;
-    instance?: T;
+    instance?: P;
 };
 
-export type WithInstance<T> = ItemContext<T> & {
-    instance: T;
+export type ItemContextWithInstance<T, P = T> = ItemContext<T, P> & {
+    instance: P;
 };
 
 export type SurfaceContext = ItemContext<SurfaceResource>;
@@ -33,13 +35,18 @@ export type ThemesContext = {
     items: Map<string, ThemeContext>;
 };
 
-export type ComponentContext = ItemContext<ComponentResource>;
+export type ComponentContext = ItemContext<ComponentResource, ComponentInstance>;
+export type ComponentContextWithInstance = ItemContextWithInstance<
+    ComponentResource,
+    ComponentInstance
+>;
 
 export type ComponentsContext = {
     items: Map<string, ComponentContext>;
 };
 
-export type VariantContext = ItemContext<VariantResource>;
+export type VariantContext = ItemContext<VariantResource, VariantInstance>;
+export type VariantContextWithInstance = ItemContextWithInstance<VariantResource, VariantInstance>;
 
 export type VariantsContext = {
     items: Map<string, VariantContext>;

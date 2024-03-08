@@ -1,13 +1,14 @@
-import { ComponentGeneratedResource, ComponentResource } from '@noodles-ui/core-types';
+import { ComponentOwnInstance } from '@noodles-ui/core-types';
 import ts, { JsxAttributeLike } from 'typescript';
 
 import { logInfo } from '../../../cli/logger/logInfo';
-import { WithInstance } from '../../../types/projects';
+import { ComponentContextWithInstance } from '../../../types/projects';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
+import { componentDefaultsStatements } from './body/componentDefaultsStatements';
 import { componentRenderStatement } from './body/componentRenderStatement';
 
-export const factory = ts.factory;
+const factory = ts.factory;
 
 const componentArrowFunction = (statements: ts.Statement[]): ts.Expression => {
     return factory.createArrowFunction(
@@ -40,13 +41,14 @@ const expressionCallProp = (propName: string): ts.JsxAttribute => {
 };
 
 const getPropsForRenderedComponent = (
-    component: WithInstance<ComponentResource>,
+    component: ComponentContextWithInstance,
 ): JsxAttributeLike[] => {
+    const { resource, instance } = component;
     // TODO resolve props for rendered component
-    for (const key in component.resource.props) {
+    for (const key in resource.props) {
         logInfo('getPropsForRenderedComponent()', key);
     }
-    for (const key in component.instance.props) {
+    for (const key in instance.props) {
         logInfo('getPropsForRenderedComponent()', key);
     }
 
@@ -55,16 +57,16 @@ const getPropsForRenderedComponent = (
     return [classListProp];
 };
 
-export const exportComponent = (component: WithInstance<ComponentResource>): ts.Statement => {
-    const { instance } = component;
+export const exportComponent = (component: ComponentContextWithInstance): ts.Statement => {
+    const instance = component.instance as ComponentOwnInstance;
     const name = instance.name || '';
     const parentProps = getPropsForRenderedComponent(component);
-    const renderStatement = componentRenderStatement(
-        instance as ComponentGeneratedResource,
-        parentProps,
-    );
-    const classListStatement = componentClassListStatement(instance as ComponentGeneratedResource);
-    const statements: ts.Statement[] = [classListStatement, renderStatement];
+
+    const defaultsStatements = componentDefaultsStatements(instance);
+    const classListStatement = componentClassListStatement(instance);
+    const renderStatement = componentRenderStatement(instance, parentProps);
+
+    const statements: ts.Statement[] = [...defaultsStatements, classListStatement, renderStatement];
     const componentDeclaration = factory.createVariableDeclaration(
         factory.createIdentifier(name),
         undefined,
