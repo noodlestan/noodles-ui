@@ -18,14 +18,14 @@ See each package's README for more details.
 
 ### Core packages
 
-- [Types](./packages/core/services/README.md) - For modeling design systems
+- [Types](./packages/core/types/README.md) - For modeling design systems
 - [Services](./packages/core/services/README.md) - Core services and providers
 - [Unstyled](./packages/core/unstyled/README.md) - Headless (unstyled) components and primitives
 - [Styled](./packages/core/styled/README.md) - Styling components and primitives
 
 ### UI libraries
 
-- [Sandbox UI Library](./packages/libs/sandbox-ui/README.md) - Production ready UI library with a token based, fully costumisable, modern design
+- [Sandbox UI Library](./packages/libs/sandbox-ui/README.md) - Noodles UI experimenation sandbox library
 - [Standard UI Library](./packages/libs/standard-ui/README.md) - Production ready UI library with a token based, fully costumisable, modern design
 - [Proto UI Library](./packages/libs/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel

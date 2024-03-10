@@ -6,6 +6,7 @@ import { generateComponents } from '../generate/components/generateComponents';
 import { generateComponentsList } from '../generate/components/generateComponentsList';
 import { generateVariants } from '../generate/variants/generateVariants';
 import { createProject } from '../project/createProject';
+import { ensureGeneratedDir } from '../project/ensureGeneratedDir';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
 import { ProjectContext } from '../types/projects';
 
@@ -54,6 +55,7 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
             logError(`Skipping code generation`);
         } else {
             logInfo(`Generating code`);
+            await ensureGeneratedDir(project);
             await generateComponentsList(project);
             await generateComponents(project);
             await generateVariants(project);

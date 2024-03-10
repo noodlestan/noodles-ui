@@ -6,7 +6,7 @@ export const AccordionResource: ComponentImportResource = {
     name: 'Accordion',
     alias: 'KobAccordion',
     docs: 'https://kobalte.dev/docs/core/components/accordion',
-    expose: [
+    parts: [
         {
             name: 'Accordion.Root',
         },

@@ -20,7 +20,7 @@
     "lint": "prettier . -c && eslint .",
     "lint:silent": "prettier . -c --log-level silent && eslint .",
     "test": "vitest --run --coverage",
-    "ci": "npm run ci:core && npm run ci:support && npm run ci:catalog && npm run ci:libs && npm run ci:sandbox",
+    "ci": "npm run ci:core:types && npm run ci:support && npm run ci:core && npm run ci:catalog && npm run ci:libs && npm run ci:sandbox",
     "ci:core": "npm run ci:core:services && npm run ci:core:unstyled && npm run ci:core:styled",
     "ci:core:types": "npm run --prefix packages/core/types ci",
     "ci:core:services": "npm run --prefix packages/core/services ci",
