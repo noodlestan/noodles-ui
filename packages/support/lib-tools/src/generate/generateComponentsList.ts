@@ -3,17 +3,17 @@ import { dirname, relative } from 'path';
 
 import { ComponentResource } from '@noodles-ui/core-types';
 
-import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
-import { logError } from '../../cli/logger/logError';
-import { logSuccess } from '../../cli/logger/logSuccess';
-import { ComponentContext, ProjectContext } from '../../types/projects';
-import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
-import { removeExtension } from '../files/removeExtension';
-import { tsFileHeader } from '../typescript/tsFileHeader';
+import { formatFileNameRelativeToProject } from '../cli/format/formatFileNameRelativeToProject';
+import { logError } from '../cli/logger/logError';
+import { logSuccess } from '../cli/logger/logSuccess';
+import { ComponentContext, ProjectContext } from '../types/projects';
 
-import { componentGeneratedFileName } from './paths/componentGeneratedFileName';
-import { componentListFileName } from './paths/componentListFileName';
-import { componentPublicFileName } from './paths/componentPublicFileName';
+import { componentGeneratedFileName } from './components/paths/componentGeneratedFileName';
+import { componentListFileName } from './components/paths/componentListFileName';
+import { componentPublicFileName } from './components/paths/componentPublicFileName';
+import { formatTypescriptFile } from './eslint/formatTypescriptFile';
+import { removeExtension } from './files/removeExtension';
+import { tsFileHeader } from './typescript/tsFileHeader';
 
 const generateComponentLine = (
     project: ProjectContext,

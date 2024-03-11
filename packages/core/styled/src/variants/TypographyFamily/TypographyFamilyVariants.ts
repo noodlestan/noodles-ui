@@ -4,7 +4,6 @@ export const TypographyFamilyVariants: VariantOwnResource = {
     type: 'variant',
     name: 'ComposableTypeVariant',
     module: '@noodles-ui/core-styled',
-    composable: true,
     mixin: {
         name: 'TypographyFamilyVariants',
         role: 'scss:variant',

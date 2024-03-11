@@ -4,7 +4,6 @@ export const FgColor: VariantOwnResource = {
     type: 'variant',
     name: 'FgColor',
     module: '@noodles-ui/core-styled',
-    composable: true,
     options: ['default'],
     defaultValue: 'default',
     params: ['group'],

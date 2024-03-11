@@ -12,6 +12,8 @@ const tag: VariantInlineResource = {
 };
 
 const children: PropInlineResource = {};
+const classList: PropInlineResource = {};
+const style: PropInlineResource = {};
 
 export const TextResource: ComponentImportResource = {
     type: 'component',
@@ -23,6 +25,8 @@ export const TextResource: ComponentImportResource = {
             props: {
                 tag,
                 children,
+                classList,
+                style,
             },
         },
     ],

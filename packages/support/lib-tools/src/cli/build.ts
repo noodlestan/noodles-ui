@@ -2,9 +2,9 @@ import { resolve } from 'path';
 
 import figlet from 'figlet';
 
-import { generateComponents } from '../generate/components/generateComponents';
-import { generateComponentsList } from '../generate/components/generateComponentsList';
-import { generateVariants } from '../generate/variants/generateVariants';
+import { generateComponents } from '../generate/generateComponents';
+import { generateComponentsList } from '../generate/generateComponentsList';
+import { generateVariants } from '../generate/generateVariants';
 import { createProject } from '../project/createProject';
 import { ensureGeneratedDir } from '../project/ensureGeneratedDir';
 import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';

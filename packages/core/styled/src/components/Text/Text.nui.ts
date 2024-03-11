@@ -24,5 +24,4 @@ export const TextResource: ComponentOwnResource = {
         name: 'Text',
         from: TextUnstyledResource,
     },
-    hides: {},
 };

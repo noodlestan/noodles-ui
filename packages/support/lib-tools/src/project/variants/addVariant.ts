@@ -21,6 +21,11 @@ export const addVariant = (
         return;
     }
 
+    if (!instance.module) {
+        project.addDiagnostic(resource, 'Empty module name');
+        return;
+    }
+
     const key = getResourceKey(instance);
     const previous = items.get(key);
     if (previous) {

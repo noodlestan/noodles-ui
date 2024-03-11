@@ -70,7 +70,6 @@ const loadInlineVariant = (
     const instance = {
         ...structuredClone(inlineVariant),
         type: 'variant',
-        module: '',
     } as VariantInstance;
 
     return addVariant(project, { ...context, instance });

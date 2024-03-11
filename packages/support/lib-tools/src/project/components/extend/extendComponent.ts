@@ -7,6 +7,7 @@ import {
 
 import { ComponentContext, ProjectContext } from '../../../types/projects';
 
+import { getRenderedProps } from './private/getRenderedProps';
 import { mergeProps } from './private/mergeProps';
 
 export type Props = {
@@ -27,10 +28,12 @@ export const extendComponent = (
         return;
     }
 
-    const actualProps = mergeProps(project, context, component, parent.props);
-    const actualUses = (parent.use || []).concat(use || []);
-
     const render = parent.render;
+    const renderedProps = getRenderedProps(parent);
+    const parentProps = { ...renderedProps, ...parent.props };
+
+    const actualProps = mergeProps(project, context, component, parentProps);
+    const actualUses = (parent.use || []).concat(use || []);
 
     return {
         name: actualName,

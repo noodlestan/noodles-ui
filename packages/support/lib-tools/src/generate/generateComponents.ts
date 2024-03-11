@@ -1,6 +1,6 @@
-import { ComponentContextWithInstance, ProjectContext } from '../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '../types/projects';
 
-import { generateComponent } from './component/generateComponent';
+import { generateComponent } from './components/component/generateComponent';
 
 export const generateComponents = async (project: ProjectContext): Promise<void> => {
     const promises = Array.from(project.components.items.entries())

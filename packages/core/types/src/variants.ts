@@ -8,7 +8,6 @@ export type VariantVars = {
 };
 
 export type VariantOwnResource = Resource<'variant'> & {
-    composable?: boolean;
     mixin?: MixinInlineResource;
     options?: string[];
     defaultValue?: Value;

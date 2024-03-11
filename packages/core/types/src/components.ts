@@ -31,7 +31,7 @@ export type ComponentOwnResource = Resource<'component'> & {
     use?: MixinResource[];
     hides?: {
         [name: string]: {
-            value: Value;
+            value?: Value;
         };
     };
     exposes?: '*' | string[];
@@ -47,10 +47,6 @@ export type ComponentOwnResource = Resource<'component'> & {
         [name: string]: LocalPropOverrides;
     };
     render: RenderedComponentResource;
-};
-
-export type ComponentGeneratedResource = ComponentOwnResource & {
-    generated: true;
 };
 
 export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name' | 'render'> & {
@@ -73,7 +69,6 @@ export type ComponentImportResource = Omit<ComponentOwnResource, 'render'> & {
 
 export type ComponentResource =
     | ComponentOwnResource
-    | ComponentGeneratedResource
     | ComponentImportResource
     | ComponentExtendResource;
 

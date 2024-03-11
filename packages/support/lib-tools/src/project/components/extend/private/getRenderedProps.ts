@@ -4,8 +4,8 @@ import { Props } from '../extendComponent';
 
 import { getRenderedPart } from './getRenderedPart';
 
-export const getRenderedProps = (parent: ComponentOwnInstance): Props => {
-    const part = getRenderedPart(parent);
+export const getRenderedProps = (component: ComponentOwnInstance): Props => {
+    const part = getRenderedPart(component);
 
     return part?.props || {};
 };

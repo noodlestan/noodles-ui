@@ -1,10 +1,10 @@
-import { ComponentOwnInstance, RenderedComponentResource } from '@noodles-ui/core-types';
+import { ComponentOwnInstance } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
 import { ComponentContextWithInstance, ProjectContext } from '../../../../types/projects';
+import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
 
 import { getComponentPropsSignatures } from './props/getComponentPropsSignatures';
-import { renderedComponentAlias } from './util/renderedComponentAlias';
 
 const factory = ts.factory;
 
@@ -13,13 +13,10 @@ export const exportComponentProps = (
     component: ComponentContextWithInstance,
 ): ts.TypeAliasDeclaration => {
     const instance = component.instance as ComponentOwnInstance;
-    const rendered = instance.render as RenderedComponentResource;
 
     const name = instance.name || '';
-    const alias = renderedComponentAlias(rendered);
-    const extendedPropsType = alias + 'Props';
     const inheritedType = factory.createTypeReferenceNode(
-        factory.createIdentifier(extendedPropsType),
+        factory.createIdentifier(NUI_RENDERED_PROPS_NAME),
         undefined,
     );
 

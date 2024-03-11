@@ -33,7 +33,10 @@ import { ComponentExtendResource } from '@noodles-ui/core-types';
 export const TextResource: ComponentExtendResource = {
     module: '@noodles-ui/sandbox-ui',
     extend: TextStyledResource,
-    exposes: '*',
+    hides: {
+        classList: {},
+        style: {},
+    },
     overrides: {
         variant: {
             name: 'TextVariant',
