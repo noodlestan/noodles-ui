@@ -1,5 +1,5 @@
 import { ProgramModuleContext } from '../../types/program';
-import { formatFileName } from '../format/formatFileName';
+import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logMessage } from '../logger/logMessage';
 
 export const logFilenameMessage = (
@@ -7,5 +7,5 @@ export const logFilenameMessage = (
     message: string,
     filename: string,
 ): void => {
-    logMessage(message, formatFileName(modules, filename, true));
+    logMessage(message, formatFileNameRelativeToProject(modules, filename, true));
 };

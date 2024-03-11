@@ -51,7 +51,7 @@ export type ComponentOwnResource = Resource<'component'> & {
 
 export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name' | 'render'> & {
     name?: string;
-    extend: ComponentResource;
+    extend: ComponentOwnResource | ComponentExtendResource;
 };
 
 export type ComponentImportPartResource = Omit<

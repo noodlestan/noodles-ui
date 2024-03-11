@@ -4,14 +4,13 @@ import {
     VariantInlineResource,
 } from '@noodles-ui/core-types';
 
+const children: PropInlineResource = {};
 const tag: VariantInlineResource = {
     type: 'variant',
     name: 'TextTag',
     options: ['p'],
     defaultValue: 'p',
 };
-
-const children: PropInlineResource = {};
 const classList: PropInlineResource = {};
 const style: PropInlineResource = {};
 
@@ -23,8 +22,8 @@ export const TextResource: ComponentImportResource = {
         {
             name: 'Text',
             props: {
-                tag,
                 children,
+                tag,
                 classList,
                 style,
             },

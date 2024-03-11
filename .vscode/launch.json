@@ -12,6 +12,15 @@
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
       "cwd": "${workspaceFolder}/packages/libs/sandbox-ui"
+    },
+    {
+      "name": "Sandbox UI / dev:nui",
+      "request": "launch",
+      "runtimeArgs": ["run", "dev:nui"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "cwd": "${workspaceFolder}/packages/libs/sandbox-ui"
     }
   ]
 }

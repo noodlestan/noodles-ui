@@ -4,14 +4,15 @@ import {
     VariantInlineResource,
 } from '@noodles-ui/core-types';
 
+const children: PropInlineResource = {};
 const tag: VariantInlineResource = {
     type: 'variant',
     name: 'HeadingTag',
     options: ['h1', 'h2', 'h3', 'h4', 'p', 'span'],
-    defaultValue: 'p',
+    defaultValue: 'h1',
 };
-
-const children: PropInlineResource = {};
+const classList: PropInlineResource = {};
+const style: PropInlineResource = {};
 
 export const HeadingResource: ComponentImportResource = {
     type: 'component',
@@ -21,8 +22,10 @@ export const HeadingResource: ComponentImportResource = {
         {
             name: 'Heading',
             props: {
-                tag,
                 children,
+                tag,
+                classList,
+                style,
             },
         },
     ],

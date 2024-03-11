@@ -28,11 +28,12 @@ export const addVariant = (
 
     const key = getResourceKey(instance);
     const previous = items.get(key);
+
     if (previous) {
         context.consumers.forEach(consumer => previous.consumers.add(consumer));
         // // TODO compare options/params/etc... and issue error if different
         // project.addDiagnostic(resource, `Duplicate variant key "${key}".`);
-        return;
+        return previous.instance;
     }
 
     logMessage('+ variant', key);

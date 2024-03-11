@@ -1,17 +1,23 @@
 import { HeadingResource as HeadingStyledResource } from '@noodles-ui/core-styled';
-import { ComponentResource, VariantInlineResource } from '@noodles-ui/core-types';
-
-const variant: VariantInlineResource = {
-    type: 'variant',
-    name: 'SomeOtherHeadingIdentifier',
-    options: ['large', 'small'],
-    defaultValue: 'large',
-};
+import { ComponentResource } from '@noodles-ui/core-types';
 
 export const HeadingResource: ComponentResource = {
     module: '@noodles-ui/sandbox-ui',
     extend: HeadingStyledResource,
-    replaces: {
-        variant,
+    hides: {
+        classList: {},
+        style: {},
+    },
+    overrides: {
+        variant: {
+            name: 'HeadingVariant',
+            options: ['large', 'small'],
+            vars: { family: 'heading' },
+            defaultValue: 'large',
+        },
+        tag: {
+            name: 'HeadingTag',
+            options: ['h1', 'h2', 'h3'],
+        },
     },
 };
