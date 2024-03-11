@@ -2,7 +2,7 @@ import { ProjectResource, VariantInstance, VariantResource } from '@noodles-ui/c
 
 import { logMessage } from '../../cli/logger/logMessage';
 import { ProjectContext } from '../../types/projects';
-import { newPublicItemContext } from '../context/newPublicItemContext';
+import { newContextPublicResource } from '../context/newContextPublicResource';
 
 import { loadVariant } from './loadVariant';
 
@@ -11,7 +11,7 @@ export const loadVariants = (project: ProjectContext, projectResource: ProjectRe
         logMessage('! no variants loaded');
     }
     projectResource.variants.forEach(variant => {
-        const context = newPublicItemContext<VariantResource, VariantInstance>(variant);
+        const context = newContextPublicResource<VariantResource, VariantInstance>(variant);
         loadVariant(project, context);
     });
 };

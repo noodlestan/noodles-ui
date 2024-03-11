@@ -1,7 +1,7 @@
 import { ComponentOwnResource, RenderedComponentResource } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
-import { ComponentContextWithInstance } from '../../../types/projects';
+import { ComponentContextWithInstance } from '../../../../types/projects';
 
 import { renderedComponentAlias } from './util/renderedComponentAlias';
 

@@ -1,6 +1,6 @@
 import { ComponentInstance, PropInstance } from '@noodles-ui/core-types';
 
-import { camelCase } from '../../../../util/string';
+import { camelCase } from '../../../../../util/string';
 
 import { isPropVariantInstance } from './isPropVariantInstance';
 import { isPropVariantReference } from './isPropVariantReference';

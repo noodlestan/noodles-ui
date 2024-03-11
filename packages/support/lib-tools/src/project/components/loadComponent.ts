@@ -17,7 +17,7 @@ import { extendComponent } from './extend/extendComponent';
 import { extendRenderedComponent } from './extend/extendRenderedComponent';
 import { isComponentExtendResource } from './extend/isComponentExtendResource';
 import { isComponentImportResource } from './extend/isComponentImportResource';
-import { isComponentRendersResource } from './extend/isComponentRendersResource';
+import { isComponentOwnResource } from './extend/isComponentOwnResource';
 import { getRenderedPart } from './extend/private/getRenderedPart';
 import { loadComponentProps } from './props/loadComponentProps';
 
@@ -25,12 +25,10 @@ const loadRenderedComponent = (
     project: ProjectContext,
     context: ComponentContext,
     parent: ComponentResource,
-    component: ComponentResource,
 ): ComponentImportInstance | undefined => {
     const newContext = newContextResourceWithConsumer<ComponentResource, ComponentInstance>(
         context,
         parent,
-        component,
     );
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return loadComponent(project, newContext) as ComponentImportInstance;
@@ -40,12 +38,10 @@ const loadParentComponent = (
     project: ProjectContext,
     context: ComponentContext,
     parent: ComponentResource,
-    component: ComponentResource,
 ): ComponentOwnInstance | undefined => {
     const newContext = newContextResourceWithConsumer<ComponentResource, ComponentInstance>(
         context,
         parent,
-        component,
     );
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return loadComponent(project, newContext) as ComponentOwnInstance;
@@ -98,7 +94,7 @@ const loadComponentRenders = (
     component: ComponentOwnResource,
 ): ComponentOwnInstance | undefined => {
     const { from: parent, name } = component.render;
-    const loadedParent = loadRenderedComponent(project, context, parent, component);
+    const loadedParent = loadRenderedComponent(project, context, parent);
     if (!loadedParent) {
         project.addDiagnostic(
             component,
@@ -106,7 +102,7 @@ const loadComponentRenders = (
         );
         return;
     }
-    const part = getRenderedPart(project, context, component, loadedParent);
+    const part = getRenderedPart(component, loadedParent);
     if (!part) {
         project.addDiagnostic(
             component,
@@ -127,7 +123,7 @@ const loadComponentExtend = (
     context: ComponentContext,
     component: ComponentExtendResource,
 ): ComponentOwnInstance | undefined => {
-    const loadedParent = loadParentComponent(project, context, component.extend, component);
+    const loadedParent = loadParentComponent(project, context, component.extend);
     if (!loadedParent) {
         project.addDiagnostic(
             component,
@@ -159,9 +155,9 @@ export const loadComponent = (
 ): ComponentInstance | undefined => {
     const { resource } = context;
 
-    const componentRenders = isComponentRendersResource(resource);
-    if (componentRenders) {
-        return loadComponentRenders(project, context, componentRenders);
+    const component = isComponentOwnResource(resource);
+    if (component) {
+        return loadComponentRenders(project, context, component);
     }
 
     const componentExtend = isComponentExtendResource(resource);

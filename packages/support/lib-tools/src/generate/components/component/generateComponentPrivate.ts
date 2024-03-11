@@ -1,15 +1,15 @@
 import { writeFile } from 'fs/promises';
 
-import { formatFileNameRelativeToProject } from '../../cli/format/formatFileNameRelativeToProject';
-import { logError } from '../../cli/logger/logError';
-import { logSuccess } from '../../cli/logger/logSuccess';
-import { ComponentContextWithInstance, ProjectContext } from '../../types/projects';
-import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
-import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
-import { printTypescriptStatements } from '../typescript/printTypescriptStatements';
-import { tsFileHeader } from '../typescript/tsFileHeader';
+import { formatFileNameRelativeToProject } from '../../../cli/format/formatFileNameRelativeToProject';
+import { logError } from '../../../cli/logger/logError';
+import { logSuccess } from '../../../cli/logger/logSuccess';
+import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
+import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
+import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
+import { printTypescriptStatements } from '../../typescript/printTypescriptStatements';
+import { tsFileHeader } from '../../typescript/tsFileHeader';
+import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';
 
-import { componentGeneratedFileName } from './paths/componentGeneratedFileName';
 import { exportComponent } from './statements/exportComponent';
 import { exportComponentProps } from './statements/exportComponentProps';
 import { exportDefaultValues } from './statements/exportDefaultValues';

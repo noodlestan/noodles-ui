@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { ComponentContextWithInstance, ProjectContext } from '../../../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '../../../../../types/projects';
 
 import { getPropTypeNode } from './getPropTypeNode';
 

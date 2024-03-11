@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { ComponentContextWithInstance } from '../../../types/projects';
+import { ComponentContextWithInstance } from '../../../../types/projects';
 
 import { getPropVariantName } from './props/getPropVariantName';
 import { getVariantProps } from './props/getVariantProps';

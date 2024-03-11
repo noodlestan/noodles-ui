@@ -4,11 +4,7 @@ import {
     ComponentOwnResource,
 } from '@noodles-ui/core-types';
 
-import { ComponentContext, ProjectContext } from '../../../../types/projects';
-
 export const getRenderedPart = (
-    project: ProjectContext,
-    context: ComponentContext,
     component: ComponentOwnResource,
     rendered?: ComponentImportResource,
 ): ComponentImportPartResource | undefined => {

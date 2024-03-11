@@ -19,7 +19,7 @@ export type ItemContext<T, P = T> = {
     instance?: P;
 };
 
-export type ItemContextWithInstance<T, P = T> = ItemContext<T, P> & {
+export type ItemContextWithInstance<T, P = T> = Omit<ItemContext<T, P>, 'instance'> & {
     instance: P;
 };
 

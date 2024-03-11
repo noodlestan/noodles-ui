@@ -1,12 +1,13 @@
 import { ComponentOwnInstance } from '@noodles-ui/core-types';
-import ts, { JsxAttributeLike } from 'typescript';
+import ts, { JsxAttribute } from 'typescript';
 
-import { logInfo } from '../../../cli/logger/logInfo';
-import { ComponentContextWithInstance } from '../../../types/projects';
+import { getRenderedProps } from '../../../../project/components/extend/private/getRenderedProps';
+import { ComponentContextWithInstance } from '../../../../types/projects';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
 import { componentDefaultsStatements } from './body/componentDefaultsStatements';
 import { componentRenderStatement } from './body/componentRenderStatement';
+import { getPropsWithDefaultValues } from './props/getPropsWithDefaultValues';
 
 const factory = ts.factory;
 
@@ -40,31 +41,40 @@ const expressionCallProp = (propName: string): ts.JsxAttribute => {
     );
 };
 
-const getPropsForRenderedComponent = (
-    component: ComponentContextWithInstance,
-): JsxAttributeLike[] => {
-    const { resource, instance } = component;
-    // TODO resolve props for rendered component
-    for (const key in resource.props) {
-        logInfo('getPropsForRenderedComponent()', key);
-    }
-    for (const key in instance.props) {
-        logInfo('getPropsForRenderedComponent()', key);
-    }
+const getPropsForRenderedComponent = (component: ComponentContextWithInstance): JsxAttribute[] => {
+    const { instance } = component;
+    const renderedProps = getRenderedProps(instance as ComponentOwnInstance);
+    const propsWithDefaults = getPropsWithDefaultValues(instance);
+
+    const props = propsWithDefaults
+        .filter(prop => prop.name in renderedProps)
+        .map(prop =>
+            factory.createJsxAttribute(
+                factory.createIdentifier(prop.name),
+                factory.createJsxExpression(
+                    undefined,
+                    factory.createCallExpression(
+                        factory.createIdentifier(prop.name),
+                        undefined,
+                        [],
+                    ),
+                ),
+            ),
+        );
 
     const classListProp = expressionCallProp('classList');
 
-    return [classListProp];
+    return [classListProp, ...props];
 };
 
 export const exportComponent = (component: ComponentContextWithInstance): ts.Statement => {
     const instance = component.instance as ComponentOwnInstance;
     const name = instance.name || '';
-    const parentProps = getPropsForRenderedComponent(component);
+    const jsxProps = getPropsForRenderedComponent(component);
 
     const defaultsStatements = componentDefaultsStatements(instance);
     const classListStatement = componentClassListStatement(instance);
-    const renderStatement = componentRenderStatement(instance, parentProps);
+    const renderStatement = componentRenderStatement(instance, jsxProps);
 
     const statements: ts.Statement[] = [...defaultsStatements, classListStatement, renderStatement];
     const componentDeclaration = factory.createVariableDeclaration(

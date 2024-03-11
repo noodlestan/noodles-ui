@@ -22,7 +22,6 @@ export const loadReferenceProp = (
     const newContext = newContextResourceWithConsumer<VariantResource, VariantInstance>(
         context,
         newResource,
-        component,
     );
 
     const variant = loadVariant(project, newContext);

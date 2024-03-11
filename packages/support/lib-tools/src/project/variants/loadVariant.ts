@@ -23,7 +23,6 @@ const loadExtendedVariant = (
     const newContext = newContextResourceWithConsumer<VariantResource, VariantInstance>(
         context,
         extendVariant.extend,
-        extendVariant,
     );
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return loadVariant(project, newContext) as VariantInstance;
