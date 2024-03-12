@@ -80,6 +80,7 @@ export type ProjectContext = {
     build: BuildContext;
     diagnostics: ProjectDiagnostic[];
     addDiagnostic: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
+    compileProjectFile: () => Promise<void>;
     surfaces: SurfacesContext;
     themes: ThemesContext;
     components: ComponentsContext;

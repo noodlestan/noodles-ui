@@ -6,22 +6,25 @@ import { logSuccess } from '../logger/logSuccess';
 
 export const logBuildOutcome = (project: ProjectContext): void => {
     const { build } = project;
-    const { success, diagnostics } = build;
+    const { success, diagnostics = [] } = build;
 
     if (success) {
         logSuccess('TS build success');
         return;
     }
 
-    const files = diagnostics.reduce((acc, item) => {
+    const uniqueFiles = diagnostics.reduce((acc, item) => {
         if (item.file) {
             acc.add(item.file.fileName);
         }
         return acc;
     }, new Set<string>());
-    logError('TS build errors', `(${diagnostics.length} errors in ${files.size} files)`);
-    Array.from(files.values()).forEach(file =>
+    logError('TS build errors', `(${diagnostics.length} errors in ${uniqueFiles.size} files)`);
+    const files = Array.from(uniqueFiles.values());
+    files.forEach(file =>
         logMessage(' - ', formatFileNameRelativeToProject(project.build.modules, file, true)),
     );
-    console.info(' ');
+    if (files.length) {
+        console.info(' ');
+    }
 };

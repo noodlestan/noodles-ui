@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { describe, expect, test } from 'vitest';
 
 import { foo } from './foo';
 
@@ -7,8 +7,8 @@ import { foo } from './foo';
 // why? because 2024 and the ts-node / esm / mocha combination is still brittle
 // cound't get chai() to work, so using expect.js instead
 describe('foo()', () => {
-    describe('give input', () => {
-        it('returns expected output', () => {
+    describe('given input', () => {
+        test('returns expected output', () => {
             expect(foo('bar') === 3);
         });
     });

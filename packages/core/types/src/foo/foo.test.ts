@@ -7,7 +7,7 @@ import { foo } from './foo';
 // why? because 2024 and the ts-node / esm / mocha combination is still brittle
 // cound't get chai() to work, so using expect.js instead
 describe('foo()', () => {
-    describe('give input', () => {
+    describe('given input', () => {
         it('returns expected output', () => {
             expect(foo('bar') === 3);
         });

@@ -11,6 +11,12 @@ const tag: VariantInlineResource = {
     options: ['h1', 'h2', 'h3', 'h4', 'p', 'span'],
     defaultValue: 'h1',
 };
+const level: VariantInlineResource = {
+    type: 'variant',
+    name: 'HeadingLevel',
+    options: ['1', '2', '3', '4'],
+    defaultValue: '1',
+};
 const classList: PropInlineResource = {};
 const style: PropInlineResource = {};
 
@@ -22,8 +28,9 @@ export const HeadingResource: ComponentImportResource = {
         {
             name: 'Heading',
             props: {
-                children,
+                level,
                 tag,
+                children,
                 classList,
                 style,
             },

@@ -1,6 +1,6 @@
 # Noodles UI / lib tools
 
-> Utilities for building NoodlesUI design systems
+> Tools for building NoodlesUI design systems
 
 Early days. See [root README](../../../README.md) for an introduction.
 
@@ -8,10 +8,30 @@ Early days. See [root README](../../../README.md) for an introduction.
 
 CLI tool for library authors.
 
-Implements
+### Endpoints
 
-- `npm run dev:nui` - [watch.ts](./src/cli/watch.ts)
-- `npm run build:nui` - [build.ts](./src/cli/build.ts)
+#### `npm run build:nui`
+
+Single build
+
+- load project file
+- compiles project file
+- loads resources from project file
+- generates code TODO document generated artefacts
+
+Implemented by [build.ts](./src/cli/build.ts)
+
+#### `npm run dev:nui`
+
+Builds, watches, and launches the [lib-tools-app](../lib-tools-app/README.md) frontend.
+
+- Serves the `lib-tools-app` from http://localhost:3131/
+- Loads and compiles the project file
+- Spawns a child process to execute `build:nui`
+- Reloads watched files according to project modules
+- Forwards build status and outcome to the client app
+
+Implemented by [watch.ts](./src/cli/watch.ts)
 
 ### Types
 
@@ -29,19 +49,13 @@ Example: `ProjectContext`, `VariantsContext`, and `TokenContext`
 npm run dev
 ```
 
+Execute the tool by running `npm run dev:nui` or `npm run build:nui` in one of the UI libraries, for instance [Sandbox UI](../../libs/sandbox-ui/README.md).
+
 ## Building
 
 ```bash
 npm run build
 ```
-
-You can preview the build by running
-
-```bash
-npm run preview
-```
-
-#### Watch
 
 ## License
 

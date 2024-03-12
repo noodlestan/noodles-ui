@@ -8,5 +8,7 @@ export const logFilelist = (
     filenames: string[],
 ): void => {
     filenames.forEach(filename => logFilenameMessage(modules, prefix, filename));
-    console.info('');
+    if (filenames.length) {
+        console.info('');
+    }
 };

@@ -2,10 +2,11 @@ import { dirname } from 'path';
 
 import ts from 'typescript';
 
-import { formatFileName } from '../cli/format/formatFileName';
+import { formatFileNameRelativeToProject } from '../cli/format/formatFileNameRelativeToProject';
 import { logInfo } from '../cli/logger/logInfo';
 import { logMessage } from '../cli/logger/logMessage';
 import { findRootPath } from '../monorepo/findRootPath';
+import { BuildContext } from '../types/program';
 import {
     ComponentsContext,
     ProjectContext,
@@ -34,10 +35,8 @@ export const createProject = async (
     modules.set(PROJECT_MODULE_KEY, namedModule(PROJECT_NODULE_NAME, projectPath));
     logInfo('building project file...');
     logMessage('TS version:', ts.version);
-    logMessage('TS entry point:', formatFileName(modules, projectFile, true));
+    logMessage('TS entry point:', formatFileNameRelativeToProject(modules, projectFile, true));
     console.info('');
-
-    const build = await createProgram(projectFile, projectPath, rootPath);
 
     const diagnostics: ProjectDiagnostic[] = [];
 
@@ -47,7 +46,6 @@ export const createProject = async (
             source,
             data,
         });
-
     const themes: ThemesContext = { items: new Map() };
     const surfaces: SurfacesContext = { items: new Map() };
     const variants: VariantsContext = { items: new Map() };
@@ -57,9 +55,12 @@ export const createProject = async (
         projectFile,
         projectPath,
         rootPath,
-        build,
+        build: { timestamp: new Date(), files: [], modules: new Map() },
         diagnostics,
         addDiagnostic,
+        compileProjectFile: async () => {
+            project.build = await createProgram(projectFile, projectPath, rootPath);
+        },
         surfaces,
         themes,
         variants,

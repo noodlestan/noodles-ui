@@ -1,8 +1,7 @@
 import { SurfaceResource as SurfaceStyledResource } from '@noodles-ui/core-styled';
-import { ComponentResource } from '@noodles-ui/core-types';
+import { ComponentExtendResource } from '@noodles-ui/core-types';
 
-export const SurfaceResource: ComponentResource = {
-    type: 'component',
+export const SurfaceResource: ComponentExtendResource = {
     module: '@noodles-ui/sandbox-ui',
     extend: SurfaceStyledResource,
 };

@@ -2,17 +2,24 @@ import { join, resolve } from 'path';
 
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
-import figlet from 'figlet';
+import * as PubSub from 'pubsub-js';
 
+import {
+    EVENT_BUILD_FINISHED,
+    EVENT_BUILD_STARTED,
+    EVENT_REQUEST_BUILD,
+} from '../events/constants';
+import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
-import { ProjectContext } from '../types/projects';
+import { ServerOptions, createServer } from '../server/createServer';
 
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
 import { logFilelist } from './log/logFilelist';
 import { logFilenameMessage } from './log/logFilenameMessage';
+import { logHeader } from './log/logHeader';
 import { logProjectBasicInfo } from './log/logProjectBasicInfo';
 import { logError } from './logger/logError';
 import { logInfo } from './logger/logInfo';
@@ -31,8 +38,17 @@ const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     });
 };
 
-export const watch = async (fileName: string): Promise<void> => {
-    console.info(figlet.textSync('Noodles UI'));
+type WatchOptions = ServerOptions;
+
+const defaultOptions: WatchOptions = {
+    port: 3131,
+};
+
+export const watch = async (fileName: string, options?: Partial<WatchOptions>): Promise<void> => {
+    logHeader('watch');
+
+    const port = options?.port || defaultOptions.port;
+    const server = createServer({ port });
 
     const projectFile = resolve(fileName);
     logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
@@ -42,8 +58,10 @@ export const watch = async (fileName: string): Promise<void> => {
         persistent: true,
     });
 
-    const refreshWatchers = async (project: ProjectContext): Promise<void> => {
+    const refreshWatchers = async (): Promise<void> => {
         logInfo('reloading project...');
+        const project = await createProject(projectFile);
+        logProjectBasicInfo(project);
         await loadProjectModulesCache(project);
         const sources = getProjectFilenamesWatchlist(project);
         const watched = getWatcherWatchedFiles(watcher);
@@ -63,41 +81,49 @@ export const watch = async (fileName: string): Promise<void> => {
         logSuccess('Project reloaded');
     };
 
-    const buildNow = async (): Promise<ProjectContext> => {
-        const project = await createProject(projectFile);
-        try {
-            logProjectBasicInfo(project);
+    const buildNow = async (): Promise<void> => {
+        const event: BuildStartedEvent = { timestamp: new Date() };
+        PubSub.publish(EVENT_BUILD_STARTED, event);
 
+        try {
             logInfo('building...');
             await execBuild();
+            const event: BuildFinishedEvent = { success: true, timestamp: new Date() };
+            PubSub.publish(EVENT_BUILD_FINISHED, event);
             logSuccess('Build successful');
         } catch (err) {
-            logError('Build error(s)', err as Error);
+            const event: BuildFinishedEvent = { success: false, timestamp: new Date() };
+            PubSub.publish(EVENT_BUILD_FINISHED, event);
+            logError('Build error(s)', 'exit code: ' + err);
         }
-        return project;
     };
 
     const queue = new Queue(async (_: string, done) => {
-        const project = await buildNow();
-        await refreshWatchers(project);
+        await buildNow();
+        await refreshWatchers();
         done();
+        server.nudge();
         setTimeout(() => {
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
-            const data = { fileCount, queueLength, buildCount, avgBuildTime };
-            logMessage('stats', data);
+            logInfo('Stats');
+            logMessage('- watched files:', fileCount);
+            logMessage('- build count:', buildCount);
+            logMessage('- build time (avg):', Math.round(avgBuildTime) / 1000 + 's');
+            logMessage('- queue size:', queueLength || '<empty>');
+            console.info();
         }, 1);
     });
 
-    const addTask = () => queue.push('');
-
-    watcher.on('change', () => {
+    const addTask = () => {
         const { length } = queue as QueueSized;
         if (length < 2) {
-            addTask();
+            queue.push('');
         }
-    });
+    };
 
+    watcher.on('change', addTask);
+    PubSub.subscribe(EVENT_REQUEST_BUILD, addTask);
     addTask();
 };

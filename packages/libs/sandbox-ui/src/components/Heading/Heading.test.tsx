@@ -7,7 +7,11 @@ const content = 'Lorem ipsum';
 
 describe('<Heading />', () => {
     test('renders', () => {
-        const { container, unmount } = render(() => <Heading level={1}>{content}</Heading>);
+        const { container, unmount } = render(() => (
+            <Heading variant="large" tag="h2">
+                {content}
+            </Heading>
+        ));
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });

@@ -1,14 +1,14 @@
 import { Component, JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-export type HeadingLevel = 1 | 2 | 3 | 4;
+export type HeadingLevel = '1' | '2' | '3' | '4';
 
 export type HeadingProps = {
     level: HeadingLevel;
     tag?: string;
+    children?: JSX.Element;
     classList?: { [key: string]: boolean };
     style?: JSX.CSSProperties;
-    children?: JSX.Element;
 };
 
 const MAP_LEVEL_TO_TAG: Record<HeadingLevel, string> = {
