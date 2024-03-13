@@ -3,9 +3,6 @@ import { dirname, relative } from 'path';
 
 import { ComponentResource } from '@noodles-ui/core-types';
 
-import { formatFileNameRelativeToProject } from '../cli/format/formatFileNameRelativeToProject';
-import { logError } from '../cli/logger/logError';
-import { logSuccess } from '../cli/logger/logSuccess';
 import { ComponentContext, ProjectContext } from '../types/projects';
 
 import { componentGeneratedFileName } from './components/paths/componentGeneratedFileName';
@@ -30,7 +27,7 @@ const generateComponentLine = (
 };
 
 export const generateComponentsList = async (project: ProjectContext): Promise<void> => {
-    const lines = Array.from(project.components.items.entries())
+    const lines = Array.from(project.components.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, item]) => item.public)
         .map(([key, item]) => {
@@ -46,12 +43,5 @@ export const generateComponentsList = async (project: ProjectContext): Promise<v
     await writeFile(fileName, output);
     const success = await formatTypescriptFile(project, fileName);
 
-    if (success) {
-        logSuccess('generated', formatFileNameRelativeToProject(project.build.modules, fileName));
-    } else {
-        logError(
-            'Error generating',
-            formatFileNameRelativeToProject(project.build.modules, fileName),
-        );
-    }
+    project.addGeneratedSourceFile({ fileName, success });
 };

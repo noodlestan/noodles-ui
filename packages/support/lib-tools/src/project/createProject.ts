@@ -1,14 +1,9 @@
 import { dirname } from 'path';
 
-import ts from 'typescript';
-
-import { formatFileNameRelativeToProject } from '../cli/format/formatFileNameRelativeToProject';
-import { logInfo } from '../cli/logger/logInfo';
-import { logMessage } from '../cli/logger/logMessage';
 import { findRootPath } from '../monorepo/findRootPath';
-import { BuildContext } from '../types/program';
 import {
     ComponentsContext,
+    GeneratedSourceFile,
     ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticSource,
@@ -33,24 +28,24 @@ export const createProject = async (
 
     const modules = new Map();
     modules.set(PROJECT_MODULE_KEY, namedModule(PROJECT_NODULE_NAME, projectPath));
-    logInfo('building project file...');
-    logMessage('TS version:', ts.version);
-    logMessage('TS entry point:', formatFileNameRelativeToProject(modules, projectFile, true));
-    console.info('');
 
     const diagnostics: ProjectDiagnostic[] = [];
-
     const addDiagnostic = (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
         diagnostics.push({
             message,
             source,
             data,
         });
-    const themes: ThemesContext = { items: new Map() };
-    const surfaces: SurfacesContext = { items: new Map() };
-    const variants: VariantsContext = { items: new Map() };
-    const components: ComponentsContext = { items: new Map() };
-    const tokens: TokensContext = { items: new Map() };
+
+    const generatedSourceFiles: GeneratedSourceFile[] = [];
+    const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
+        generatedSourceFiles.push(source);
+
+    const themes: ThemesContext = new Map();
+    const surfaces: SurfacesContext = new Map();
+    const variants: VariantsContext = new Map();
+    const components: ComponentsContext = new Map();
+    const tokens: TokensContext = new Map();
     const project: ProjectContext = {
         projectFile,
         projectPath,
@@ -61,6 +56,8 @@ export const createProject = async (
         compileProjectFile: async () => {
             project.build = await createProgram(projectFile, projectPath, rootPath);
         },
+        generatedSourceFiles,
+        addGeneratedSourceFile,
         surfaces,
         themes,
         variants,

@@ -8,7 +8,7 @@ export const tsFileHeader = (project: ProjectContext, fileName: string): string 
             ' * noodles-ui / auto-generated',
             ' *',
             ` * ${project.build.timestamp.toISOString()}`,
-            ` * ${formatFileName(project.build.modules, fileName)}`,
+            ` * ${formatFileName(project, fileName)}`,
             ` */`,
         ].join('\n') + '\n\n'
     );

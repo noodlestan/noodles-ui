@@ -8,7 +8,7 @@ export const addComponent = (
     project: ProjectContext,
     context: ComponentContextWithInstance,
 ): ComponentInstance | undefined => {
-    const { items } = project.components;
+    const { components: items } = project;
     const { resource, instance } = context;
 
     if (!instance) {

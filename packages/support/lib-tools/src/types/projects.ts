@@ -24,39 +24,24 @@ export type ItemContextWithInstance<T, P = T> = Omit<ItemContext<T, P>, 'instanc
 };
 
 export type SurfaceContext = ItemContext<SurfaceResource>;
-
-export type SurfacesContext = {
-    items: Map<string, SurfaceContext>;
-};
+export type SurfacesContext = Map<string, SurfaceContext>;
 
 export type ThemeContext = ItemContext<ThemeResource>;
-
-export type ThemesContext = {
-    items: Map<string, ThemeContext>;
-};
+export type ThemesContext = Map<string, ThemeContext>;
 
 export type ComponentContext = ItemContext<ComponentResource, ComponentInstance>;
 export type ComponentContextWithInstance = ItemContextWithInstance<
     ComponentResource,
     ComponentInstance
 >;
-
-export type ComponentsContext = {
-    items: Map<string, ComponentContext>;
-};
+export type ComponentsContext = Map<string, ComponentContext>;
 
 export type VariantContext = ItemContext<VariantResource, VariantInstance>;
 export type VariantContextWithInstance = ItemContextWithInstance<VariantResource, VariantInstance>;
-
-export type VariantsContext = {
-    items: Map<string, VariantContext>;
-};
+export type VariantsContext = Map<string, VariantContext>;
 
 export type TokenContext = ItemContext<TokenResource>;
-
-export type TokensContext = {
-    items: Map<string, TokenContext>;
-};
+export type TokensContext = Map<string, TokenContext>;
 
 export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
 
@@ -73,18 +58,34 @@ export type ProjectDiagnosticFileError = {
     sourceCode?: string;
 };
 
-export type ProjectContext = {
+export type GeneratedSourceFile = {
+    fileName: string;
+    success?: boolean;
+    skipped?: boolean;
+};
+
+type ProjectAttributes = {
     projectFile: string;
     projectPath: string;
     rootPath?: string;
+};
+
+type ProjectAPI = {
     build: BuildContext;
     diagnostics: ProjectDiagnostic[];
     addDiagnostic: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
     compileProjectFile: () => Promise<void>;
+    generatedSourceFiles: GeneratedSourceFile[];
+    addGeneratedSourceFile: (source: GeneratedSourceFile) => void;
+    debug: string[];
+};
+
+export type ProjectSnapshot = {
     surfaces: SurfacesContext;
     themes: ThemesContext;
     components: ComponentsContext;
     variants: VariantsContext;
     tokens: TokensContext;
-    debug: string[];
 };
+
+export type ProjectContext = ProjectAttributes & ProjectAPI & ProjectSnapshot;

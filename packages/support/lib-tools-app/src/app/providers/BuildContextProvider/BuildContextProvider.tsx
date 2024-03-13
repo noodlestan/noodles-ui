@@ -1,11 +1,11 @@
 import { Accessor, Component, JSX, createContext, useContext } from 'solid-js';
 
-import { BuildEvent } from '~/app/types';
+import { BuildData } from '~/app/types';
 
 type BuildContextState = {
     error: Accessor<Error | undefined>;
     isBuilding: Accessor<Date | undefined>;
-    builds: Accessor<BuildEvent[]>;
+    builds: Accessor<BuildData[]>;
     requestBuild: () => void;
 };
 

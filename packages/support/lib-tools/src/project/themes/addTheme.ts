@@ -3,7 +3,7 @@ import { ProjectContext, ThemeContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addTheme = (project: ProjectContext, context: ThemeContext): void => {
-    const { items } = project.themes;
+    const { themes: items } = project;
     const { resource, instance: theme } = context;
 
     if (!theme) {

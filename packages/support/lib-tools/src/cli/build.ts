@@ -12,8 +12,10 @@ import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { stripFilename } from './format/stripFilename';
 import { saveProjectModulesCache } from './io/saveProjectModulesCache';
 import { saveProjectResourceCache } from './io/saveProjectResourceCache';
+import { saveProjectSnapshot } from './io/saveProjectSnapshot';
 import { loadProject } from './loadProject';
 import { logBuildOutcome } from './log/logBuildOutcome';
+import { logGeneratedSourceFiles } from './log/logGeneratedSourceFiles';
 import { logHeader } from './log/logHeader';
 import { logProgramDiagnostics } from './log/logProgramDiagnostics';
 import { logProjectBasicInfo } from './log/logProjectBasicInfo';
@@ -38,7 +40,7 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
     const expandPatterns = getExpandPatterns();
     const project = await createProject(projectFile, expandPatterns);
     project.compileProjectFile();
-    timings.push([Date.now(), 'project created']);
+    timings.push([Date.now(), 'project compiled']);
 
     await ensureProjectCacheDir(project);
     logProjectBasicInfo(project);
@@ -48,18 +50,17 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
     if (project.build.success) {
         logProjectModules(project);
         await saveProjectModulesCache(project);
-        timings.push([Date.now(), 'modules cache saved']);
 
         // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-        const projectResource = require(resolve(fileName)).default;
-        timings.push([Date.now(), 'resource file loaded']);
+        const projectResourceData = require(resolve(fileName)).default;
+        timings.push([Date.now(), 'project file loaded']);
 
-        logProjectResource(projectResource);
-        await saveProjectResourceCache(project, projectResource);
-        timings.push([Date.now(), 'resources cache saved']);
+        logProjectResource(projectResourceData);
+        await saveProjectResourceCache(project, projectResourceData);
 
-        loadProject(project, projectResource);
+        loadProject(project, projectResourceData);
         timings.push([Date.now(), 'resources loaded']);
+        await saveProjectSnapshot(project);
 
         if (project.diagnostics.length) {
             logError(`Encountered ${project.diagnostics.length} issues during load`);
@@ -70,6 +71,7 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
             await generateComponentsList(project);
             await generateComponents(project);
             await generateVariants(project);
+            logGeneratedSourceFiles(project);
             timings.push([Date.now(), 'code generated']);
         }
 

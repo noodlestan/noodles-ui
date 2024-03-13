@@ -21,9 +21,7 @@ export const logBuildOutcome = (project: ProjectContext): void => {
     }, new Set<string>());
     logError('TS build errors', `(${diagnostics.length} errors in ${uniqueFiles.size} files)`);
     const files = Array.from(uniqueFiles.values());
-    files.forEach(file =>
-        logMessage(' - ', formatFileNameRelativeToProject(project.build.modules, file, true)),
-    );
+    files.forEach(file => logMessage(' - ', formatFileNameRelativeToProject(project, file, true)));
     if (files.length) {
         console.info(' ');
     }

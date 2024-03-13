@@ -2,9 +2,9 @@
 import { Component, JSX, batch, createEffect, createSignal } from 'solid-js';
 
 import { BuildContextProvider } from './providers/BuildContextProvider';
-import { BuildEvent } from './types';
+import { BuildData, BuildEvent, BuildSnapshot } from './types';
 
-type EndpointResponse = { lastBuild: BuildEvent };
+type EndpointResponse = { build: BuildEvent; snapshot: BuildSnapshot };
 
 const SERVER_HOST = 'localhost';
 const SERVER_PORT = import.meta.env.VITE_SERVER_PORT || 3000;
@@ -39,11 +39,14 @@ type SocketMessage<T> = {
 export const DevServer: Component<DevServerProps> = props => {
     const [error, setError] = createSignal<Error>();
     const [isBuilding, setIsBuilding] = createSignal<Date>();
-    const [builds, setBuilds] = createSignal<BuildEvent[]>([]);
+    const [builds, setBuilds] = createSignal<BuildData[]>([]);
 
     const ws = new WebSocket(SOCKET_ENDPOINT);
     const handleMessage = (message: MessageEvent) => {
-        const data = JSON.parse(message.data) as SocketMessage<BuildEvent>;
+        const data = JSON.parse(message.data) as SocketMessage<{
+            build: BuildEvent;
+            snapshot: BuildSnapshot;
+        }>;
         // console.log('WebSocket', data);
         if (data.name === 'build.started') {
             setIsBuilding(prev => prev || new Date());
@@ -65,7 +68,9 @@ export const DevServer: Component<DevServerProps> = props => {
 
     createEffect(() => {
         fetchBuildStatus()
-            .then(initialData => setBuilds(data => [...data, initialData.lastBuild]))
+            .then(status => {
+                setBuilds(data => [...data, status]);
+            })
             .catch(error => {
                 setError(error);
             });

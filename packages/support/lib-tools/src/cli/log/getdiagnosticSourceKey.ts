@@ -10,11 +10,11 @@ export const getdiagnosticSourceKey = (
     source: ProjectDiagnosticSource,
 ): string => {
     if (typeof source === 'string') {
-        return formatFileNameRelativeToProject(project.build.modules, source);
+        return formatFileNameRelativeToProject(project, source);
     }
     const fileError = fileErrorFromDiagnosticSource(source);
     if (fileError) {
-        return formatFileNameRelativeToProject(project.build.modules, fileError.fileName);
+        return formatFileNameRelativeToProject(project, fileError.fileName);
     }
     return getResourceTypedKey(source as UnknownResource);
 };

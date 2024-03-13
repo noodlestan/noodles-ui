@@ -9,19 +9,22 @@ import styles from './DevBar.module.scss';
 export const DevBar: Component = () => {
     const { builds, error, isBuilding, requestBuild } = useBuildContext();
 
-    function lastBuild() {
-        const d = builds();
-        if (!d.length) {
+    const lastBuild = () => {
+        const items = builds();
+        if (!items.length) {
             return;
         }
-        return d[d.length - 1];
-    }
+        return items[items.length - 1];
+    };
+
+    const isSuccess = () => !!lastBuild()?.build.success;
+    const timestamp = () => lastBuild()?.build.timestamp;
 
     const classList = () => ({
         [styles.DevBar]: true,
         [styles['DevBar-has-build']]: !!lastBuild(),
         [styles['DevBar-is-building']]: !!isBuilding(),
-        [styles['DevBar-is-success']]: !!lastBuild()?.success,
+        [styles['DevBar-is-success']]: isSuccess(),
         [styles['DevBar-has-error']]: !!error(),
     });
 
@@ -38,13 +41,11 @@ export const DevBar: Component = () => {
                     </div>
                 </Show>
                 <Show when={!isBuilding() && lastBuild()}>
-                    <div class={styles['DevBar--Outcome']}>
-                        {lastBuild()?.success ? 'Success' : 'Fail'}
-                    </div>
-                    <div>
-                        {lastBuild()?.timestamp ? <TimeAgo date={lastBuild()?.timestamp} /> : 'x,x'}
-                    </div>
-                    <button onClick={requestBuild}>rebuild</button>
+                    <div class={styles['DevBar--Outcome']}>{isSuccess() ? 'Success' : 'Fail'}</div>
+                    <div>{timestamp() ? <TimeAgo date={timestamp()} /> : 'x,x'}</div>
+                </Show>
+                <Show when={!isBuilding()}>
+                    <button onClick={requestBuild}>{lastBuild() ? 'rebuild' : 'build'}</button>
                 </Show>
             </Show>
         </div>

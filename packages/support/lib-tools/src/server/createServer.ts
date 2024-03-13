@@ -5,10 +5,15 @@ import fastify, { FastifyInstance } from 'fastify';
 import * as PubSub from 'pubsub-js';
 import { WebSocket, WebSocketServer } from 'ws';
 
+import { serializeSnapshot } from '../cli/io/private/serializeSnapshot';
 import { logError } from '../cli/logger/logError';
 import { logInfo } from '../cli/logger/logInfo';
 import { logSuccess } from '../cli/logger/logSuccess';
-import { EVENT_PREFIX_BUILD, EVENT_REQUEST_BUILD } from '../events/constants';
+import {
+    EVENT_BUILD_FINISHED,
+    EVENT_BUILD_STARTED,
+    EVENT_REQUEST_BUILD,
+} from '../events/constants';
 import { BuildFinishedEvent } from '../events/types';
 
 export type ServerOptions = {
@@ -28,6 +33,14 @@ export const createServer = (option: ServerOptions): DevServer => {
     const app = fastify();
 
     const wss = new WebSocketServer({ server: app.server });
+
+    const sendMessage = (message: unknown) => {
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify(message));
+            }
+        });
+    };
 
     const logClients = () => {
         const clients = Array.from(wss.clients.values());
@@ -52,19 +65,27 @@ export const createServer = (option: ServerOptions): DevServer => {
         });
     });
 
-    const handleOnBuildEvent = (eventName: string, data: BuildFinishedEvent) => {
+    PubSub.subscribe(EVENT_BUILD_STARTED, (eventName: string) => {
+        sendMessage({ name: eventName });
+    });
+
+    PubSub.subscribe(EVENT_BUILD_FINISHED, (eventName: string, data: BuildFinishedEvent) => {
         lastBuild = data;
-        wss.clients.forEach(client => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify({ name: eventName, value: lastBuild }));
-            }
-        });
-    };
-    PubSub.subscribe(EVENT_PREFIX_BUILD, handleOnBuildEvent);
+        const { success, timestamp, snapshot } = lastBuild;
+        const value = {
+            build: { success, timestamp },
+            snapshot: serializeSnapshot(snapshot),
+        };
+        sendMessage({ name: eventName, value });
+    });
 
     // app.get('/api/status', async (request, reply) => {
     app.get('/api/status', async () => {
-        return { lastBuild };
+        const { success, timestamp, snapshot } = lastBuild;
+        return {
+            build: { success, timestamp },
+            snapshot: serializeSnapshot(snapshot),
+        };
     });
 
     app.get('/api/build', async () => {

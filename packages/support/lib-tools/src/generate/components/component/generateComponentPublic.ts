@@ -2,8 +2,6 @@ import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
 import { dirname, relative } from 'path';
 
-import { formatFileNameRelativeToProject } from '../../../cli/format/formatFileNameRelativeToProject';
-import { logSuccess } from '../../../cli/logger/logSuccess';
 import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
 import { removeExtension } from '../../files/removeExtension';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
@@ -25,8 +23,8 @@ export const generateComponentPublic = async (
     const output = tsFileHeader(project, fileName) + content + '\n';
     if (!existsSync(fileName)) {
         await writeFile(fileName, output);
-        logSuccess('generated', formatFileNameRelativeToProject(project.build.modules, fileName));
+        project.addGeneratedSourceFile({ fileName, success: true });
     } else {
-        logSuccess('! skipped', formatFileNameRelativeToProject(project.build.modules, fileName));
+        project.addGeneratedSourceFile({ fileName, skipped: true });
     }
 };

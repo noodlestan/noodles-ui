@@ -1,8 +1,5 @@
 import { writeFile } from 'fs/promises';
 
-import { formatFileNameRelativeToProject } from '../../../cli/format/formatFileNameRelativeToProject';
-import { logError } from '../../../cli/logger/logError';
-import { logSuccess } from '../../../cli/logger/logSuccess';
 import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
@@ -48,12 +45,5 @@ export const generateComponentPrivate = async (
     await writeFile(fileName, formatted);
     const success = await formatTypescriptFile(project, fileName);
 
-    if (success) {
-        logSuccess('generated', formatFileNameRelativeToProject(project.build.modules, fileName));
-    } else {
-        logError(
-            'Error generating',
-            formatFileNameRelativeToProject(project.build.modules, fileName),
-        );
-    }
+    project.addGeneratedSourceFile({ fileName, success });
 };

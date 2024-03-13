@@ -1,14 +1,15 @@
 import { gray } from 'kleur';
 
-import { ProgramModuleContext } from '../../types/program';
+import { ProjectContext } from '../../types/projects';
 
 import { stripFilename } from './stripFilename';
 
 export const formatFileName = (
-    modules: Map<string, ProgramModuleContext>,
+    project: ProjectContext,
     fileName: string,
     colors: boolean = false,
 ): string => {
+    const { modules } = project.build;
     const matches = Array.from(modules.values())
         .filter(module => {
             return fileName !== module.path && fileName.startsWith(module.path);

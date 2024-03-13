@@ -3,7 +3,7 @@ import { ProjectContext, SurfaceContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addSurface = (project: ProjectContext, context: SurfaceContext): void => {
-    const { items } = project.surfaces;
+    const { surfaces: items } = project;
     const { resource, instance: surface } = context;
 
     if (!surface) {

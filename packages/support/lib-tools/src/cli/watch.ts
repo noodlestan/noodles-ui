@@ -17,6 +17,7 @@ import { ServerOptions, createServer } from '../server/createServer';
 
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
+import { loadProjectSnapshotFile } from './io/private/loadProjectSnapshotFile';
 import { logFilelist } from './log/logFilelist';
 import { logFilenameMessage } from './log/logFilenameMessage';
 import { logHeader } from './log/logHeader';
@@ -52,6 +53,7 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
 
     const projectFile = resolve(fileName);
     logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
+    const project = await createProject(projectFile);
 
     const watcher = chok(projectFile, {
         ignored: /(^|[/\\])\../,
@@ -60,7 +62,6 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
 
     const refreshWatchers = async (): Promise<void> => {
         logInfo('reloading project...');
-        const project = await createProject(projectFile);
         logProjectBasicInfo(project);
         await loadProjectModulesCache(project);
         const sources = getProjectFilenamesWatchlist(project);
@@ -68,7 +69,7 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
 
         watched.forEach(filename => {
             if (!sources.includes(filename)) {
-                logFilenameMessage(project.build.modules, '- unwatch ', filename);
+                logFilenameMessage(project, '- unwatch ', filename);
                 watcher.unwatch(filename);
             } else {
                 const index = sources.indexOf(filename);
@@ -76,7 +77,7 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
             }
         });
 
-        logFilelist(project.build.modules, '+ watch ', sources);
+        logFilelist(project, '+ watch ', sources);
         watcher.add(sources);
         logSuccess('Project reloaded');
     };
@@ -88,11 +89,13 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
         try {
             logInfo('building...');
             await execBuild();
-            const event: BuildFinishedEvent = { success: true, timestamp: new Date() };
+            const snapshot = await loadProjectSnapshotFile(project);
+            const event: BuildFinishedEvent = { success: true, timestamp: new Date(), snapshot };
             PubSub.publish(EVENT_BUILD_FINISHED, event);
             logSuccess('Build successful');
         } catch (err) {
-            const event: BuildFinishedEvent = { success: false, timestamp: new Date() };
+            const snapshot = await loadProjectSnapshotFile(project);
+            const event: BuildFinishedEvent = { success: false, timestamp: new Date(), snapshot };
             PubSub.publish(EVENT_BUILD_FINISHED, event);
             logError('Build error(s)', 'exit code: ' + err);
         }

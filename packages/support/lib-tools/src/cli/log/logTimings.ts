@@ -5,11 +5,16 @@ import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
 export const logTimings = (timings: Array<[number, string]>): void => {
-    const first = timings.shift();
-    if (first && timings.length) {
-        const [firstTs] = first;
-        logInfo('Build timings:');
-        timings.forEach(([ts, name]) => logMessage('- ' + gray(name), ts - firstTs));
+    if (timings.length > 1) {
+        logInfo(yellow('Build timings:'));
+        timings.forEach(([ts, name], index) => {
+            if (!index) {
+                return;
+            }
+            const previous = timings[index - 1];
+            const [previousTs] = previous;
+            logMessage('- ' + gray(name), ts - previousTs);
+        });
         console.info('');
     }
 };

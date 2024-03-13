@@ -3,13 +3,14 @@ import { relative } from 'path';
 import { gray, green } from 'kleur';
 
 import { PROJECT_MODULE_KEY } from '../../project/constants';
-import { ProgramModuleContext } from '../../types/program';
+import { ProjectContext } from '../../types/projects';
 
 export const formatFileNameRelativeToProject = (
-    modules: Map<string, ProgramModuleContext>,
+    project: ProjectContext,
     fileName: string,
     colors: boolean = false,
 ): string => {
+    const { modules } = project.build;
     const projectPath = modules.get(PROJECT_MODULE_KEY);
     const basePath = projectPath?.path as string;
     const relativeFileName = relative(basePath, fileName);

@@ -10,14 +10,12 @@ import { logSuccess } from '../logger/logSuccess';
 
 export const saveProjectResourceCache = async (
     project: ProjectContext,
-    resource: ProjectResource,
+    projectResource: ProjectResource,
 ): Promise<void> => {
-    const json = JSON.stringify(resource);
-    const file = join(project.projectPath, NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE);
-    await writeFile(file, json);
+    const data = projectResource;
+    const json = JSON.stringify(data);
+    const fileName = join(project.projectPath, NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE);
+    await writeFile(fileName, json);
 
-    logSuccess(
-        'Updated resource cache',
-        formatFileNameRelativeToProject(project.build.modules, file, true),
-    );
+    logSuccess('Updated resource cache', formatFileNameRelativeToProject(project, fileName, true));
 };

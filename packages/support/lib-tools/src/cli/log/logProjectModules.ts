@@ -21,8 +21,8 @@ export const logProjectModules = (project: ProjectContext): void => {
         if (module) {
             const { name, path, filenames } = module;
             logMessage(green(name));
-            logMessage('   path: ' + formatFileName(project.build.modules, path, true));
-            logMessage('   files: ' + yellow(filenames.length));
+            logMessage(' path: ' + formatFileName(project, path, true));
+            logMessage(' files: ' + yellow(filenames.length));
         }
     });
 

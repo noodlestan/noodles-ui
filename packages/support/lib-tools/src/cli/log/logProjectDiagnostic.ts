@@ -18,7 +18,7 @@ import { resourceFromDiagnosticSource } from './resourceFromDiagnosticSource';
 import { shouldExpand } from './shouldExpand';
 
 const logDiagnosticFileError = (project: ProjectContext, fileError: ProjectDiagnosticFileError) => {
-    const fileName = formatFileNameRelativeToProject(project.build.modules, fileError.fileName);
+    const fileName = formatFileNameRelativeToProject(project, fileError.fileName);
     const { line, column, sourceCode } = fileError;
     logMessage('  in ' + green(fileName));
     logMessage('  at line ' + line + ', column ' + column + '\n');

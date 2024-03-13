@@ -72,10 +72,10 @@ export const logProjectData = (project: ProjectContext): void => {
     if (project.diagnostics.length) {
         logError('Attention:', red('data may be incomplete and generated code may contain errors'));
     }
-    logResourceGroup(project, 'Surfaces', surfaces.items, itemsWithErrors);
-    logResourceGroup(project, 'Themes', themes.items, itemsWithErrors);
-    logResourceGroup(project, 'Variants', variants.items, itemsWithErrors);
-    logResourceGroup(project, 'Components', components.items, itemsWithErrors);
-    logResourceGroup(project, 'Surfaces', tokens.items, itemsWithErrors);
+    logResourceGroup(project, 'Surfaces', surfaces, itemsWithErrors);
+    logResourceGroup(project, 'Themes', themes, itemsWithErrors);
+    logResourceGroup(project, 'Variants', variants, itemsWithErrors);
+    logResourceGroup(project, 'Components', components, itemsWithErrors);
+    logResourceGroup(project, 'Surfaces', tokens, itemsWithErrors);
     console.info('');
 };

@@ -3,7 +3,7 @@ import { ProjectContext, TokenContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addToken = (project: ProjectContext, context: TokenContext): void => {
-    const { items } = project.tokens;
+    const { tokens: items } = project;
     const { resource, instance: token } = context;
 
     if (!token) {

@@ -1,11 +1,11 @@
-import { ProgramModuleContext } from '../../types/program';
+import { ProjectContext } from '../../types/projects';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logMessage } from '../logger/logMessage';
 
 export const logFilenameMessage = (
-    modules: Map<string, ProgramModuleContext>,
+    project: ProjectContext,
     message: string,
     filename: string,
 ): void => {
-    logMessage(message, formatFileNameRelativeToProject(modules, filename, true));
+    logMessage(message, formatFileNameRelativeToProject(project, filename, true));
 };
