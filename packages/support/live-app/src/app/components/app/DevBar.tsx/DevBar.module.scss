@@ -1,0 +1,26 @@
+.DevBar {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 5px 10px;
+    gap: 10px;
+    color: #ccc;
+    background-color: black;
+    user-select: none;
+}
+
+.DevBar-is-building {
+    background-color: #666;
+}
+
+.DevBar--Outcome {
+    color: orangered;
+}
+
+.DevBar-has-error {
+    color: orangered;
+}
+
+.DevBar-is-success .DevBar--Outcome {
+    color: limegreen;
+}
