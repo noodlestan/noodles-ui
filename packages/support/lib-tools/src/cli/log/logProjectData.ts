@@ -9,7 +9,7 @@ import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
-import { getdiagnosticSourceKey } from './getdiagnosticSourceKey';
+import { getDiagnosticKey } from './getDiagnosticKey';
 import { shouldExpand } from './shouldExpand';
 
 type ItemsWithErrors = {
@@ -61,7 +61,7 @@ export const logProjectData = (project: ProjectContext): void => {
     const { surfaces, themes, variants, components, tokens } = project;
 
     const itemsWithErrors = project.diagnostics.reduce((acc, item) => {
-        const sourceKey = getdiagnosticSourceKey(project, item.source);
+        const sourceKey = getDiagnosticKey(project, item.source);
         acc[sourceKey] = acc[sourceKey] || 0;
         acc[sourceKey]++;
         return acc;

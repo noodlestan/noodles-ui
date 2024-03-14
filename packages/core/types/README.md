@@ -15,13 +15,13 @@ Resource types are consumed in:
 - resource files, e.g.: [Surface.nui.ts](../../core/styled/src/components/Surface/Surface.nui.ts)
 - backend tooling code, such as [@noodles-ui/lib-tools](../../support/lib-tools/README.md)
 - instrumentation and analytics
-- documentation and visualisation code
+- documentation and visualization code
 
 ### Resource types
 
 Declare and describe design system resources and their relationships across multiple packages.
 
-Exmples: `ThemeResource`, `ComponentResource`, and `VariantResource`.
+Examples: `ThemeResource`, `ComponentResource`, and `VariantResource`.
 
 Always named `AbcdefResource`.
 

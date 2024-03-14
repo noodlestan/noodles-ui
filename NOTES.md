@@ -35,7 +35,7 @@ computations created outside a `createRoot` or `render` will never be disposed
 
 https://github.com/solidjs/solid/discussions/1720
 
-## Optimise coverage configuration
+## Optimize coverage configuration
 
 Can't find a way to configure which files to report coverage on.
 

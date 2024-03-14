@@ -17,12 +17,12 @@ export const compileFromSources = (inputFiles: string[]): CompileResult => {
     // host.writeFile = (fileName: string, contents: string) => (createdFiles[fileName] = contents);
 
     // NOTE we can output the compiled files but by default you only get files
-    // from `src/`, theregore to guarantee  thatt´all compiled resource files are
-    // emitted we have to manually the '.nui' files to∂ `createProgram()
+    // from `src/`, therefore to guarantee  that the compiled resource files are
+    // emitted we have to manually feed the list of '.nui' files to `createProgram()
     // We can do this by as easy as 1 2 3
-    // - compileFromSources(prgroamFile)
+    // - compileFromSources(programFile)
     // - allSources = getSourceFiles + isResourceFile
-    // - compileFromSources(allsources)
+    // - compileFromSources(allSources)
     host.writeFile = () => undefined;
 
     const program = ts.createProgram(inputFiles, options, host);

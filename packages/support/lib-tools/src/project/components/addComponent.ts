@@ -46,7 +46,7 @@ export const addComponent = (
         // context.diagnostics.push(f)
         // OR simply:
         // project.addDiagnostic(source, message, context?: ItemContext) <--
-        // and then do the initiatlization and push to context.diagnostics[] inside
+        // and then do the initialization and push to context.diagnostics[] inside
         return;
     }
     logMessage('+ component', key);

@@ -4,13 +4,13 @@ import { red } from 'kleur';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
 
-import { getdiagnosticSourceKey } from './getdiagnosticSourceKey';
+import { getDiagnosticKey } from './getDiagnosticKey';
 
 export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
     const { diagnostics } = project;
     const sources = diagnostics.reduce(
         (acc, diagnostic) => {
-            const sourceKey = getdiagnosticSourceKey(project, diagnostic.source);
+            const sourceKey = getDiagnosticKey(project, diagnostic.source);
             acc[sourceKey] = acc[sourceKey] || 0;
             acc[sourceKey]++;
             return acc;

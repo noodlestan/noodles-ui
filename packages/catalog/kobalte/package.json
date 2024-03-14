@@ -1,5 +1,5 @@
 {
-  "name": "@noodles-ui/catalag-kobalte",
+  "name": "@noodles-ui/catalog-kobalte",
   "version": "0.0.1",
   "description": "Use Kobalte components in NoodlesUI",
   "author": "Andre Torgal",
@@ -35,7 +35,7 @@
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
-    "@noodles-ui/core-types": "^0.0.1"
+    "@noodles-ui/core-types": "0.0.1"
   },
   "peerDependencies": {
     "@kobalte/core": "^0.12.1",

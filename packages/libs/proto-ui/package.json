@@ -6,8 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noodlestan/noodles-ui"
+    "url": "git+https://github.com/noodlestan/noodles-ui.git"
   },
+  "bugs": {
+    "url": "https://github.com/noodlestan/noodles-ui/issues"
+  },
+  "homepage": "https://github.com/noodlestan/noodles-ui/tree/main/packages/libs/proto-ui#readme",
   "keywords": [
     "themes",
     "design-tokens",
@@ -27,8 +31,8 @@
   "sideEffects": false,
   "scripts": {
     "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:NUI\",\"dev:lib\" -c \"green.bold\",\"red.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:nui\" \"npm run dev:lib\"",
+    "dev:nui": "ts-node ./nui.dev.ts",
     "dev:test": "vitest",
-    "dev:nui": "ts-node ./nui.watch.ts",
     "dev:lib": "vite build --watch --mode development",
     "test": "vitest --run --coverage",
     "build": "npm run build:nui && npm run build:lib",
@@ -37,10 +41,10 @@
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
-    "@noodles-ui/core-styled": "^0.0.1",
-    "@noodles-ui/core-services": "^0.0.1",
-    "@noodles-ui/core-types": "^0.0.1",
-    "@noodles-ui/lib-tools": "^0.0.1"
+    "@noodles-ui/core-services": "0.0.1",
+    "@noodles-ui/core-styled": "0.0.1",
+    "@noodles-ui/core-types": "0.0.1",
+    "@noodles-ui/lib-tools": "0.0.1"
   },
   "peerDependencies": {
     "solid-js": "^1.8.14"

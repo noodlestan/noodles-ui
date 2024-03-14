@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 
 import { ProjectContext, ProjectSnapshot } from '@noodles-ui/support-types';
 
-import { deseralizeSnapshot } from './deseralizeSnapshot';
+import { deseralizeSnapshot } from './deserializeSnapshot';
 import { getProjectSnapshotFileName } from './getProjectSnapshotFileName';
 
 export const loadProjectSnapshotFile = async (

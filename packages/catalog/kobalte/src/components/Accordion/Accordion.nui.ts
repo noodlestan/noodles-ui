@@ -4,7 +4,6 @@ export const AccordionResource: ComponentImportResource = {
     type: 'component',
     module: '@kobalte/core',
     name: 'Accordion',
-    alias: 'KobAccordion',
     docs: 'https://kobalte.dev/docs/core/components/accordion',
     parts: [
         {

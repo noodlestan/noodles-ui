@@ -13,7 +13,9 @@ See also:
 - [support/live-app](../live-app/README.md) - Lib tools web interface
 - [support/types](../types/README.md) - Types to support the design system build tools
 
-### Endpoints
+### CLI Endpoints
+
+TODO exposed them via built `./bin`
 
 #### `npm run build:nui`
 
@@ -22,23 +24,33 @@ Single build
 - load project file
 - compiles project file
 - loads resources from project file
-- generates code TODO document generated artefacts
+- generates code TODO document generated artifacts
 
 Implemented by [build.ts](./src/cli/build.ts)
 
 #### `npm run dev:nui`
 
-Builds, watches, and launches the [live-app](../live-app/README.md) web interface.
+Builds, watches, and launches the [NUI Live](../live-app/README.md) web interface.
 
-- Serves the web interface from http://localhost:3131/
-- Serves a couple of API endpoints from http://localhost:3131/api consumed by the web interface
+-
 - TODO spawns a child process to build the live preview app
 - Compiles and loads the project file
 - Spawns a child process to execute `build:nui`
 - Reloads watched files according to project modules
 - Forwards build status and outcome to the client app
 
-Implemented by [watch.ts](./src/cli/watch.ts)
+TODO switch `--no-live` disables both the Live Server / App
+
+### Live Server
+
+The web interface is served from http://localhost:3131/
+
+API endpoints from http://localhost:3131/api (consumed by the Live App):
+
+- GET - http://localhost:3131/api/status - current build/snapshot
+- POST http://localhost:3131/api/build - trigger a build
+
+Implemented by [dev.ts](./src/cli/dev.ts)
 
 ### CLI
 

@@ -18,7 +18,7 @@ import { ServerOptions, createServer } from '../server/createServer';
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
 import { loadProjectSnapshotFile } from './io/private/loadProjectSnapshotFile';
-import { logFilelist } from './log/logFilelist';
+import { logFileNamesList } from './log/logFileNamesList';
 import { logFilenameMessage } from './log/logFilenameMessage';
 import { logHeader } from './log/logHeader';
 import { logProjectBasicInfo } from './log/logProjectBasicInfo';
@@ -39,16 +39,22 @@ const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     });
 };
 
-type WatchOptions = ServerOptions;
-
-const defaultOptions: WatchOptions = {
-    port: 3131,
+type DevOptions = {
+    live: boolean;
+    server: ServerOptions;
 };
 
-export const watch = async (fileName: string, options?: Partial<WatchOptions>): Promise<void> => {
-    logHeader('watch');
+const defaultOptions: DevOptions = {
+    live: true,
+    server: {
+        port: 3131,
+    },
+};
 
-    const port = options?.port || defaultOptions.port;
+export const dev = async (fileName: string, options?: Partial<DevOptions>): Promise<void> => {
+    logHeader('dev');
+
+    const port = options?.server?.port || defaultOptions.server?.port;
     const server = createServer({ port });
 
     const projectFile = resolve(fileName);
@@ -77,7 +83,7 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
             }
         });
 
-        logFilelist(project, '+ watch ', sources);
+        logFileNamesList(project, '+ watch ', sources);
         watcher.add(sources);
         logSuccess('Project reloaded');
     };
@@ -113,7 +119,7 @@ export const watch = async (fileName: string, options?: Partial<WatchOptions>): 
             logInfo('Stats');
             logMessage('- watched files:', fileCount);
             logMessage('- build count:', buildCount);
-            logMessage('- build time (avg):', Math.round(avgBuildTime) / 1000 + 's');
+            logMessage('- build time (average):', Math.round(avgBuildTime) / 1000 + 's');
             logMessage('- queue size:', queueLength || '<empty>');
             console.info();
         }, 1);

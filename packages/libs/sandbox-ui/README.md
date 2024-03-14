@@ -1,6 +1,6 @@
 # Noodles UI / Sandbox UI
 
-> Noodles UI experimenation sandbox library
+> Noodles UI experimentation sandbox library
 
 Early days. See [root README](../../../README.md) for an introduction.
 
@@ -30,7 +30,7 @@ npm run dev:lib   # build library (a regular vite build)
 
 To inspect the loaded resources, the generated project data, and eventual errors you can expand details with the `--expand` argument.
 
-You can expand resources and build artefacts...
+You can expand resources and build artifacts...
 
 - by matching all or part of its **name**
 - by **type** (one of `surface`, `theme`, `variant`, `component`, `mixin`)

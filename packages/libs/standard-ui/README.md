@@ -1,6 +1,6 @@
 # Noodles UI / Standard UI
 
-> Production ready UI library with a token based, fully costumisable, modern design
+> Production ready UI library with a token based, fully customizable, modern design
 
 Early days. See [root README](../../../README.md) for an introduction.
 

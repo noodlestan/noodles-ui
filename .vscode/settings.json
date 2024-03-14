@@ -54,6 +54,14 @@
     "typescript",
     "typescriptreact"
   ],
-  "spellright.language": [],
-  "spellright.documentTypes": ["latex", "plaintext"]
+  "spellright.language": ["en"],
+  "spellright.documentTypes": [
+    "latex",
+    "plaintext",
+    "markdown",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "css"
+  ]
 }

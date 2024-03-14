@@ -10,15 +10,15 @@ Provide global context(s):
 
 - available Themes
 - available Surfaces
-- curent ColourScheme
+- current ColourScheme
 - current Theme
 - current Surface
 
 Generate CSS class names to switch context of CSS tokens
 
-// TODO: Resolve runtime tokens according to current colour scheme, theme and surface
+// TODO: Resolve runtime tokens according to current color scheme, theme and surface
 
-NOTE: might need isolated implementations for native/style/or specific adaptars (e.g.: leveraging the `data-scope` optimisation in [ark-ui](https://ark-ui.com/docs/styling/overview), or styling it with auto-generated panda snippets)
+NOTE: might need isolated implementations for native/style/or specific adapters (e.g.: leveraging the `data-scope` optimization in [ark-ui](https://ark-ui.com/docs/styling/overview), or styling it with auto-generated panda snippets)
 
 In that case surface/theme providers should not be coupled with the implementation
 

@@ -9,7 +9,7 @@ import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativ
 
 import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';
 
-export const getdiagnosticSourceKey = (
+export const getDiagnosticKey = (
     project: ProjectContext,
     source: ProjectDiagnosticSource,
 ): string => {

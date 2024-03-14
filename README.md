@@ -25,8 +25,8 @@ See each package's README for more details.
 
 ### UI libraries
 
-- [Sandbox UI Library](./packages/libs/sandbox-ui/README.md) - Noodles UI experimenation sandbox library
-- [Standard UI Library](./packages/libs/standard-ui/README.md) - Production ready UI library with a token based, fully costumisable, modern design
+- [Sandbox UI Library](./packages/libs/sandbox-ui/README.md) - Noodles UI experimentation sandbox library
+- [Standard UI Library](./packages/libs/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
 - [Proto UI Library](./packages/libs/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel
 
@@ -45,7 +45,7 @@ Use high quality components and primitives from headless libraries
 
 ### Sandboxes
 
-Where we snchronously test new features and retro-comppatyibility with specific environments
+Where we synchronously test new features and retro-compatibility with specific environments
 
 - [SolidJs](./packages/sandbox/app-solid/README.md) - Noodles UI sandbox built with SolidJS (Web SPA)
 - [SolidStart](./packages/sandbox/app-solidstart/README.md) - Noodles UI sandbox built with SolidStart (SSG)
@@ -60,10 +60,12 @@ Recommended software:
 
 - [NVM](https://github.com/nvm-sh/nvm)
 - [VS Code](https://code.visualstudio.com/)
-- [VS Code Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [VS Code Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- \+ VS Code Plugins:
+  - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [Spell Right](https://marketplace.visualstudio.com/items?itemName=ban.spellright)
 
-### Commiting
+### Committing
 
 [Lefthook](https://evilmartians.com/chronicles/lefthook-knock-your-teams-code-back-into-shape) should run automatically before every commit.
 

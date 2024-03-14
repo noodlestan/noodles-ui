@@ -56,7 +56,7 @@ describe('getLastNodeModuleName()', () => {
         });
     });
 
-    describe('given a filename with 2 nested node_modules, wqith the second having a namespace', () => {
+    describe('given a filename with 2 nested node_modules, with the second having a namespace', () => {
         const file = '/path/node_modules/mod-one/node_modules/@ns-two/mod-two/src/file.ext';
         const result = getLastNodeModule(file);
 

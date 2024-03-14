@@ -14,7 +14,7 @@ const defaultValueStatement = (
     const { instance } = component;
 
     const constantName = getPropDefaultConstantName(instance, prop);
-    // TODO use TS factory to create the literals instesad of this hack
+    // TODO use TS factory to create the literals instead of this hack
     const constantValue = JSON.stringify(prop.defaultValue);
 
     return factory.createVariableStatement(
