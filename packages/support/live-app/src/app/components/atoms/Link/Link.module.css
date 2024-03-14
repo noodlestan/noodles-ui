@@ -1,0 +1,8 @@
+.Link {
+    color: gold;
+    cursor: pointer;
+}
+
+.Link:hover {
+    opacity: 0.9;
+}

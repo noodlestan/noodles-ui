@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
-import { Component, JSX, batch, createEffect, createSignal } from 'solid-js';
+import { Component, JSX, batch, createEffect } from 'solid-js';
 
-import { BuildContextProvider } from './providers/BuildContextProvider';
-import { BuildData, BuildEvent, BuildSnapshot } from './types';
+import { BuildContextProvider, createBuildContext } from './providers/BuildContextProvider';
+import { BuildEvent, BuildSnapshot } from './types';
 
 type EndpointResponse = { build: BuildEvent; snapshot: BuildSnapshot };
 
@@ -37,9 +37,9 @@ type SocketMessage<T> = {
 };
 
 export const DevServer: Component<DevServerProps> = props => {
-    const [error, setError] = createSignal<Error>();
-    const [isBuilding, setIsBuilding] = createSignal<Date>();
-    const [builds, setBuilds] = createSignal<BuildData[]>([]);
+    const context = createBuildContext(requestBuild);
+
+    const { setBuilds, setError, setIsBuilding } = context;
 
     const ws = new WebSocket(SOCKET_ENDPOINT);
     const handleMessage = (message: MessageEvent) => {
@@ -76,15 +76,5 @@ export const DevServer: Component<DevServerProps> = props => {
             });
     });
 
-    const context = () => ({
-        error,
-        isBuilding,
-        builds,
-        requestBuild: () => {
-            requestBuild();
-            setIsBuilding(prev => prev || new Date());
-        },
-    });
-
-    return <BuildContextProvider value={context()}>{props.children}</BuildContextProvider>;
+    return <BuildContextProvider value={context}>{props.children}</BuildContextProvider>;
 };

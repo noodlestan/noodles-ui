@@ -1,9 +1,8 @@
-import { Route, Router } from '@solidjs/router';
+import { Router } from '@solidjs/router';
 import { Component, JSX } from 'solid-js';
 
+import { Routes } from './Routes.jsx';
 import { DevBar } from './components/app/DevBar.tsx/index.js';
-import { NotFound } from './pages/404.jsx';
-import { Home } from './pages/Home.jsx';
 
 import './App.css';
 
@@ -26,8 +25,7 @@ export const Root: Component<RootProps> = props => {
 export const App: Component = () => {
     return (
         <Router root={Root}>
-            <Route path={'/'} component={Home} />
-            <Route path={'*'} component={NotFound} />
+            <Routes />
         </Router>
     );
 };

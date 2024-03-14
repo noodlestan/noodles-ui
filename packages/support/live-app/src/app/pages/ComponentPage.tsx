@@ -2,12 +2,12 @@
 import { Component, For } from 'solid-js';
 
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
-import { ComponentCard } from '../components/entities/component/card/ComponentCard';
+import { ComponentCard } from '../components/entities/component/ComponentCard/ComponentCard';
 import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { useBuildContext } from '../providers/BuildContextProvider';
 
-export const Home: Component = () => {
+export const ComponentPage: Component = () => {
     const { builds } = useBuildContext();
 
     const lastBuild = () => {
@@ -23,7 +23,7 @@ export const Home: Component = () => {
 
     return (
         <PageLayout tag="main">
-            <PageTitle>components</PageTitle>
+            <PageTitle>Component</PageTitle>
             <CardGrid>
                 <For each={components()}>
                     {component => <ComponentCard component={component} />}
