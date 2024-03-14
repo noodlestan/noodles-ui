@@ -1,6 +1,5 @@
+import { ComponentContextWithInstance } from '@noodles-ui/support-types';
 import ts from 'typescript';
-
-import { ComponentContextWithInstance } from '../../../../types/projects';
 
 import { getPropDefaultConstantName } from './props/getPropDefaultConstantName';
 import { getPropVariantsWithDefaultValues } from './props/getPropVariantsWithDefaultValues';

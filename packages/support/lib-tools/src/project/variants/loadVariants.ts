@@ -1,7 +1,7 @@
 import { ProjectResource, VariantInstance, VariantResource } from '@noodles-ui/core-types';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
-import { ProjectContext } from '../../types/projects';
 import { newContextPublicResource } from '../context/newContextPublicResource';
 
 import { loadVariant } from './loadVariant';

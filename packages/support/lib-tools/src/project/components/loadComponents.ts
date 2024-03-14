@@ -1,6 +1,6 @@
 import { ComponentInstance, ComponentResource, ProjectResource } from '@noodles-ui/core-types';
+import { ProjectContext } from '@noodles-ui/support-types';
 
-import { ProjectContext } from '../../types/projects';
 import { newContextPublicResource } from '../context/newContextPublicResource';
 
 import { loadComponent } from './loadComponent';

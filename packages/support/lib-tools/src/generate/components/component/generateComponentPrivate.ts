@@ -1,6 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
 import { printTypescriptStatements } from '../../typescript/printTypescriptStatements';

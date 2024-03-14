@@ -1,11 +1,11 @@
 import { ProjectResource } from '@noodles-ui/core-types';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 import { loadComponents } from '../project/components/loadComponents';
 import { loadSurfaces } from '../project/surfaces/loadSurfaces';
 import { loadThemes } from '../project/themes/loadThemes';
 import { loadTokens } from '../project/tokens/loadTokens';
 import { loadVariants } from '../project/variants/loadVariants';
-import { ProjectContext } from '../types/projects';
 
 import { logInfo } from './logger/logInfo';
 

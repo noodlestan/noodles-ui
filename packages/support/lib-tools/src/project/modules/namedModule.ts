@@ -1,4 +1,4 @@
-import { ProgramModuleContext } from '../../types/program';
+import { ProgramModuleContext } from '@noodles-ui/support-types';
 
 export const namedModule = (name: string, path: string): ProgramModuleContext => ({
     name,

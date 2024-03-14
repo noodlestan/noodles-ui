@@ -1,8 +1,7 @@
 import { dirname } from 'path';
 
+import { ProjectContext, ProjectDiagnosticFileError } from '@noodles-ui/support-types';
 import { ESLint } from 'eslint';
-
-import { ProjectContext, ProjectDiagnosticFileError } from '../../types/projects';
 
 import { findEslintConfig } from './findEslintConfig';
 

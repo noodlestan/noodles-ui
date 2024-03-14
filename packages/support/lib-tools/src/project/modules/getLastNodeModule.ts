@@ -1,6 +1,6 @@
 import { sep } from 'path';
 
-import { ProgramModule } from '../../types/program';
+import { ProgramModule } from '@noodles-ui/support-types';
 
 const regexStr = `node_modules${sep}([^@/]+|@[^/]+${sep}[^/]+)`;
 const regex = new RegExp(regexStr, 'g');

@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 export const getProjectFilenamesWatchlist = (project: ProjectContext): string[] => {
     return Array.from(project.build.modules.values()).flatMap(

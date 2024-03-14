@@ -4,8 +4,8 @@ import {
     PropInstance,
     PropOwnResource,
 } from '@noodles-ui/core-types';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { ComponentContext, ProjectContext } from '../../../../types/projects';
 import { isVariantInline } from '../../../variants/isVariantInline';
 import { isVariantInlineExtendResource } from '../../../variants/isVariantInlineExtendResource';
 import { isVariantInlineReferenceResource } from '../../../variants/isVariantInlineReferenceResource';

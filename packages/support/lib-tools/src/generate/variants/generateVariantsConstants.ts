@@ -1,6 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext, VariantContextWithInstance } from '../../types/projects';
+import { ProjectContext, VariantContextWithInstance } from '@noodles-ui/support-types';
+
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 

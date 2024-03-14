@@ -1,7 +1,7 @@
 import { ProjectResource } from '@noodles-ui/core-types';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
-import { ProjectContext } from '../../types/projects';
 
 export const loadTokens = (project: ProjectContext, projectResource: ProjectResource): void => {
     // projectResource.tokens.forEach(token => {

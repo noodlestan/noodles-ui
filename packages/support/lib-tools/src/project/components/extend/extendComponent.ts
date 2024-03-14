@@ -4,8 +4,7 @@ import {
     ComponentOwnResource,
     LocalPropResource,
 } from '@noodles-ui/core-types';
-
-import { ComponentContext, ProjectContext } from '../../../types/projects';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { getRenderedProps } from './private/getRenderedProps';
 import { mergeProps } from './private/mergeProps';

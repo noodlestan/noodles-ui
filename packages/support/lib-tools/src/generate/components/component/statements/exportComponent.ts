@@ -1,8 +1,8 @@
 import { ComponentOwnInstance } from '@noodles-ui/core-types';
+import { ComponentContextWithInstance } from '@noodles-ui/support-types';
 import ts, { JsxAttribute } from 'typescript';
 
 import { getRenderedProps } from '../../../../project/components/extend/private/getRenderedProps';
-import { ComponentContextWithInstance } from '../../../../types/projects';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
 import { componentDefaultsStatements } from './body/componentDefaultsStatements';

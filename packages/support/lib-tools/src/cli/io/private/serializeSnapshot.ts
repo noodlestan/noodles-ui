@@ -5,7 +5,7 @@ import {
     ThemeContext,
     TokenContext,
     VariantContext,
-} from '../../../types/projects';
+} from '@noodles-ui/support-types';
 
 type SerializableSnapshot = {
     surfaces: {

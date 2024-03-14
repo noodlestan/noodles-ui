@@ -1,6 +1,5 @@
+import { ProjectContext } from '@noodles-ui/support-types';
 import { gray } from 'kleur';
-
-import { ProjectContext } from '../../types/projects';
 
 import { stripFilename } from './stripFilename';
 

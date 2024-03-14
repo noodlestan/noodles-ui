@@ -1,4 +1,4 @@
-import { UnknownResource } from '../../types/resources';
+import { UnknownResource } from '@noodles-ui/support-types';
 
 import { getResourceModule } from './getResourceModule';
 import { getResourceName } from './getResourceName';

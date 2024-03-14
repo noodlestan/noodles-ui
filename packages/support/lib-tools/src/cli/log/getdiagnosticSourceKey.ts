@@ -1,6 +1,10 @@
+import {
+    ProjectContext,
+    ProjectDiagnosticSource,
+    UnknownResource,
+} from '@noodles-ui/support-types';
+
 import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
-import { ProjectContext, ProjectDiagnosticSource } from '../../types/projects';
-import { UnknownResource } from '../../types/resources';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
 import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';

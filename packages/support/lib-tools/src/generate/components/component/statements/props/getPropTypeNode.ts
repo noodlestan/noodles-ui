@@ -1,7 +1,6 @@
 import { PropInstance } from '@noodles-ui/core-types';
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
-
-import { ComponentContextWithInstance, ProjectContext } from '../../../../../types/projects';
 
 import { isPropVariantInstance } from './isPropVariantInstance';
 import { isPropVariantReference } from './isPropVariantReference';

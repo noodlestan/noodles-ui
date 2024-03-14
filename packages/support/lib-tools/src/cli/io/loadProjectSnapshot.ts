@@ -1,4 +1,5 @@
-import { ProjectContext } from '../../types/projects';
+import { ProjectContext } from '@noodles-ui/support-types';
+
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 

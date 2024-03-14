@@ -3,8 +3,7 @@ import {
     ComponentOwnResource,
     ComponentPropsResource,
 } from '@noodles-ui/core-types';
-
-import { ComponentContext, ProjectContext } from '../../../types/projects';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { loadComponentProp } from './private/loadComponentProp';
 

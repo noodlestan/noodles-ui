@@ -1,4 +1,4 @@
-import { ProjectSnapshot } from '../types/projects';
+import { ProjectSnapshot } from '@noodles-ui/support-types';
 
 export type BuildStartedEvent = {
     timestamp: Date;

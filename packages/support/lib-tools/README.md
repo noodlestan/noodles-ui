@@ -1,12 +1,17 @@
 # Noodles UI / lib tools
 
-> Tools for building NoodlesUI design systems
+> Tools for building and managing design systems
 
 Early days. See [root README](../../../README.md) for an introduction.
 
 ## Concern
 
 CLI tool for library authors.
+
+See also:
+
+- [support/live-app](../live-app/README.md) - Lib tools web interface
+- [support/types](../types/README.md) - Types to support the design system build tools
 
 ### Endpoints
 
@@ -23,23 +28,17 @@ Implemented by [build.ts](./src/cli/build.ts)
 
 #### `npm run dev:nui`
 
-Builds, watches, and launches the [lib-tools-app](../lib-tools-app/README.md) frontend.
+Builds, watches, and launches the [live-app](../live-app/README.md) web interface.
 
-- Serves the `lib-tools-app` from http://localhost:3131/
-- Loads and compiles the project file
+- Serves the web interface from http://localhost:3131/
+- Serves a couple of API endpoints from http://localhost:3131/api consumed by the web interface
+- TODO spawns a child process to build the live preview app
+- Compiles and loads the project file
 - Spawns a child process to execute `build:nui`
 - Reloads watched files according to project modules
 - Forwards build status and outcome to the client app
 
 Implemented by [watch.ts](./src/cli/watch.ts)
-
-### Types
-
-The `Context` types are build time data that aggregates both the data seeded
-via `*Resource*` files, information generated during the build process. And
-eventually will aggregate any linked metadata as well.
-
-Example: `ProjectContext`, `VariantsContext`, and `TokenContext`
 
 ### CLI
 

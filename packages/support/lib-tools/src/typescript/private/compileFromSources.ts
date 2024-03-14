@@ -1,7 +1,7 @@
+import { CompileResult } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getCompilerOptions } from '../getCompilerOptions';
-import { CompileResult } from '../types';
 
 export const compileFromSources = (inputFiles: string[]): CompileResult => {
     const { options } = getCompilerOptions();

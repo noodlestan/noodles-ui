@@ -1,8 +1,8 @@
 import { join } from 'path';
 
 import { ComponentResource } from '@noodles-ui/core-types';
+import { ProjectContext } from '@noodles-ui/support-types';
 
-import { ProjectContext } from '../../../types/projects';
 import { NUI_GENERATED_FOLDER } from '../../constants';
 
 export const componentGeneratedFileName = (

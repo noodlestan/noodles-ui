@@ -1,11 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ItemContext, ProjectContext, UnknownResource } from '@noodles-ui/support-types';
 import { gray, green, red, yellow } from 'kleur';
 
 import { getResourceModule } from '../../project/resources/getResourceModule';
 import { getResourceName } from '../../project/resources/getResourceName';
 import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
-import { ItemContext, ProjectContext } from '../../types/projects';
-import { UnknownResource } from '../../types/resources';
 import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';

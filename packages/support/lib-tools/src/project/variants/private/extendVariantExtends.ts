@@ -1,6 +1,6 @@
 import { VariantInlineExtendResource, VariantInstance } from '@noodles-ui/core-types';
+import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
-import { ProjectContext, VariantContext } from '../../../types/projects';
 import { getResourceKey } from '../../resources/getResourceKey';
 
 export const extendVariantExtends = (

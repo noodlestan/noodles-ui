@@ -1,5 +1,6 @@
+import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
+
 import { logMessage } from '../../cli/logger/logMessage';
-import { ProjectContext, ThemeContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addTheme = (project: ProjectContext, context: ThemeContext): void => {

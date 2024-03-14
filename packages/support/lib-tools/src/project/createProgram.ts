@@ -1,4 +1,5 @@
-import { BuildContext } from '../types/program';
+import { BuildContext } from '@noodles-ui/support-types';
+
 import { compileProjectFile } from '../typescript/compileProjectFile';
 
 import { getProgramModules } from './getProgramModules';

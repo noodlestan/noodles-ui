@@ -38,7 +38,9 @@ Use high quality components and primitives from headless libraries
 
 ### Support packages
 
-- [Lib tools](./packages/support/lib-tools/README.md) - Tooling for building Noodles UI libraries
+- [Lib tools](./packages/support/lib-tools/README.md) - Tools for building and managing design systems
+- [Live app](./packages/support/live-app/README.md) - Lib tools web interface
+- [Types](./packages/support/types/README.md) - Types to support the design system build tools
 - [Sandbox components](./packages/support/sandbox-components-solid/README.md) - SolidJS Components for Noodles UI Sandboxes
 
 ### Sandboxes

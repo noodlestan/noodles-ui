@@ -12,6 +12,7 @@ export type ClassNamesElementProps = JSX.HTMLAttributes<HTMLDivElement> & {
 const defaultProps: Pick<ClassNamesElementProps, 'tag'> = {
     tag: 'div',
 };
+
 export const ClassNamesElement: Component<ClassNamesElementProps> = props => {
     const tag = () => props.tag || defaultProps.tag;
 

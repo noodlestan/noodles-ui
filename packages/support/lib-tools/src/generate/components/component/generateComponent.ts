@@ -1,4 +1,4 @@
-import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
 
 import { generateComponentPrivate } from './generateComponentPrivate';
 import { generateComponentPublic } from './generateComponentPublic';

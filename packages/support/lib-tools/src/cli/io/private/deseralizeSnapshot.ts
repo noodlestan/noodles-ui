@@ -1,4 +1,4 @@
-import { ProjectSnapshot } from '../../../types/projects';
+import { ProjectSnapshot } from '@noodles-ui/support-types';
 
 export const deseralizeSnapshot = (contents: Buffer): ProjectSnapshot => {
     const { surfaces, themes, components, variants, tokens } = JSON.parse(contents.toString());

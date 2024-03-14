@@ -1,5 +1,6 @@
+import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
+
 import { logMessage } from '../../cli/logger/logMessage';
-import { ProjectContext, SurfaceContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addSurface = (project: ProjectContext, context: SurfaceContext): void => {

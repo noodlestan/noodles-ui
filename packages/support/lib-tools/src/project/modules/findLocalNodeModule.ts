@@ -1,9 +1,9 @@
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 
+import { ProgramModule } from '@noodles-ui/support-types';
 import { PackageJson } from 'type-fest';
 
-import { ProgramModule } from '../../types/program';
 import { readPackageJson } from '../readPackageJson';
 
 const findPackageJson = (

@@ -6,27 +6,31 @@ Early days. See [root README](../../../README.md) for an introduction.
 
 ## Developing
 
-**Note:** see [@noodles-ui/lib-tools](../../support/lib-tools/README.md) for more on `xxx:nui` commands.
-
 Run all dev tasks in parallel
 
 ```bash
 npm run dev
 ```
 
+This will load project resource files, compile the project, generate code and launch the live preview app at http://localhost:3131/.
+
+The process will remain running and will rebuild all the project - or the relevant parts - when changes are made to resource files or source code.
+
 ![](../../support/lib-tools/resources/readme/screenshot-build-success.png)
 
-Or independently
+You can also run each dev task independently
 
 ```bash
-npm run dev:nui   # generate code
+npm run dev:nui   # compile project, generate code, live preview
 npm run dev:test  # tests
-npm run dev:lib   # build library
+npm run dev:lib   # build library (a regular vite build)
 ```
 
-To inspect loaded resources, generated project data, and errors you can expand details with the `--expand` argument.
+**Note:** the `dev:nui` command is an entry point for [@noodles-ui/lib-tools](../../support/lib-tools/README.md).
 
-You can expand resources and build artefacts
+To inspect the loaded resources, the generated project data, and eventual errors you can expand details with the `--expand` argument.
+
+You can expand resources and build artefacts...
 
 - by matching all or part of its **name**
 - by **type** (one of `surface`, `theme`, `variant`, `component`, `mixin`)
@@ -52,8 +56,8 @@ You can combine more than one pattern:
 npm run build:nui -- --expand @core-styled --expand Heading
 ```
 
-Note: results in union filter
-TODO intersection filter
+**Note:** the `--expand` patterns are combined as a union filter
+// TODO intersection filter
 
 ## Building
 

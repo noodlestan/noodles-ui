@@ -1,6 +1,6 @@
+import { ProjectContext } from '@noodles-ui/support-types';
 import { green } from 'kleur';
 
-import { ProjectContext } from '../../types/projects';
 import { logMessage } from '../logger/logMessage';
 
 export const logProjectBasicInfo = (project: ProjectContext): void => {

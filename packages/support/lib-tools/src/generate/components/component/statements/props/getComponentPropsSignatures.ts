@@ -1,6 +1,5 @@
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
-
-import { ComponentContextWithInstance, ProjectContext } from '../../../../../types/projects';
 
 import { getPropTypeNode } from './getPropTypeNode';
 

@@ -1,4 +1,4 @@
-import { ProjectDiagnosticFileError, ProjectDiagnosticSource } from '../../types/projects';
+import { ProjectDiagnosticFileError, ProjectDiagnosticSource } from '@noodles-ui/support-types';
 
 export const fileErrorFromDiagnosticSource = (
     source: ProjectDiagnosticSource,

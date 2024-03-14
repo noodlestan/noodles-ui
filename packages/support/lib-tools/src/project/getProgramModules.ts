@@ -1,6 +1,5 @@
+import { ProgramModule, ProgramModuleContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
-
-import { ProgramModule, ProgramModuleContext } from '../types/program';
 
 import {
     PROJECT_MODULE_KEY,

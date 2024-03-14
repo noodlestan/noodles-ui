@@ -1,9 +1,9 @@
 import { Route, Router } from '@solidjs/router';
 import { Component, JSX } from 'solid-js';
 
-import { DevBar } from './components/molecules/DevBar.tsx';
-import { NotFound } from './routes/404';
-import { Home } from './routes/Home';
+import { DevBar } from './components/app/DevBar.tsx/index.js';
+import { NotFound } from './pages/404.jsx';
+import { Home } from './pages/Home.jsx';
 
 import './App.css';
 
@@ -15,10 +15,10 @@ export const Root: Component<RootProps> = props => {
     return (
         <>
             <DevBar />
-            <nav>
+            {/* <nav>
                 <a href="/">Home</a>
-            </nav>
-            <main>{props.children}</main>
+            </nav> */}
+            {props.children}
         </>
     );
 };

@@ -1,5 +1,6 @@
+import { ProjectContext } from '@noodles-ui/support-types';
+
 import { formatFileName } from '../../cli/format/formatFileName';
-import { ProjectContext } from '../../types/projects';
 
 export const tsFileHeader = (project: ProjectContext, fileName: string): string => {
     return (

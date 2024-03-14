@@ -1,4 +1,4 @@
-import { ProjectContext, SurfaceContext } from '../../types/projects';
+import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
 
 import { addSurface } from './addSurface';
 

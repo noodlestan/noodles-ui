@@ -1,4 +1,4 @@
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 import { generateVariantsConstants } from './variants/generateVariantsConstants';
 import { generateVariantsScssVars } from './variants/generateVariantsScssVars';

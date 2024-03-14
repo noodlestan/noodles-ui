@@ -1,5 +1,5 @@
-import { ItemContext } from '../../types/projects';
-import { UnknownResource } from '../../types/resources';
+import { ItemContext, UnknownResource } from '@noodles-ui/support-types';
+
 import { getResourceTypedKey } from '../resources/getResourceTypedKey';
 
 export function newContextResourceWithConsumer<

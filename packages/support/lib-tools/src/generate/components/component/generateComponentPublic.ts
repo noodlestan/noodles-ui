@@ -2,7 +2,8 @@ import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
 import { dirname, relative } from 'path';
 
-import { ComponentContextWithInstance, ProjectContext } from '../../../types/projects';
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+
 import { removeExtension } from '../../files/removeExtension';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';

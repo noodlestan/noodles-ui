@@ -1,6 +1,6 @@
 import { ComponentResource } from '@noodles-ui/core-types';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { ComponentContext, ProjectContext } from '../../../../types/projects';
 import { isVariantInlineReferenceResource } from '../../../variants/isVariantInlineReferenceResource';
 import { Props } from '../extendComponent';
 

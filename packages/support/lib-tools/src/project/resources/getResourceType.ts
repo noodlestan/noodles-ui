@@ -1,10 +1,9 @@
 import { Resource } from '@noodles-ui/core-types';
-
 import {
     UnknownExtendResource,
     UnknownReferenceResource,
     UnknownResource,
-} from '../../types/resources';
+} from '@noodles-ui/support-types';
 
 export const getResourceType = (resource: UnknownResource): string => {
     const { type } = resource as Resource<string>;

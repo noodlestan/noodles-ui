@@ -1,14 +1,14 @@
-import { bold, gray, green, red, yellow } from 'kleur';
-
-import { getResourceName } from '../../project/resources/getResourceName';
-import { getResourceType } from '../../project/resources/getResourceType';
 import {
     ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticFileError,
     ProjectDiagnosticSource,
-} from '../../types/projects';
-import { UnknownResource } from '../../types/resources';
+    UnknownResource,
+} from '@noodles-ui/support-types';
+import { bold, gray, green, red, yellow } from 'kleur';
+
+import { getResourceName } from '../../project/resources/getResourceName';
+import { getResourceType } from '../../project/resources/getResourceType';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';

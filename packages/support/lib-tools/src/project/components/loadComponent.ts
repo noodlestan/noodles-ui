@@ -7,8 +7,8 @@ import {
     ComponentOwnResource,
     ComponentResource,
 } from '@noodles-ui/core-types';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { ComponentContext, ProjectContext } from '../../types/projects';
 import { newContextResourceWithConsumer } from '../context/newContextResourceWithConsumer';
 import { getResourceTypedKey } from '../resources/getResourceTypedKey';
 

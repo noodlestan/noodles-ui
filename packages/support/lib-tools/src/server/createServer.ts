@@ -28,8 +28,8 @@ export type DevServer = {
 export const createServer = (option: ServerOptions): DevServer => {
     let lastBuild: BuildFinishedEvent;
     const port = option.port;
-    // TODO locateLibToolsAppBuild() => locateNodeModule('@noodles-ui/lib-tools-app') + 'dist/'
-    const root = resolve('../../support/lib-tools-app/dist/');
+    // TODO locateLibToolsAppBuild() => locateNodeModule('@noodles-ui/live-app') + 'dist/'
+    const root = resolve('../../support/live-app/dist/');
     const app = fastify();
 
     const wss = new WebSocketServer({ server: app.server });

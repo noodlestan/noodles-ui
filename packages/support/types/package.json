@@ -1,0 +1,47 @@
+{
+  "name": "@noodles-ui/support-types",
+  "version": "0.0.1",
+  "description": "Types to support the design system build tools",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "themes",
+    "surfaces",
+    "palettes",
+    "scales",
+    "components",
+    "component-library",
+    "ui-library"
+  ],
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:test": "mocha -w -r ts-node/register ---watch-files 'src/**/*.ts' 'src/**/*.test.ts'",
+    "dev:lib": "tsc --watch --project tsconfig.lib.cjs.json",
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'",
+    "build": "npm run build:lib",
+    "build:lib": "npm run build:lib:cjs && npm run build:lib:esm",
+    "build:lib:esm": "tsc --project tsconfig.lib.esm.json",
+    "build:lib:cjs": "tsc --project tsconfig.lib.cjs.json",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@noodles-ui/core-types": "0.0.1",
+    "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "esm": "^3.2.25",
+    "expect": "^29.7.0",
+    "mocha": "^10.3.0",
+    "ts-node": "^10.9.2"
+  }
+}

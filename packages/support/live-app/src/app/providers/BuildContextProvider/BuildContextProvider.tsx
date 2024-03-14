@@ -1,6 +1,6 @@
 import { Accessor, Component, JSX, createContext, useContext } from 'solid-js';
 
-import { BuildData } from '~/app/types';
+import { BuildData } from '../../types';
 
 type BuildContextState = {
     error: Accessor<Error | undefined>;

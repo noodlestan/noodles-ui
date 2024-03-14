@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 
-import { ProgramModuleContext } from '../../types/program';
-import { ProjectContext } from '../../types/projects';
+import { ProgramModuleContext, ProjectContext } from '@noodles-ui/support-types';
+
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 

@@ -1,7 +1,7 @@
 import { ComponentInstance } from '@noodles-ui/core-types';
+import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
-import { ComponentContextWithInstance, ProjectContext } from '../../types/projects';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addComponent = (

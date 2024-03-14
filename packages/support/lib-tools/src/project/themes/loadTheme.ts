@@ -1,4 +1,4 @@
-import { ProjectContext, ThemeContext } from '../../types/projects';
+import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 
 import { addTheme } from './addTheme';
 

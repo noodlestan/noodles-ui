@@ -23,3 +23,5 @@ render(() => {
         </SystemUIProvider>
     );
 }, root);
+
+export { DevServer };

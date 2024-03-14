@@ -1,7 +1,7 @@
 import { mkdir } from 'fs/promises';
 import { join } from 'path';
 
-import { ProjectContext } from '../types/projects';
+import { ProjectContext } from '@noodles-ui/support-types';
 
 import { NUI_CACHE_FOLDER } from './resources/constants';
 

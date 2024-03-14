@@ -1,6 +1,5 @@
 import { dirname } from 'path';
 
-import { findRootPath } from '../monorepo/findRootPath';
 import {
     ComponentsContext,
     GeneratedSourceFile,
@@ -11,7 +10,9 @@ import {
     ThemesContext,
     TokensContext,
     VariantsContext,
-} from '../types/projects';
+} from '@noodles-ui/support-types';
+
+import { findRootPath } from '../monorepo/findRootPath';
 
 import { PROJECT_MODULE_KEY, PROJECT_NODULE_NAME } from './constants';
 import { createProgram } from './createProgram';

@@ -1,7 +1,7 @@
 {
   "name": "@noodles-ui/core-types",
   "version": "0.0.1",
-  "description": "Noodles UI types for modeing design systems",
+  "description": "Types for modeling design systems",
   "author": "Andre Torgal",
   "license": "MIT",
   "repository": {

@@ -1,5 +1,4 @@
-import { ItemContext } from '../../types/projects';
-import { UnknownResource } from '../../types/resources';
+import { ItemContext, UnknownResource } from '@noodles-ui/support-types';
 
 export function newContextPublicResource<T extends UnknownResource, P extends UnknownResource = T>(
     resource: T,

@@ -1,7 +1,7 @@
+import { ProjectContext } from '@noodles-ui/support-types';
 import { green, yellow } from 'kleur';
 
 import { getProjectFilenamesWatchlist } from '../../project/getProjectFilenamesWatchlist';
-import { ProjectContext } from '../../types/projects';
 import { formatFileName } from '../format/formatFileName';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';

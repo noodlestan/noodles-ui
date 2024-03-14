@@ -2,8 +2,7 @@ import { writeFile } from 'fs/promises';
 import { dirname, relative } from 'path';
 
 import { ComponentResource } from '@noodles-ui/core-types';
-
-import { ComponentContext, ProjectContext } from '../types/projects';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { componentGeneratedFileName } from './components/paths/componentGeneratedFileName';
 import { componentListFileName } from './components/paths/componentListFileName';
