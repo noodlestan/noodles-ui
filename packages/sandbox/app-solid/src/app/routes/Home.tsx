@@ -1,5 +1,5 @@
+import { Heading, Text } from '@noodles-ui/lab-ui';
 import { Counter } from '@noodles-ui/sandbox-components-solid';
-import { Heading, Text } from '@noodles-ui/sandbox-ui';
 import { Component } from 'solid-js';
 
 export const Home: Component = () => {

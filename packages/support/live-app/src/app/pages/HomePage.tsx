@@ -1,4 +1,4 @@
-// import { Heading, Text } from '@noodles-ui/sandbox-ui';
+// import { Heading, Text } from '@noodles-ui/lab-ui';
 import { ComponentContext, VariantContext } from '@noodles-ui/support-types';
 import { Component, For } from 'solid-js';
 
@@ -24,7 +24,7 @@ export const HomePage: Component = () => {
 
     return (
         <PageLayout tag="main">
-            <PageTitle>SandboxUI</PageTitle>
+            <PageTitle>Lab UI</PageTitle>
             <SectionLayout>
                 <SectionTitle>Surfaces</SectionTitle>
                 <CardGrid>

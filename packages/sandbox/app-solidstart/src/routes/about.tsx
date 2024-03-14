@@ -1,4 +1,4 @@
-import { Heading, Text } from '@noodles-ui/sandbox-ui';
+import { Heading, Text } from '@noodles-ui/lab-ui';
 import { Title } from '@solidjs/meta';
 import { Component } from 'solid-js';
 

@@ -23,6 +23,7 @@ type BuildContextState = {
     isBuilding: Accessor<Date | undefined>;
     setIsBuilding: Setter<Date | undefined>;
     builds: Accessor<BuildData[]>;
+    lastBuild: () => BuildData | undefined;
     setBuilds: Setter<BuildData[]>;
     requestBuild: () => void;
     entities: {
@@ -61,6 +62,7 @@ export const createBuildContext = (onRequestBuild: () => void): BuildContextStat
         isBuilding,
         setIsBuilding,
         builds,
+        lastBuild,
         setBuilds,
         requestBuild: () => {
             onRequestBuild();

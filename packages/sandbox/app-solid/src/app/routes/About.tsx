@@ -1,4 +1,4 @@
-import { Heading, Text } from '@noodles-ui/sandbox-ui';
+import { Heading, Text } from '@noodles-ui/lab-ui';
 import { Component } from 'solid-js';
 
 import styles from './About.module.scss';

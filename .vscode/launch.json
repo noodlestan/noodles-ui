@@ -5,22 +5,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Sandbox UI / build:nui",
+      "name": "Lab UI / build:nui",
       "request": "launch",
       "runtimeArgs": ["run", "build:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/libs/sandbox-ui"
+      "cwd": "${workspaceFolder}/packages/libs/lab-ui"
     },
     {
-      "name": "Sandbox UI / dev:nui",
+      "name": "Lab UI / dev:nui",
       "request": "launch",
       "runtimeArgs": ["run", "dev:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/libs/sandbox-ui"
+      "cwd": "${workspaceFolder}/packages/libs/lab-ui"
     }
   ]
 }

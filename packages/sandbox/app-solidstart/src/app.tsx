@@ -1,6 +1,6 @@
 // @refresh reload
+import { LabUI } from '@noodles-ui/lab-ui';
 import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
-import { SandboxUI } from '@noodles-ui/sandbox-ui';
 import { MetaProvider } from '@solidjs/meta';
 import { Router } from '@solidjs/router';
 import { FileRoutes } from '@solidjs/start';
@@ -16,9 +16,9 @@ export const Root: Component<RootProps> = props => {
     return (
         <MetaProvider>
             <SystemUIProvider {...systemUIContext}>
-                <SandboxUI colourScheme={colourScheme()} theme={theme()}>
+                <LabUI colourScheme={colourScheme()} theme={theme()}>
                     <Suspense>{props.children}</Suspense>
-                </SandboxUI>
+                </LabUI>
             </SystemUIProvider>
         </MetaProvider>
     );

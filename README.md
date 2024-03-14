@@ -25,7 +25,7 @@ See each package's README for more details.
 
 ### UI libraries
 
-- [Sandbox UI Library](./packages/libs/sandbox-ui/README.md) - Noodles UI experimentation sandbox library
+- [Lab UI Library](./packages/libs/lab-ui/README.md) - Noodles UI experimentation & playground library
 - [Standard UI Library](./packages/libs/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
 - [Proto UI Library](./packages/libs/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel
@@ -43,7 +43,7 @@ Use high quality components and primitives from headless libraries
 - [Types](./packages/support/types/README.md) - Types to support the design system build tools
 - [Sandbox components](./packages/support/sandbox-components-solid/README.md) - SolidJS Components for Noodles UI Sandboxes
 
-### Sandboxes
+### Sandbox apps
 
 Where we synchronously test new features and retro-compatibility with specific environments
 

@@ -1,4 +1,4 @@
-import { Surface } from '@noodles-ui/sandbox-ui';
+import { Surface } from '@noodles-ui/lab-ui';
 import { Route, Router } from '@solidjs/router';
 import { Component, JSX } from 'solid-js';
 

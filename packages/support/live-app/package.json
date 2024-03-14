@@ -17,7 +17,7 @@
     "@noodles-ui/lib-tools": "0.0.1",
     "@noodles-ui/support-types": "0.0.1",
     "@noodles-ui/sandbox-components-solid": "0.0.1",
-    "@noodles-ui/sandbox-ui": "0.0.1",
+    "@noodles-ui/lab-ui": "0.0.1",
     "@solid-primitives/date": "^2.0.21",
     "@solid-primitives/storage": "^2.1.2",
     "@solidjs/router": "^0.12.0",

@@ -1,5 +1,5 @@
 import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
-// import { SandboxUI } from '@noodles-ui/sandbox-ui';
+// import { LabUI } from '@noodles-ui/lab-ui';
 import { render } from 'solid-js/web';
 
 import { App } from './app/App';
@@ -12,10 +12,10 @@ render(() => {
     const { colourScheme, theme } = systemUIContext;
     return (
         <SystemUIProvider {...systemUIContext}>
-            {/* <SandboxUI colourScheme={colourScheme()} theme={theme()}> */}
+            {/* <LabUI colourScheme={colourScheme()} theme={theme()}> */}
             <DevServer>
                 <App />
-                {/* </SandboxUI> */}
+                {/* </LabUI> */}
                 <hr />
                 {/* TODO footer */}
                 {colourScheme()} / {theme()}

@@ -31,7 +31,7 @@ npm run dev
 
 Launches http://localhost:3000/ serving the app in dev mode.
 
-Make sure you have a NUI Live Server listening. You can start one by running `npm run dev:nui` in one of the design libraries, for instance [Sandbox UI](../../libs/sandbox-ui/README.md).
+Make sure you have a NUI Live Server listening. You can start one by running `npm run dev:nui` in one of the design libraries, for instance [Lab UI](../../libs/lab-ui/README.md).
 
 **Note:** In dev mode all `/api` requests, including web socket connections, are directed locally to `localhost:3000` and then proxied by the Vite development server to the NUI Live Server http://localhost:3131/.
 
@@ -57,7 +57,7 @@ npm run preview
 
 ## Deploying
 
-The built app is automatically served when you run `npm run dev:nui` in a design system library, for instance [Sandbox UI](../../libs/sandbox-ui/README.md).
+The built app is automatically served when you run `npm run dev:nui` in a design system library, for instance [Lab UI](../../libs/lab-ui/README.md).
 
 In production mode, since the app is served directly from http://localhost:3131/ there is no proxy involved.
 
