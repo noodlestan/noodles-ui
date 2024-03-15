@@ -1,4 +1,4 @@
-import { TokenContextWithInstance } from '@noodles-ui/support-types';
+import { TokenBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 // import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './TokenCard.module.css';
 
 type TokenCardProps = {
-    token: TokenContextWithInstance;
+    token: TokenBuildContext;
 };
 
 export const TokenCard: Component<TokenCardProps> = props => {
@@ -16,13 +16,13 @@ export const TokenCard: Component<TokenCardProps> = props => {
         [styles.TokenCard]: true,
     });
 
-    const path = () => `/token/${props.token.key}`;
-    const instance = () => props.token.instance;
+    const path = () => `/token/${props.token.context.key}`;
+    const entity = () => props.token.entity;
 
     return (
-        <EntityCard classList={classList()} public={props.token.public} href={path()}>
-            <ModuleName>{instance().module}</ModuleName>
-            {/* <EntityName>{instance().name}</EntityName> */}
+        <EntityCard classList={classList()} public={props.token.context.public} href={path()}>
+            <ModuleName>{entity().module}</ModuleName>
+            {/* <EntityName>{entity().name}</EntityName> */}
         </EntityCard>
     );
 };

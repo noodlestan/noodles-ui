@@ -1,8 +1,10 @@
 # Noodles UI
 
-> UI library framework (for SolidJS)
+> Tokens first UI library framework
+>
+> ~ \o/ early days \o/ ~
 
-Goals:
+**Goals:**
 
 - Support the creation and management of large, complex, and/or many design system UI libraries
 - Build quickly on top of high quality headless components and primitives (Kobalte, Ark UI, and Noodles own catalogue)

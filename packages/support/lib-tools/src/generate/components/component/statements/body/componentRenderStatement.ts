@@ -1,4 +1,4 @@
-import { ComponentOwnInstance } from '@noodles-ui/core-types';
+import { ComponentOwnEntity } from '@noodles-ui/core-types';
 import ts, { JsxAttributeLike } from 'typescript';
 
 import { renderedComponentAlias } from '../util/renderedComponentAlias';
@@ -6,10 +6,10 @@ import { renderedComponentAlias } from '../util/renderedComponentAlias';
 const factory = ts.factory;
 
 export const componentRenderStatement = (
-    instance: ComponentOwnInstance,
+    entity: ComponentOwnEntity,
     jsxProps: JsxAttributeLike[],
 ): ts.Statement => {
-    const alias = renderedComponentAlias(instance.render);
+    const alias = renderedComponentAlias(entity.render);
 
     return factory.createReturnStatement(
         factory.createJsxSelfClosingElement(

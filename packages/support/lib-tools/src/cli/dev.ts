@@ -14,6 +14,7 @@ import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
 import { ServerOptions, createServer } from '../server/createServer';
+import { formatMilieconds } from '../util/string';
 
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
@@ -67,7 +68,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     });
 
     const refreshWatchers = async (): Promise<void> => {
-        logInfo('reloading project...');
+        logInfo('...reloading project...');
         logProjectBasicInfo(project);
         await loadProjectModulesCache(project);
         const sources = getProjectFilenamesWatchlist(project);
@@ -114,11 +115,13 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
-            logInfo('Stats');
-            logMessage('- watched files:', fileCount);
-            logMessage('- build count:', buildCount);
-            logMessage('- build time (average):', Math.round(avgBuildTime) / 1000 + 's');
-            logMessage('- queue size:', queueLength || '<empty>');
+            logInfo('dev:nui stats');
+            logMessage('  Watched files:', fileCount);
+            logMessage('  Build count:', buildCount);
+            logMessage('  Build time (average):', formatMilieconds(avgBuildTime));
+            logMessage('  Queue size:', queueLength || '<empty>');
+            console.info();
+            logInfo('...watching for file changes...');
             console.info();
         }, 1);
     });

@@ -1,4 +1,4 @@
-import { VariantInlineExtendResource, VariantInstance } from '@noodles-ui/core-types';
+import { VariantEntity, VariantInlineExtendResource } from '@noodles-ui/core-types';
 import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../resources/getResourceKey';
@@ -7,8 +7,8 @@ export const extendVariantExtends = (
     project: ProjectContext,
     context: VariantContext,
     extendVariant: VariantInlineExtendResource,
-    resolvedParent: VariantInstance,
-): VariantInstance | undefined => {
+    resolvedParent: VariantEntity,
+): VariantEntity | undefined => {
     const { params } = extendVariant;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { extend, vars, ...rest } = extendVariant;

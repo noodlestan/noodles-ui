@@ -1,4 +1,4 @@
-import { ComponentInstance, PropInstance } from '@noodles-ui/core-types';
+import { ComponentEntity, PropEntity } from '@noodles-ui/core-types';
 import ts, { PropertyName } from 'typescript';
 
 import { getVariantPropsWithMixin } from '../props/getVariantPropsWithMixin';
@@ -40,11 +40,8 @@ const componentClassName = (name: string): PropertyName =>
         ),
     );
 
-const componentVariantClassName = (
-    instance: ComponentInstance,
-    prop: PropInstance,
-): PropertyName => {
-    const prefix = `${instance.name}-${prop.name}-`;
+const componentVariantClassName = (entity: ComponentEntity, prop: PropEntity): PropertyName => {
+    const prefix = `${entity.name}-${prop.name}-`;
     const propName = prop.name;
 
     const expression = hasPropDefaultValue(prop)
@@ -64,10 +61,10 @@ const componentVariantClassName = (
     );
 };
 
-export const componentClassListStatement = (instance: ComponentInstance): ts.Statement => {
-    const name = instance.name || '';
-    const variantClassListItems = getVariantPropsWithMixin(instance).map(prop =>
-        classListItem(componentVariantClassName(instance, prop)),
+export const componentClassListStatement = (entity: ComponentEntity): ts.Statement => {
+    const name = entity.name || '';
+    const variantClassListItems = getVariantPropsWithMixin(entity).map(prop =>
+        classListItem(componentVariantClassName(entity, prop)),
     );
     const objectLiteral = factory.createObjectLiteralExpression(
         [classListItem(componentClassName(name)), ...variantClassListItems],

@@ -14,28 +14,28 @@ export const loadProject = (project: ProjectContext, resource: ProjectResource):
     const { name, module } = resource;
     project.resource = { name, module };
 
-    logInfo('loading project...');
-    logMessage('  name:', name);
-    logMessage('  module:', module);
+    logInfo('...loading project...');
+    logMessage('  Name:', name);
+    logMessage('  Module:', module);
     console.info('');
 
-    logInfo('loading surfaces...');
+    logInfo('...loading surfaces...');
     loadSurfaces(project, resource);
     console.info('');
 
-    logInfo('loading themes...');
+    logInfo('...loading themes...');
     loadThemes(project, resource);
     console.info('');
 
-    logInfo('loading variants...');
+    logInfo('...loading variants...');
     loadVariants(project, resource);
     console.info('');
 
-    logInfo('loading components...');
+    logInfo('...loading components...');
     loadComponents(project, resource);
     console.info('');
 
-    logInfo('loading tokens...');
+    logInfo('...loading tokens...');
     loadTokens(project, resource);
     console.info('');
 };

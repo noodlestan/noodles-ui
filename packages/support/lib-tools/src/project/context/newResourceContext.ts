@@ -1,10 +1,8 @@
-import { ItemContext, UnknownResource } from '@noodles-ui/support-types';
+import { ResourceContext, UnknownResource } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../resources/getResourceKey';
 
-export function newContextResource<T extends UnknownResource, P extends UnknownResource = T>(
-    resource: T,
-): ItemContext<T, P> {
+export function newResourceContext<T extends UnknownResource>(resource: T): ResourceContext<T> {
     return {
         key: getResourceKey(resource),
         resource,

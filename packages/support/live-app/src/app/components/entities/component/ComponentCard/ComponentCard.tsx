@@ -1,4 +1,4 @@
-import { ComponentContextWithInstance } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './ComponentCard.module.css';
 
 type ComponentCardProps = {
-    component: ComponentContextWithInstance;
+    component: ComponentBuildContext;
 };
 
 export const ComponentCard: Component<ComponentCardProps> = props => {
@@ -16,13 +16,13 @@ export const ComponentCard: Component<ComponentCardProps> = props => {
         [styles.ComponentCard]: true,
     });
 
-    const path = () => `/component/${props.component.key}`;
-    const instance = () => props.component.instance;
+    const path = () => `/component/${props.component.context.key}`;
+    const entity = () => props.component.entity;
 
     return (
-        <EntityCard classList={classList()} public={props.component.public} href={path()}>
-            <ModuleName>{instance().module}</ModuleName>
-            <EntityName>{instance().name}</EntityName>
+        <EntityCard classList={classList()} public={props.component.context.public} href={path()}>
+            <ModuleName>{entity().module}</ModuleName>
+            <EntityName>{entity().name}</EntityName>
         </EntityCard>
     );
 };

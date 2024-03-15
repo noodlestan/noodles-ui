@@ -1,13 +1,12 @@
 import {
     ComponentOwnResource,
-    PropVariantInstance,
+    PropVariantEntity,
     VariantInlineResource,
-    VariantInstance,
     VariantResource,
 } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { newContextPublicResourceWithConsumer } from '../../../context/newContextPublicResourceWithConsumer';
+import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { getResourceTypedKey } from '../../../resources/getResourceTypedKey';
 import { loadVariant } from '../../../variants/loadVariant';
 
@@ -17,12 +16,9 @@ export const loadVariantInlineProp = (
     component: ComponentOwnResource,
     key: string,
     inlineVariant: VariantInlineResource,
-): PropVariantInstance | undefined => {
+): PropVariantEntity | undefined => {
     const newResource = { ...structuredClone(inlineVariant), module: component.module };
-    const newContext = newContextPublicResourceWithConsumer<VariantResource, VariantInstance>(
-        context,
-        newResource,
-    );
+    const newContext = newResourceContextPublicWithConsumer<VariantResource>(context, newResource);
 
     const variant = loadVariant(project, newContext);
     if (!variant) {

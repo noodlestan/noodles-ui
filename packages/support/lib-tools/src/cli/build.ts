@@ -41,7 +41,7 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
     const expandPatterns = getExpandPatterns();
     const project = await createProject(projectFile, expandPatterns);
     project.compileProjectFile();
-    timings.push([Date.now(), 'project compiled']);
+    timings.push([Date.now(), 'TS compilation of project file']);
 
     await ensureProjectCacheDir(project);
     logProjectBasicInfo(project);
@@ -54,26 +54,26 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
 
         // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
         const resourceData = require(resolve(fileName)).default;
-        timings.push([Date.now(), 'project file loaded']);
+        timings.push([Date.now(), 'Loading project file']);
 
         logProjectResource(resourceData);
         await saveProjectResourceCache(project, resourceData);
 
         loadProject(project, resourceData);
-        timings.push([Date.now(), 'resources loaded']);
+        timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
         if (project.diagnostics.length) {
             logError(`Encountered ${project.diagnostics.length} issues during load`);
             logError(`Skipping code generation`);
         } else {
-            logInfo(`Generating code`);
+            logInfo(`...generating code...`);
             await ensureGeneratedDir(project);
             await generateComponentsList(project);
             await generateComponents(project);
             await generateVariants(project);
             logGeneratedSourceFiles(project);
-            timings.push([Date.now(), 'code generated']);
+            timings.push([Date.now(), 'Generating code']);
         }
 
         if (project.diagnostics.length) {

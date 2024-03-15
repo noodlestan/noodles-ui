@@ -1,8 +1,6 @@
-import { BuildSnapshotDto, ComponentContextWithInstance, NUI } from '@noodles-ui/support-types';
+import { BuildSnapshotDto, ComponentBuildContext, NUI } from '@noodles-ui/support-types';
 
 import { entitiesByType } from './entitiesByType';
 
-export const components = (
-    snapshot?: BuildSnapshotDto | undefined,
-): ComponentContextWithInstance[] =>
-    entitiesByType<ComponentContextWithInstance>(snapshot, NUI.component);
+export const components = (snapshot?: BuildSnapshotDto | undefined): ComponentBuildContext[] =>
+    entitiesByType<ComponentBuildContext>(snapshot, NUI.component);

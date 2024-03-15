@@ -17,22 +17,13 @@ Support types are consumed in:
 - instrumentation and analytics
 - documentation and visualization code
 
-### Resource types
+### Build context types
 
-Declare and describe design system resources and their relationships across multiple packages.
+Aggregate the input resource, the generated entity, and metadata acquired during the build, e.g.: relationships between resources.
 
-Examples: `ThemeResource`, `ComponentResource`, and `VariantResource`.
+Examples: `ComponentBuildContext` and `ThemeBuildContext`.
 
-Always named `AbcdefResource`.
-
-> IMPORTANT: Code that ships to clients in production is forbidden to reference these types.
-> (except for run-time instrumentation code).
-
-### Elemental types
-
-Primitives that are shared by both run-time code and tooling code
-
-Examples: `TokenMap` and `ColourSchemeName`
+The underlying definition types for both inputs - `*Resource` and entities - `*Entity` - are provided by [@noodles-ui/core-types](../../core/types/README.md#concern).
 
 ## License
 

@@ -1,7 +1,7 @@
 import {
     ComponentOwnResource,
     LocalPropResource,
-    PropInstance,
+    PropEntity,
     PropOwnResource,
 } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
@@ -20,7 +20,7 @@ export const loadComponentProp = (
     component: ComponentOwnResource,
     key: string,
     prop: LocalPropResource,
-): PropInstance | undefined => {
+): PropEntity | undefined => {
     const variant = isVariantInline(prop);
     if (variant) {
         return loadVariantInlineProp(project, context, component, key, variant);

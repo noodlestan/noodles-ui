@@ -14,14 +14,14 @@ export const ComponentPage: Component = () => {
     const params = useParams();
 
     const component = () => componentByKey(lastSnapshot(), params.key);
-    const instance = () => component().instance;
+    const entity = () => component().entity;
 
     return (
         <Show when={lastSnapshot()}>
             <PageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{instance().module}</ModuleName>
-                    <PageTitle>Component: {instance().name}</PageTitle>
+                    <ModuleName>{entity().module}</ModuleName>
+                    <PageTitle>Component: {entity().name}</PageTitle>
                 </PageHeader>
                 <Show when={component()}>
                     <iframe src={`http://localhost:3133/component/${params.key}`} />

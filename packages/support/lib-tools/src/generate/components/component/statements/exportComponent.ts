@@ -1,5 +1,5 @@
-import { ComponentOwnInstance } from '@noodles-ui/core-types';
-import { ComponentContextWithInstance } from '@noodles-ui/support-types';
+import { ComponentOwnEntity } from '@noodles-ui/core-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts, { JsxAttribute } from 'typescript';
 
 import { getRenderedProps } from '../../../../project/components/extend/private/getRenderedProps';
@@ -41,10 +41,10 @@ const expressionCallProp = (propName: string): ts.JsxAttribute => {
     );
 };
 
-const getPropsForRenderedComponent = (component: ComponentContextWithInstance): JsxAttribute[] => {
-    const { instance } = component;
-    const renderedProps = getRenderedProps(instance as ComponentOwnInstance);
-    const propsWithDefaults = getPropsWithDefaultValues(instance);
+const getPropsForRenderedComponent = (component: ComponentBuildContext): JsxAttribute[] => {
+    const { entity } = component;
+    const renderedProps = getRenderedProps(entity as ComponentOwnEntity);
+    const propsWithDefaults = getPropsWithDefaultValues(entity);
 
     const props = propsWithDefaults
         .filter(prop => prop.name in renderedProps)
@@ -67,14 +67,14 @@ const getPropsForRenderedComponent = (component: ComponentContextWithInstance): 
     return [classListProp, ...props];
 };
 
-export const exportComponent = (component: ComponentContextWithInstance): ts.Statement => {
-    const instance = component.instance as ComponentOwnInstance;
-    const name = instance.name || '';
+export const exportComponent = (component: ComponentBuildContext): ts.Statement => {
+    const entity = component.entity as ComponentOwnEntity;
+    const name = entity.name || '';
     const jsxProps = getPropsForRenderedComponent(component);
 
-    const defaultsStatements = componentDefaultsStatements(instance);
-    const classListStatement = componentClassListStatement(instance);
-    const renderStatement = componentRenderStatement(instance, jsxProps);
+    const defaultsStatements = componentDefaultsStatements(entity);
+    const classListStatement = componentClassListStatement(entity);
+    const renderStatement = componentRenderStatement(entity, jsxProps);
 
     const statements: ts.Statement[] = [...defaultsStatements, classListStatement, renderStatement];
     const componentDeclaration = factory.createVariableDeclaration(

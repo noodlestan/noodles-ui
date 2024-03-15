@@ -1,4 +1,4 @@
-import { VariantInstance } from '@noodles-ui/core-types';
+import { VariantEntity } from '@noodles-ui/core-types';
 import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
@@ -7,37 +7,38 @@ import { getResourceKey } from '../resources/getResourceKey';
 export const addVariant = (
     project: ProjectContext,
     context: VariantContext,
-): VariantInstance | undefined => {
+    entity: VariantEntity,
+): VariantEntity | undefined => {
     const { variant: items } = project.entities;
-    const { resource, instance } = context;
+    const { resource } = context;
 
-    if (!instance) {
-        project.addDiagnostic(resource, 'No instance generated');
+    if (!entity) {
+        project.addDiagnostic(resource, 'No entity generated');
         return;
     }
 
-    if (!instance.name) {
-        project.addDiagnostic(resource, 'Empty variant name');
+    if (!entity.name) {
+        project.addDiagnostic(resource, 'Entity name is empty');
         return;
     }
 
-    if (!instance.module) {
+    if (!entity.module) {
         project.addDiagnostic(resource, 'Empty module name');
         return;
     }
 
-    const key = getResourceKey(instance);
+    const key = getResourceKey(entity);
     const previous = items.get(key);
 
     if (previous) {
-        context.consumers.forEach(consumer => previous.consumers.add(consumer));
+        context.consumers.forEach(consumer => previous.context.consumers.add(consumer));
         // // TODO compare options/params/etc... and issue error if different
         // project.addDiagnostic(resource, `Duplicate variant key "${key}".`);
-        return previous.instance;
+        return previous.entity;
     }
 
     logMessage('+ variant', key);
-    items.set(key, context);
+    items.set(key, { context, entity });
 
-    return instance;
+    return entity;
 };

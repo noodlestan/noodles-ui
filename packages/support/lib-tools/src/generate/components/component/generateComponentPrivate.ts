@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
@@ -21,12 +21,12 @@ import { importVariantTypes } from './statements/importVariantTypes';
 export const generateComponentPrivate = async (
     project: ProjectContext,
     key: string,
-    component: ComponentContextWithInstance,
+    component: ComponentBuildContext,
 ): Promise<void> => {
-    const { instance } = component;
-    const fileName = componentGeneratedFileName(project, instance);
+    const { entity } = component;
+    const fileName = componentGeneratedFileName(project, entity);
 
-    const importJSX = !!instance.props?.children;
+    const importJSX = !!entity.props?.children;
 
     const statements = [
         importFrameworkComponent(importJSX),

@@ -1,16 +1,12 @@
-import {
-    ComponentInstance,
-    PropVariantInstance,
-    PropVariantReference,
-} from '@noodles-ui/core-types';
+import { ComponentEntity, PropVariantEntity, PropVariantReference } from '@noodles-ui/core-types';
 
 import { isPropVariant } from './isPropVariant';
 
 export const getVariantProps = (
-    instance: ComponentInstance,
-): (PropVariantInstance | PropVariantReference)[] => {
-    return Object.values(instance.props || {}).filter(isPropVariant) as (
-        | PropVariantInstance
+    entity: ComponentEntity,
+): (PropVariantEntity | PropVariantReference)[] => {
+    return Object.values(entity.props || {}).filter(isPropVariant) as (
+        | PropVariantEntity
         | PropVariantReference
     )[];
 };

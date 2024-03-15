@@ -1,15 +1,15 @@
-import { PropInstance, PropVariantInstance } from '@noodles-ui/core-types';
+import { PropEntity, PropVariantEntity } from '@noodles-ui/core-types';
 
-import { isPropVariantInstance } from './isPropVariantInstance';
+import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const hasPropVariantMixin = (prop: PropInstance): PropVariantInstance | undefined => {
-    const propVariant = isPropVariantInstance(prop);
+export const hasPropVariantMixin = (prop: PropEntity): PropVariantEntity | undefined => {
+    const propVariant = isPropVariantEntity(prop);
     if (propVariant && propVariant.variant.mixin) {
-        return prop as PropVariantInstance;
+        return prop as PropVariantEntity;
     }
     const propReference = isPropVariantReference(prop);
     if (propReference && propReference.reference.mixin) {
-        return prop as PropVariantInstance;
+        return prop as PropVariantEntity;
     }
 };

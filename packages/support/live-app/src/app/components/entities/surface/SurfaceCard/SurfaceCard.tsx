@@ -1,4 +1,4 @@
-import { SurfaceContextWithInstance } from '@noodles-ui/support-types';
+import { SurfaceBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './SurfaceCard.module.css';
 
 type SurfaceCardProps = {
-    surface: SurfaceContextWithInstance;
+    surface: SurfaceBuildContext;
 };
 
 export const SurfaceCard: Component<SurfaceCardProps> = props => {
@@ -16,13 +16,13 @@ export const SurfaceCard: Component<SurfaceCardProps> = props => {
         [styles.SurfaceCard]: true,
     });
 
-    const path = () => `/variants/${props.surface.key}`;
-    const instance = () => props.surface.instance;
+    const path = () => `/variants/${props.surface.context.key}`;
+    const entity = () => props.surface.entity;
 
     return (
-        <EntityCard classList={classList()} public={props.surface.public} href={path()}>
-            <ModuleName>{instance().module}</ModuleName>
-            <EntityName>{instance().name}</EntityName>
+        <EntityCard classList={classList()} public={props.surface.context.public} href={path()}>
+            <ModuleName>{entity().module}</ModuleName>
+            <EntityName>{entity().name}</EntityName>
         </EntityCard>
     );
 };

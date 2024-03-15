@@ -1,5 +1,5 @@
-import { ComponentOwnInstance, RenderedComponentResource } from '@noodles-ui/core-types';
-import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+import { ComponentOwnEntity, RenderedComponentResource } from '@noodles-ui/core-types';
+import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
@@ -27,23 +27,24 @@ const pickProps = (fromType: string, names: string[]) =>
 
 export const declareRenderedProps = (
     project: ProjectContext,
-    component: ComponentContextWithInstance,
+    component: ComponentBuildContext,
 ): ts.TypeAliasDeclaration => {
-    const instance = component.instance as ComponentOwnInstance;
-    const rendered = instance.render as RenderedComponentResource;
+    const { resource } = component.context;
+    const entity = component.entity as ComponentOwnEntity;
+    const rendered = entity.render as RenderedComponentResource;
 
     const alias = renderedComponentAlias(rendered);
     const extendedPropsType = alias + 'Props';
 
-    const isOmit = !!component.resource.hides;
-    const isPick = !!component.resource.exposes && component.resource.exposes !== '*';
-    // const isAll = component.resource.exposes === '*';
+    const isOmit = !!resource.hides;
+    const isPick = !!resource.exposes && resource.exposes !== '*';
+    // const isAll = resource.exposes === '*';
     // const isAll = !isPick && !isOmit;
 
     const typeDef = isOmit
-        ? omitProps(extendedPropsType, Object.keys(component.resource.hides || {}))
+        ? omitProps(extendedPropsType, Object.keys(resource.hides || {}))
         : isPick
-          ? pickProps(extendedPropsType, Object.keys(component.resource.hides || {}))
+          ? pickProps(extendedPropsType, Object.keys(resource.hides || {}))
           : factory.createTypeReferenceNode(factory.createIdentifier(extendedPropsType), undefined);
 
     return factory.createTypeAliasDeclaration(

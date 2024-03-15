@@ -1,8 +1,5 @@
 // import { Heading, Text } from '@noodles-ui/lab-ui';
-import {
-    ComponentContextWithInstance,
-    VariantContextWithInstance,
-} from '@noodles-ui/support-types';
+import { ComponentBuildContext, VariantBuildContext } from '@noodles-ui/support-types';
 import { Component, For } from 'solid-js';
 
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
@@ -25,8 +22,8 @@ import { variants } from '../providers/BuildContextProvider/variants';
 export const EntitiesPage: Component = () => {
     const { lastSnapshot } = useBuildContext();
 
-    const isPublicComponent = (component: ComponentContextWithInstance) => !!component.public;
-    const isPublicVariant = (variant: VariantContextWithInstance) => !!variant.public;
+    const isPublicComponent = (component: ComponentBuildContext) => !!component.context.public;
+    const isPublicVariant = (variant: VariantBuildContext) => !!variant.context.public;
 
     return (
         <StageLayout tag="main">

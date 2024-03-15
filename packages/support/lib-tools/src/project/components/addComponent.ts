@@ -1,32 +1,33 @@
-import { ComponentInstance } from '@noodles-ui/core-types';
-import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+import { ComponentEntity } from '@noodles-ui/core-types';
+import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addComponent = (
     project: ProjectContext,
-    context: ComponentContextWithInstance,
-): ComponentInstance | undefined => {
+    context: ComponentContext,
+    entity: ComponentEntity,
+): ComponentEntity | undefined => {
     const { component: items } = project.entities;
-    const { resource, instance } = context;
+    const { resource } = context;
 
-    if (!instance) {
-        project.addDiagnostic(resource, 'No instance generated.');
+    if (!entity) {
+        project.addDiagnostic(resource, 'No entity generated.');
         return;
     }
 
-    if (!instance.name) {
-        project.addDiagnostic(resource, 'No component name.');
+    if (!entity.name) {
+        project.addDiagnostic(resource, 'Entity name is empty.');
         return;
     }
 
-    const key = getResourceKey(instance);
+    const key = getResourceKey(entity);
     if (context.public) {
         const previous = items.get(key);
         if (previous) {
-            if (!previous.public) {
-                previous.public = true;
+            if (!previous.context.public) {
+                previous.context.public = true;
                 logMessage('  (+ public)', key);
             } else {
                 project.addDiagnostic(resource, `Duplicate component key "${key}".`);
@@ -34,7 +35,7 @@ export const addComponent = (
             return;
         }
         logMessage('+ component (public)', key);
-        items.set(key, context);
+        items.set(key, { context, entity });
         return;
     }
 
@@ -45,12 +46,12 @@ export const addComponent = (
         // const d = project.addDiagnostic(...)
         // context.diagnostics.push(f)
         // OR simply:
-        // project.addDiagnostic(source, message, context?: ItemContext) <--
+        // project.addDiagnostic(source, message, context?: ResourceContext) <--
         // and then do the initialization and push to context.diagnostics[] inside
         return;
     }
     logMessage('+ component', key);
-    items.set(key, context);
+    items.set(key, { context, entity });
 
-    return instance;
+    return entity;
 };

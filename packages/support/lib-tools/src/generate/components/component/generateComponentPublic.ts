@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
 import { dirname, relative } from 'path';
 
-import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { removeExtension } from '../../files/removeExtension';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
@@ -12,11 +12,12 @@ import { componentPublicFileName } from '../paths/componentPublicFileName';
 export const generateComponentPublic = async (
     project: ProjectContext,
     key: string,
-    component: ComponentContextWithInstance,
+    component: ComponentBuildContext,
 ): Promise<void> => {
-    const name = component.instance.name;
-    const generatedPath = componentGeneratedFileName(project, component.instance);
-    const fileName = componentPublicFileName(project, component.instance);
+    const { entity } = component;
+    const name = entity.name;
+    const generatedPath = componentGeneratedFileName(project, component.entity);
+    const fileName = componentPublicFileName(project, component.entity);
 
     const path = relative(dirname(fileName), generatedPath);
     const content = `export { ${name} } from '${removeExtension(path)}';`;

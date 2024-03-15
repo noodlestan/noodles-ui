@@ -6,7 +6,7 @@ import { logMessage } from '../../cli/logger/logMessage';
 export const loadTokens = (project: ProjectContext, resource: ProjectResource): void => {
     // const { tokens } = resource.entities;
     //   tokens.forEach(token => {
-    //   const context = newPublicItemContext(token);
+    //   const context = newResourceContextPublic(token);
     //   loadToken(project, context); => addToken()
     // });
     if (project && resource) {

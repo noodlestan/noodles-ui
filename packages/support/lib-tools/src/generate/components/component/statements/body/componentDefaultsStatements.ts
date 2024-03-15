@@ -1,4 +1,4 @@
-import { ComponentInstance, PropInstance } from '@noodles-ui/core-types';
+import { ComponentEntity, PropEntity } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
 import { getPropDefaultConstantName } from '../props/getPropDefaultConstantName';
@@ -6,12 +6,9 @@ import { getPropsWithDefaultValues } from '../props/getPropsWithDefaultValues';
 
 const factory = ts.factory;
 
-const componentDefaultStatement = (
-    instance: ComponentInstance,
-    prop: PropInstance,
-): ts.Statement => {
+const componentDefaultStatement = (entity: ComponentEntity, prop: PropEntity): ts.Statement => {
     const propName = prop.name;
-    const constantName = getPropDefaultConstantName(instance, prop);
+    const constantName = getPropDefaultConstantName(entity, prop);
 
     const arrowFunction = factory.createArrowFunction(
         undefined,
@@ -42,8 +39,8 @@ const componentDefaultStatement = (
     );
 };
 
-export const componentDefaultsStatements = (instance: ComponentInstance): ts.Statement[] => {
-    const propsWithDefaultValues = getPropsWithDefaultValues(instance);
+export const componentDefaultsStatements = (entity: ComponentEntity): ts.Statement[] => {
+    const propsWithDefaultValues = getPropsWithDefaultValues(entity);
 
-    return propsWithDefaultValues.map(prop => componentDefaultStatement(instance, prop));
+    return propsWithDefaultValues.map(prop => componentDefaultStatement(entity, prop));
 };

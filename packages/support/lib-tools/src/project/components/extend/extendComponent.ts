@@ -1,6 +1,6 @@
 import {
     ComponentExtendResource,
-    ComponentOwnInstance,
+    ComponentOwnEntity,
     ComponentOwnResource,
     LocalPropResource,
 } from '@noodles-ui/core-types';
@@ -17,7 +17,7 @@ export const extendComponent = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentExtendResource,
-    parent: ComponentOwnInstance,
+    parent: ComponentOwnEntity,
 ): ComponentOwnResource | undefined => {
     const { module, name, use } = component;
 

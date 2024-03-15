@@ -1,15 +1,12 @@
-import { ComponentInstance, PropInstance } from '@noodles-ui/core-types';
+import { ComponentEntity, PropEntity } from '@noodles-ui/core-types';
 
 import { camelCase } from '../../../../../util/string';
 
-import { isPropVariantInstance } from './isPropVariantInstance';
+import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const getPropDefaultConstantName = (
-    instance: ComponentInstance,
-    prop: PropInstance,
-): string => {
-    const variantProp = isPropVariantInstance(prop);
+export const getPropDefaultConstantName = (entity: ComponentEntity, prop: PropEntity): string => {
+    const variantProp = isPropVariantEntity(prop);
     if (variantProp) {
         return camelCase(variantProp.variant.name + '-' + 'DefaultOption');
     }
@@ -17,5 +14,5 @@ export const getPropDefaultConstantName = (
     if (referenceProp) {
         return camelCase(referenceProp.reference.name + '-' + 'DefaultOption');
     }
-    return camelCase(instance.name + '-' + prop.name + '-' + 'DefaultValue');
+    return camelCase(entity.name + '-' + prop.name + '-' + 'DefaultValue');
 };

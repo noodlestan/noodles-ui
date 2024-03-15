@@ -1,20 +1,15 @@
 import {
     BuildSnapshotDto,
-    ComponentContext,
-    ComponentContextWithInstance,
+    ComponentBuildContext,
     ProjectContext,
-    SurfaceContext,
-    SurfaceContextWithInstance,
-    ThemeContext,
-    ThemeContextWithInstance,
-    TokenContext,
-    TokenContextWithInstance,
-    VariantContext,
-    VariantContextWithInstance,
+    SurfaceBuildContext,
+    ThemeBuildContext,
+    TokenBuildContext,
+    VariantBuildContext,
 } from '@noodles-ui/support-types';
 
-function mapToObject<T, V extends T>(map: Map<string, T>): { [key: string]: V } {
-    return Object.fromEntries(map) as { [key: string]: V };
+function mapToObject<T>(map: Map<string, T>): { [key: string]: T } {
+    return Object.fromEntries(map);
 }
 
 export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => {
@@ -27,11 +22,11 @@ export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => 
         success: !project.diagnostics.length,
         timestamp: new Date().toJSON(),
         entities: {
-            surface: mapToObject<SurfaceContext, SurfaceContextWithInstance>(surface),
-            theme: mapToObject<ThemeContext, ThemeContextWithInstance>(theme),
-            component: mapToObject<ComponentContext, ComponentContextWithInstance>(component),
-            variant: mapToObject<VariantContext, VariantContextWithInstance>(variant),
-            token: mapToObject<TokenContext, TokenContextWithInstance>(token),
+            surface: mapToObject<SurfaceBuildContext>(surface),
+            theme: mapToObject<ThemeBuildContext>(theme),
+            component: mapToObject<ComponentBuildContext>(component),
+            variant: mapToObject<VariantBuildContext>(variant),
+            token: mapToObject<TokenBuildContext>(token),
         },
         diagnostics: [],
     };

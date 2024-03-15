@@ -1,16 +1,16 @@
-import { PropVariantInstance, PropVariantReference, Value } from '@noodles-ui/core-types';
+import { PropVariantEntity, PropVariantReference, Value } from '@noodles-ui/core-types';
 
-import { isPropVariantInstance } from './isPropVariantInstance';
+import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const getPropDefaultValue = (prop: PropVariantInstance | PropVariantReference): Value => {
+export const getPropDefaultValue = (prop: PropVariantEntity | PropVariantReference): Value => {
     if ('defaultValue' in prop) {
         return prop.defaultValue;
     }
 
-    const instance = isPropVariantInstance(prop);
-    if (instance) {
-        return instance.variant.defaultValue;
+    const entity = isPropVariantEntity(prop);
+    if (entity) {
+        return entity.variant.defaultValue;
     }
 
     const reference = isPropVariantReference(prop);

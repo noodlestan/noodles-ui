@@ -1,6 +1,6 @@
 import { MixinResource } from './mixins';
 import { Value } from './primitives/params';
-import { PropInlineResource, PropInstance, PropOverrides } from './props';
+import { PropEntity, PropInlineResource, PropOverrides } from './props';
 import { Resource } from './resource';
 import {
     VariantInlineExtendResource,
@@ -72,17 +72,17 @@ export type ComponentResource =
     | ComponentImportResource
     | ComponentExtendResource;
 
-export type ComponentInstanceProps = {
-    [name: string]: PropInstance;
+export type ComponentEntityProps = {
+    [name: string]: PropEntity;
 };
 
-export type ComponentOwnInstance = Omit<ComponentOwnResource, 'use' | 'props'> & {
+export type ComponentOwnEntity = Omit<ComponentOwnResource, 'use' | 'props'> & {
     use: MixinResource[];
-    props: ComponentInstanceProps;
+    props: ComponentEntityProps;
 };
 
-export type ComponentImportInstance = Omit<ComponentImportResource, 'use' | 'props'> & {
-    props: ComponentInstanceProps;
+export type ComponentImportEntity = Omit<ComponentImportResource, 'use' | 'props'> & {
+    props: ComponentEntityProps;
 };
 
-export type ComponentInstance = ComponentOwnInstance | ComponentImportInstance;
+export type ComponentEntity = ComponentOwnEntity | ComponentImportEntity;

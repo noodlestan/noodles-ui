@@ -1,5 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ItemContext, ProjectContext, UnknownResource } from '@noodles-ui/support-types';
+import {
+    EntityBuildContext,
+    EntityBuildMap,
+    ProjectContext,
+    ResourceContext,
+    UnknownResource,
+} from '@noodles-ui/support-types';
 import { gray, green, red, yellow } from 'kleur';
 
 import { getResourceModule } from '../../project/resources/getResourceModule';
@@ -16,10 +22,10 @@ type ItemsWithErrors = {
     [key: string]: number;
 };
 
-function logResourceGroup<T extends UnknownResource>(
+function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends UnknownResource>(
     project: ProjectContext,
     label: string,
-    items: Map<string, ItemContext<T>>,
+    items: EntityBuildMap<EntityBuildContext<T, V>>,
     itemsWithErrors: ItemsWithErrors,
 ) {
     const count = items.size;
@@ -28,12 +34,13 @@ function logResourceGroup<T extends UnknownResource>(
         logMessage('  ' + gray('<empty>'));
     }
     items.forEach(item => {
-        const { resource, instance, public: isPublic } = item;
-        const isExpanded = shouldExpand(project, resource || instance);
-        const itemKey = getResourceTypedKey(instance || resource);
-        const name = instance ? getResourceName(instance) : red(getResourceName(resource));
-        const mod = instance ? getResourceModule(instance) : red(getResourceModule(resource));
-        const errors = (itemsWithErrors[itemKey] || 0) + (!instance ? 1 : 0);
+        const { context, entity } = item;
+        const { resource, public: isPublic, consumes, consumers } = context;
+        const isExpanded = shouldExpand(project, resource || entity);
+        const itemKey = getResourceTypedKey(entity || resource);
+        const name = entity ? getResourceName(entity) : red(getResourceName(resource));
+        const mod = entity ? getResourceModule(entity) : red(getResourceModule(resource));
+        const errors = (itemsWithErrors[itemKey] || 0) + (!entity ? 1 : 0);
         const publicTag = isPublic ? green(' public') : '';
         const formatedName = (errors ? red(`${name} (${errors})`) : yellow(name)) + publicTag;
         if (!isExpanded) {
@@ -43,15 +50,15 @@ function logResourceGroup<T extends UnknownResource>(
             console.info('');
             logMessage('  ' + gray(mod), formatedName);
             console.info('');
-            console.info('public:', item.public);
+            console.info('public:', isPublic);
             console.info('---');
             const ignore = ['name', 'type', 'module'];
-            Object.entries(instance || {})
+            Object.entries(entity || {})
                 .filter(([key]) => !ignore.includes(key))
                 .forEach(([key, value]) => console.info(key, value));
             console.info('---');
-            console.info('consumes:', item.consumes);
-            console.info('consumers:', item.consumers);
+            console.info('consumes:', consumes);
+            console.info('consumers:', consumers);
             console.info('');
         }
     });

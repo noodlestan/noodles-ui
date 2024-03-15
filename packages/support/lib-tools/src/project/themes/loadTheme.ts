@@ -4,7 +4,7 @@ import { addTheme } from './addTheme';
 
 export const loadTheme = (project: ProjectContext, context: ThemeContext): void => {
     const { resource: theme } = context;
-    const instance = structuredClone(theme);
+    const entity = structuredClone(theme);
 
-    addTheme(project, { ...context, instance });
+    addTheme(project, context, entity);
 };

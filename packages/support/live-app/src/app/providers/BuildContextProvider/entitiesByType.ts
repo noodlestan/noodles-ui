@@ -1,11 +1,6 @@
-import {
-    BuildSnapshotDto,
-    EntityType,
-    ItemContextWithInstance,
-    UnknownResource,
-} from '@noodles-ui/support-types';
+import { BuildSnapshotDto, EntityType, UnknownBuildContext } from '@noodles-ui/support-types';
 
-export function entitiesByType<T extends ItemContextWithInstance<UnknownResource>>(
+export function entitiesByType<T extends UnknownBuildContext>(
     snapshot: BuildSnapshotDto | undefined,
     type: EntityType,
 ): T[] {

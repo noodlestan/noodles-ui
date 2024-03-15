@@ -1,17 +1,19 @@
-import { PropInstance } from '@noodles-ui/core-types';
-import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/support-types';
+import { PropEntity } from '@noodles-ui/core-types';
+import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import { isPropVariantInstance } from './isPropVariantInstance';
+import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
 const factory = ts.factory;
 
 export const getPropTypeNode = (
     project: ProjectContext,
-    component: ComponentContextWithInstance,
-    prop: PropInstance,
+    component: ComponentBuildContext,
+    prop: PropEntity,
 ): ts.TypeNode | undefined => {
+    const { entity } = component;
+
     if (prop.name === 'children') {
         return factory.createTypeReferenceNode(
             factory.createQualifiedName(
@@ -21,10 +23,10 @@ export const getPropTypeNode = (
             undefined,
         );
     }
-    const propVariant = isPropVariantInstance(prop);
+    const propVariant = isPropVariantEntity(prop);
     if (propVariant) {
         if (!propVariant.variant.name) {
-            project.addDiagnostic(component.instance, `Unnamed variant at prop ${prop.name}.`);
+            project.addDiagnostic(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(
@@ -36,7 +38,7 @@ export const getPropTypeNode = (
     const propReference = isPropVariantReference(prop);
     if (propReference) {
         if (!propReference.reference.name) {
-            project.addDiagnostic(component.instance, `Unnamed variant at prop ${prop.name}.`);
+            project.addDiagnostic(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(

@@ -1,15 +1,15 @@
 import {
+    ComponentEntity,
     ComponentExtendResource,
-    ComponentImportInstance,
+    ComponentImportEntity,
     ComponentImportResource,
-    ComponentInstance,
-    ComponentOwnInstance,
+    ComponentOwnEntity,
     ComponentOwnResource,
     ComponentResource,
 } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { newContextResourceWithConsumer } from '../context/newContextResourceWithConsumer';
+import { newResourceContextWithConsumer } from '../context/newResourceContextWithConsumer';
 import { getResourceTypedKey } from '../resources/getResourceTypedKey';
 
 import { addComponent } from './addComponent';
@@ -25,33 +25,27 @@ const loadRenderedComponent = (
     project: ProjectContext,
     context: ComponentContext,
     parent: ComponentResource,
-): ComponentImportInstance | undefined => {
-    const newContext = newContextResourceWithConsumer<ComponentResource, ComponentInstance>(
-        context,
-        parent,
-    );
+): ComponentImportEntity | undefined => {
+    const newContext = newResourceContextWithConsumer<ComponentResource>(context, parent);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return loadComponent(project, newContext) as ComponentImportInstance;
+    return loadComponent(project, newContext) as ComponentImportEntity;
 };
 
 const loadParentComponent = (
     project: ProjectContext,
     context: ComponentContext,
     parent: ComponentResource,
-): ComponentOwnInstance | undefined => {
-    const newContext = newContextResourceWithConsumer<ComponentResource, ComponentInstance>(
-        context,
-        parent,
-    );
+): ComponentOwnEntity | undefined => {
+    const newContext = newResourceContextWithConsumer<ComponentResource>(context, parent);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return loadComponent(project, newContext) as ComponentOwnInstance;
+    return loadComponent(project, newContext) as ComponentOwnEntity;
 };
 
 const loadOwnComponent = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
-): ComponentOwnInstance | undefined => {
+): ComponentOwnEntity | undefined => {
     if (component.exposes) {
         project.addDiagnostic(
             component,
@@ -77,22 +71,22 @@ const loadOwnComponent = (
         );
     }
 
-    const instance = structuredClone(component) as ComponentOwnInstance;
+    const entity = structuredClone(component) as ComponentOwnEntity;
 
     if (context.public) {
-        const { props = {} } = instance;
-        instance.props = loadComponentProps(project, context, component, props);
-        // TODO also go through instance.uses and load mixins
+        const { props = {} } = entity;
+        entity.props = loadComponentProps(project, context, component, props);
+        // TODO also go through entity.uses and load mixins
     }
 
-    return addComponent(project, { ...context, instance }) as ComponentOwnInstance;
+    return addComponent(project, context, entity) as ComponentOwnEntity;
 };
 
 const loadComponentRenders = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentOwnResource,
-): ComponentOwnInstance | undefined => {
+): ComponentOwnEntity | undefined => {
     const { from: parent, name } = component.render;
     const loadedParent = loadRenderedComponent(project, context, parent);
     if (!loadedParent) {
@@ -122,7 +116,7 @@ const loadComponentExtend = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentExtendResource,
-): ComponentOwnInstance | undefined => {
+): ComponentOwnEntity | undefined => {
     const loadedParent = loadParentComponent(project, context, component.extend);
     if (!loadedParent) {
         project.addDiagnostic(
@@ -143,16 +137,16 @@ const loadComponentImport = (
     project: ProjectContext,
     context: ComponentContext,
     component: ComponentImportResource,
-): ComponentImportInstance | undefined => {
-    const instance = structuredClone(component) as ComponentImportInstance;
+): ComponentImportEntity | undefined => {
+    const entity = structuredClone(component) as ComponentImportEntity;
 
-    return addComponent(project, { ...context, instance }) as ComponentImportInstance;
+    return addComponent(project, context, entity) as ComponentImportEntity;
 };
 
 export const loadComponent = (
     project: ProjectContext,
     context: ComponentContext,
-): ComponentInstance | undefined => {
+): ComponentEntity | undefined => {
     const { resource } = context;
 
     const component = isComponentOwnResource(resource);

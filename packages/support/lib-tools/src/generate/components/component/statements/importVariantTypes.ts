@@ -1,4 +1,4 @@
-import { ComponentContextWithInstance } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getPropVariantName } from './props/getPropVariantName';
@@ -10,9 +10,9 @@ const onlyUnique = (value: unknown, index: number, array: unknown[]) => {
     return array.indexOf(value) === index;
 };
 
-export const importVariantTypes = (component: ComponentContextWithInstance): ts.Statement[] => {
-    const { instance } = component;
-    const variants = getVariantProps(instance);
+export const importVariantTypes = (component: ComponentBuildContext): ts.Statement[] => {
+    const { entity } = component;
+    const variants = getVariantProps(entity);
 
     if (!variants.length) {
         return [];

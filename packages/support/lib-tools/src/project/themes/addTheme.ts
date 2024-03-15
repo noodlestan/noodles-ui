@@ -1,28 +1,33 @@
+import { ThemeResource } from '@noodles-ui/core-types';
 import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../cli/logger/logMessage';
 import { getResourceKey } from '../resources/getResourceKey';
 
-export const addTheme = (project: ProjectContext, context: ThemeContext): void => {
+export const addTheme = (
+    project: ProjectContext,
+    context: ThemeContext,
+    entity: ThemeResource,
+): void => {
     const { theme: items } = project.entities;
-    const { resource, instance: theme } = context;
+    const { resource } = context;
 
-    if (!theme) {
-        project.addDiagnostic(resource, 'No instance generated.');
+    if (!entity) {
+        project.addDiagnostic(resource, 'No entity generated.');
         return;
     }
 
-    if ('name' in theme && !theme.name) {
-        project.addDiagnostic(resource, 'No theme name.');
+    if (!entity.name) {
+        project.addDiagnostic(resource, 'Entity name is empty.');
         return;
     }
 
-    const key = getResourceKey(theme);
+    const key = getResourceKey(entity);
     if (items.has(key)) {
         project.addDiagnostic(resource, `Duplicate theme key "${key}."`);
         return;
     }
 
     logMessage('+ theme', key);
-    items.set(key, context);
+    items.set(key, { context, entity });
 };

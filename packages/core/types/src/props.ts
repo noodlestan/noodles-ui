@@ -1,6 +1,6 @@
 import { Value } from './primitives/params';
 import { Resource } from './resource';
-import { VariantInstance } from './variants';
+import { VariantEntity } from './variants';
 
 export type PropType = 'prop';
 
@@ -20,6 +20,6 @@ export type PropInlineExtendResource = Omit<PropExtendResource, 'name' | 'module
 
 export type PropResource = PropOwnResource | PropExtendResource;
 
-export type PropVariantInstance = PropOwnResource & { variant: VariantInstance };
-export type PropVariantReference = PropOwnResource & { reference: VariantInstance };
-export type PropInstance = PropOwnResource | PropVariantInstance | PropVariantReference;
+export type PropVariantEntity = PropOwnResource & { variant: VariantEntity };
+export type PropVariantReference = PropOwnResource & { reference: VariantEntity };
+export type PropEntity = PropOwnResource | PropVariantEntity | PropVariantReference;

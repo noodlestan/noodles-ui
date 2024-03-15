@@ -1,8 +1,7 @@
 import { writeFile } from 'fs/promises';
 import { dirname, relative } from 'path';
 
-import { ComponentResource } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { componentGeneratedFileName } from './components/paths/componentGeneratedFileName';
 import { componentListFileName } from './components/paths/componentListFileName';
@@ -14,12 +13,12 @@ import { tsFileHeader } from './typescript/tsFileHeader';
 const generateComponentLine = (
     project: ProjectContext,
     key: string,
-    component: ComponentContext,
-    instance: ComponentResource,
+    component: ComponentBuildContext,
 ): string => {
-    const name = instance.name;
-    const publicPath = componentPublicFileName(project, instance);
-    const generatedPath = componentGeneratedFileName(project, instance);
+    const { entity } = component;
+    const name = entity.name;
+    const publicPath = componentPublicFileName(project, entity);
+    const generatedPath = componentGeneratedFileName(project, entity);
 
     const path = relative(dirname(generatedPath), publicPath);
     return `export { ${name} } from '${removeExtension(path)}';`;
@@ -28,12 +27,9 @@ const generateComponentLine = (
 export const generateComponentsList = async (project: ProjectContext): Promise<void> => {
     const lines = Array.from(project.entities.component.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .filter(([_, item]) => item.public)
+        .filter(([_, item]) => item.context.public)
         .map(([key, item]) => {
-            if (!item.instance) {
-                throw new Error('Missing instance');
-            }
-            return generateComponentLine(project, key, item, item.instance);
+            return generateComponentLine(project, key, item);
         });
     const content = [...lines].join('\n');
 

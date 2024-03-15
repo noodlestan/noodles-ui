@@ -1,5 +1,5 @@
 import {
-    ComponentInstanceProps,
+    ComponentEntityProps,
     ComponentOwnResource,
     ComponentPropsResource,
 } from '@noodles-ui/core-types';
@@ -12,8 +12,8 @@ export const loadComponentProps = (
     context: ComponentContext,
     component: ComponentOwnResource,
     props: ComponentPropsResource,
-): ComponentInstanceProps => {
-    const loadedProps: ComponentInstanceProps = {};
+): ComponentEntityProps => {
+    const loadedProps: ComponentEntityProps = {};
     for (const key in props) {
         const prop = loadComponentProp(project, context, component, key, props[key]);
         if (prop) {

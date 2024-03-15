@@ -1,6 +1,6 @@
-import { BuildSnapshotDto, NUI, TokenContextWithInstance } from '@noodles-ui/support-types';
+import { BuildSnapshotDto, NUI, TokenBuildContext } from '@noodles-ui/support-types';
 
 import { entitiesByType } from './entitiesByType';
 
-export const tokens = (snapshot: BuildSnapshotDto | undefined): TokenContextWithInstance[] =>
-    entitiesByType<TokenContextWithInstance>(snapshot, NUI.token);
+export const tokens = (snapshot: BuildSnapshotDto | undefined): TokenBuildContext[] =>
+    entitiesByType<TokenBuildContext>(snapshot, NUI.token);

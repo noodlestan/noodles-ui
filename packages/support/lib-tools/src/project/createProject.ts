@@ -1,15 +1,15 @@
 import { dirname } from 'path';
 
 import {
-    ComponentsContext,
+    ComponentEntityMap,
     GeneratedSourceFile,
     ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticSource,
-    SurfacesContext,
-    ThemesContext,
-    TokensContext,
-    VariantsContext,
+    SurfaceEntityMap,
+    ThemeEntityMap,
+    TokenEntityMap,
+    VariantEntityMap,
 } from '@noodles-ui/support-types';
 
 import { findRootPath } from '../monorepo/findRootPath';
@@ -42,11 +42,11 @@ export const createProject = async (
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
         generatedSourceFiles.push(source);
 
-    const theme: ThemesContext = new Map();
-    const surface: SurfacesContext = new Map();
-    const variant: VariantsContext = new Map();
-    const component: ComponentsContext = new Map();
-    const token: TokensContext = new Map();
+    const theme: ThemeEntityMap = new Map();
+    const surface: SurfaceEntityMap = new Map();
+    const variant: VariantEntityMap = new Map();
+    const component: ComponentEntityMap = new Map();
+    const token: TokenEntityMap = new Map();
     const project: ProjectContext = {
         projectFile,
         projectPath,

@@ -1,5 +1,5 @@
-import { PropInstance } from '@noodles-ui/core-types';
-import { ComponentContextWithInstance } from '@noodles-ui/support-types';
+import { PropEntity } from '@noodles-ui/core-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getPropDefaultConstantName } from './props/getPropDefaultConstantName';
@@ -8,12 +8,12 @@ import { isPropVariant } from './props/isPropVariant';
 
 const factory = ts.factory;
 const defaultValueStatement = (
-    component: ComponentContextWithInstance,
-    prop: PropInstance,
+    component: ComponentBuildContext,
+    prop: PropEntity,
 ): ts.VariableStatement => {
-    const { instance } = component;
+    const { entity } = component;
 
-    const constantName = getPropDefaultConstantName(instance, prop);
+    const constantName = getPropDefaultConstantName(entity, prop);
     // TODO use TS factory to create the literals instead of this hack
     const constantValue = JSON.stringify(prop.defaultValue);
 
@@ -40,9 +40,9 @@ const defaultValueStatement = (
     );
 };
 
-export const exportDefaultValues = (component: ComponentContextWithInstance): ts.Statement[] => {
-    const { instance } = component;
-    const propsWithDefaultValuesExcludingVariants = getPropsWithDefaultValues(instance).filter(
+export const exportDefaultValues = (component: ComponentBuildContext): ts.Statement[] => {
+    const { entity } = component;
+    const propsWithDefaultValuesExcludingVariants = getPropsWithDefaultValues(entity).filter(
         prop => !isPropVariant(prop),
     );
     return propsWithDefaultValuesExcludingVariants.map(prop =>

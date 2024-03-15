@@ -1,26 +1,42 @@
-import { ProjectOwnResource } from '@noodles-ui/core-types';
+import {
+    ComponentEntity,
+    ProjectOwnResource,
+    SurfaceResource,
+    ThemeResource,
+    TokenResource,
+    VariantEntity,
+} from '@noodles-ui/core-types';
 
 import {
-    ComponentContextWithInstance,
+    ComponentContext,
     ProjectDiagnostic,
-    SurfaceContextWithInstance,
-    ThemeContextWithInstance,
+    ResourceContext,
+    SurfaceContext,
+    ThemeContext,
     TokenContext,
-    VariantContextWithInstance,
+    VariantContext,
 } from './projects';
+import { UnknownResource } from './resources';
 
-export type BuildEntitiesMap = {
-    surface: { [key: string]: SurfaceContextWithInstance };
-    theme: { [key: string]: ThemeContextWithInstance };
-    component: { [key: string]: ComponentContextWithInstance };
-    variant: { [key: string]: VariantContextWithInstance };
-    token: { [key: string]: TokenContext };
+export type EntityMapDto<T extends ResourceContext<UnknownResource>, V extends UnknownResource> = {
+    [key: string]: {
+        context: T;
+        entity: V;
+    };
+};
+
+type EntitiesMapDto = {
+    surface: EntityMapDto<SurfaceContext, SurfaceResource>;
+    theme: EntityMapDto<ThemeContext, ThemeResource>;
+    component: EntityMapDto<ComponentContext, ComponentEntity>;
+    variant: EntityMapDto<VariantContext, VariantEntity>;
+    token: EntityMapDto<TokenContext, TokenResource>;
 };
 
 export type BuildSnapshotDto = {
     success: boolean;
     timestamp: string;
     project: Omit<ProjectOwnResource, 'type'>;
-    entities: BuildEntitiesMap;
+    entities: EntitiesMapDto;
     diagnostics: ProjectDiagnostic[];
 };

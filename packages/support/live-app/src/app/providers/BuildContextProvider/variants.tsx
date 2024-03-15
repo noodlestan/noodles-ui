@@ -1,6 +1,6 @@
-import { BuildSnapshotDto, NUI, VariantContextWithInstance } from '@noodles-ui/support-types';
+import { BuildSnapshotDto, NUI, VariantBuildContext } from '@noodles-ui/support-types';
 
 import { entitiesByType } from './entitiesByType';
 
-export const variants = (snapshot: BuildSnapshotDto | undefined): VariantContextWithInstance[] =>
-    entitiesByType<VariantContextWithInstance>(snapshot, NUI.variant);
+export const variants = (snapshot: BuildSnapshotDto | undefined): VariantBuildContext[] =>
+    entitiesByType<VariantBuildContext>(snapshot, NUI.variant);

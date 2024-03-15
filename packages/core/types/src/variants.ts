@@ -33,8 +33,8 @@ export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module'>;
 export type VariantInlineReferenceResource = { reference: VariantResource; defaultValue?: Value };
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;
-export type VariantInstance = Omit<VariantOwnResource, 'params' | 'composable' | 'vars'> & {
+export type VariantEntity = Omit<VariantOwnResource, 'params' | 'composable' | 'vars'> & {
     vars: VariantVars;
 };
 
-export type VariantReference = { reference: VariantInstance };
+export type VariantReference = { reference: VariantEntity };

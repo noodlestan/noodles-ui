@@ -19,16 +19,24 @@ Resource types are consumed in:
 
 ### Resource types
 
-Declare and describe design system resources and their relationships across multiple packages.
+Declare and describe design system definition resources and their relationships across multiple packages.
+
+Once loaded, **resources** originate design system **entities**.
 
 Examples: `ThemeResource`, `ComponentResource`, and `VariantResource`.
-
-Always named `AbcdefResource`.
 
 > IMPORTANT: Code that ships to clients in production is forbidden to reference these types.
 > (except for run-time instrumentation code).
 
-### Elemental types
+### Entity types
+
+Describe entities in the built design system.
+
+The design system **entities** are created when the **resources** are loaded and are originate generated source code.
+
+Examples: `ThemeEntity`, `ComponentEntity`, and `VariantEntity`.
+
+### Primitive types
 
 Primitives that are shared by both run-time code and tooling code
 

@@ -1,4 +1,4 @@
-import { ComponentContextWithInstance } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getPropDefaultConstantName } from './props/getPropDefaultConstantName';
@@ -6,16 +6,16 @@ import { getPropVariantsWithDefaultValues } from './props/getPropVariantsWithDef
 
 const factory = ts.factory;
 
-export const importDefaultOptions = (component: ComponentContextWithInstance): ts.Statement[] => {
-    const { instance } = component;
-    const variantsWithDefaultValues = getPropVariantsWithDefaultValues(instance);
+export const importDefaultOptions = (component: ComponentBuildContext): ts.Statement[] => {
+    const { entity } = component;
+    const variantsWithDefaultValues = getPropVariantsWithDefaultValues(entity);
 
     if (!variantsWithDefaultValues.length) {
         return [];
     }
 
     const namedImports = variantsWithDefaultValues.map(variant => {
-        const constantName = getPropDefaultConstantName(instance, variant);
+        const constantName = getPropDefaultConstantName(entity, variant);
         return factory.createImportSpecifier(
             false,
             undefined,
