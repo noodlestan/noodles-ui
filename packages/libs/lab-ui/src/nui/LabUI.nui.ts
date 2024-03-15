@@ -9,10 +9,12 @@ const LabUIResource: ProjectResource = {
     type: 'project',
     name: 'Lab UI',
     module: '@noodles-ui/lab-ui',
-    themes,
-    surfaces,
-    variants,
-    components,
+    entities: {
+        themes,
+        surfaces,
+        variants,
+        components,
+    },
 };
 
 export default LabUIResource;

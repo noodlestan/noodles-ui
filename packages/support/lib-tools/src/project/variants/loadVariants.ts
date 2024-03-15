@@ -6,11 +6,12 @@ import { newContextPublicResource } from '../context/newContextPublicResource';
 
 import { loadVariant } from './loadVariant';
 
-export const loadVariants = (project: ProjectContext, projectResource: ProjectResource): void => {
-    if (!projectResource.variants.length) {
+export const loadVariants = (project: ProjectContext, resource: ProjectResource): void => {
+    const { variants } = resource.entities;
+    if (!variants.length) {
         logMessage('! no variants loaded');
     }
-    projectResource.variants.forEach(variant => {
+    variants.forEach(variant => {
         const context = newContextPublicResource<VariantResource, VariantInstance>(variant);
         loadVariant(project, context);
     });

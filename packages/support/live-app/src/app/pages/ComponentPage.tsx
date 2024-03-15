@@ -1,34 +1,32 @@
 // import { Heading, Text } from '@noodles-ui/lab-ui';
-import { Component, For } from 'solid-js';
+import { useParams } from '@solidjs/router';
+import { Component, Show } from 'solid-js';
 
+import { ModuleName } from '../components/atoms/ModuleName';
+import { PageHeader } from '../components/atoms/PageHeader/PageHeader';
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
-import { ComponentCard } from '../components/entities/component/ComponentCard/ComponentCard';
-import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { useBuildContext } from '../providers/BuildContextProvider';
+import { componentByKey } from '../providers/BuildContextProvider/componentByKey';
 
 export const ComponentPage: Component = () => {
-    const { builds } = useBuildContext();
+    const { lastSnapshot } = useBuildContext();
+    const params = useParams();
 
-    const lastBuild = () => {
-        const items = builds();
-        if (!items.length) {
-            return;
-        }
-        return items[items.length - 1];
-    };
-
-    const components = () =>
-        Object.values(lastBuild()?.snapshot.components || {}).filter(component => component.public);
+    const component = () => componentByKey(lastSnapshot(), params.key);
+    const instance = () => component().instance;
 
     return (
-        <PageLayout tag="main">
-            <PageTitle>Component</PageTitle>
-            <CardGrid>
-                <For each={components()}>
-                    {component => <ComponentCard component={component} />}
-                </For>
-            </CardGrid>
-        </PageLayout>
+        <Show when={lastSnapshot()}>
+            <PageLayout tag="main">
+                <PageHeader>
+                    <ModuleName>{instance().module}</ModuleName>
+                    <PageTitle>Component: {instance().name}</PageTitle>
+                </PageHeader>
+                <Show when={component()}>
+                    <iframe src={`http://localhost:3133/component/${params.key}`} />
+                </Show>
+            </PageLayout>
+        </Show>
     );
 };

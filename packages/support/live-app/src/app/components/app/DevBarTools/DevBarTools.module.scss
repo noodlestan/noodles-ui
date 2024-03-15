@@ -1,0 +1,30 @@
+.DevBarTools {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 10px;
+}
+
+.DevBarTools--Snapshot {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.DevBarTools--Actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex: 1;
+}
+
+.DevBarTools--Outcome {
+    color: orangered;
+}
+
+.DevBarTools-is-success .DevBarTools--Outcome {
+    color: limegreen;
+}

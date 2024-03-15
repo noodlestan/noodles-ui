@@ -9,7 +9,7 @@ import {
     EVENT_BUILD_STARTED,
     EVENT_REQUEST_BUILD,
 } from '../events/constants';
-import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
+import { BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
@@ -96,13 +96,11 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             logInfo('building...');
             await execBuild();
             const snapshot = await loadProjectSnapshotFile(project);
-            const event: BuildFinishedEvent = { success: true, timestamp: new Date(), snapshot };
-            PubSub.publish(EVENT_BUILD_FINISHED, event);
+            PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logSuccess('Build successful');
         } catch (err) {
             const snapshot = await loadProjectSnapshotFile(project);
-            const event: BuildFinishedEvent = { success: false, timestamp: new Date(), snapshot };
-            PubSub.publish(EVENT_BUILD_FINISHED, event);
+            PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logError('Build error(s)', 'exit code: ' + err);
         }
     };

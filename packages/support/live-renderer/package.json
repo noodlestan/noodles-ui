@@ -1,0 +1,12 @@
+{
+  "name": "@noodles-ui/live-renderer",
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "dependencies": {
+    "@noodles-ui/sandbox-components-solid": "0.0.1",
+    "@solidjs/router": "^0.13.0",
+    "solid-js": "^1.8.15",
+    "vite": "^5.1.6"
+  }
+}

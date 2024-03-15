@@ -26,7 +26,7 @@ const generateComponentLine = (
 };
 
 export const generateComponentsList = async (project: ProjectContext): Promise<void> => {
-    const lines = Array.from(project.components.entries())
+    const lines = Array.from(project.entities.component.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, item]) => item.public)
         .map(([key, item]) => {

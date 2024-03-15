@@ -16,7 +16,7 @@ const generateVariantLine = (
 };
 
 export const generateVariantsScssVars = async (project: ProjectContext): Promise<void> => {
-    const variants = Array.from(project.variants.values()).filter(item => {
+    const variants = Array.from(project.entities.variant.values()).filter(item => {
         if (!item.instance) {
             throw new Error('Missing instance');
         }

@@ -1,14 +1,14 @@
-import { VariantContext } from '@noodles-ui/support-types';
+import { VariantContextWithInstance } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
-import { Card } from '../../../molecules/Card';
+import { EntityCard } from '../../../molecules/EntityCard';
 
 import styles from './VariantCard.module.css';
 
 type VariantCardProps = {
-    variant: VariantContext;
+    variant: VariantContextWithInstance;
 };
 
 export const VariantCard: Component<VariantCardProps> = props => {
@@ -16,10 +16,13 @@ export const VariantCard: Component<VariantCardProps> = props => {
         [styles.VariantCard]: true,
     });
 
+    const path = () => `/variant/${props.variant.key}`;
+    const instance = () => props.variant.instance;
+
     return (
-        <Card classList={classList()}>
-            <ModuleName>{props.variant.instance?.module}</ModuleName>
-            <EntityName>{props.variant.instance?.name}</EntityName>
-        </Card>
+        <EntityCard classList={classList()} public={props.variant.public} href={path()}>
+            <ModuleName>{instance().module}</ModuleName>
+            <EntityName>{instance().name}</EntityName>
+        </EntityCard>
     );
 };

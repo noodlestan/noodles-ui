@@ -14,9 +14,10 @@ export const Link: Component<LinkProps> = props => {
         [styles.Link]: true,
     });
 
+    const handleClick = (ev: MouseEvent) => props.onClick?.(ev);
+
     return (
-        // eslint-disable-next-line solid/reactivity
-        <A classList={classList()} onClick={props.onClick} href={props.href}>
+        <A classList={classList()} onClick={handleClick} href={props.href}>
             {props.children}
         </A>
     );

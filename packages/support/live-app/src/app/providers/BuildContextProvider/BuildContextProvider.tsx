@@ -1,10 +1,4 @@
-import {
-    ComponentContext,
-    SurfaceContext,
-    ThemeContext,
-    TokenContext,
-    VariantContext,
-} from '@noodles-ui/support-types';
+import { BuildSnapshotDto } from '@noodles-ui/support-types';
 import {
     Accessor,
     Component,
@@ -15,24 +9,15 @@ import {
     useContext,
 } from 'solid-js';
 
-import { BuildData } from '../../types';
-
 type BuildContextState = {
     error: Accessor<Error | undefined>;
     setError: Setter<Error | undefined>;
     isBuilding: Accessor<Date | undefined>;
     setIsBuilding: Setter<Date | undefined>;
-    builds: Accessor<BuildData[]>;
-    lastBuild: () => BuildData | undefined;
-    setBuilds: Setter<BuildData[]>;
+    snapshots: Accessor<BuildSnapshotDto[]>;
+    lastSnapshot: () => BuildSnapshotDto | undefined;
+    setSnapshots: Setter<BuildSnapshotDto[]>;
     requestBuild: () => void;
-    entities: {
-        surfaces: () => SurfaceContext[];
-        themes: () => ThemeContext[];
-        variants: () => VariantContext[];
-        components: () => ComponentContext[];
-        tokens: () => TokenContext[];
-    };
 };
 
 export const BuildContext = createContext<BuildContextState>({} as BuildContextState);
@@ -40,40 +25,27 @@ export const BuildContext = createContext<BuildContextState>({} as BuildContextS
 export const createBuildContext = (onRequestBuild: () => void): BuildContextState => {
     const [error, setError] = createSignal<Error>();
     const [isBuilding, setIsBuilding] = createSignal<Date>();
-    const [builds, setBuilds] = createSignal<BuildData[]>([]);
+    const [snapshots, setSnapshots] = createSignal<BuildSnapshotDto[]>([]);
 
-    const lastBuild = () => {
-        const items = builds();
+    const lastSnapshot = () => {
+        const items = snapshots();
         if (!items.length) {
             return;
         }
         return items[items.length - 1];
     };
 
-    const surfaces = () => Object.values(lastBuild()?.snapshot.surfaces || {});
-    const themes = () => Object.values(lastBuild()?.snapshot.themes || {});
-    const variants = () => Object.values(lastBuild()?.snapshot.variants || {});
-    const components = () => Object.values(lastBuild()?.snapshot.components || {});
-    const tokens = () => Object.values(lastBuild()?.snapshot.tokens || {});
-
     return {
         error,
         setError,
         isBuilding,
         setIsBuilding,
-        builds,
-        lastBuild,
-        setBuilds,
+        snapshots,
+        lastSnapshot,
+        setSnapshots,
         requestBuild: () => {
             onRequestBuild();
             setIsBuilding(prev => prev || new Date());
-        },
-        entities: {
-            surfaces,
-            themes,
-            variants,
-            components,
-            tokens,
         },
     };
 };
@@ -91,7 +63,7 @@ export const BuildContextProvider: Component<BuildContextProviderProps> = props 
 
 export const useBuildContext = (): BuildContextState => {
     const context = useContext(BuildContext);
-    if (!context || !context.builds) {
+    if (!context || !context.snapshots) {
         throw new Error(`No BuildContext found`);
     }
     return context;

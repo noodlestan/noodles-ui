@@ -1,14 +1,14 @@
-import { SurfaceContext } from '@noodles-ui/support-types';
+import { SurfaceContextWithInstance } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
-import { Card } from '../../../molecules/Card';
+import { EntityCard } from '../../../molecules/EntityCard';
 
 import styles from './SurfaceCard.module.css';
 
 type SurfaceCardProps = {
-    surface: SurfaceContext;
+    surface: SurfaceContextWithInstance;
 };
 
 export const SurfaceCard: Component<SurfaceCardProps> = props => {
@@ -16,10 +16,13 @@ export const SurfaceCard: Component<SurfaceCardProps> = props => {
         [styles.SurfaceCard]: true,
     });
 
+    const path = () => `/variants/${props.surface.key}`;
+    const instance = () => props.surface.instance;
+
     return (
-        <Card classList={classList()}>
-            <ModuleName>{props.surface.instance?.module}</ModuleName>
-            <EntityName>{props.surface.instance?.name}</EntityName>
-        </Card>
+        <EntityCard classList={classList()} public={props.surface.public} href={path()}>
+            <ModuleName>{instance().module}</ModuleName>
+            <EntityName>{instance().name}</EntityName>
+        </EntityCard>
     );
 };

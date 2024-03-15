@@ -5,8 +5,9 @@ import { newContextPublicResource } from '../context/newContextPublicResource';
 
 import { loadSurface } from './loadSurface';
 
-export const loadSurfaces = (project: ProjectContext, projectResource: ProjectResource): void => {
-    projectResource.surfaces.forEach(surface => {
+export const loadSurfaces = (project: ProjectContext, resource: ProjectResource): void => {
+    const { surfaces } = resource.entities;
+    surfaces.forEach(surface => {
         const context = newContextPublicResource(surface);
         loadSurface(project, context);
     });

@@ -53,13 +53,13 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
         await saveProjectModulesCache(project);
 
         // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-        const projectResourceData = require(resolve(fileName)).default;
+        const resourceData = require(resolve(fileName)).default;
         timings.push([Date.now(), 'project file loaded']);
 
-        logProjectResource(projectResourceData);
-        await saveProjectResourceCache(project, projectResourceData);
+        logProjectResource(resourceData);
+        await saveProjectResourceCache(project, resourceData);
 
-        loadProject(project, projectResourceData);
+        loadProject(project, resourceData);
         timings.push([Date.now(), 'resources loaded']);
         await saveProjectSnapshot(project);
 

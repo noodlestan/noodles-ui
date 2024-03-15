@@ -42,7 +42,7 @@
     "ts-deepmerge": "^7.0.0"
   },
   "peerDependencies": {
-    "solid-js": "^1.8.14"
+    "solid-js": "^1.8.15"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.6",

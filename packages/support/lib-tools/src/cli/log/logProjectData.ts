@@ -58,7 +58,7 @@ function logResourceGroup<T extends UnknownResource>(
 }
 
 export const logProjectData = (project: ProjectContext): void => {
-    const { surfaces, themes, variants, components, tokens } = project;
+    const { surface, theme, variant, component, token } = project.entities;
 
     const itemsWithErrors = project.diagnostics.reduce((acc, item) => {
         const sourceKey = getDiagnosticKey(project, item.source);
@@ -71,10 +71,10 @@ export const logProjectData = (project: ProjectContext): void => {
     if (project.diagnostics.length) {
         logError('Attention:', red('data may be incomplete and generated code may contain errors'));
     }
-    logResourceGroup(project, 'Surfaces', surfaces, itemsWithErrors);
-    logResourceGroup(project, 'Themes', themes, itemsWithErrors);
-    logResourceGroup(project, 'Variants', variants, itemsWithErrors);
-    logResourceGroup(project, 'Components', components, itemsWithErrors);
-    logResourceGroup(project, 'Surfaces', tokens, itemsWithErrors);
+    logResourceGroup(project, 'Surfaces', surface, itemsWithErrors);
+    logResourceGroup(project, 'Themes', theme, itemsWithErrors);
+    logResourceGroup(project, 'Variants', variant, itemsWithErrors);
+    logResourceGroup(project, 'Components', component, itemsWithErrors);
+    logResourceGroup(project, 'Surfaces', token, itemsWithErrors);
     console.info('');
 };

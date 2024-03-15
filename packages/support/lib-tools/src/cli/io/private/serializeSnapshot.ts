@@ -1,37 +1,39 @@
 import {
+    BuildSnapshotDto,
     ComponentContext,
-    ProjectSnapshot,
+    ComponentContextWithInstance,
+    ProjectContext,
     SurfaceContext,
+    SurfaceContextWithInstance,
     ThemeContext,
+    ThemeContextWithInstance,
     TokenContext,
+    TokenContextWithInstance,
     VariantContext,
+    VariantContextWithInstance,
 } from '@noodles-ui/support-types';
 
-type SerializableSnapshot = {
-    surfaces: {
-        [k: string]: SurfaceContext;
-    };
-    themes: {
-        [k: string]: ThemeContext;
-    };
-    components: {
-        [k: string]: ComponentContext;
-    };
-    variants: {
-        [k: string]: VariantContext;
-    };
-    tokens: {
-        [k: string]: TokenContext;
-    };
-};
-export const serializeSnapshot = (project: ProjectSnapshot): SerializableSnapshot => {
-    const { surfaces, themes, components, variants, tokens } = project;
+function mapToObject<T, V extends T>(map: Map<string, T>): { [key: string]: V } {
+    return Object.fromEntries(map) as { [key: string]: V };
+}
+
+export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => {
+    const { surface, theme, component, variant, token } = project.entities;
     const data = {
-        surfaces: Object.fromEntries(surfaces),
-        themes: Object.fromEntries(themes),
-        components: Object.fromEntries(components),
-        variants: Object.fromEntries(variants),
-        tokens: Object.fromEntries(tokens),
+        project: {
+            name: project.resource?.name || '<unknown>',
+            module: project.resource?.module || '<unknown>',
+        },
+        success: !project.diagnostics.length,
+        timestamp: new Date().toJSON(),
+        entities: {
+            surface: mapToObject<SurfaceContext, SurfaceContextWithInstance>(surface),
+            theme: mapToObject<ThemeContext, ThemeContextWithInstance>(theme),
+            component: mapToObject<ComponentContext, ComponentContextWithInstance>(component),
+            variant: mapToObject<VariantContext, VariantContextWithInstance>(variant),
+            token: mapToObject<TokenContext, TokenContextWithInstance>(token),
+        },
+        diagnostics: [],
     };
     return data;
 };

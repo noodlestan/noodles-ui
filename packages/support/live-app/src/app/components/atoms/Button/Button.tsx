@@ -5,7 +5,7 @@ import styles from './Button.module.css';
 type ButtonProps = {
     children: JSX.Element;
     variant?: 'primary' | 'secondary';
-    onClick: () => void;
+    onClick: (ev: MouseEvent) => void;
 };
 
 const defaultProps: Pick<ButtonProps, 'variant'> = {
@@ -20,9 +20,10 @@ export const Button: Component<ButtonProps> = props => {
         [styles[`Button-variant-${variant()}`]]: true,
     });
 
+    const handleClick = (ev: MouseEvent) => props.onClick?.(ev);
+
     return (
-        // eslint-disable-next-line solid/reactivity
-        <button classList={classList()} onClick={props.onClick}>
+        <button classList={classList()} onClick={handleClick}>
             {props.children}
         </button>
     );

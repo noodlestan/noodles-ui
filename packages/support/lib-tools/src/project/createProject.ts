@@ -42,11 +42,11 @@ export const createProject = async (
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
         generatedSourceFiles.push(source);
 
-    const themes: ThemesContext = new Map();
-    const surfaces: SurfacesContext = new Map();
-    const variants: VariantsContext = new Map();
-    const components: ComponentsContext = new Map();
-    const tokens: TokensContext = new Map();
+    const theme: ThemesContext = new Map();
+    const surface: SurfacesContext = new Map();
+    const variant: VariantsContext = new Map();
+    const component: ComponentsContext = new Map();
+    const token: TokensContext = new Map();
     const project: ProjectContext = {
         projectFile,
         projectPath,
@@ -59,11 +59,13 @@ export const createProject = async (
         },
         generatedSourceFiles,
         addGeneratedSourceFile,
-        surfaces,
-        themes,
-        variants,
-        components,
-        tokens,
+        entities: {
+            surface,
+            theme,
+            variant,
+            component,
+            token,
+        },
         debug: expandPatterns,
     };
 

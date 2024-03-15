@@ -45,7 +45,7 @@
     "@noodles-ui/lib-tools": "0.0.1"
   },
   "peerDependencies": {
-    "solid-js": "^1.8.14"
+    "solid-js": "^1.8.15"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",

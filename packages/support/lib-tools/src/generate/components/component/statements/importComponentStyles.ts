@@ -11,7 +11,7 @@ export const importComponentStyles = (
     return factory.createImportDeclaration(
         undefined,
         factory.createImportClause(false, factory.createIdentifier('styles'), undefined),
-        factory.createStringLiteral(`./${name}.module.scss`),
+        factory.createStringLiteral(`./component.${name}.module.scss`),
         undefined,
     );
 };

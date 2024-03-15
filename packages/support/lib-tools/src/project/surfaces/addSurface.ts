@@ -4,7 +4,7 @@ import { logMessage } from '../../cli/logger/logMessage';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addSurface = (project: ProjectContext, context: SurfaceContext): void => {
-    const { surfaces: items } = project;
+    const { surface: items } = project.entities;
     const { resource, instance: surface } = context;
 
     if (!surface) {

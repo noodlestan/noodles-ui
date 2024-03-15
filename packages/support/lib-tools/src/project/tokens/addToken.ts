@@ -4,7 +4,7 @@ import { logMessage } from '../../cli/logger/logMessage';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addToken = (project: ProjectContext, context: TokenContext): void => {
-    const { tokens: items } = project;
+    const { token: items } = project.entities;
     const { resource, instance: token } = context;
 
     if (!token) {

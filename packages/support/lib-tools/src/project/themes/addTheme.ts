@@ -4,7 +4,7 @@ import { logMessage } from '../../cli/logger/logMessage';
 import { getResourceKey } from '../resources/getResourceKey';
 
 export const addTheme = (project: ProjectContext, context: ThemeContext): void => {
-    const { themes: items } = project;
+    const { theme: items } = project.entities;
     const { resource, instance: theme } = context;
 
     if (!theme) {

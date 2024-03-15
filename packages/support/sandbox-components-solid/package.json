@@ -33,7 +33,7 @@
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "peerDependencies": {
-    "solid-js": "^1.8.14"
+    "solid-js": "^1.8.15"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",

@@ -1,0 +1,15 @@
+.HomeLink {
+    color: gold;
+    text-decoration: none;
+    opacity: 0.9;
+
+    &:global(.active) {
+        text-decoration: underline;
+        opacity: 1;
+    }
+
+    &:hover {
+        text-decoration: underline;
+        opacity: 1;
+    }
+}

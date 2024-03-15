@@ -10,9 +10,9 @@ import { logSuccess } from '../logger/logSuccess';
 
 export const saveProjectResourceCache = async (
     project: ProjectContext,
-    projectResource: ProjectResource,
+    resource: ProjectResource,
 ): Promise<void> => {
-    const data = projectResource;
+    const data = resource;
     const json = JSON.stringify(data);
     const fileName = join(project.projectPath, NUI_CACHE_FOLDER, NUI_RESOURCES_CACHE_FILE);
     await writeFile(fileName, json);

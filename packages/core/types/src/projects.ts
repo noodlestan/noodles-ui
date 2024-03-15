@@ -4,9 +4,15 @@ import { SurfaceResource } from './surfaces';
 import { ThemeResource } from './themes';
 import { VariantResource } from './variants';
 
-export type ProjectResource = Resource<'project'> & {
+export type ProjectOwnResource = Resource<'project'>;
+
+type EntityResourceMap = {
     components: ComponentResource[];
     surfaces: SurfaceResource[];
     themes: ThemeResource[];
     variants: VariantResource[];
+};
+
+export type ProjectResource = ProjectOwnResource & {
+    entities: EntityResourceMap;
 };

@@ -1,8 +1,14 @@
 # Stack
 
+- [Typescript](https://www.typescriptlang.org/docs/handbook/intro.html) + [TS AST](https://ts-ast-viewer.com) + [TS Compiler API](https://github.com/Microsoft/TypeScript/wiki/Using-the-Compiler-API)
 - [SolidJS](https://www.solidjs.com/)
-- [Vite](https://vitejs.dev/)
-- [Vitest](https://vitest.dev/)
+- [Vite](https://vitejs.dev/) + [Vitest](https://vitest.dev/)
+- [Sass](https://sass-lang.com/)
+- [TS Node](https://typestrong.org/ts-node/docs/)
+
+**Tooling:**
+
+Linting and formatting are done by [ES Lint](https://eslint.org/) + [Prettier](https://prettier.io/). The heavy handed, opinionated, and exhaustive configuration can be found in the [./eslint](./eslint/) directory.
 
 # DevX
 

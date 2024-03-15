@@ -1,10 +1,10 @@
 /// <reference types="vite/client" />
+import { BuildSnapshotDto } from '@noodles-ui/support-types';
 import { Component, JSX, batch, createEffect } from 'solid-js';
 
 import { BuildContextProvider, createBuildContext } from './providers/BuildContextProvider';
-import { BuildEvent, BuildSnapshot } from './types';
 
-type EndpointResponse = { build: BuildEvent; snapshot: BuildSnapshot };
+type EndpointResponse = BuildSnapshotDto;
 
 const SERVER_HOST = 'localhost';
 const SERVER_PORT = import.meta.env.VITE_SERVER_PORT || 3000;
@@ -31,30 +31,23 @@ type DevServerProps = {
     children?: JSX.Element;
 };
 
-type SocketMessage<T> = {
-    name: string;
-    value: T;
-};
-
 export const DevServer: Component<DevServerProps> = props => {
     const context = createBuildContext(requestBuild);
 
-    const { setBuilds, setError, setIsBuilding } = context;
+    const { setSnapshots: setBuilds, setError, setIsBuilding } = context;
 
     const ws = new WebSocket(SOCKET_ENDPOINT);
     const handleMessage = (message: MessageEvent) => {
-        const data = JSON.parse(message.data) as SocketMessage<{
-            build: BuildEvent;
-            snapshot: BuildSnapshot;
-        }>;
+        const data = JSON.parse(message.data);
         // console.log('WebSocket', data);
         if (data.name === 'build.started') {
             setIsBuilding(prev => prev || new Date());
         }
         if (data.name === 'build.finished') {
+            const snapshot = data.value as BuildSnapshotDto;
             batch(() => {
                 setIsBuilding(undefined);
-                setBuilds(builds => [...builds, data.value]);
+                setBuilds(builds => [...builds, snapshot]);
             });
         }
     };

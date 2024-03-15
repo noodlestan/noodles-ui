@@ -9,16 +9,15 @@ const root = document.getElementById('root') as HTMLElement;
 
 render(() => {
     const systemUIContext = createSystemUIContext('hello');
-    const { colourScheme, theme } = systemUIContext;
+    // const { colourScheme, theme } = systemUIContext;
     return (
         <SystemUIProvider {...systemUIContext}>
             {/* <LabUI colourScheme={colourScheme()} theme={theme()}> */}
             <DevServer>
                 <App />
                 {/* </LabUI> */}
-                <hr />
                 {/* TODO footer */}
-                {colourScheme()} / {theme()}
+                {/* {colourScheme()} / {theme()} */}
             </DevServer>
         </SystemUIProvider>
     );

@@ -1,6 +1,7 @@
 import {
     ComponentInstance,
     ComponentResource,
+    ProjectOwnResource,
     SurfaceResource,
     ThemeResource,
     TokenResource,
@@ -12,6 +13,7 @@ import { BuildContext } from './program';
 import { UnknownResource } from './resources';
 
 export type ItemContext<T, P = T> = {
+    key: string;
     resource: T;
     public: boolean;
     consumes: Set<string>;
@@ -24,9 +26,12 @@ export type ItemContextWithInstance<T, P = T> = Omit<ItemContext<T, P>, 'instanc
 };
 
 export type SurfaceContext = ItemContext<SurfaceResource>;
+export type SurfaceContextWithInstance = ItemContextWithInstance<SurfaceResource>;
 export type SurfacesContext = Map<string, SurfaceContext>;
 
 export type ThemeContext = ItemContext<ThemeResource>;
+export type ThemeContextWithInstance = ItemContextWithInstance<ThemeResource>;
+
 export type ThemesContext = Map<string, ThemeContext>;
 
 export type ComponentContext = ItemContext<ComponentResource, ComponentInstance>;
@@ -41,6 +46,7 @@ export type VariantContextWithInstance = ItemContextWithInstance<VariantResource
 export type VariantsContext = Map<string, VariantContext>;
 
 export type TokenContext = ItemContext<TokenResource>;
+export type TokenContextWithInstance = ItemContextWithInstance<TokenResource>;
 export type TokensContext = Map<string, TokenContext>;
 
 export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
@@ -68,6 +74,7 @@ type ProjectAttributes = {
     projectFile: string;
     projectPath: string;
     rootPath?: string;
+    resource?: Omit<ProjectOwnResource, 'type'>;
 };
 
 type ProjectAPI = {
@@ -80,12 +87,18 @@ type ProjectAPI = {
     debug: string[];
 };
 
-export type ProjectSnapshot = {
-    surfaces: SurfacesContext;
-    themes: ThemesContext;
-    components: ComponentsContext;
-    variants: VariantsContext;
-    tokens: TokensContext;
+export type ProjectEntitiesMap = {
+    surface: SurfacesContext;
+    theme: ThemesContext;
+    component: ComponentsContext;
+    variant: VariantsContext;
+    token: TokensContext;
 };
 
-export type ProjectContext = ProjectAttributes & ProjectAPI & ProjectSnapshot;
+export type EntityType = keyof ProjectEntitiesMap;
+
+export type ProjectEntities = {
+    entities: ProjectEntitiesMap;
+};
+
+export type ProjectContext = ProjectAttributes & ProjectAPI & ProjectEntities;

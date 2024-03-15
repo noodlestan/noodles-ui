@@ -8,25 +8,34 @@ import { loadTokens } from '../project/tokens/loadTokens';
 import { loadVariants } from '../project/variants/loadVariants';
 
 import { logInfo } from './logger/logInfo';
+import { logMessage } from './logger/logMessage';
 
-export const loadProject = (project: ProjectContext, projectResource: ProjectResource): void => {
+export const loadProject = (project: ProjectContext, resource: ProjectResource): void => {
+    const { name, module } = resource;
+    project.resource = { name, module };
+
+    logInfo('loading project...');
+    logMessage('  name:', name);
+    logMessage('  module:', module);
+    console.info('');
+
     logInfo('loading surfaces...');
-    loadSurfaces(project, projectResource);
+    loadSurfaces(project, resource);
     console.info('');
 
     logInfo('loading themes...');
-    loadThemes(project, projectResource);
+    loadThemes(project, resource);
     console.info('');
 
     logInfo('loading variants...');
-    loadVariants(project, projectResource);
+    loadVariants(project, resource);
     console.info('');
 
     logInfo('loading components...');
-    loadComponents(project, projectResource);
+    loadComponents(project, resource);
     console.info('');
 
     logInfo('loading tokens...');
-    loadTokens(project, projectResource);
+    loadTokens(project, resource);
     console.info('');
 };

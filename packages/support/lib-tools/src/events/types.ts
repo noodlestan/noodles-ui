@@ -1,10 +1,6 @@
-import { ProjectSnapshot } from '@noodles-ui/support-types';
+import { BuildSnapshotDto } from '@noodles-ui/support-types';
 
 export type BuildStartedEvent = {
     timestamp: Date;
 };
-export type BuildFinishedEvent = {
-    success: boolean;
-    timestamp: Date;
-    snapshot: ProjectSnapshot;
-};
+export type BuildFinishedEvent = BuildSnapshotDto;

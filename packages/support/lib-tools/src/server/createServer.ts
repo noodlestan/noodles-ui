@@ -5,7 +5,6 @@ import fastify, { FastifyInstance } from 'fastify';
 import * as PubSub from 'pubsub-js';
 import { WebSocket, WebSocketServer } from 'ws';
 
-import { serializeSnapshot } from '../cli/io/private/serializeSnapshot';
 import { logError } from '../cli/logger/logError';
 import { logInfo } from '../cli/logger/logInfo';
 import { logSuccess } from '../cli/logger/logSuccess';
@@ -26,7 +25,7 @@ export type DevServer = {
 };
 
 export const createServer = (option: ServerOptions): DevServer => {
-    let lastBuild: BuildFinishedEvent;
+    let lastSnapshot: BuildFinishedEvent;
     const port = option.port;
     // TODO locateLibToolsAppBuild() => locateNodeModule('@noodles-ui/live-app') + 'dist/'
     const root = resolve('../../support/live-app/dist/');
@@ -70,32 +69,19 @@ export const createServer = (option: ServerOptions): DevServer => {
     });
 
     PubSub.subscribe(EVENT_BUILD_FINISHED, (eventName: string, data: BuildFinishedEvent) => {
-        lastBuild = data;
-        const { success, timestamp, snapshot } = lastBuild;
-        const value = {
-            build: { success, timestamp },
-            snapshot: serializeSnapshot(snapshot),
-        };
-        sendMessage({ name: eventName, value });
+        lastSnapshot = data;
+        sendMessage({ name: eventName, value: data });
     });
 
     // app.get('/api/status', async (request, reply) => {
     app.get('/api/status', async () => {
-        const { success, timestamp, snapshot } = lastBuild;
-        return {
-            build: { success, timestamp },
-            snapshot: serializeSnapshot(snapshot),
-        };
+        return lastSnapshot;
     });
 
     app.get('/api/build', async () => {
         PubSub.publish(EVENT_REQUEST_BUILD);
         return {};
     });
-
-    // app.get('*', async (request, reply) => {
-    //     return { lastBuild };
-    // });
 
     app.register(fStatic, { root });
 

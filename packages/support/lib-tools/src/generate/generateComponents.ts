@@ -3,7 +3,7 @@ import { ComponentContextWithInstance, ProjectContext } from '@noodles-ui/suppor
 import { generateComponent } from './components/component/generateComponent';
 
 export const generateComponents = async (project: ProjectContext): Promise<void> => {
-    const promises = Array.from(project.components.entries())
+    const promises = Array.from(project.entities.component.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, item]) => item.public)
         .map(([key, item]) => {

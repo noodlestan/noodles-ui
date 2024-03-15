@@ -8,7 +8,7 @@ export const addVariant = (
     project: ProjectContext,
     context: VariantContext,
 ): VariantInstance | undefined => {
-    const { variants: items } = project;
+    const { variant: items } = project.entities;
     const { resource, instance } = context;
 
     if (!instance) {

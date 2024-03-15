@@ -1,5 +1,8 @@
 // import { Heading, Text } from '@noodles-ui/lab-ui';
-import { ComponentContext, VariantContext } from '@noodles-ui/support-types';
+import {
+    ComponentContextWithInstance,
+    VariantContextWithInstance,
+} from '@noodles-ui/support-types';
 import { Component, For } from 'solid-js';
 
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
@@ -10,37 +13,42 @@ import { ThemeCard } from '../components/entities/theme/ThemeCard';
 import { TokenCard } from '../components/entities/token/TokenCard';
 import { VariantCard } from '../components/entities/variant/VariantCard';
 import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
-import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { SectionLayout } from '../components/layouts/SectionLayout';
+import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useBuildContext } from '../providers/BuildContextProvider';
+import { components } from '../providers/BuildContextProvider/components';
+import { surfaces } from '../providers/BuildContextProvider/surfaces';
+import { themes } from '../providers/BuildContextProvider/themes';
+import { tokens } from '../providers/BuildContextProvider/tokens';
+import { variants } from '../providers/BuildContextProvider/variants';
 
-export const HomePage: Component = () => {
-    const { entities } = useBuildContext();
+export const EntitiesPage: Component = () => {
+    const { lastSnapshot } = useBuildContext();
 
-    const { surfaces, themes, variants, components, tokens } = entities;
-
-    const isPublicComponent = (component: ComponentContext) => !!component.public;
-    const isPublicVariant = (variant: VariantContext) => !!variant.public;
+    const isPublicComponent = (component: ComponentContextWithInstance) => !!component.public;
+    const isPublicVariant = (variant: VariantContextWithInstance) => !!variant.public;
 
     return (
-        <PageLayout tag="main">
+        <StageLayout tag="main">
             <PageTitle>Lab UI</PageTitle>
             <SectionLayout>
                 <SectionTitle>Surfaces</SectionTitle>
                 <CardGrid>
-                    <For each={surfaces()}>{surface => <SurfaceCard surface={surface} />}</For>
+                    <For each={surfaces(lastSnapshot())}>
+                        {surface => <SurfaceCard surface={surface} />}
+                    </For>
                 </CardGrid>
             </SectionLayout>
             <SectionLayout>
                 <SectionTitle>Themes</SectionTitle>
                 <CardGrid>
-                    <For each={themes()}>{theme => <ThemeCard theme={theme} />}</For>
+                    <For each={themes(lastSnapshot())}>{theme => <ThemeCard theme={theme} />}</For>
                 </CardGrid>
             </SectionLayout>
             <SectionLayout>
                 <SectionTitle>Components</SectionTitle>
                 <CardGrid>
-                    <For each={components().filter(isPublicComponent)}>
+                    <For each={components(lastSnapshot()).filter(isPublicComponent)}>
                         {component => <ComponentCard component={component} />}
                     </For>
                 </CardGrid>
@@ -48,7 +56,7 @@ export const HomePage: Component = () => {
             <SectionLayout>
                 <SectionTitle>Variants</SectionTitle>
                 <CardGrid>
-                    <For each={variants().filter(isPublicVariant)}>
+                    <For each={variants(lastSnapshot()).filter(isPublicVariant)}>
                         {variant => <VariantCard variant={variant} />}
                     </For>
                 </CardGrid>
@@ -56,9 +64,9 @@ export const HomePage: Component = () => {
             <SectionLayout>
                 <SectionTitle>Tokens</SectionTitle>
                 <CardGrid>
-                    <For each={tokens()}>{token => <TokenCard token={token} />}</For>
+                    <For each={tokens(lastSnapshot())}>{token => <TokenCard token={token} />}</For>
                 </CardGrid>
             </SectionLayout>
-        </PageLayout>
+        </StageLayout>
     );
 };

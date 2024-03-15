@@ -4,7 +4,6 @@ import styles from './EntityName.module.css';
 
 type EntityNameProps = {
     children: JSX.Element;
-    classList?: { [key: string]: boolean };
 };
 
 export const EntityName: Component<EntityNameProps> = props => {
@@ -12,5 +11,5 @@ export const EntityName: Component<EntityNameProps> = props => {
         [styles.EntityName]: true,
     });
 
-    return <h1 classList={classList()}>{props.children}</h1>;
+    return <p classList={classList()}>{props.children}</p>;
 };

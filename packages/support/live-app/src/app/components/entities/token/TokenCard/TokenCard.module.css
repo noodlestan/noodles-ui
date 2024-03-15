@@ -1,6 +1,3 @@
 .TokenCard {
-    background-color: lemonchiffon;
     display: flex;
-    flex-direction: column;
-    gap: 5px;
 }
