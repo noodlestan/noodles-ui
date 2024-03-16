@@ -24,7 +24,7 @@ export const addTheme = (
 
     const key = getResourceKey(entity);
     if (items.has(key)) {
-        project.addDiagnostic(resource, `Duplicate theme key "${key}."`);
+        project.addDiagnostic(resource, `Duplicate entity key "${key}".`);
         return;
     }
 
