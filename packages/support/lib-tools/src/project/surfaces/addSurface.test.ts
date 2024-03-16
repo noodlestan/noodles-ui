@@ -1,81 +1,12 @@
 import { SurfaceResource } from '@noodles-ui/core-types';
-import {
-    GeneratedSourceFile,
-    ProjectContext,
-    ProjectDiagnostic,
-    ProjectDiagnosticSource,
-    SurfaceContext,
-} from '@noodles-ui/support-types';
+import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
 import expect from 'expect';
-import ts from 'typescript';
+
+import { contextFactory } from '../test-utils/contextFactory';
+import { projectFactory } from '../test-utils/projectFactory';
+import { resourceFactory } from '../test-utils/resourceFactory';
 
 import { addSurface } from './addSurface';
-
-const projectFactory = (overides?: Partial<ProjectContext>): ProjectContext => {
-    const diagnostics: ProjectDiagnostic[] = [];
-    const generatedSourceFiles = [];
-
-    const addDiagnostic = (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        diagnostics.push({
-            message,
-            source,
-            data,
-        });
-    const compileProjectFile = async () => undefined;
-    const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
-        generatedSourceFiles.push(source);
-
-    return {
-        projectFile: '',
-        projectPath: '',
-        build: {
-            program: {} as ts.Program,
-            success: true,
-            result: {} as ts.EmitResult,
-            diagnostics: [],
-            timestamp: new Date(),
-            files: [],
-            modules: new Map(),
-        },
-        diagnostics,
-        addDiagnostic,
-        debug: [],
-        rootPath: '',
-        resource: {
-            name: '',
-            module: '',
-        },
-        compileProjectFile,
-        generatedSourceFiles: [{ fileName: '' }],
-        addGeneratedSourceFile,
-        entities: {
-            surface: new Map(),
-            theme: new Map(),
-            component: new Map(),
-            variant: new Map(),
-            token: new Map(),
-        },
-        ...overides,
-    };
-};
-
-const resourceFactory = (overides?: Partial<SurfaceResource>): SurfaceResource => ({
-    type: 'surface',
-    name: '',
-    module: '',
-    extend: [],
-    ...overides,
-});
-const contextFactory = (instance?: SurfaceResource): SurfaceContext => {
-    return {
-        key: '',
-        resource: instance ?? resourceFactory(),
-        public: true,
-        consumes: new Set(),
-        consumers: new Set(),
-    };
-};
 
 describe('addSurface', () => {
     let project: ProjectContext | undefined;
@@ -84,7 +15,7 @@ describe('addSurface', () => {
     describe('given valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory({ name: 'bar' });
+            resource = resourceFactory('surface', { name: 'bar' });
             context = contextFactory(resource);
             addSurface(project, context, resource);
         });
@@ -111,7 +42,7 @@ describe('addSurface', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
-            resource = resourceFactory();
+            resource = resourceFactory('surface');
             addSurface(project, context, resource);
         });
 
@@ -128,7 +59,7 @@ describe('addSurface', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
-            resource = resourceFactory({ name: 'foo' });
+            resource = resourceFactory('surface', { name: 'foo' });
             addSurface(project, context, resource);
             addSurface(project, context, resource);
         });
