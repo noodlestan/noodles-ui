@@ -22,8 +22,14 @@
   "module": "./src/index.ts",
   "sideEffects": false,
   "exports": {
-    "import": "./src/index.ts",
-    "require": "./dist/index.umd.cjs"
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./src/*.scss": {
+      "import": "./src/*.scss",
+      "require": "./src/*.scss"
+    }
   },
   "scripts": {
     "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:lib\" -c \"blue.bold\" \"npm run dev:lib\"",

@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import SolidSVG from 'vite-plugin-solid-svg';
 
+const baseDir = '../../libs/lab-ui';
+
 export default defineConfig({
     plugins: [solidPlugin(), SolidSVG()],
     server: {
@@ -11,6 +13,13 @@ export default defineConfig({
                 target: 'http://localhost:3131',
                 ws: true,
                 changeOrigin: true,
+            },
+        },
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@import "${baseDir}/src/generated/variants.scss";`,
             },
         },
     },

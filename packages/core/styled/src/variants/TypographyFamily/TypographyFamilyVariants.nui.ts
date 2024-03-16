@@ -7,7 +7,7 @@ export const TypographyFamilyVariants: VariantOwnResource = {
     mixin: {
         name: 'TypographyFamilyVariants',
         role: 'scss:variant',
-        source: '"@noodles-ui/core-styled/src/variants/MixinName.scss";',
+        source: '@noodles-ui/core-styled/src/variants/TypographyFamily/TypographyFamilyVariants.scss',
         implementation: "@include TypographyFamilyVariants('#{family}', $#{variable});",
     },
     options: [],

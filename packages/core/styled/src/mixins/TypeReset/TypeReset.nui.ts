@@ -5,6 +5,6 @@ export const TypeReset: MixinResource = {
     name: 'TypeReset',
     module: '@noodles-ui/core-styled',
     role: 'scss:reset',
-    source: '"@noodles-ui/core-styled/src/mixins/TypeReset/TypeReset.scss";',
+    source: '@noodles-ui/core-styled/src/mixins/TypeReset/TypeReset.scss',
     implementation: '@include TypeReset();',
 };

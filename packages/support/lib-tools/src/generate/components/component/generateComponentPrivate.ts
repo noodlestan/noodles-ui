@@ -20,7 +20,6 @@ import { importVariantTypes } from './statements/importVariantTypes';
 
 export const generateComponentPrivate = async (
     project: ProjectContext,
-    key: string,
     component: ComponentBuildContext,
 ): Promise<void> => {
     const { entity } = component;

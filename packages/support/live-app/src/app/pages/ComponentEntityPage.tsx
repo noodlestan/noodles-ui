@@ -9,7 +9,7 @@ import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { useBuildContext } from '../providers/BuildContextProvider';
 import { componentByKey } from '../providers/BuildContextProvider/componentByKey';
 
-export const ComponentPage: Component = () => {
+export const ComponentEntityPage: Component = () => {
     const { lastSnapshot } = useBuildContext();
     const params = useParams();
 

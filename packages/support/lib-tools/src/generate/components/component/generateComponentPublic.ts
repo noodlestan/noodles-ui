@@ -11,7 +11,6 @@ import { componentPublicFileName } from '../paths/componentPublicFileName';
 
 export const generateComponentPublic = async (
     project: ProjectContext,
-    key: string,
     component: ComponentBuildContext,
 ): Promise<void> => {
     const { entity } = component;
