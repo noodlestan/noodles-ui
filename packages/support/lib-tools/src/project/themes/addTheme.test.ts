@@ -1,5 +1,5 @@
 import { ThemeResource } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
+import { NUI, ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 import expect from 'expect';
 
 import { contextFactory } from '../test-utils/contextFactory';
@@ -42,7 +42,7 @@ describe('addTheme', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
-            resource = resourceFactory('theme');
+            resource = resourceFactory(NUI.theme);
             addTheme(project, context, resource);
         });
 

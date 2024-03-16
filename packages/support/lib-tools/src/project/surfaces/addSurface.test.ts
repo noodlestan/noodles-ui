@@ -1,5 +1,5 @@
 import { SurfaceResource } from '@noodles-ui/core-types';
-import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
+import { NUI, ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
 import expect from 'expect';
 
 import { contextFactory } from '../test-utils/contextFactory';
@@ -12,16 +12,19 @@ describe('addSurface', () => {
     let project: ProjectContext | undefined;
     let context: SurfaceContext;
     let resource: SurfaceResource;
+    // let Result
     describe('given valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory('surface', { name: 'bar' });
+            resource = resourceFactory(NUI.surface, { name: 'bar' });
             context = contextFactory(resource);
             addSurface(project, context, resource);
+            // result = addSurface
         });
         it('Add context to projet surfaces items', () => {
             expect(project?.entities.surface.size).toEqual(1);
         });
+        // it('Should return surface')
     });
     // describe('given context without entity', () => {
     //     beforeEach(() => {
