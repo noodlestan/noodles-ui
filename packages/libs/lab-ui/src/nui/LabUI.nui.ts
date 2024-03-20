@@ -14,6 +14,7 @@ const LabUIResource: ProjectResource = {
         surfaces,
         variants,
         components,
+        mixins: [],
     },
 };
 

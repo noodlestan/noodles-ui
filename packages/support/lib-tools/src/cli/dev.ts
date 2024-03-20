@@ -2,6 +2,8 @@ import { join, resolve } from 'path';
 
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { bold, green, red } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
 import {
@@ -9,10 +11,10 @@ import {
     EVENT_BUILD_STARTED,
     EVENT_REQUEST_BUILD,
 } from '../events/constants';
-import { BuildStartedEvent } from '../events/types';
+import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
 import { createProject } from '../project/createProject';
-import { getProjectFilenamesWatchlist } from '../project/getProjectFilenamesWatchlist';
+import { getProjectFilenamesWatchlist } from '../project/private/getProjectFilenamesWatchlist';
 import { ServerOptions, createServer } from '../server/createServer';
 import { formatMilieconds } from '../util/string';
 
@@ -67,6 +69,8 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         persistent: true,
     });
 
+    let lastSnapshot: BuildFinishedEvent;
+
     const refreshWatchers = async (): Promise<void> => {
         logInfo('...reloading project...');
         logProjectBasicInfo(project);
@@ -86,10 +90,9 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
 
         logFileNamesList(project, '+ watch ', sources);
         watcher.add(sources);
-        logSuccess('Project reloaded');
     };
 
-    const buildNow = async (): Promise<void> => {
+    const buildNow = async (): Promise<boolean> => {
         const event: BuildStartedEvent = { timestamp: new Date() };
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
@@ -97,25 +100,38 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             logInfo('building...');
             await execBuild();
             const snapshot = await loadProjectSnapshotFile(project);
+            lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logSuccess('Build successful');
+            return true;
         } catch (err) {
             const snapshot = await loadProjectSnapshotFile(project);
+            lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logError('Build error(s)', 'exit code: ' + err);
+            return false;
         }
     };
 
     const queue = new Queue(async (_: string, done) => {
-        await buildNow();
+        const lastBuild = lastSnapshot?.success ? green('\\o/ success') : red('failed');
+        logInfo('...changes detected, rebuilding...', 'last build: ' + lastBuild);
+        const success = await buildNow();
         await refreshWatchers();
         done();
+        logHeader('dev', success);
         server.nudge();
         setTimeout(() => {
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
-            logInfo('dev:nui stats');
+            logInfo('Build');
+            if (success) {
+                logMessage('  Last build:', green().bold('Success'));
+            } else {
+                logMessage('  Last build:', red().bold('Error'));
+            }
+
             logMessage('  Watched files:', fileCount);
             logMessage('  Build count:', buildCount);
             logMessage('  Build time (average):', formatMilieconds(avgBuildTime));

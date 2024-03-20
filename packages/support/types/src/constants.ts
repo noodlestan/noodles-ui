@@ -6,4 +6,5 @@ export const NUI: Record<EntityType, EntityType> = {
     variant: 'variant',
     component: 'component',
     token: 'token',
+    mixin: 'mixin',
 };

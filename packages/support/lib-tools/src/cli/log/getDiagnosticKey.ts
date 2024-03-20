@@ -4,7 +4,7 @@ import {
     UnknownResource,
 } from '@noodles-ui/support-types';
 
-import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
+import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
 import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';

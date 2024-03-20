@@ -1,58 +1,15 @@
-import {
-    ComponentEntity,
-    ComponentResource,
-    ProjectOwnResource,
-    SurfaceResource,
-    ThemeResource,
-    TokenResource,
-    VariantEntity,
-    VariantResource,
-} from '@noodles-ui/core-types';
+import { ProjectOwnResource } from '@noodles-ui/core-types';
 
+import {
+    ComponentEntityMap,
+    MixinEntityMap,
+    SurfaceEntityMap,
+    ThemeEntityMap,
+    TokenEntityMap,
+    VariantEntityMap,
+} from './entities';
 import { BuildContext } from './program';
 import { UnknownResource } from './resources';
-
-export type ResourceContext<T> = {
-    key: string;
-    resource: T;
-    public: boolean;
-    consumes: Set<string>;
-    consumers: Set<string>;
-};
-
-export type EntityBuildContext<T, V> = {
-    context: T;
-    entity: V;
-};
-
-export type UnknownBuildContext = EntityBuildContext<
-    ResourceContext<UnknownResource>,
-    UnknownResource
->;
-
-export type EntityBuildMap<
-    T extends EntityBuildContext<ResourceContext<UnknownResource>, UnknownResource>,
-> = Map<string, T>;
-
-export type SurfaceContext = ResourceContext<SurfaceResource>;
-export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;
-export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;
-
-export type ThemeContext = ResourceContext<ThemeResource>;
-export type ThemeBuildContext = EntityBuildContext<ThemeContext, ThemeResource>;
-export type ThemeEntityMap = EntityBuildMap<ThemeBuildContext>;
-
-export type VariantContext = ResourceContext<VariantResource>;
-export type VariantBuildContext = EntityBuildContext<VariantContext, VariantEntity>;
-export type VariantEntityMap = EntityBuildMap<VariantBuildContext>;
-
-export type ComponentContext = ResourceContext<ComponentResource>;
-export type ComponentBuildContext = EntityBuildContext<ComponentContext, ComponentEntity>;
-export type ComponentEntityMap = EntityBuildMap<ComponentBuildContext>;
-
-export type TokenContext = ResourceContext<TokenResource>;
-export type TokenBuildContext = EntityBuildContext<TokenContext, TokenResource>;
-export type TokenEntityMap = EntityBuildMap<TokenBuildContext>;
 
 export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
 
@@ -98,9 +55,10 @@ export type ProjectEntitiesMap = {
     component: ComponentEntityMap;
     variant: VariantEntityMap;
     token: TokenEntityMap;
+    mixin: MixinEntityMap;
 };
 
-export type EntityType = keyof ProjectEntitiesMap;
+export type EntityType = 'surface' | 'theme' | 'component' | 'variant' | 'token' | 'mixin';
 
 export type ProjectEntities = {
     entities: ProjectEntitiesMap;

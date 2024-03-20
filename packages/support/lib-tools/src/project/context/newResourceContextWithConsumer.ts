@@ -1,6 +1,6 @@
 import { ResourceContext, UnknownResource } from '@noodles-ui/support-types';
 
-import { getResourceTypedKey } from '../resources/getResourceTypedKey';
+import { getResourceTypedKey } from '../resources/getters/getResourceTypedKey';
 
 export function newResourceContextWithConsumer<T extends UnknownResource>(
     consumerContext: ResourceContext<UnknownResource>,

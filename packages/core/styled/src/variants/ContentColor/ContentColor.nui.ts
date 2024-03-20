@@ -1,8 +1,8 @@
-import { VariantResource } from '@noodles-ui/core-types';
+import { VariantExtendResource } from '@noodles-ui/core-types';
 
 import { FgColor } from '../FgColor/FgColor.nui';
 
-export const ContentColor: VariantResource = {
+export const ContentColor: VariantExtendResource = {
     name: 'ContentColor',
     module: '@noodles-ui/core-styled',
     extend: FgColor,

@@ -2,12 +2,12 @@ import { ComponentOwnEntity } from '@noodles-ui/core-types';
 import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts, { JsxAttribute } from 'typescript';
 
-import { getRenderedProps } from '../../../../project/components/extend/private/getRenderedProps';
+import { getRenderedProps } from '../../../../entities/component/getters/getRenderedProps';
+import { getPropsWithDefaultValues } from '../../../../entities/component/prop/getters/getPropsWithDefaultValues';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
 import { componentDefaultsStatements } from './body/componentDefaultsStatements';
 import { componentRenderStatement } from './body/componentRenderStatement';
-import { getPropsWithDefaultValues } from './props/getPropsWithDefaultValues';
 
 const factory = ts.factory;
 

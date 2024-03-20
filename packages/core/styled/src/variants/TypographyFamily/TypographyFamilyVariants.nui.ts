@@ -9,9 +9,11 @@ export const TypographyFamilyVariants: VariantOwnResource = {
         role: 'scss:variant',
         source: '@noodles-ui/core-styled/src/variants/TypographyFamily/TypographyFamilyVariants.scss',
         implementation: "@include TypographyFamilyVariants('#{family}', $#{variable});",
+        params: ['family'],
     },
     options: [],
-    params: ['family'],
+    // TODO infer params from mixin params
+    params: ['family', 'fuck', 'shit'],
     tokens: [
         {
             pattern: '--type-#{family}-base-fontFamily',

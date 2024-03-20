@@ -9,6 +9,10 @@ import {
     VariantOverrides,
 } from './variants';
 
+export type ComponentVars = {
+    [key: string]: string | string[];
+};
+
 export type LocalPropResource =
     | PropInlineResource
     | VariantInlineResource
@@ -47,6 +51,7 @@ export type ComponentOwnResource = Resource<'component'> & {
         [name: string]: LocalPropOverrides;
     };
     render: RenderedComponentResource;
+    vars?: ComponentVars;
 };
 
 export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name' | 'render'> & {
@@ -79,6 +84,7 @@ export type ComponentEntityProps = {
 export type ComponentOwnEntity = Omit<ComponentOwnResource, 'use' | 'props'> & {
     use: MixinResource[];
     props: ComponentEntityProps;
+    vars: ComponentVars;
 };
 
 export type ComponentImportEntity = Omit<ComponentImportResource, 'use' | 'props'> & {

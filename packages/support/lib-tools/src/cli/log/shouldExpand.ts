@@ -1,8 +1,8 @@
 import { ProjectContext, UnknownResource } from '@noodles-ui/support-types';
 
-import { getResourceModule } from '../../project/resources/getResourceModule';
-import { getResourceName } from '../../project/resources/getResourceName';
-import { getResourceType } from '../../project/resources/getResourceType';
+import { getResourceModule } from '../../project/resources/getters/getResourceModule';
+import { getResourceName } from '../../project/resources/getters/getResourceName';
+import { getResourceType } from '../../project/resources/getters/getResourceType';
 
 export const shouldExpand = (
     project: ProjectContext,

@@ -22,6 +22,10 @@
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "sideEffects": false,
+  "exports": {
+    "import": "./src/index.ts",
+    "require": "./dist/cjs/index.js"
+  },
   "scripts": {
     "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
     "dev:test": "mocha -w -r ts-node/register ---watch-files 'src/**/*.ts' 'src/**/*.test.ts'",

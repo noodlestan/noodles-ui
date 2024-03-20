@@ -2,9 +2,9 @@ import { PropEntity } from '@noodles-ui/core-types';
 import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import { getPropDefaultConstantName } from './props/getPropDefaultConstantName';
-import { getPropsWithDefaultValues } from './props/getPropsWithDefaultValues';
-import { isPropVariant } from './props/isPropVariant';
+import { getPropDefaultConstantName } from '../../../../entities/component/prop/getters/getPropDefaultConstantName';
+import { getPropsWithDefaultValues } from '../../../../entities/component/prop/getters/getPropsWithDefaultValues';
+import { isPropVariant } from '../../../../entities/component/prop/getters/isPropVariant';
 
 const factory = ts.factory;
 const defaultValueStatement = (

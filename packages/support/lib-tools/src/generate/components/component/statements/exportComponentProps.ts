@@ -4,7 +4,7 @@ import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
 
-import { getComponentPropsSignatures } from './props/getComponentPropsSignatures';
+import { componentPropsSignatures } from './props/componentPropsSignatures';
 
 const factory = ts.factory;
 
@@ -20,7 +20,7 @@ export const exportComponentProps = (
         undefined,
     );
 
-    const props = getComponentPropsSignatures(project, component);
+    const props = componentPropsSignatures(project, component);
     const typeDef = props.length
         ? factory.createIntersectionTypeNode([inheritedType, factory.createTypeLiteralNode(props)])
         : inheritedType;

@@ -50,6 +50,7 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
             component: new Map(),
             variant: new Map(),
             token: new Map(),
+            mixin: new Map(),
         },
         ...overides,
     };

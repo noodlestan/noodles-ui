@@ -8,9 +8,9 @@ import {
 } from '@noodles-ui/support-types';
 import { gray, green, red, yellow } from 'kleur';
 
-import { getResourceModule } from '../../project/resources/getResourceModule';
-import { getResourceName } from '../../project/resources/getResourceName';
-import { getResourceTypedKey } from '../../project/resources/getResourceTypedKey';
+import { getResourceModule } from '../../project/resources/getters/getResourceModule';
+import { getResourceName } from '../../project/resources/getters/getResourceName';
+import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
 import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
@@ -36,7 +36,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
     items.forEach(item => {
         const { context, entity } = item;
         const { resource, public: isPublic, consumes, consumers } = context;
-        const isExpanded = shouldExpand(project, resource || entity);
+        const isExpanded = shouldExpand(project, entity);
         const itemKey = getResourceTypedKey(entity || resource);
         const name = entity ? getResourceName(entity) : red(getResourceName(resource));
         const mod = entity ? getResourceModule(entity) : red(getResourceModule(resource));
@@ -65,7 +65,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
 }
 
 export const logProjectData = (project: ProjectContext): void => {
-    const { surface, theme, variant, component, token } = project.entities;
+    const { surface, theme, mixin, variant, component, token } = project.entities;
 
     const itemsWithErrors = project.diagnostics.reduce((acc, item) => {
         const sourceKey = getDiagnosticKey(project, item.source);
@@ -80,8 +80,9 @@ export const logProjectData = (project: ProjectContext): void => {
     }
     logResourceGroup(project, 'Surfaces', surface, itemsWithErrors);
     logResourceGroup(project, 'Themes', theme, itemsWithErrors);
+    logResourceGroup(project, 'Mixins', mixin, itemsWithErrors);
     logResourceGroup(project, 'Variants', variant, itemsWithErrors);
     logResourceGroup(project, 'Components', component, itemsWithErrors);
-    logResourceGroup(project, 'Surfaces', token, itemsWithErrors);
+    logResourceGroup(project, 'Tokens', token, itemsWithErrors);
     console.info('');
 };

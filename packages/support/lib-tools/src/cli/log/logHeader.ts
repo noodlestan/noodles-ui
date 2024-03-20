@@ -1,10 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { blue, bold } from 'kleur';
+import { blue, bold, green, red } from 'kleur';
 
 const NUI = [`  _  _ _   _ ___`, ` | \\| | | | |_ _|`, ` | .\` | |_| || |`, ` |_|\\_|\\___/|___|`];
 
-export const logHeader = (name: string): void => {
+export const logHeader = (name: string, success?: boolean): void => {
     const title = ' -- ' + bold(name.toUpperCase()) + ' -' + '-'.repeat(32 - name.length);
     const parts = [...NUI, '', title, ''];
-    console.info(parts.map(blue).join('\n'));
+    const color = success === undefined ? blue : success ? green : red;
+    console.info(parts.map(color).join('\n'));
 };

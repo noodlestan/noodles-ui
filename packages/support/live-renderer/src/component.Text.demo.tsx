@@ -1,6 +1,6 @@
 import { Component, JSX } from 'solid-js';
 
-import { Text, TextProps } from '../../../libs/lab-ui/src/generated/component.Text';
+import { Text, TextProps } from '../../../libs/lab-ui/src';
 
 type DemoProps = {
     children: JSX.Element;

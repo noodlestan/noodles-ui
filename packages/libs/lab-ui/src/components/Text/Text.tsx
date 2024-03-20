@@ -5,4 +5,15 @@
  * <project>/src/components/Text/Text.tsx
  */
 
-export { Text } from '../../generated/component.Text';
+import { Component } from 'solid-js';
+
+import {
+    Text as GeneratedText,
+    TextProps as GeneratedTextProps,
+} from '../../generated/component.Text';
+
+export type TextProps = GeneratedTextProps;
+
+export const Text: Component<TextProps> = props => {
+    return <GeneratedText {...props} tag="span" />;
+};

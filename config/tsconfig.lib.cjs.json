@@ -3,14 +3,15 @@
     "module": "commonjs",
     "target": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     // "noEmitOnError": true,
     // "rootDir": "./src/",
     // "outDir": "./dist/cjs",
     "strict": true,
     "noImplicitAny": true,
-    "declaration": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "declaration": true
   }
   // "include": ["src/"],
   // "exclude": ["**/*.test.ts"]

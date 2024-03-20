@@ -21,7 +21,7 @@ const generateComponentLine = (
     const generatedPath = componentGeneratedFileName(project, entity);
 
     const path = relative(dirname(generatedPath), publicPath);
-    return `export { ${name} } from '${removeExtension(path)}';`;
+    return `export { ${name}, ${name}Props } from '${removeExtension(path)}';`;
 };
 
 export const generateComponentsList = async (project: ProjectContext): Promise<void> => {

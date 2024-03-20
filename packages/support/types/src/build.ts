@@ -7,15 +7,15 @@ import {
     VariantEntity,
 } from '@noodles-ui/core-types';
 
+import { ResourceContext } from './context';
 import {
     ComponentContext,
-    ProjectDiagnostic,
-    ResourceContext,
     SurfaceContext,
     ThemeContext,
     TokenContext,
     VariantContext,
-} from './projects';
+} from './entities';
+import { ProjectDiagnostic } from './projects';
 import { UnknownResource } from './resources';
 
 export type EntityMapDto<T extends ResourceContext<UnknownResource>, V extends UnknownResource> = {

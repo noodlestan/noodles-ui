@@ -3,6 +3,8 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     // "noEmitOnError": true,
     // "rootDir": "./src/",

@@ -1,8 +1,8 @@
 import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import { getPropDefaultConstantName } from './props/getPropDefaultConstantName';
-import { getPropVariantsWithDefaultValues } from './props/getPropVariantsWithDefaultValues';
+import { getPropDefaultConstantName } from '../../../../entities/component/prop/getters/getPropDefaultConstantName';
+import { getPropVariantsWithDefaultValues } from '../../../../entities/component/prop/getters/getPropVariantsWithDefaultValues';
 
 const factory = ts.factory;
 

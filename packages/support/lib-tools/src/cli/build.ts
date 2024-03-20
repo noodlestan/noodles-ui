@@ -6,8 +6,8 @@ import { generateComponents } from '../generate/generateComponents';
 import { generateComponentsList } from '../generate/generateComponentsList';
 import { generateVariants } from '../generate/generateVariants';
 import { createProject } from '../project/createProject';
-import { ensureGeneratedDir } from '../project/ensureGeneratedDir';
-import { ensureProjectCacheDir } from '../project/ensureProjectCacheDir';
+import { ensureGeneratedDir } from '../project/private/ensureGeneratedDir';
+import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { stripFilename } from './format/stripFilename';

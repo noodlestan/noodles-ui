@@ -2,11 +2,13 @@ import { resolve } from 'path';
 
 import fStatic from '@fastify/static';
 import fastify, { FastifyInstance } from 'fastify';
+import { green, red } from 'kleur';
 import * as PubSub from 'pubsub-js';
 import { WebSocket, WebSocketServer } from 'ws';
 
 import { logError } from '../cli/logger/logError';
 import { logInfo } from '../cli/logger/logInfo';
+import { logMessage } from '../cli/logger/logMessage';
 import { logSuccess } from '../cli/logger/logSuccess';
 import {
     EVENT_BUILD_FINISHED,
@@ -43,12 +45,10 @@ export const createServer = (option: ServerOptions): DevServer => {
 
     const logClients = () => {
         const clients = Array.from(wss.clients.values());
-        logInfo(
-            '[DevServer] clients:',
-            clients.filter(client => client.readyState === WebSocket.OPEN).length +
-                '/' +
-                clients.length,
-        );
+        const readyCount = clients.filter(client => client.readyState === WebSocket.OPEN).length;
+        const raw = readyCount + '/' + clients.length;
+        const formattedClientCount = !readyCount ? red(raw) : green(raw);
+        logMessage('  Clients:', formattedClientCount);
     };
 
     wss.on('connection', function connection(ws) {
@@ -61,6 +61,7 @@ export const createServer = (option: ServerOptions): DevServer => {
         ws.on('disconnect', () => {
             logError('[DevServer] Client disconnected');
             logClients();
+            console.info('');
         });
     });
 
@@ -91,8 +92,9 @@ export const createServer = (option: ServerOptions): DevServer => {
     };
 
     const logListener = () => {
-        logInfo('[DevServer] Listening on:', `http://${options.host}:${options.port}`);
-        logInfo('[DevServer] serving from:', root);
+        logInfo('[DevServer]');
+        logMessage('  Listening on:', `http://${options.host}:${options.port}`);
+        logMessage('  Base path:', root);
     };
 
     app.listen(options, err => {
@@ -106,6 +108,7 @@ export const createServer = (option: ServerOptions): DevServer => {
     const nudge = () => {
         logListener();
         logClients();
+        console.info('');
     };
 
     return { app, nudge };

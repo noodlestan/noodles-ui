@@ -1,8 +1,8 @@
 import { ComponentEntity, PropEntity } from '@noodles-ui/core-types';
 import ts, { PropertyName } from 'typescript';
 
-import { getVariantPropsWithMixin } from '../props/getVariantPropsWithMixin';
-import { hasPropDefaultValue } from '../props/hasPropDefaultValue';
+import { getVariantPropsWithMixin } from '../../../../../entities/component/prop/getters/getVariantPropsWithMixin';
+import { hasPropDefaultValue } from '../../../../../entities/component/prop/getters/hasPropDefaultValue';
 
 const factory = ts.factory;
 

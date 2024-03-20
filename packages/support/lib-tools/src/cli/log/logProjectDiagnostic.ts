@@ -7,8 +7,8 @@ import {
 } from '@noodles-ui/support-types';
 import { bold, gray, green, red, yellow } from 'kleur';
 
-import { getResourceName } from '../../project/resources/getResourceName';
-import { getResourceType } from '../../project/resources/getResourceType';
+import { getResourceName } from '../../project/resources/getters/getResourceName';
+import { getResourceType } from '../../project/resources/getters/getResourceType';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';

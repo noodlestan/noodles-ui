@@ -19,7 +19,7 @@ export const generateComponentPublic = async (
     const fileName = componentPublicFileName(project, component.entity);
 
     const path = relative(dirname(fileName), generatedPath);
-    const content = `export { ${name} } from '${removeExtension(path)}';`;
+    const content = `export { ${name}, ${name}Props } from '${removeExtension(path)}';`;
 
     const output = tsFileHeader(project, fileName) + content + '\n';
     if (!existsSync(fileName)) {

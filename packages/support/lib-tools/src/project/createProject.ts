@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import {
     ComponentEntityMap,
     GeneratedSourceFile,
+    MixinEntityMap,
     ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticSource,
@@ -15,9 +16,9 @@ import {
 import { findRootPath } from '../monorepo/findRootPath';
 
 import { PROJECT_MODULE_KEY, PROJECT_NODULE_NAME } from './constants';
-import { createProgram } from './createProgram';
 import { findLocalNodeModule } from './modules/findLocalNodeModule';
 import { namedModule } from './modules/namedModule';
+import { createProgram } from './program/createProgram';
 
 export const createProject = async (
     projectFile: string,
@@ -47,6 +48,7 @@ export const createProject = async (
     const variant: VariantEntityMap = new Map();
     const component: ComponentEntityMap = new Map();
     const token: TokenEntityMap = new Map();
+    const mixin: MixinEntityMap = new Map();
     const project: ProjectContext = {
         projectFile,
         projectPath,
@@ -65,6 +67,7 @@ export const createProject = async (
             variant,
             component,
             token,
+            mixin,
         },
         debug: expandPatterns,
     };

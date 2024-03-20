@@ -18,22 +18,24 @@ export type VariantOwnResource = Resource<'variant'> & {
     tokens?: Array<Omit<TokenResource, 'type' | 'module'>>;
 };
 
-export type VariantOverrides = Partial<Omit<VariantOwnResource, 'type'>> & {
+export type VariantOverrides = Partial<Omit<VariantOwnResource, 'type' | 'mixin'>> & {
     name: string;
 };
 
 export type VariantExtendResource = VariantOverrides & {
     module: string;
-    name: string;
     extend: VariantResource;
 };
 
 export type VariantInlineResource = Omit<VariantOwnResource, 'module'>;
 export type VariantInlineExtendResource = Omit<VariantExtendResource, 'module'>;
-export type VariantInlineReferenceResource = { reference: VariantResource; defaultValue?: Value };
+export type VariantInlineReferenceResource = {
+    reference: VariantOwnResource;
+    defaultValue?: Value;
+};
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;
-export type VariantEntity = Omit<VariantOwnResource, 'params' | 'composable' | 'vars'> & {
+export type VariantEntity = Omit<VariantOwnResource, 'vars'> & {
     vars: VariantVars;
 };
 

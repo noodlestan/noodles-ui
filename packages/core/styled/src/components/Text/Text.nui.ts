@@ -1,11 +1,10 @@
-import { ComponentOwnResource, VariantExtendResource } from '@noodles-ui/core-types';
+import { ComponentOwnResource, VariantInlineExtendResource } from '@noodles-ui/core-types';
 import { TextResource as TextUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins/index.nui';
 import { TypographyFamilyVariants } from '../../variants/index.nui';
 
-export const TextTypeVariantResource: VariantExtendResource = {
-    module: '@noodles-ui/core-styled',
+export const TextTypeVariantResource: VariantInlineExtendResource = {
     name: 'TextVariant',
     extend: TypographyFamilyVariants,
     options: ['large', 'medium', 'body', 'note'],
@@ -20,6 +19,7 @@ export const TextResource: ComponentOwnResource = {
     props: {
         variant: TextTypeVariantResource,
     },
+    exposes: '*',
     render: {
         name: 'Text',
         from: TextUnstyledResource,

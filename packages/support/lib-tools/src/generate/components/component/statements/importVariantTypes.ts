@@ -1,14 +1,11 @@
 import { ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import { getPropVariantName } from './props/getPropVariantName';
-import { getVariantProps } from './props/getVariantProps';
+import { getPropVariantName } from '../../../../entities/component/prop/getters/getPropVariantName';
+import { getVariantProps } from '../../../../entities/component/prop/getters/getVariantProps';
+import { filterOutDuplicates } from '../../../../util/array';
 
 const factory = ts.factory;
-
-const onlyUnique = (value: unknown, index: number, array: unknown[]) => {
-    return array.indexOf(value) === index;
-};
 
 export const importVariantTypes = (component: ComponentBuildContext): ts.Statement[] => {
     const { entity } = component;
@@ -18,7 +15,7 @@ export const importVariantTypes = (component: ComponentBuildContext): ts.Stateme
         return [];
     }
 
-    const variantNames = variants.map(getPropVariantName).filter(onlyUnique);
+    const variantNames = variants.map(getPropVariantName).filter(filterOutDuplicates);
     const namedImports = variantNames.map(variantName =>
         factory.createImportSpecifier(false, undefined, factory.createIdentifier(variantName)),
     );

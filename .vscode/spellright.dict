@@ -56,3 +56,5 @@ vite
 vitest
 Vue
 ws
+fg
+bg

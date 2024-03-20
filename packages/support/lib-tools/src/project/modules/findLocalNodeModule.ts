@@ -4,7 +4,7 @@ import { dirname, join } from 'path';
 import { ProgramModule } from '@noodles-ui/support-types';
 import { PackageJson } from 'type-fest';
 
-import { readPackageJson } from '../readPackageJson';
+import { readPackageJson } from '../private/readPackageJson';
 
 const findPackageJson = (
     rootPath: string,
