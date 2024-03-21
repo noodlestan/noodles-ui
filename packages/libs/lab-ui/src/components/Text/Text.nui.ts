@@ -16,7 +16,7 @@ export const TextResource: ComponentExtendResource = {
         },
         tag: {
             name: 'TextTag',
-            options: ['p', 'span'],
+            options: ['p', 'span', 'li'],
         },
     },
 };

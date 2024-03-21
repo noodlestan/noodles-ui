@@ -15,9 +15,10 @@ import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { getResourceTypedKey } from '../../getters/getResourceTypedKey';
 import { loadVariant } from '../../variants/loadVariant';
-import { isVariantInlineExtendResourceProp } from '../props/getters/isVariantInlineExtendResourceProp';
-import { isVariantInlineProp } from '../props/getters/isVariantInlineProp';
-import { isVariantInlineReferenceResourceProp } from '../props/getters/isVariantInlineReferenceResourceProp';
+
+import { isVariantInlineExtendResourceProp } from './getters/isVariantInlineExtendResourceProp';
+import { isVariantInlineProp } from './getters/isVariantInlineProp';
+import { isVariantInlineReferenceResourceProp } from './getters/isVariantInlineReferenceResourceProp';
 
 const loadVariantInlineProp = (
     project: ProjectContext,

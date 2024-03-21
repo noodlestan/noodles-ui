@@ -1,10 +1,9 @@
 import { ComponentResource } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { isVariantInlineReferenceResourceProp } from '../props/getters/isVariantInlineReferenceResourceProp';
-
 import { exposeProp } from './exposeProp';
 import { Props } from './extendComponent';
+import { isVariantInlineReferenceResourceProp } from './getters/isVariantInlineReferenceResourceProp';
 
 export const mergeProps = (
     project: ProjectContext,

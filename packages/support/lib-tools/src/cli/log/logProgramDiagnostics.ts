@@ -13,7 +13,7 @@ const logDiagnosticEntry = (diagnostic: ts.Diagnostic) => {
     // );
     const { code, messageText } = diagnostic;
     const message = typeof messageText === 'object' ? messageText.messageText : messageText;
-    logError(`error`, gray(`TS${code}: `) + red(message));
+    logError('Compile error', gray(`TS${code}: `) + red(message));
     logMessage('  in ' + green(diagnostic.file?.fileName || '??'));
     const start = diagnostic.start || 0;
     const text = diagnostic.file?.text || '';

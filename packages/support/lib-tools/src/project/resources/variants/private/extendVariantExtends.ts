@@ -23,7 +23,7 @@ export const extendVariantExtends = (
     const actualVars = { ...variantVars, ...extendedVars, ...overrideVars };
 
     if (!validateVariantVars(project, extendVariant)) {
-        return;
+        // return;
     }
 
     return {

@@ -78,7 +78,7 @@ export const logProjectDiagnostic = (
     diagnostic: ProjectDiagnostic,
 ): void => {
     const { source, message } = diagnostic;
-    logError(`error`, red(message));
+    logError('Project error', red(message));
     logDiagnosticSource(project, source);
     if (diagnostic.data) {
         const data = diagnostic.data as { [key: string]: unknown };

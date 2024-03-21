@@ -46,10 +46,8 @@ const loadVariantOwnResource = (
         entity.mixin = loadMixin(project, newContext);
     }
 
-    // here?
-
     if (!validateVariantVars(project, entity)) {
-        return;
+        // return;
     }
 
     return addVariant(project, context, entity);

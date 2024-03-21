@@ -63,10 +63,8 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
         timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
-        if (project.diagnostics.length) {
-            logError(`Encountered ${project.diagnostics.length} issues during load`);
-            logError(`Skipping code generation`);
-        } else {
+        const loadingErrors = project.diagnostics.length;
+        if (!loadingErrors) {
             logInfo(`...generating code...`);
             await ensureGeneratedDir(project);
             await generateComponentsList(project);
@@ -80,6 +78,10 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
             logProjectDiagnostics(project);
             logProjectData(project);
             logProjectDiagnosticsSummary(project);
+            if (loadingErrors) {
+                logError(`Encountered ${loadingErrors} issues during load.`);
+                logError(`Code generation was skipped.`);
+            }
         } else {
             logSuccess('Build successful');
             logProjectData(project);

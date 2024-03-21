@@ -54,7 +54,10 @@ const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
     });
 };
 
-const formatBuildResult = (success: boolean): string => {
+const formatBuildResult = (success: boolean | undefined): string | undefined => {
+    if (success === undefined) {
+        return;
+    }
     return bold(success ? bgGreen(' \\o/ success ') : bgRed(' failed '));
 };
 
@@ -73,7 +76,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         persistent: true,
     });
 
-    let lastSnapshot: BuildFinishedEvent;
+    let lastSnapshot: BuildFinishedEvent | undefined;
 
     const refreshWatchers = async (): Promise<void> => {
         logInfo('...reloading project...');
@@ -101,7 +104,6 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
         try {
-            logInfo('building...');
             await execBuild();
             const snapshot = await loadProjectSnapshotFile(project);
             lastSnapshot = snapshot;
@@ -119,7 +121,8 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
 
     const queue = new Queue(async (_: string, done) => {
         const lastBuild = formatBuildResult(lastSnapshot?.success);
-        logInfo('...changes detected, rebuilding...', 'last build: ' + bold(lastBuild));
+        const re = lastBuild ? 're' : '';
+        logInfo(`...${re}building...`, lastBuild ? 'last build: ' + bold(lastBuild) : '');
         const success = await buildNow();
         await refreshWatchers();
         done();
@@ -149,7 +152,17 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         }
     };
 
-    watcher.on('change', addTask);
-    PubSub.subscribe(EVENT_REQUEST_BUILD, addTask);
+    const onChangesDetected = () => {
+        logInfo('...changes detected, build queued...');
+        addTask();
+    };
+
+    const onBuildRequested = () => {
+        logInfo('...build requested, queued...');
+        addTask();
+    };
+
+    watcher.on('change', onChangesDetected);
+    PubSub.subscribe(EVENT_REQUEST_BUILD, onBuildRequested);
     addTask();
 };

@@ -1,7 +1,7 @@
 import { ComponentResource, LocalPropOverrides, LocalPropResource } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { isVariantInlineExtendResourceProp } from '../props/getters/isVariantInlineExtendResourceProp';
+import { isVariantInlineExtendResourceProp } from './getters/isVariantInlineExtendResourceProp';
 
 export const exposeProp = (
     project: ProjectContext,
