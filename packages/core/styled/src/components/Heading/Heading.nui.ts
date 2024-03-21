@@ -9,8 +9,8 @@ export const HeadingTypeVariantResource: VariantExtendResource = {
     module: '@noodles-ui/core-styled',
     name: 'HeadingVariant',
     extend: TypographyFamilyVariants,
-    options: ['foo', 'bar', 'body', 'note'],
-    defaultValue: 'body',
+    options: ['large', 'medium'],
+    defaultValue: 'large',
 };
 
 export const HeadingResource: ComponentOwnResource = {

@@ -4,6 +4,8 @@ import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 import { logMessage } from '../../../../cli/logger/logMessage';
 import { getResourceKey } from '../../getters/getResourceKey';
 
+import { validateVariantVars } from './validateVariantVars';
+
 export const addVariant = (
     project: ProjectContext,
     context: VariantContext,
@@ -34,6 +36,8 @@ export const addVariant = (
             item.context.consumers.add(consumer),
         );
         return item?.entity;
+    } else if (context.public) {
+        validateVariantVars(project, entity);
     }
 
     logMessage('+ variant', key);

@@ -1,0 +1,16 @@
+/**
+ * noodles-ui / auto-generated
+ *
+ * 2024-03-21T11:39:49.769Z
+ * <project>/src/generated/component.Heading.module.scss
+ */
+
+@import '@noodles-ui/core-styled/src/mixins/TypeReset/TypeReset.scss';
+@import '@noodles-ui/core-styled/src/variants/TypographyFamily/TypographyFamilyVariants.scss';
+
+.Heading {
+    @include TypeReset();
+    &-variant- {
+        @include TypographyFamilyVariants('heading', $HeadingVariant);
+    }
+}

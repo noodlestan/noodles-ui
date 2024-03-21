@@ -3,8 +3,6 @@ import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
 import { filterOutDuplicates } from '../../../../util/array';
 
-import { validateVariantVars } from './validateVariantVars';
-
 export const extendVariantExtends = (
     project: ProjectContext,
     context: VariantContext,
@@ -21,10 +19,6 @@ export const extendVariantExtends = (
         ...(extendVariant.params || []),
     ].filter(filterOutDuplicates);
     const actualVars = { ...variantVars, ...extendedVars, ...overrideVars };
-
-    if (!validateVariantVars(project, extendVariant)) {
-        // return;
-    }
 
     return {
         ...resolvedParent,

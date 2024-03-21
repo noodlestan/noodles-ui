@@ -1,10 +1,11 @@
-import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
-// import { SandboxUI } from '../../system/SandboxUI';
+// import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Route, Router, useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 
-import { componentDemoMap } from './component.map';
+import { LabUI } from './target/LabUI';
+import { componentDemoMap } from './target/component.map';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -30,16 +31,19 @@ const RenderComponent = () => {
 };
 
 render(() => {
-    const systemUIContext = createSystemUIContext('hello');
-    // const { colourScheme, theme } = systemUIContext;
+    // const systemUIContext = createSystemUIContext('hello');
+    const colourScheme = () => 'dark' as ColourSchemeName;
+    const theme = () => 'goodbye';
+    // <SystemUIProvider {...systemUIContext}>
+    // </SystemUIProvider>
     return (
-        <SystemUIProvider {...systemUIContext}>
-            {/* <SandboxUI colourScheme={colourScheme()} theme={theme()}> */}
-            <Router>
-                <Route path="/component/*key" component={RenderComponent} />
-                <Route path="*" component={notFoundMessage('?')} />
-            </Router>
-            {/* </SandboxUI> */}
-        </SystemUIProvider>
+        <>
+            <LabUI colourScheme={colourScheme()} theme={theme()}>
+                <Router>
+                    <Route path="/component/*key" component={RenderComponent} />
+                    <Route path="*" component={notFoundMessage('?')} />
+                </Router>
+            </LabUI>
+        </>
     );
 }, root);

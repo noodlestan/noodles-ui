@@ -1,0 +1,78 @@
+.NUI-Theme-hello {
+    --type-heading-base-fontFamily: Arial, sans-serif;
+    --type-heading-base-fontSize: 24px;
+    --type-heading-base-lineHeight: 1;
+    --type-heading-base-fontWeight: 300;
+    --type-heading-base-letterSpacing: normal;
+    --type-heading-page-fontSize: 32px;
+    --type-heading-page-lineHeight: var(--type-heading-base-lineHeight);
+    --type-heading-page-fontWeight: var(--type-heading-base-fontWeight);
+    --type-heading-page-letterSpacing: var(--type-heading-base-letterSpacing);
+    --type-heading-section-fontSize: 24px;
+    --type-heading-section-lineHeight: var(--type-heading-base-lineHeight);
+    --type-heading-section-fontWeight: var(--type-heading-base-fontWeight);
+    --type-heading-section-letterSpacing: var(--type-heading-base-letterSpacing);
+    --type-heading-group-fontSize: 18px;
+    --type-heading-group-lineHeight: var(--type-heading-base-lineHeight);
+    --type-heading-group-fontWeight: var(--type-heading-base-fontWeight);
+    --type-heading-group-letterSpacing: var(--type-heading-base-letterSpacing);
+    --type-heading-item-fontSize: 16px;
+    --type-heading-item-lineHeight: var(--type-heading-base-lineHeight);
+    --type-heading-item-fontWeight: 400;
+    --type-heading-item-letterSpacing: var(--type-heading-base-letterSpacing);
+    --type-text-base-fontFamily: Georgia, serif;
+    --type-text-base-fontSize: 14px;
+    --type-text-base-lineHeight: 1.5;
+    --type-text-base-fontWeight: 300;
+    --type-text-base-letterSpacing: normal;
+    --type-text-large-fontSize: 24px;
+    --type-text-large-lineHeight: var(--type-text-base-lineHeight);
+    --type-text-large-fontWeight: var(--type-text-base-fontWeight);
+    --type-text-large-letterSpacing: var(--type-text-base-letterSpacing);
+    --type-text-medium-fontSize: 18px;
+    --type-text-medium-lineHeight: var(--type-text-base-lineHeight);
+    --type-text-medium-fontWeight: var(--type-text-base-fontWeight);
+    --type-text-medium-letterSpacing: var(--type-text-base-letterSpacing);
+    --type-text-body-fontSize: 16px;
+    --type-text-body-lineHeight: var(--type-text-base-lineHeight);
+    --type-text-body-fontWeight: var(--type-text-base-fontWeight);
+    --type-text-body-letterSpacing: var(--type-text-base-letterSpacing);
+    --type-text-note-fontSize: 14px;
+    --type-text-note-lineHeight: var(--type-text-base-lineHeight);
+    --type-text-note-fontWeight: var(--type-text-base-fontWeight);
+    --type-text-note-letterSpacing: var(--type-text-base-letterSpacing);
+}
+
+.NUI-Theme-hello.NUI-Surface-stage {
+    --color-content-primary-color: #eeeeff;
+    --color-content-muted-color: #ccccdd;
+    --color-content-disabled-color: #888899;
+    --surface-base-fg: var(--color-content-primary-color);
+    --surface-base-bg: #111122;
+}
+
+.NUI-Theme-hello.NUI-Surface-card {
+    --surface-base-bg: #000000;
+}
+
+.NUI-Theme-hello.NUI-Surface-invert {
+    --surface-base-bg: #000000;
+}
+
+.NUI-ColourScheme-light.NUI-Theme-hello.NUI-Surface-stage {
+    --color-content-primary-color: #111122;
+    --color-content-muted-color: #444455;
+    --color-content-disabled-color: #888899;
+    --surface-base-bg: #eeeeff;
+}
+
+.NUI-ColourScheme-light.NUI-Theme-hello.NUI-Surface-card {
+    --surface-base-bg: #ffffff;
+}
+
+.NUI-ColourScheme-light.NUI-Theme-hello.NUI-Surface-invert {
+    --color-content-primary-color: #eeeeff;
+    --color-content-muted-color: #ccccdd;
+    --color-content-disabled-color: #888899;
+    --surface-base-bg: #111122;
+}

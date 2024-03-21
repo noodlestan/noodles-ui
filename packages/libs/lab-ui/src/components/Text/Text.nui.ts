@@ -11,12 +11,15 @@ export const TextResource: ComponentExtendResource = {
     overrides: {
         variant: {
             name: 'TextVariant',
-            options: ['small', 'medium', 'large', 'x-large'],
+            options: ['large', 'medium', 'body', 'note'],
             defaultValue: 'medium',
         },
         tag: {
             name: 'TextTag',
-            options: ['p', 'span', 'li'],
+            options: ['p', 'span'],
         },
+    },
+    vars: {
+        family: 'text',
     },
 };

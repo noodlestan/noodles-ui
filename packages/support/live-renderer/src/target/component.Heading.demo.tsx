@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 
-import { Heading, HeadingProps } from '../../../libs/lab-ui/src/components/Heading/Heading';
+import { Heading, HeadingProps } from './component.Heading';
 
 type DemoProps = {
     children: string;
@@ -8,7 +8,7 @@ type DemoProps = {
 
 const defaultProps: HeadingProps = {
     children: 'Lorem ipsum',
-    variant: 'large',
+    variant: 'page',
     tag: 'h1',
     level: '1',
 };

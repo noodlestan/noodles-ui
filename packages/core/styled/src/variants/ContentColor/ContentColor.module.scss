@@ -1,5 +1,7 @@
 @import '../FgColor/FgColor.scss';
 
+$ContentColor: '' !default;
+
 .ContentColor {
     @include VariantsFgColor('content', $ContentColor);
 }

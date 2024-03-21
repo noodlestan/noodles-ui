@@ -1,6 +1,6 @@
 import { Component, JSX } from 'solid-js';
 
-import { Text, TextProps } from '../../../libs/lab-ui/src/components/Text/Text';
+import { Text, TextProps } from './component.Text';
 
 type DemoProps = {
     children: JSX.Element;
@@ -8,7 +8,7 @@ type DemoProps = {
 
 const defaultProps: TextProps = {
     children: 'Lorem ipsum',
-    variant: 'large',
+    variant: 'medium',
     tag: 'p',
 };
 

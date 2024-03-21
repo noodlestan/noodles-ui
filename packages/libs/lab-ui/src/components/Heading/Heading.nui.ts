@@ -11,13 +11,15 @@ export const HeadingResource: ComponentExtendResource = {
     overrides: {
         variant: {
             name: 'HeadingVariant',
-            options: ['large', 'small'],
-            vars: { family: 'heading' },
-            defaultValue: 'large',
+            options: ['page', 'section', 'group', 'item'],
+            defaultValue: 'page',
         },
         tag: {
             name: 'HeadingTag',
             options: ['h1', 'h2', 'h3'],
         },
+    },
+    vars: {
+        family: 'heading',
     },
 };

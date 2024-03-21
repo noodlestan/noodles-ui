@@ -7,8 +7,8 @@ import { TypographyFamilyVariants } from '../../variants/index.nui';
 export const TextTypeVariantResource: VariantInlineExtendResource = {
     name: 'TextVariant',
     extend: TypographyFamilyVariants,
-    options: ['large', 'medium', 'body', 'note'],
-    defaultValue: 'body',
+    options: ['large', 'medium'],
+    defaultValue: 'large',
 };
 
 export const TextResource: ComponentOwnResource = {

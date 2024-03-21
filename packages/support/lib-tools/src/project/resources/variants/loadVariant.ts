@@ -17,7 +17,6 @@ import { isVariantExtendResource } from './getters/isVariantExtendResource';
 import { isVariantOwnResource } from './getters/isVariantOwnResource';
 import { addVariant } from './private/addVariant';
 import { extendVariantExtends } from './private/extendVariantExtends';
-import { validateVariantVars } from './private/validateVariantVars';
 
 const loadVariantOwnResource = (
     project: ProjectContext,
@@ -44,10 +43,6 @@ const loadVariantOwnResource = (
             newResource,
         );
         entity.mixin = loadMixin(project, newContext);
-    }
-
-    if (!validateVariantVars(project, entity)) {
-        // return;
     }
 
     return addVariant(project, context, entity);

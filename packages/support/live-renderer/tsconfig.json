@@ -1,19 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "jsxImportSource": "solid-js",
     "jsx": "preserve",
-    "allowJs": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": true,
-    "noEmit": true,
-    "types": ["vinxi/client"],
-    "isolatedModules": true,
-    "paths": {
-      "~/*": ["./src/*"]
-    }
-  }
+    "noImplicitAny": true,
+    "outDir": "./dist"
+  },
+  "include": ["src"]
 }

@@ -15,5 +15,5 @@ import {
 export type TextProps = GeneratedTextProps;
 
 export const Text: Component<TextProps> = props => {
-    return <GeneratedText {...props} tag="li" />;
+    return <GeneratedText {...props} />;
 };
