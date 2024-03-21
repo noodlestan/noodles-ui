@@ -1,8 +1,8 @@
 import { ComponentEntity } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../cli/logger/logMessage';
-import { getResourceKey } from '../getters/getResourceKey';
+import { logMessage } from '../../../../cli/logger/logMessage';
+import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addComponent = (
     project: ProjectContext,

@@ -10,12 +10,14 @@ import { NUI, ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
 import { newResourceContextPublicWithConsumer } from '../../context/newResourceContextPublicWithConsumer';
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
+import { getResourceKey } from '../getters/getResourceKey';
 import { loadMixin } from '../mixins/loadMixin';
 
-import { addVariant } from './addVariant';
 import { isVariantExtendResource } from './getters/isVariantExtendResource';
 import { isVariantOwnResource } from './getters/isVariantOwnResource';
+import { addVariant } from './private/addVariant';
 import { extendVariantExtends } from './private/extendVariantExtends';
+import { validateVariantVars } from './private/validateVariantVars';
 
 const loadVariantOwnResource = (
     project: ProjectContext,
@@ -23,10 +25,12 @@ const loadVariantOwnResource = (
     variant: VariantOwnResource,
     vars?: VariantVars,
 ): VariantEntity | undefined => {
+    const actualVars = { ...variant.vars, ...vars };
+
     const entity = {
         ...structuredClone(variant),
         type: NUI.variant as 'variant',
-        vars: Object.assign({}, variant.vars, vars),
+        vars: actualVars,
     };
 
     if (variant.mixin) {
@@ -40,6 +44,12 @@ const loadVariantOwnResource = (
             newResource,
         );
         entity.mixin = loadMixin(project, newContext);
+    }
+
+    // here?
+
+    if (!validateVariantVars(project, entity)) {
+        return;
     }
 
     return addVariant(project, context, entity);
@@ -66,7 +76,8 @@ const loadVariantExtend = (
 ): VariantEntity | undefined => {
     const parent = loadExtendedVariant(project, context, extendVariant);
     if (!parent) {
-        project.addDiagnostic(extendVariant, "Could not load variant's parent");
+        const name = getResourceKey(extendVariant);
+        project.addDiagnostic(extendVariant, `Could not load extended variant "${name}".`);
         return;
     }
 

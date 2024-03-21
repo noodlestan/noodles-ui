@@ -14,15 +14,15 @@ import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
 import { getResourceTypedKey } from '../getters/getResourceTypedKey';
 
-import { addComponent } from './addComponent';
-import { extendComponent } from './extend/extendComponent';
-import { extendRenderedComponent } from './extend/extendRenderedComponent';
 import { getRenderedPart } from './getters/getRenderedPart';
 import { isComponentExtendResource } from './getters/isComponentExtendResource';
 import { isComponentImportResource } from './getters/isComponentImportResource';
 import { isComponentOwnResource } from './getters/isComponentOwnResource';
-import { loadComponentMixin } from './props/private/loadComponentMixin';
-import { loadComponentProps } from './props/private/loadComponentProps';
+import { addComponent } from './private/addComponent';
+import { extendComponent } from './private/extendComponent';
+import { extendRenderedComponent } from './private/extendRenderedComponent';
+import { loadComponentMixin } from './private/loadComponentMixin';
+import { loadComponentProps } from './private/loadComponentProps';
 
 const loadRenderedComponent = (
     project: ProjectContext,

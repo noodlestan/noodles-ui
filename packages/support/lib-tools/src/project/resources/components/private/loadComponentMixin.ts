@@ -1,8 +1,8 @@
 import { ComponentOwnResource, MixinResource } from '@noodles-ui/core-types';
 import { ComponentContext, NUI, ProjectContext } from '@noodles-ui/support-types';
 
-import { newResourceContextPublicWithConsumer } from '../../../../context/newResourceContextPublicWithConsumer';
-import { loadMixin } from '../../../mixins/loadMixin';
+import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
+import { loadMixin } from '../../mixins/loadMixin';
 
 export const loadComponentMixin = (
     project: ProjectContext,

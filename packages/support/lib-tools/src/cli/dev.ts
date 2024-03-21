@@ -3,7 +3,7 @@ import { join, resolve } from 'path';
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { bold, green, red } from 'kleur';
+import { bgGreen, bgRed, black, bold, white } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
 import {
@@ -35,13 +35,6 @@ type QueueSized = Queue & {
     length: number;
 };
 
-const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
-    const watchedFiles = watcher.getWatched();
-    return Object.entries(watchedFiles).flatMap(([dir, files]) => {
-        return files.map(filename => join(dir, filename));
-    });
-};
-
 type DevOptions = {
     live: boolean;
     server: ServerOptions;
@@ -52,6 +45,17 @@ const defaultOptions: DevOptions = {
     server: {
         port: 3131,
     },
+};
+
+const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
+    const watchedFiles = watcher.getWatched();
+    return Object.entries(watchedFiles).flatMap(([dir, files]) => {
+        return files.map(filename => join(dir, filename));
+    });
+};
+
+const formatBuildResult = (success: boolean): string => {
+    return bold(success ? bgGreen(' \\o/ success ') : bgRed(' failed '));
 };
 
 export const dev = async (fileName: string, options?: Partial<DevOptions>): Promise<void> => {
@@ -114,8 +118,8 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     };
 
     const queue = new Queue(async (_: string, done) => {
-        const lastBuild = lastSnapshot?.success ? green('\\o/ success') : red('failed');
-        logInfo('...changes detected, rebuilding...', 'last build: ' + lastBuild);
+        const lastBuild = formatBuildResult(lastSnapshot?.success);
+        logInfo('...changes detected, rebuilding...', 'last build: ' + bold(lastBuild));
         const success = await buildNow();
         await refreshWatchers();
         done();
@@ -126,11 +130,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
             logInfo('Build');
-            if (success) {
-                logMessage('  Last build:', green().bold('Success'));
-            } else {
-                logMessage('  Last build:', red().bold('Error'));
-            }
+            logMessage('  Last build:', formatBuildResult(success));
 
             logMessage('  Watched files:', fileCount);
             logMessage('  Build count:', buildCount);

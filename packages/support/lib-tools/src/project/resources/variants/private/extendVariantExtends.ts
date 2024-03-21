@@ -3,6 +3,8 @@ import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
 import { filterOutDuplicates } from '../../../../util/array';
 
+import { validateVariantVars } from './validateVariantVars';
+
 export const extendVariantExtends = (
     project: ProjectContext,
     context: VariantContext,
@@ -12,12 +14,17 @@ export const extendVariantExtends = (
 ): VariantEntity | undefined => {
     const { vars: extendedVars } = extendVariant.extend;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { extend, vars: variantVars, ...rest } = extendVariant;
-    const actualVars = { ...variantVars, ...extendedVars, ...overrideVars };
+    const { extend: _, vars: variantVars, ...rest } = extendVariant;
+
     const actualParams = [
         ...(extendVariant.extend.params || []),
         ...(extendVariant.params || []),
     ].filter(filterOutDuplicates);
+    const actualVars = { ...variantVars, ...extendedVars, ...overrideVars };
+
+    if (!validateVariantVars(project, extendVariant)) {
+        return;
+    }
 
     return {
         ...resolvedParent,

@@ -1,8 +1,8 @@
 import { VariantEntity } from '@noodles-ui/core-types';
 import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../cli/logger/logMessage';
-import { getResourceKey } from '../getters/getResourceKey';
+import { logMessage } from '../../../../cli/logger/logMessage';
+import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addVariant = (
     project: ProjectContext,

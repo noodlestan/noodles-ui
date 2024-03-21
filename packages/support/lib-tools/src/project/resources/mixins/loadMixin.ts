@@ -1,7 +1,7 @@
 import { MixinResource } from '@noodles-ui/core-types';
 import { MixinContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { addMixin } from './addMixin';
+import { addMixin } from './private/addMixin';
 
 export const loadMixin = (
     project: ProjectContext,

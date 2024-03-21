@@ -1,8 +1,19 @@
 /**
  * noodles-ui / auto-generated
  *
- * 2024-03-20T23:32:09.835Z
+ * 2024-03-05T23:58:02.243Z
  * <project>/src/components/Heading/Heading.tsx
  */
 
-export { Heading, HeadingProps } from '../../generated/component.Heading';
+import { Component } from 'solid-js';
+
+import {
+    Heading as GeneratedHeading,
+    HeadingProps as GeneratedHeadingProps,
+} from '../../generated/component.Heading';
+
+export type HeadingProps = GeneratedHeadingProps;
+
+export const Heading: Component<HeadingProps> = props => {
+    return <GeneratedHeading {...props} />;
+};

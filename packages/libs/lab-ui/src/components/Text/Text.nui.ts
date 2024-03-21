@@ -19,7 +19,4 @@ export const TextResource: ComponentExtendResource = {
             options: ['p', 'span'],
         },
     },
-    vars: {
-        family: 'text',
-    },
 };

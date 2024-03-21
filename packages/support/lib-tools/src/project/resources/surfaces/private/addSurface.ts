@@ -1,15 +1,15 @@
-import { ThemeResource } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
+import { SurfaceResource } from '@noodles-ui/core-types';
+import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../cli/logger/logMessage';
-import { getResourceKey } from '../getters/getResourceKey';
+import { logMessage } from '../../../../cli/logger/logMessage';
+import { getResourceKey } from '../../getters/getResourceKey';
 
-export const addTheme = (
+export const addSurface = (
     project: ProjectContext,
-    context: ThemeContext,
-    entity: ThemeResource,
+    context: SurfaceContext,
+    entity: SurfaceResource,
 ): void => {
-    const { theme: items } = project.entities;
+    const { surface: items } = project.entities;
     const { resource } = context;
 
     if (!entity) {
@@ -28,6 +28,6 @@ export const addTheme = (
         return;
     }
 
-    logMessage('+ theme', key);
+    logMessage('+ surface', key);
     items.set(key, { context, entity });
 };

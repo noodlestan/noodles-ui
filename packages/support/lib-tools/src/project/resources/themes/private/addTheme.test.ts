@@ -1,40 +1,37 @@
-import { SurfaceResource } from '@noodles-ui/core-types';
-import { NUI, ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
+import { ThemeResource } from '@noodles-ui/core-types';
+import { NUI, ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 import expect from 'expect';
 
-import { contextFactory } from '../../test-utils/contextFactory';
-import { projectFactory } from '../../test-utils/projectFactory';
-import { resourceFactory } from '../../test-utils/resourceFactory';
+import { contextFactory } from '../../../test-utils/contextFactory';
+import { projectFactory } from '../../../test-utils/projectFactory';
+import { resourceFactory } from '../../../test-utils/resourceFactory';
 
-import { addSurface } from './addSurface';
+import { addTheme } from './addTheme';
 
-describe('addSurface', () => {
+describe('addTheme', () => {
     let project: ProjectContext | undefined;
-    let context: SurfaceContext;
-    let resource: SurfaceResource;
-    // let Result
+    let context: ThemeContext;
+    let resource: ThemeResource;
     describe('given valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory(NUI.surface, { name: 'bar' });
+            resource = resourceFactory('theme', { name: 'bar' });
             context = contextFactory(resource);
-            addSurface(project, context, resource);
-            // result = addSurface
+            addTheme(project, context, resource);
         });
-        it('Add context to project surfaces items', () => {
-            expect(project?.entities.surface.size).toEqual(1);
+        it('Add context to project themes items', () => {
+            expect(project?.entities.theme.size).toEqual(1);
         });
-        // it('Should return surface')
     });
     // describe('given context without entity', () => {
     //     beforeEach(() => {
     //         project = projectFactory();
     //         resource = resourceFactory();
     //         context = contextFactory();
-    //         addSurface(project, context);
+    //         addTheme(project, context);
     //     });
-    //     it('it should not add surfaces items', () => {
-    //         expect(project?.entities.surface.size).toEqual(0);
+    //     it('it should not add themes items', () => {
+    //         expect(project?.entities.theme.size).toEqual(0);
     //     });
     //     it('it should add a project diagnostics', () => {
     //         expect(project?.diagnostics.length).toEqual(1);
@@ -45,12 +42,12 @@ describe('addSurface', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
-            resource = resourceFactory('surface');
-            addSurface(project, context, resource);
+            resource = resourceFactory(NUI.theme);
+            addTheme(project, context, resource);
         });
 
-        it('it should not add surfaces items', () => {
-            expect(project?.entities.surface.size).toEqual(0);
+        it('it should not add themes items', () => {
+            expect(project?.entities.theme.size).toEqual(0);
         });
 
         it('it should add a project diagnostics', () => {
@@ -62,13 +59,13 @@ describe('addSurface', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
-            resource = resourceFactory('surface', { name: 'foo' });
-            addSurface(project, context, resource);
-            addSurface(project, context, resource);
+            resource = resourceFactory('theme', { name: 'foo' });
+            addTheme(project, context, resource);
+            addTheme(project, context, resource);
         });
 
-        it('it should not add surfaces items', () => {
-            expect(project?.entities.surface.size).toEqual(1);
+        it('it should not add themes items', () => {
+            expect(project?.entities.theme.size).toEqual(1);
         });
 
         it('it should add a project diagnostics', () => {

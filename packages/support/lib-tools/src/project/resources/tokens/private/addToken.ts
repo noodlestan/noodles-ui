@@ -1,8 +1,8 @@
 import { TokenResource } from '@noodles-ui/core-types';
 import { ProjectContext, TokenContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../cli/logger/logMessage';
-import { getResourceKey } from '../getters/getResourceKey';
+import { logMessage } from '../../../../cli/logger/logMessage';
+import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addToken = (
     project: ProjectContext,

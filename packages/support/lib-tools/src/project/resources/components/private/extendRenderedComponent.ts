@@ -5,7 +5,7 @@ import {
 } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { mergeProps } from './private/mergeProps';
+import { mergeProps } from './mergeProps';
 
 export type Props = {
     [name: string]: LocalPropResource;

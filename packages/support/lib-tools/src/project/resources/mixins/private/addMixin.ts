@@ -1,8 +1,8 @@
 import { MixinResource } from '@noodles-ui/core-types';
 import { MixinContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../cli/logger/logMessage';
-import { getResourceKey } from '../getters/getResourceKey';
+import { logMessage } from '../../../../cli/logger/logMessage';
+import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addMixin = (
     project: ProjectContext,

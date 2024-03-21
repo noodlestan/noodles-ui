@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 
-import { Heading, HeadingProps } from '../../../libs/lab-ui/src';
+import { Heading, HeadingProps } from '../../../libs/lab-ui/src/components/Heading/Heading';
 
 type DemoProps = {
     children: string;

@@ -13,7 +13,8 @@ export const TypographyFamilyVariants: VariantOwnResource = {
     },
     options: [],
     // TODO infer params from mixin params
-    params: ['family', 'fuck', 'shit'],
+    params: ['family'],
+    // TODO params: ['family', 'foo', 'bar'],
     tokens: [
         {
             pattern: '--type-#{family}-base-fontFamily',

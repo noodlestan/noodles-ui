@@ -1,6 +1,6 @@
 import { ComponentOwnEntity } from '@noodles-ui/core-types';
 
-import { Props } from '../../../project/resources/components/extend/extendComponent';
+import { Props } from '../../../project/resources/components/private/extendComponent';
 
 import { getRenderedPart } from './getRenderedPart';
 
