@@ -8,7 +8,7 @@ const content = 'Lorem ipsum';
 describe('<Heading />', () => {
     test('renders', () => {
         const { container, unmount } = render(() => (
-            <Heading level="1" variant="large" tag="h2">
+            <Heading level="1" variant="page" tag="h2">
                 {content}
             </Heading>
         ));

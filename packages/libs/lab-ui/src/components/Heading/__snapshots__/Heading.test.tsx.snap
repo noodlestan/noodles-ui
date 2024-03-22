@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Heading /> > renders 1`] = `"<h2 class="_Heading_ad18fc _Heading-variant-large_ad18fc">Lorem ipsum</h2>"`;
+exports[`<Heading /> > renders 1`] = `"<h2 class="_Heading_ad18fc _Heading-variant-page_ad18fc">Lorem ipsum</h2>"`;

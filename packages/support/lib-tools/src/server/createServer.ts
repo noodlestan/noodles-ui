@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 
-import fStatic from '@fastify/static';
 import fastify, { FastifyInstance } from 'fastify';
 import { green, red } from 'kleur';
 import * as PubSub from 'pubsub-js';
@@ -17,6 +16,8 @@ import {
 } from '../events/constants';
 import { BuildFinishedEvent } from '../events/types';
 
+import { useSpaServer } from './private/useSpaServer';
+
 export type ServerOptions = {
     port: number;
 };
@@ -25,7 +26,6 @@ export type DevServer = {
     app: FastifyInstance;
     nudge: () => void;
 };
-
 export const createServer = (option: ServerOptions): DevServer => {
     let lastSnapshot: BuildFinishedEvent;
     const port = option.port;
@@ -74,7 +74,6 @@ export const createServer = (option: ServerOptions): DevServer => {
         sendMessage({ name: eventName, value: data });
     });
 
-    // app.get('/api/status', async (request, reply) => {
     app.get('/api/status', async () => {
         return lastSnapshot;
     });
@@ -84,7 +83,7 @@ export const createServer = (option: ServerOptions): DevServer => {
         return {};
     });
 
-    app.register(fStatic, { root });
+    app.get('*', useSpaServer(root));
 
     const options = {
         port,
