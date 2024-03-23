@@ -3,12 +3,13 @@ import { dirname, relative } from 'path';
 
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { componentGeneratedFileName } from './components/paths/componentGeneratedFileName';
-import { componentListFileName } from './components/paths/componentListFileName';
-import { componentPublicFileName } from './components/paths/componentPublicFileName';
-import { formatTypescriptFile } from './eslint/formatTypescriptFile';
-import { removeExtension } from './files/removeExtension';
-import { tsFileHeader } from './typescript/tsFileHeader';
+import { removeExtension } from '../../util/fs';
+import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
+import { tsFileHeader } from '../typescript/tsFileHeader';
+
+import { componentGeneratedFileName } from './paths/componentGeneratedFileName';
+import { componentListFileName } from './paths/componentListFileName';
+import { componentPublicFileName } from './paths/componentPublicFileName';
 
 const generateComponentLine = (
     project: ProjectContext,

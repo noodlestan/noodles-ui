@@ -60,8 +60,8 @@
     "plaintext",
     "markdown",
     "typescript",
-    "typescriptreact",
     "json",
-    "css"
+    "css",
+    "typescriptreact"
   ]
 }

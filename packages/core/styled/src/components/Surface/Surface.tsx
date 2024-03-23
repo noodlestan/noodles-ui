@@ -5,7 +5,7 @@ import {
 } from '@noodles-ui/core-unstyled';
 import { Component, JSX } from 'solid-js';
 
-import { surfaceClasslist } from './surfaceClassList';
+import { surfaceClassList } from './surfaceClassList';
 
 export type SurfaceProps = SurfaceUnstyledProps & {
     variant: string;
@@ -18,7 +18,7 @@ const SurfaceElement: Component<SurfaceProps> = props => {
     const classList = () => ({
         ...props.classList,
         ...contextClassList(),
-        ...surfaceClasslist(),
+        ...surfaceClassList(),
     });
 
     return (

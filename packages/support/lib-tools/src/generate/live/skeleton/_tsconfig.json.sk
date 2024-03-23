@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsxImportSource": "solid-js",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}

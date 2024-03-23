@@ -26,7 +26,7 @@ const generateVariantLine = (project: ProjectContext, variant: VariantBuildConte
 export const generateVariantsConstants = async (project: ProjectContext): Promise<void> => {
     const variants = Array.from(project.entities.variant.values()).filter(item => {
         return item.entity.defaultValue;
-    }) as VariantBuildContext[];
+    });
 
     const importsLine = generateTypeImportLine(project, variants);
     const constantsLines = variants.map(item => generateVariantLine(project, item));

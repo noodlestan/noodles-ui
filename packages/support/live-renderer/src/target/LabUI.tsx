@@ -1,5 +1,5 @@
 import { RootProvider, surfacesStore, themesStore } from '@noodles-ui/core-services';
-import { surfaceClasslist } from '@noodles-ui/core-styled';
+import { surfaceClassList } from '@noodles-ui/core-styled';
 import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Component, JSX } from 'solid-js';
 
@@ -19,7 +19,7 @@ export const LabUI: Component<UIProps> = props => {
     themes.forEach(registerTheme);
     surfaces.forEach(registerSurface);
 
-    const classList = () => surfaceClasslist();
+    const classList = () => surfaceClassList();
 
     return (
         <RootProvider

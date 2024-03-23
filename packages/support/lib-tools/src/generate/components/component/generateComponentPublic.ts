@@ -4,7 +4,7 @@ import { dirname, relative } from 'path';
 
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { removeExtension } from '../../files/removeExtension';
+import { removeExtension } from '../../../util/fs';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';
 import { componentPublicFileName } from '../paths/componentPublicFileName';

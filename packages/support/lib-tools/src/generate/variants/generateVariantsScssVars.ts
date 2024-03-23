@@ -15,7 +15,7 @@ const generateVariantLine = (project: ProjectContext, variant: VariantBuildConte
 export const generateVariantsScssVars = async (project: ProjectContext): Promise<void> => {
     const variants = Array.from(project.entities.variant.values()).filter(item => {
         return item.context.public;
-    }) as VariantBuildContext[];
+    });
 
     const lines = variants.map(item => generateVariantLine(project, item));
     const content = [...lines].join('\n');

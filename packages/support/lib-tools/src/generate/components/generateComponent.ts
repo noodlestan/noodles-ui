@@ -1,8 +1,8 @@
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { generateComponentPrivate } from './generateComponentPrivate';
-import { generateComponentPublic } from './generateComponentPublic';
-import { generateComponentScssModule } from './generateComponentScssModule';
+import { generateComponentPrivate } from './component/generateComponentPrivate';
+import { generateComponentPublic } from './component/generateComponentPublic';
+import { generateComponentScssModule } from './component/generateComponentScssModule';
 
 export const generateComponent = async (
     project: ProjectContext,

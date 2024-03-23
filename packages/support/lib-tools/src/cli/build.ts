@@ -3,11 +3,15 @@ import { resolve } from 'path';
 import { ProjectContext } from '@noodles-ui/support-types';
 
 import { generateComponents } from '../generate/generateComponents';
-import { generateComponentsList } from '../generate/generateComponentsList';
+import { generateThemes } from '../generate/generateThemes';
 import { generateVariants } from '../generate/generateVariants';
+import { deployLive } from '../generate/live/deployLive';
+import { generateSurfacesIndex } from '../generate/surfaces/generateSurfacesIndex';
+import { generateRootComponent } from '../generate/system/generateRootComponent';
 import { createProject } from '../project/createProject';
 import { ensureGeneratedDir } from '../project/private/ensureGeneratedDir';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
+import { ensureLiveDirs } from '../project/private/ensureResourcesDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { stripFilename } from './format/stripFilename';
@@ -63,15 +67,32 @@ export const build = async (fileName: string): Promise<ProjectContext> => {
         timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
+        const live = true;
+        const prod = false;
+
         const loadingErrors = project.diagnostics.length;
         if (!loadingErrors) {
-            logInfo(`...generating code...`);
-            await ensureGeneratedDir(project);
-            await generateComponentsList(project);
-            await generateComponents(project);
-            await generateVariants(project);
-            logGeneratedSourceFiles(project);
-            timings.push([Date.now(), 'Generating code']);
+            if (live) {
+                logInfo(`...generating live preview...`);
+                await ensureLiveDirs(project);
+                const liveDir = await deployLive(project);
+                await generateRootComponent(project, liveDir);
+                await generateSurfacesIndex(project, liveDir);
+                await generateThemes(project, liveDir);
+                // await generateComponentsList(project);
+                // await generateComponents(project);
+                // await generateVariants(project);
+                // logGeneratedSourceFiles(project);
+                // timings.push([Date.now(), 'Generating code']);
+            }
+            if (prod) {
+                logInfo(`...generating production code...`);
+                await ensureGeneratedDir(project);
+                await generateComponents(project);
+                await generateVariants(project);
+                logGeneratedSourceFiles(project);
+                timings.push([Date.now(), 'Generating code']);
+            }
         }
 
         if (project.diagnostics.length) {

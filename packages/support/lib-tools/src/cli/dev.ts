@@ -3,7 +3,7 @@ import { join, resolve } from 'path';
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { bgGreen, bgRed, black, bold, white } from 'kleur';
+import { black, bold, green, red, white } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
 import {
@@ -58,7 +58,7 @@ const formatBuildResult = (success: boolean | undefined): string | undefined => 
     if (success === undefined) {
         return;
     }
-    return bold(success ? bgGreen(' \\o/ success ') : bgRed(' failed '));
+    return bold(success ? green('\u2588\u2588 Success') : red('\u2588\u2588 Failed'));
 };
 
 export const dev = async (fileName: string, options?: Partial<DevOptions>): Promise<void> => {
@@ -122,7 +122,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     const queue = new Queue(async (_: string, done) => {
         const lastBuild = formatBuildResult(lastSnapshot?.success);
         const re = lastBuild ? 're' : '';
-        logInfo(`...${re}building...`, lastBuild ? 'last build: ' + bold(lastBuild) : '');
+        logInfo(`...${re}building...`, lastBuild ? 'last build: ' + lastBuild : '');
         const success = await buildNow();
         await refreshWatchers();
         done();

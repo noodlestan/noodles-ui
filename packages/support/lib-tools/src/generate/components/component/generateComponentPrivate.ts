@@ -8,15 +8,15 @@ import { printTypescriptStatements } from '../../typescript/printTypescriptState
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';
 
-import { declareRenderedProps } from './statements/declareRenderedProps';
-import { exportComponent } from './statements/exportComponent';
-import { exportComponentProps } from './statements/exportComponentProps';
-import { exportDefaultValues } from './statements/exportDefaultValues';
-import { importComponentStyles } from './statements/importComponentStyles';
-import { importDefaultOptions } from './statements/importDefaultOptions';
-import { importFrameworkComponent } from './statements/importFrameworkComponent';
-import { importRenderedComponent } from './statements/importRenderedComponent';
-import { importVariantTypes } from './statements/importVariantTypes';
+import { declareRenderedProps } from './ComponentPrivate/declareRenderedProps';
+import { exportComponent } from './ComponentPrivate/exportComponent';
+import { exportComponentProps } from './ComponentPrivate/exportComponentProps';
+import { exportDefaultValues } from './ComponentPrivate/exportDefaultValues';
+import { importComponentStyles } from './ComponentPrivate/importComponentStyles';
+import { importDefaultOptions } from './ComponentPrivate/importDefaultOptions';
+import { importFrameworkComponent } from './ComponentPrivate/importFrameworkComponent';
+import { importRenderedComponent } from './ComponentPrivate/importRenderedComponent';
+import { importVariantTypes } from './ComponentPrivate/importVariantTypes';
 
 export const generateComponentPrivate = async (
     project: ProjectContext,
