@@ -1,7 +1,7 @@
 import { SurfaceResource, SurfaceTokenMap, ThemeResource, TokenMap } from '@noodles-ui/core-types';
 import { Component } from 'solid-js';
 
-export type Theme = Omit<ThemeResource, 'extend'> & {
+export type Theme = Omit<ThemeResource, 'type' | 'extend'> & {
     component: Component;
     extend: string[];
     tokens: {

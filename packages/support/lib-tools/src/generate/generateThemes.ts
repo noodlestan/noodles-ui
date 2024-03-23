@@ -1,10 +1,7 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-import ts from 'typescript';
 
-import { generateThemeComponent } from './themes/generateThemeComponent';
+import { generateThemeComponent } from './themes/generateTheme';
 import { generateThemesIndex } from './themes/generateThemesIndex';
-
-export const factory = ts.factory;
 
 export const generateThemes = async (project: ProjectContext, targetDir: string): Promise<void> => {
     const themes = Array.from(project.entities.theme.values());

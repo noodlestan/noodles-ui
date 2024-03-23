@@ -1,15 +1,15 @@
 import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import { getThemeComponentName } from '../../../../entities/theme/getters/getThemeComponentName';
+import { getThemeIdentifier } from '../../../../entities/theme/getters/getThemeIdentifier';
 
 const factory = ts.factory;
 
 const importThemeStatement = (theme: ThemeBuildContext): ts.Statement => {
     const { entity } = theme;
 
-    const themeComponentName = getThemeComponentName(entity);
-    const themePath = `./${themeComponentName}/${themeComponentName}`;
+    const themeIdentifier = getThemeIdentifier(entity);
+    const themePath = `./${themeIdentifier}/${themeIdentifier}`;
 
     return factory.createImportDeclaration(
         undefined,
@@ -20,7 +20,7 @@ const importThemeStatement = (theme: ThemeBuildContext): ts.Statement => {
                 factory.createImportSpecifier(
                     false,
                     undefined,
-                    factory.createIdentifier(themeComponentName),
+                    factory.createIdentifier(themeIdentifier),
                 ),
             ]),
         ),

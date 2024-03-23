@@ -4,6 +4,7 @@ import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types
 
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
+import { importFrameworkTypes } from '../../targets/solid-js/importFrameworkTypes';
 import { printTypescriptStatements } from '../../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';
@@ -14,7 +15,6 @@ import { exportComponentProps } from './ComponentPrivate/exportComponentProps';
 import { exportDefaultValues } from './ComponentPrivate/exportDefaultValues';
 import { importComponentStyles } from './ComponentPrivate/importComponentStyles';
 import { importDefaultOptions } from './ComponentPrivate/importDefaultOptions';
-import { importFrameworkComponent } from './ComponentPrivate/importFrameworkComponent';
 import { importRenderedComponent } from './ComponentPrivate/importRenderedComponent';
 import { importVariantTypes } from './ComponentPrivate/importVariantTypes';
 
@@ -28,7 +28,7 @@ export const generateComponentPrivate = async (
     const importJSX = !!entity.props?.children;
 
     const statements = [
-        importFrameworkComponent(importJSX),
+        importFrameworkTypes(importJSX),
         importRenderedComponent(component),
         ...importDefaultOptions(component),
         ...importVariantTypes(component),

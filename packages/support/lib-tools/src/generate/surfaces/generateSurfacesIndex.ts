@@ -4,12 +4,12 @@ import { ProjectContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
+import { TypesToImport, createImportStatements } from '../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
 import { printTypescriptStatements } from '../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { exportSurfacesStatement } from './SurfacesIndex/exportSurfacesStatement';
-import { importTypesStatement } from './SurfacesIndex/importTypesStatement';
 import { surfaceStatements } from './SurfacesIndex/surfaceStatements';
 import { surfacesFileName } from './paths/surfacesFileName';
 
@@ -20,8 +20,10 @@ export const generateSurfacesIndex = async (
     const fileName = surfacesFileName(targetDir);
     await ensuredFiledir(fileName);
 
+    const internalTypes = [['@noodles-ui/core-types', ['SurfaceResource']]] as TypesToImport;
+
     const statements = [
-        importTypesStatement(),
+        ...createImportStatements(internalTypes),
         ...surfaceStatements(project),
         exportSurfacesStatement(project),
     ];

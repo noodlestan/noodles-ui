@@ -3,16 +3,14 @@ import { writeFile } from 'fs/promises';
 import { ProjectContext } from '@noodles-ui/support-types';
 
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
+import { TypesToImport, createImportStatements } from '../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
+import { importFrameworkTypes } from '../targets/solid-js/importFrameworkTypes';
 import { printTypescriptStatements } from '../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { declareProps } from './RootComponent/declareProps';
 import { exportComponent } from './RootComponent/exportComponent';
-import { importFrameworkComponent } from './RootComponent/importFrameworkComponent';
-import { importInternalTypes } from './RootComponent/importInternalTypes';
-import { importSurfaces } from './RootComponent/importSurfaces';
-import { importThemes } from './RootComponent/importThemes';
 import { systemRootFileName } from './paths/systemRootFileName';
 
 export const generateRootComponent = async (
@@ -21,11 +19,18 @@ export const generateRootComponent = async (
 ): Promise<void> => {
     const fileName = systemRootFileName(targetDir);
 
+    const internalTypes: TypesToImport = [
+        ['@noodles-ui/core-services', ['RootProvider, surfacesStore, themesStore']],
+        ['@noodles-ui/core-styled', ['surfaceClassList']],
+        ['@noodles-ui/core-types', ['ColourSchemeName']],
+    ];
+    const localImports: TypesToImport = [
+        ['./surfaces', ['surfaces']],
+        ['./themes', ['themes']],
+    ];
     const statements = [
-        importFrameworkComponent(),
-        ...importInternalTypes(),
-        importSurfaces(),
-        importThemes(),
+        importFrameworkTypes(),
+        ...createImportStatements([...internalTypes, ...localImports]),
         declareProps(),
         exportComponent(),
     ];

@@ -16,12 +16,14 @@ const namedImportsfromModule = (library: string, names: string[]): ts.ImportDecl
     );
 };
 
-export const importInternalTypes = (): ts.ImportDeclaration[] => {
-    const services = namedImportsfromModule('@noodles-ui/core-services', [
-        'RootProvider, surfacesStore, themesStore',
-    ]);
-    const styled = namedImportsfromModule('@noodles-ui/core-styled', ['surfaceClassList']);
-    const types = namedImportsfromModule('@noodles-ui/core-types', ['ColourSchemeName']);
+type ModuleName = string;
+type NamedImport = string;
+type TypeToImport = [ModuleName, NamedImport[]];
 
-    return [services, styled, types];
+export type TypesToImport = Array<TypeToImport>;
+
+export const createImportStatements = (types: TypesToImport): ts.ImportDeclaration[] => {
+    return types.map(([moduleName, namedImports]) =>
+        namedImportsfromModule(moduleName, namedImports),
+    );
 };
