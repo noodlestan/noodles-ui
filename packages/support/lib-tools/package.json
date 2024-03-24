@@ -32,7 +32,6 @@
   "dependencies": {
     "@fastify/static": "^7.0.1",
     "@noodles-ui/core-types": "0.0.1",
-    "@noodles-ui/live-app": "0.0.1",
     "@noodles-ui/support-types": "0.0.1",
     "better-queue": "^3.8.12",
     "chokidar": "^3.6.0",
@@ -46,6 +45,8 @@
     "ws": "^8.16.0"
   },
   "devDependencies": {
+    "@noodles-ui/live-app": "0.0.1",
+    "@noodles-ui/live-solidjs": "0.0.1",
     "@types/better-queue": "^3.8.6",
     "@types/pubsub-js": "^1.8.6",
     "esm": "^3.2.25",

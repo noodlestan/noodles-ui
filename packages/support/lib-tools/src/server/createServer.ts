@@ -1,9 +1,8 @@
-import { dirname, join } from 'path';
+import { join } from 'path';
 
 import fastify, { FastifyInstance } from 'fastify';
 import { gray, green } from 'kleur';
 import * as PubSub from 'pubsub-js';
-import { sync as resolveSync } from 'resolve';
 import { WebSocket, WebSocketServer } from 'ws';
 
 import { logError } from '../cli/logger/logError';
@@ -16,6 +15,7 @@ import {
     EVENT_REQUEST_BUILD,
 } from '../events/constants';
 import { BuildFinishedEvent } from '../events/types';
+import { locateDependencyDir } from '../monorepo/locateDependencyDir';
 
 import { useSpaServer } from './private/useSpaServer';
 
@@ -30,8 +30,8 @@ export type DevServer = {
 export const createServer = (option: ServerOptions): DevServer => {
     let lastSnapshot: BuildFinishedEvent;
     const port = option.port;
-    // TODO resolve() depends on package.json "main" field, we want a directory instead
-    const root = join(dirname(dirname(resolveSync('@noodles-ui/live-app'))), 'dist');
+    const moduleName = '@noodles-ui/live-app';
+    const root = join(locateDependencyDir(moduleName), 'dist/');
     const app = fastify();
 
     const wss = new WebSocketServer({ server: app.server });

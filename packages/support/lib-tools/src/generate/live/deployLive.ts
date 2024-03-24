@@ -6,7 +6,8 @@ import { ProjectContext } from '@noodles-ui/support-types';
 import { logError } from '../../cli/logger/logError';
 import { logInfo } from '../../cli/logger/logInfo';
 import { logMessage } from '../../cli/logger/logMessage';
-import { NUI_LIVE_FOLDER } from '../constants';
+import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
+import { NUI_LIVE_DIR } from '../constants';
 
 const copyFiles = async (source: string, target: string, root?: string): Promise<string[]> => {
     const copies: string[] = [];
@@ -20,8 +21,8 @@ const copyFiles = async (source: string, target: string, root?: string): Promise
                 const targetFile = join(target, file);
                 const nestedCopies = await copyFiles(sourceFile, targetFile, root || target);
                 copies.push(...nestedCopies);
-            } else if (file.startsWith('_')) {
-                const targetFile = join(target, file.replace(/^_/, '').replace(/.sk$/, ''));
+            } else if (!file.startsWith('_')) {
+                const targetFile = join(target, file);
                 await copyFile(sourceFile, targetFile);
                 copies.push(targetFile.replace(root || target, ''));
             }
@@ -34,12 +35,13 @@ const copyFiles = async (source: string, target: string, root?: string): Promise
 };
 
 export const deployLive = async (project: ProjectContext): Promise<string> => {
-    const sketleton = resolve(join(__dirname, '../../../../src/generate/live/skeleton'));
-    const live = join(project.projectPath, NUI_LIVE_FOLDER);
+    const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
+    resolve(join(__dirname, './skeleton'));
+    const live = join(project.projectPath, NUI_LIVE_DIR);
     logInfo('...deploying NUI live...');
     const deployed = await copyFiles(sketleton, live);
     logMessage('  deployed: ', deployed.join(', '));
     console.info(' ');
 
-    return join(live, 'src/target');
+    return join(live, 'src/');
 };

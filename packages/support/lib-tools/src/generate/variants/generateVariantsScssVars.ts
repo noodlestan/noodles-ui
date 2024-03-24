@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { ProjectContext, VariantBuildContext } from '@noodles-ui/support-types';
 
+import { ensuredFiledir } from '../../util/fs';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { variantsScssFileName } from './paths/variantsScssFileName';
@@ -12,7 +13,13 @@ const generateVariantLine = (project: ProjectContext, variant: VariantBuildConte
     return `$${entity.name}: ${options};`;
 };
 
-export const generateVariantsScssVars = async (project: ProjectContext): Promise<void> => {
+export const generateVariantsScssVars = async (
+    project: ProjectContext,
+    targetDir: string,
+): Promise<void> => {
+    const fileName = variantsScssFileName(targetDir);
+    await ensuredFiledir(fileName);
+
     const variants = Array.from(project.entities.variant.values()).filter(item => {
         return item.context.public;
     });
@@ -20,7 +27,6 @@ export const generateVariantsScssVars = async (project: ProjectContext): Promise
     const lines = variants.map(item => generateVariantLine(project, item));
     const content = [...lines].join('\n');
 
-    const fileName = variantsScssFileName(project);
     const output = tsFileHeader(project, fileName) + content + '\n';
     await writeFile(fileName, output);
 

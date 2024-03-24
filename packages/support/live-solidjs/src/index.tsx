@@ -1,11 +1,11 @@
 // import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
-import { UIRoot } from './target/UIRoot';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 import { Route, Router, useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 
-import { componentDemoMap } from './target/component.map';
-import { ColourSchemeName } from '@noodles-ui/core-types';
+import { UIRoot } from './UIRoot';
+import componentDemoMap from './demo.map';
 
 const root = document.getElementById('root') as HTMLElement;
 

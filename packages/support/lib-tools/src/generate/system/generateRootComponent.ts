@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { ProjectContext } from '@noodles-ui/support-types';
 
+import { ensuredFiledir } from '../../util/fs';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
@@ -18,6 +19,7 @@ export const generateRootComponent = async (
     targetDir: string,
 ): Promise<void> => {
     const fileName = systemRootFileName(targetDir);
+    await ensuredFiledir(fileName);
 
     const internalTypes: TypesToImport = [
         ['@noodles-ui/core-services', ['RootProvider, surfacesStore, themesStore']],

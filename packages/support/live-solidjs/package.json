@@ -1,4 +1,10 @@
 {
+  "name": "@noodles-ui/live-solidjs",
+  "version": "0.0.1",
+  "description": "Minimal app for rendering design system previews",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "main": "src/index.ts",
   "scripts": {
     "build": "vite build",
     "dev:vite": "vite dev",

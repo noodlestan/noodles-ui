@@ -2,12 +2,13 @@ import { writeFile } from 'fs/promises';
 
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
+import { ensuredFiledir } from '../../../util/fs';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
 import { importFrameworkTypes } from '../../targets/solid-js/importFrameworkTypes';
 import { printTypescriptStatements } from '../../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
-import { componentGeneratedFileName } from '../paths/componentGeneratedFileName';
+import { componentFileName } from '../paths/componentFileName';
 
 import { declareRenderedProps } from './ComponentPrivate/declareRenderedProps';
 import { exportComponent } from './ComponentPrivate/exportComponent';
@@ -21,12 +22,13 @@ import { importVariantTypes } from './ComponentPrivate/importVariantTypes';
 export const generateComponentPrivate = async (
     project: ProjectContext,
     component: ComponentBuildContext,
+    targetDir: string,
 ): Promise<void> => {
     const { entity } = component;
-    const fileName = componentGeneratedFileName(project, entity);
+    const fileName = componentFileName(targetDir, entity);
+    await ensuredFiledir(fileName);
 
     const importJSX = !!entity.props?.children;
-
     const statements = [
         importFrameworkTypes(importJSX),
         importRenderedComponent(component),

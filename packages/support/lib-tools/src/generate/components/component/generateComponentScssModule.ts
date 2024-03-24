@@ -6,6 +6,7 @@ import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types
 import { getComponentMixins } from '../../../entities/component/getters/getComponentMixins';
 import { getPropMixin } from '../../../entities/component/prop/getters/getPropMixin';
 import { getVariantPropsWithMixin } from '../../../entities/component/prop/getters/getVariantPropsWithMixin';
+import { ensuredFiledir } from '../../../util/fs';
 import { indent } from '../../text/indent';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentScssModuleFileName } from '../paths/componentScssModuleFileName';
@@ -97,11 +98,13 @@ const componentStatements = (
 export const generateComponentScssModule = async (
     project: ProjectContext,
     component: ComponentBuildContext,
+    targetDir: string,
 ): Promise<void> => {
+    const fileName = componentScssModuleFileName(targetDir, component.entity);
+    await ensuredFiledir(fileName);
+
     const { entity } = component;
     const name = entity.name;
-    const fileName = componentScssModuleFileName(project, component.entity);
-
     const content = [
         ...mixinImportStatements(project, component),
         '',

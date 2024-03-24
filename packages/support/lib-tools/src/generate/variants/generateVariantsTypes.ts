@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { ProjectContext, VariantBuildContext } from '@noodles-ui/support-types';
 
+import { ensuredFiledir } from '../../util/fs';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -13,7 +14,13 @@ const generateVariantLine = (project: ProjectContext, variant: VariantBuildConte
     return `export type ${entity.name} = ${options};`;
 };
 
-export const generateVariantsTypes = async (project: ProjectContext): Promise<void> => {
+export const generateVariantsTypes = async (
+    project: ProjectContext,
+    targetDir: string,
+): Promise<void> => {
+    const fileName = variantsTypesFileName(targetDir);
+    await ensuredFiledir(fileName);
+
     const variants = Array.from(project.entities.variant.values()).filter(item => {
         return item.context.public;
     });
@@ -21,7 +28,6 @@ export const generateVariantsTypes = async (project: ProjectContext): Promise<vo
     const lines = variants.map(item => generateVariantLine(project, item));
     const content = [...lines].join('\n');
 
-    const fileName = variantsTypesFileName(project);
     const output = tsFileHeader(project, fileName) + content + '\n';
     await writeFile(fileName, output);
     const success = await formatTypescriptFile(project, fileName);

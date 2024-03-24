@@ -33,9 +33,8 @@ export const exportComponent = (): ts.Statement => {
     const classList = classListStatement();
     const render = renderStatement();
 
-    // TODO
+    // TODO const name = systemComponentName(project);
     const name = 'UIRoot';
-    // const name = systemComponentName(project);
 
     const statements: ts.Statement[] = [...stores, ...registers, classList, render];
     const componentDeclaration = factory.createVariableDeclaration(

@@ -1,6 +1,6 @@
-import { ComponentResource } from '@noodles-ui/core-types';
+import { ComponentEntity } from '@noodles-ui/core-types';
 
-export const componentScssModuleBaseName = (entity: ComponentResource): string => {
+export const componentScssModuleBaseName = (entity: ComponentEntity): string => {
     const name = entity.name;
-    return `component.${name}.module.scss`;
+    return `${name}.module.scss`;
 };

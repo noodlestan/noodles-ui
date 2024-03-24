@@ -1,16 +1,11 @@
 import { join } from 'path';
 
-import { ComponentResource } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
-
-import { NUI_GENERATED_FOLDER } from '../../constants';
+import { ComponentEntity } from '@noodles-ui/core-types';
 
 import { componentScssModuleBaseName } from './componentScssModuleBaseName';
 
-export const componentScssModuleFileName = (
-    project: ProjectContext,
-    entity: ComponentResource,
-): string => {
+export const componentScssModuleFileName = (target: string, entity: ComponentEntity): string => {
+    const name = entity.name;
     const baseName = componentScssModuleBaseName(entity);
-    return join(project.projectPath, NUI_GENERATED_FOLDER, baseName);
+    return join(target, 'components', name, baseName);
 };

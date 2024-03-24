@@ -1,14 +1,15 @@
 import { join } from 'path';
 
-import { ComponentResource } from '@noodles-ui/core-types';
+import { ComponentEntity } from '@noodles-ui/core-types';
 import { ProjectContext } from '@noodles-ui/support-types';
 
-import { NUI_COMPONENTS_SRC_FOLDER } from '../../constants';
+import { NUI_COMPONENTS_SRC_DIR } from '../../constants';
 
 export const componentPublicFileName = (
     project: ProjectContext,
-    entity: ComponentResource,
+    entity: ComponentEntity,
 ): string => {
     const name = entity.name;
-    return join(project.projectPath, NUI_COMPONENTS_SRC_FOLDER, `/${name}/${name}.tsx`);
+    // TODO BuildOptions getComponentPath(entity) => string
+    return join(project.projectPath, NUI_COMPONENTS_SRC_DIR, `/${name}/${name}.tsx`);
 };
