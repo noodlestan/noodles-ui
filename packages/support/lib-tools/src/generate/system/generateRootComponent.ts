@@ -25,11 +25,11 @@ export const generateRootComponent = async (
         ['@noodles-ui/core-types', ['ColourSchemeName']],
     ];
     const localImports: TypesToImport = [
-        ['./surfaces', ['surfaces']],
-        ['./themes', ['themes']],
+        ['./surfaces', 'surfaces'],
+        ['./themes', 'themes'],
     ];
     const statements = [
-        importFrameworkTypes(),
+        importFrameworkTypes(true),
         ...createImportStatements([...internalTypes, ...localImports]),
         declareProps(),
         exportComponent(),
