@@ -4,8 +4,7 @@
   "description": "Lib tools web interface, built with SolidJS",
   "author": "Andre Torgal",
   "license": "MIT",
-  "private": true,
-  "type": "module",
+  "main": "src/index.tsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,8 +1,9 @@
-import { resolve } from 'path';
+import { dirname, join } from 'path';
 
 import fastify, { FastifyInstance } from 'fastify';
-import { green, red } from 'kleur';
+import { gray, green } from 'kleur';
 import * as PubSub from 'pubsub-js';
+import { sync as resolveSync } from 'resolve';
 import { WebSocket, WebSocketServer } from 'ws';
 
 import { logError } from '../cli/logger/logError';
@@ -29,8 +30,8 @@ export type DevServer = {
 export const createServer = (option: ServerOptions): DevServer => {
     let lastSnapshot: BuildFinishedEvent;
     const port = option.port;
-    // TODO locateLibToolsAppBuild() => locateNodeModule('@noodles-ui/live-app') + 'dist/'
-    const root = resolve('../../support/live-app/dist/');
+    // TODO resolve() depends on package.json "main" field, we want a directory instead
+    const root = join(dirname(dirname(resolveSync('@noodles-ui/live-app'))), 'dist');
     const app = fastify();
 
     const wss = new WebSocketServer({ server: app.server });
@@ -47,7 +48,7 @@ export const createServer = (option: ServerOptions): DevServer => {
         const clients = Array.from(wss.clients.values());
         const readyCount = clients.filter(client => client.readyState === WebSocket.OPEN).length;
         const raw = readyCount + '/' + clients.length;
-        const formattedClientCount = !readyCount ? red(raw) : green(raw);
+        const formattedClientCount = !readyCount ? gray(raw) : green(raw);
         logMessage('  Clients:', formattedClientCount);
     };
 
@@ -93,7 +94,6 @@ export const createServer = (option: ServerOptions): DevServer => {
     const logListener = () => {
         logInfo('[DevServer]');
         logMessage('  Listening on:', `http://${options.host}:${options.port}`);
-        logMessage('  Base path:', root);
     };
 
     app.listen(options, err => {
