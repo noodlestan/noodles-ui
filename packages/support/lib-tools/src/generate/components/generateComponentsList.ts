@@ -1,15 +1,13 @@
 import { writeFile } from 'fs/promises';
-import { dirname, relative } from 'path';
 
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { ensuredFiledir, removeExtension } from '../../util/fs';
+import { ensuredFiledir, relativePath } from '../../util/fs';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { componentFileName } from './paths/componentFileName';
 import { componentListFileName } from './paths/componentListFileName';
-import { componentPublicFileName } from './paths/componentPublicFileName';
 
 const generateComponentLine = (
     project: ProjectContext,
@@ -19,11 +17,11 @@ const generateComponentLine = (
 ): string => {
     const { entity } = component;
     const name = entity.name;
-    const publicPath = componentPublicFileName(project, entity);
+    const listPath = componentListFileName(targetDir);
     const generatedPath = componentFileName(targetDir, entity);
 
-    const path = relative(dirname(generatedPath), publicPath);
-    return `export { ${name}, ${name}Props } from '${removeExtension(path)}';`;
+    const path = relativePath(listPath, generatedPath, true);
+    return `export { ${name}, ${name}Props } from './${path}';`;
 };
 
 export const generateComponentsList = async (

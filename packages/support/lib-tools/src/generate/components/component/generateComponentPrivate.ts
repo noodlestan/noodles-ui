@@ -32,8 +32,8 @@ export const generateComponentPrivate = async (
     const statements = [
         importFrameworkTypes(importJSX),
         importRenderedComponent(component),
-        ...importDefaultOptions(component),
-        ...importVariantTypes(component),
+        ...importDefaultOptions(component, targetDir),
+        ...importVariantTypes(component, targetDir),
         importComponentStyles(component),
         ...exportDefaultValues(component),
         declareRenderedProps(project, component),
