@@ -21,7 +21,7 @@ const generateComponentLine = (
     const generatedPath = componentFileName(targetDir, entity);
 
     const path = relativePath(listPath, generatedPath, true);
-    return `export { ${name}, ${name}Props } from './${path}';`;
+    return `export { ${name}, ${name}Props } from '${path}';`;
 };
 
 export const generateComponentsList = async (

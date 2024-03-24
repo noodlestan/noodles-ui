@@ -1,11 +1,11 @@
-import { variantsScssFileName } from '../generate/variants/paths/variantsScssFileName';
+import { systemRootScssFileName } from '../generate/system/paths/systemRootScssFileName';
 
 import { UserConfig } from './UserConfig';
 import { resolvePackage } from './resolvePackage';
 
 export const viteCssConfigForLibraryConsumers = (module: string): UserConfig => {
     const modulePath = resolvePackage(module);
-    const scssFile = variantsScssFileName(modulePath);
+    const scssFile = systemRootScssFileName(modulePath);
     return {
         css: {
             preprocessorOptions: {

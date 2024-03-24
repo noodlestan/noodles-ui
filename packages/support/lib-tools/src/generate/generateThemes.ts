@@ -5,9 +5,9 @@ import { generateThemesIndex } from './themes/generateThemesIndex';
 
 export const generateThemes = async (project: ProjectContext, targetDir: string): Promise<void> => {
     const themes = Array.from(project.entities.theme.values());
-    const promises = themes.map(theme => generateThemeComponent(project, targetDir, theme));
+    const tasks = themes.map(theme => generateThemeComponent(project, targetDir, theme));
 
-    promises.push(generateThemesIndex(project, targetDir));
+    tasks.push(generateThemesIndex(project, targetDir));
 
-    await Promise.all(promises);
+    await Promise.all(tasks);
 };

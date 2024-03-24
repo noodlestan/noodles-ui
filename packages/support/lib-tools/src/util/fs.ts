@@ -12,14 +12,8 @@ export const removeExtension = (fileName: string): string => {
     return join(parts.dir, parts.name);
 };
 
-export const relativePath = (
-    listPath: string,
-    generatedPath: string,
-    noExtenstion?: boolean,
-): string => {
-    const rel = relative(dirname(listPath), generatedPath);
-    if (noExtenstion) {
-        return removeExtension(rel);
-    }
-    return rel;
+export const relativePath = (fromFile: string, toFile: string, noExtenstion?: boolean): string => {
+    const target = noExtenstion ? removeExtension(toFile) : toFile;
+    const rel = relative(dirname(fromFile), target);
+    return !rel.startsWith('.') ? `./${rel}` : rel;
 };

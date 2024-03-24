@@ -8,9 +8,11 @@ export const generateVariants = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
-    const p1 = generateVariantsConstants(project, targetDir);
-    const p2 = generateVariantsScssVars(project, targetDir);
-    const p3 = generateVariantsTypes(project, targetDir);
+    const tasks = [
+        generateVariantsConstants(project, targetDir),
+        generateVariantsScssVars(project, targetDir),
+        generateVariantsTypes(project, targetDir),
+    ];
 
-    await Promise.all([p1, p2, p3]);
+    await Promise.all(tasks);
 };

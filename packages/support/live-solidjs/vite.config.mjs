@@ -10,7 +10,7 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: `@import "./src/generated/variants.scss";`,
+                additionalData: `@import "./src/UIRoot.scss";`,
             },
         },
     },
