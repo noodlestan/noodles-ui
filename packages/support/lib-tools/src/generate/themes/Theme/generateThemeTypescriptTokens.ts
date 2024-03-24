@@ -6,10 +6,11 @@ import ts from 'typescript';
 
 import { ensuredFiledir } from '../../../util/fs';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
+import { TypesToImport, createImportStatements } from '../../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
 import { printTypescriptStatements } from '../../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
-import { themeComponentFileName } from '../paths/themeComponentFileName';
+import { themeTypescriptTokensFileName } from '../paths/themeTypescriptTokensFileName';
 
 const factory = ts.factory;
 
@@ -65,25 +66,35 @@ function getThemeModeTokens(
     return [globaltokens, surfaceTokens];
 }
 
-function exportTokens(project: ProjectContext, theme: ThemeBuildContext): ts.ExportAssignment {
+function declareTokens(project: ProjectContext, theme: ThemeBuildContext): ts.Statement {
     const baseTokens = getThemeModeTokens(project, theme.entity.tokens.base);
-    const alternateTokens = getThemeModeTokens(project, theme.entity.tokens.alternate);
-
-    const alternateName = 'light';
+    const altTokens = getThemeModeTokens(project, theme.entity.tokens.alt);
 
     const base = factory.createPropertyAssignment(
         factory.createIdentifier('base'),
         factory.createObjectLiteralExpression(baseTokens, true),
     );
-    const alternate = factory.createPropertyAssignment(
-        factory.createIdentifier(alternateName),
-        factory.createObjectLiteralExpression(alternateTokens, false),
+    const alt = factory.createPropertyAssignment(
+        factory.createIdentifier('alt'),
+        factory.createObjectLiteralExpression(altTokens, false),
     );
 
-    return factory.createExportAssignment(
+    return factory.createVariableStatement(
         undefined,
-        undefined,
-        factory.createObjectLiteralExpression([base, alternate], true),
+        factory.createVariableDeclarationList(
+            [
+                factory.createVariableDeclaration(
+                    factory.createIdentifier('tokens'),
+                    undefined,
+                    factory.createTypeReferenceNode(
+                        factory.createIdentifier('ThemeTokens'),
+                        undefined,
+                    ),
+                    factory.createObjectLiteralExpression([base, alt], true),
+                ),
+            ],
+            ts.NodeFlags.Const,
+        ),
     );
 }
 
@@ -92,10 +103,19 @@ export const generateThemeTypescriptTokens = async (
     targetDir: string,
     theme: ThemeBuildContext,
 ): Promise<void> => {
-    const fileName = themeComponentFileName(targetDir, theme);
+    const fileName = themeTypescriptTokensFileName(targetDir, theme);
     await ensuredFiledir(fileName);
 
-    const statements = [exportTokens(project, theme)];
+    const internalTypes: TypesToImport = [['@noodles-ui/core-types', ['ThemeTokens']]];
+    const internalImports = createImportStatements(internalTypes);
+    const tokensDeclaration = declareTokens(project, theme);
+    const exportDefault = factory.createExportAssignment(
+        undefined,
+        undefined,
+        factory.createIdentifier('tokens'),
+    );
+
+    const statements = [...internalImports, tokensDeclaration, exportDefault];
 
     const content = await printTypescriptStatements(statements);
     const output = tsFileHeader(project, fileName) + content + '\n';

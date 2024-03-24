@@ -69,14 +69,14 @@ export const loadTheme = async (
                 inputTokens.base.surfaces,
             ),
         },
-        light: {
-            global: pickTokens(project, tokens, 'light.global', false, inputTokens.light.global),
+        alt: {
+            global: pickTokens(project, tokens, 'alt.global', false, inputTokens.alt.global),
             surfaces: pickSurfaceTokens(
                 project,
                 surfaces,
                 tokens,
-                'light.surface',
-                inputTokens.light.surfaces,
+                'alt.surface',
+                inputTokens.alt.surfaces,
             ),
         },
     };

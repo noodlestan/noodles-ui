@@ -1,8 +1,18 @@
 import { ThemeTokens } from '@noodles-ui/core-types';
 import { build } from '@noodles-ui/lib-tools';
 
-const getThemeTokens = (theme: string): ThemeTokens => {
+const getThemeTokens = async (theme: string): Promise<ThemeTokens> => {
     console.log(theme);
+    return {
+        base: {
+            global: {},
+            surfaces: {},
+        },
+        alt: {
+            global: {},
+            surfaces: {},
+        },
+    };
 };
 
 const main = async () => {

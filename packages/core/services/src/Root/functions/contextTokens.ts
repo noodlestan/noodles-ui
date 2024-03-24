@@ -28,10 +28,10 @@ export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Sur
         ...theme.tokens.base.surfaces[surface.name],
     };
     const modeTokens =
-        theme.mode !== mode && theme.tokens[mode]
+        theme.mode !== mode
             ? {
-                  ...theme.tokens[mode].global,
-                  ...theme.tokens[mode].surfaces[surface.name],
+                  ...theme.tokens.alt.global,
+                  ...theme.tokens.alt.surfaces[surface.name],
               }
             : {};
 

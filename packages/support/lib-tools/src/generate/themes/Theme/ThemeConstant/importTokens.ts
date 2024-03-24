@@ -6,7 +6,7 @@ import { getThemeIdentifier } from '../../../../entities/theme/getters/getThemeI
 const factory = ts.factory;
 
 export const importTokens = (theme: ThemeBuildContext): ts.Statement => {
-    const tokensRelativeFileName = `./${getThemeIdentifier(theme.entity)}.tokens.ts`;
+    const tokensRelativeFileName = `./${getThemeIdentifier(theme.entity)}.tokens`;
     return factory.createImportDeclaration(
         undefined,
         factory.createImportClause(false, factory.createIdentifier('tokens'), undefined),

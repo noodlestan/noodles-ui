@@ -14,7 +14,7 @@ export type ThemeModeTokens = {
 
 export type ThemeTokens = {
     base: ThemeModeTokens;
-    [mode: string]: ThemeModeTokens;
+    alt: ThemeModeTokens;
 };
 
 export type ThemeEntity = ThemeResource & {
