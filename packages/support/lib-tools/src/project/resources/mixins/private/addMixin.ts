@@ -12,11 +12,6 @@ export const addMixin = (
     const { mixin: items } = project.entities;
     const { resource } = context;
 
-    if (!entity) {
-        project.addDiagnostic(resource, 'No entity generated.');
-        return;
-    }
-
     if (!entity.name) {
         project.addDiagnostic(resource, 'Entity name is empty.');
         return;

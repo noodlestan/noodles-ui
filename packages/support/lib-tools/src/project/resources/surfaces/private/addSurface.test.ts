@@ -12,7 +12,7 @@ describe('addSurface', () => {
     let project: ProjectContext | undefined;
     let context: SurfaceContext;
     let resource: SurfaceResource;
-    // let Result
+
     describe('given valid context', () => {
         beforeEach(() => {
             project = projectFactory();
@@ -21,26 +21,10 @@ describe('addSurface', () => {
             addSurface(project, context, resource);
             // result = addSurface
         });
-        it('Add context to project surfaces items', () => {
+        it('should add context to project surfaces items', () => {
             expect(project?.entities.surface.size).toEqual(1);
         });
-        // it('Should return surface')
     });
-    // describe('given context without entity', () => {
-    //     beforeEach(() => {
-    //         project = projectFactory();
-    //         resource = resourceFactory();
-    //         context = contextFactory();
-    //         addSurface(project, context);
-    //     });
-    //     it('it should not add surfaces items', () => {
-    //         expect(project?.entities.surface.size).toEqual(0);
-    //     });
-    //     it('it should add a project diagnostics', () => {
-    //         expect(project?.diagnostics.length).toEqual(1);
-    //         expect(project?.diagnostics[0].message).toContain('No entity generated');
-    //     });
-    // });
     describe('given context with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();
