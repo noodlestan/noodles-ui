@@ -1,4 +1,4 @@
-import { ThemeResource } from '@noodles-ui/core-types';
+import { ThemeEntity } from '@noodles-ui/core-types';
 import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 
 import { logMessage } from '../../../../cli/logger/logMessage';
@@ -7,7 +7,7 @@ import { getResourceKey } from '../../getters/getResourceKey';
 export const addTheme = (
     project: ProjectContext,
     context: ThemeContext,
-    entity: ThemeResource,
+    entity: ThemeEntity,
 ): void => {
     const { theme: items } = project.entities;
     const { resource } = context;

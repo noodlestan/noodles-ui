@@ -3,7 +3,9 @@ import {
     ComponentResource,
     MixinResource,
     SurfaceResource,
+    ThemeEntity,
     ThemeResource,
+    TokenEntity,
     TokenResource,
     VariantEntity,
     VariantResource,
@@ -31,7 +33,7 @@ export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceReso
 export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;
 
 export type ThemeContext = ResourceContext<ThemeResource>;
-export type ThemeBuildContext = EntityBuildContext<ThemeContext, ThemeResource>;
+export type ThemeBuildContext = EntityBuildContext<ThemeContext, ThemeEntity>;
 export type ThemeEntityMap = EntityBuildMap<ThemeBuildContext>;
 
 export type VariantContext = ResourceContext<VariantResource>;
@@ -43,7 +45,7 @@ export type ComponentBuildContext = EntityBuildContext<ComponentContext, Compone
 export type ComponentEntityMap = EntityBuildMap<ComponentBuildContext>;
 
 export type TokenContext = ResourceContext<TokenResource>;
-export type TokenBuildContext = EntityBuildContext<TokenContext, TokenResource>;
+export type TokenBuildContext = EntityBuildContext<TokenContext, TokenEntity>;
 export type TokenEntityMap = EntityBuildMap<TokenBuildContext>;
 
 export type MixinContext = ResourceContext<MixinResource>;

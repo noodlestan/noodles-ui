@@ -1,7 +1,12 @@
+import { ThemeTokens } from '@noodles-ui/core-types';
 import { build } from '@noodles-ui/lib-tools';
 
+const getThemeTokens = (theme: string): ThemeTokens => {
+    console.log(theme);
+};
+
 const main = async () => {
-    const project = await build('./src/nui/LabUI.nui.ts');
+    const project = await build('./src/nui/LabUI.nui.ts', { getThemeTokens });
 
     // const project = await build('./src/nui/LabUI.nui.ts');
     // console.log(project.components.get('@noodles-ui/lab-ui/Text')?.entity?.props);

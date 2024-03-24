@@ -2,8 +2,8 @@ import {
     ComponentEntity,
     ProjectOwnResource,
     SurfaceResource,
-    ThemeResource,
-    TokenResource,
+    ThemeEntity,
+    TokenEntity,
     VariantEntity,
 } from '@noodles-ui/core-types';
 
@@ -27,10 +27,10 @@ export type EntityMapDto<T extends ResourceContext<UnknownResource>, V extends U
 
 type EntitiesMapDto = {
     surface: EntityMapDto<SurfaceContext, SurfaceResource>;
-    theme: EntityMapDto<ThemeContext, ThemeResource>;
+    theme: EntityMapDto<ThemeContext, ThemeEntity>;
     component: EntityMapDto<ComponentContext, ComponentEntity>;
     variant: EntityMapDto<VariantContext, VariantEntity>;
-    token: EntityMapDto<TokenContext, TokenResource>;
+    token: EntityMapDto<TokenContext, TokenEntity>;
 };
 
 export type BuildSnapshotDto = {

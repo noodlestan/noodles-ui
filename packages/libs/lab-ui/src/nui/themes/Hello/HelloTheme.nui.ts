@@ -1,5 +1,4 @@
 import { ThemeResource } from '@noodles-ui/core-types';
-// import { Component } from 'solid-js';
 
 export const HelloTeamResource: ThemeResource = {
     type: 'theme',

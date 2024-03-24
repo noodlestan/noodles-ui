@@ -1,9 +1,9 @@
 import { ProjectResource } from '@noodles-ui/core-types';
 
-import components from './entities/components.nui';
-import surfaces from './entities/surfaces.nui';
-import themes from './entities/themes.nui';
-import variants from './entities/variants.nui';
+import components from './components/components.nui';
+import surfaces from './surfaces/surfaces.nui';
+import themes from './themes/themes.nui';
+import variants from './variants/variants.nui';
 
 const LabUIResource: ProjectResource = {
     type: 'project',

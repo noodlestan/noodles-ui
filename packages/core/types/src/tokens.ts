@@ -16,3 +16,12 @@ export type PatternedTokenResource = Omit<Resource<'token'>, 'name'> & {
 };
 
 export type TokenResource = NamedTokenResource | PatternedTokenResource;
+
+export type TokenVars = {
+    [key: string]: string | string[];
+};
+
+export type TokenEntity = TokenResource & {
+    surface: boolean;
+    vars: TokenVars;
+};

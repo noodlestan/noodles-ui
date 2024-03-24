@@ -1,8 +1,8 @@
 // import { BannerResource } from '../components/Banner/Banner.nui';
 // import { CardResource } from '../components/Card/Card.nui';
-import { HeadingResource } from '../../components/Heading/Heading.nui';
+import { HeadingResource } from './Heading/Heading.nui';
+import { TextResource } from './Text/Text.nui';
 // import { SurfaceResource } from '../components/Surface/Surface.nui';
-import { TextResource } from '../../components/Text/Text.nui';
 
 // export default [BannerResource, CardResource, TextResource, SurfaceResource, HeadingResource];
 export default [TextResource, HeadingResource];

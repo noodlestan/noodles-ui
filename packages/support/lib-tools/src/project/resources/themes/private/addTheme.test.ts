@@ -1,10 +1,12 @@
-import { ThemeResource } from '@noodles-ui/core-types';
+import { ThemeEntity, ThemeResource } from '@noodles-ui/core-types';
 import { NUI, ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 import expect from 'expect';
 
 import { contextFactory } from '../../../test-utils/contextFactory';
 import { projectFactory } from '../../../test-utils/projectFactory';
 import { resourceFactory } from '../../../test-utils/resourceFactory';
+import { themeFactory } from '../../../test-utils/themeFactory';
+import { themeTokensFactory } from '../../../test-utils/themeTokensFactory';
 
 import { addTheme } from './addTheme';
 
@@ -12,14 +14,16 @@ describe('addTheme', () => {
     let project: ProjectContext | undefined;
     let context: ThemeContext;
     let resource: ThemeResource;
+    let entity: ThemeEntity;
     describe('given valid context', () => {
         beforeEach(() => {
             project = projectFactory();
             resource = resourceFactory('theme', { name: 'bar' });
             context = contextFactory(resource);
-            addTheme(project, context, resource);
+            entity = themeFactory(themeTokensFactory(), resource);
+            addTheme(project, context, entity);
         });
-        it('Add context to project themes items', () => {
+        it('should add context to project themes items', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
     });
@@ -30,10 +34,10 @@ describe('addTheme', () => {
     //         context = contextFactory();
     //         addTheme(project, context);
     //     });
-    //     it('it should not add themes items', () => {
+    //     it('should not add themes items', () => {
     //         expect(project?.entities.theme.size).toEqual(0);
     //     });
-    //     it('it should add a project diagnostics', () => {
+    //     it('should add a project diagnostics', () => {
     //         expect(project?.diagnostics.length).toEqual(1);
     //         expect(project?.diagnostics[0].message).toContain('No entity generated');
     //     });
@@ -41,34 +45,36 @@ describe('addTheme', () => {
     describe('given context with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();
-            context = contextFactory();
             resource = resourceFactory(NUI.theme);
-            addTheme(project, context, resource);
+            context = contextFactory(resource);
+            entity = themeFactory(themeTokensFactory(), resource);
+            addTheme(project, context, entity);
         });
 
-        it('it should not add themes items', () => {
+        it('should not add themes items', () => {
             expect(project?.entities.theme.size).toEqual(0);
         });
 
-        it('it should add a project diagnostics', () => {
+        it('should add a project diagnostics', () => {
             expect(project?.diagnostics.length).toEqual(1);
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
-    describe('given context with a duplicate key', () => {
+    describe('given entity with a duplicate key', () => {
         beforeEach(() => {
             project = projectFactory();
-            context = contextFactory();
             resource = resourceFactory('theme', { name: 'foo' });
-            addTheme(project, context, resource);
-            addTheme(project, context, resource);
+            context = contextFactory(resource);
+            entity = themeFactory(themeTokensFactory(), resource);
+            addTheme(project, context, entity);
+            addTheme(project, context, entity);
         });
 
-        it('it should not add themes items', () => {
+        it('should not add themes items', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
 
-        it('it should add a project diagnostics', () => {
+        it('should add a project diagnostics', () => {
             expect(project?.diagnostics.length).toEqual(1);
             expect(project?.diagnostics[0].message).toContain('Duplicate entity key "/foo".');
         });
