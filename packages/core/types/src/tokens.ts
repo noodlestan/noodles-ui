@@ -12,7 +12,7 @@ export type NamedTokenResource = Resource<'token'>;
 
 export type PatternedTokenResource = Omit<Resource<'token'>, 'name'> & {
     pattern: string;
-    vars: string[];
+    params: string[];
 };
 
 export type TokenResource = NamedTokenResource | PatternedTokenResource;

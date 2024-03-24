@@ -27,21 +27,6 @@ describe('addTheme', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
     });
-    // describe('given context without entity', () => {
-    //     beforeEach(() => {
-    //         project = projectFactory();
-    //         resource = resourceFactory();
-    //         context = contextFactory();
-    //         addTheme(project, context);
-    //     });
-    //     it('should not add themes items', () => {
-    //         expect(project?.entities.theme.size).toEqual(0);
-    //     });
-    //     it('should add a project diagnostics', () => {
-    //         expect(project?.diagnostics.length).toEqual(1);
-    //         expect(project?.diagnostics[0].message).toContain('No entity generated');
-    //     });
-    // });
     describe('given context with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();

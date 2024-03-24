@@ -12,11 +12,6 @@ export const addToken = (
     const { token: items } = project.entities;
     const { resource } = context;
 
-    if (!entity) {
-        project.addDiagnostic(resource, 'No entity generated.');
-        return;
-    }
-
     if ('name' in entity && !entity.name) {
         project.addDiagnostic(resource, 'No token name.');
         return;
