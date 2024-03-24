@@ -1,11 +1,13 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-import { gray, green, red } from 'kleur';
+import { gray, green, red, yellow } from 'kleur';
 
+import { plural } from '../../util/string';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
+import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
 const logListWithErrors = (project: ProjectContext) => {
@@ -23,7 +25,10 @@ const logListWithErrors = (project: ProjectContext) => {
 };
 
 const logListWithoutErrors = (project: ProjectContext) => {
-    logInfo('Generated sources');
+    const hint = hintExpandPattern(project, 'generated');
+    const count = project.generatedSourceFiles.length;
+    const formatted = yellow(count) + plural(count, ' file');
+    logInfo('Generated sources', formatted, hint);
 
     if (shouldExpand(project, 'generated')) {
         const hasSkipped =
@@ -39,10 +44,8 @@ const logListWithoutErrors = (project: ProjectContext) => {
                 logMessage(prefix, formatFileNameRelativeToProject(project, fileName, true));
             }
         });
-    } else {
-        logMessage('hint: use "--expand generated" to see more details');
+        console.info(' ');
     }
-    console.info(' ');
 };
 
 export const logGeneratedSourceFiles = (project: ProjectContext): void => {

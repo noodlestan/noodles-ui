@@ -1,7 +1,6 @@
 import { ThemeEntity } from '@noodles-ui/core-types';
 import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../../cli/logger/logMessage';
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addTheme = (
@@ -23,6 +22,5 @@ export const addTheme = (
         return;
     }
 
-    logMessage('+ theme', key);
     items.set(key, { context, entity });
 };

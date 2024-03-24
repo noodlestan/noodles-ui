@@ -1,7 +1,6 @@
 import { SurfaceResource } from '@noodles-ui/core-types';
 import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../../cli/logger/logMessage';
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addSurface = (
@@ -23,6 +22,5 @@ export const addSurface = (
         return;
     }
 
-    logMessage('+ surface', key);
     items.set(key, { context, entity });
 };

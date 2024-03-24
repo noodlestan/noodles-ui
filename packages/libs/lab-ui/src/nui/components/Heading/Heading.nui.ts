@@ -17,7 +17,7 @@ export const HeadingResource: ComponentExtendResource = {
         tag: {
             name: 'HeadingTag',
             options: ['h1', 'h2', 'h3'],
-            defaultValue: 'h4',
+            defaultValue: 'h3',
         },
     },
     vars: {

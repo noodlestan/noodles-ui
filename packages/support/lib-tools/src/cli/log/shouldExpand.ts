@@ -8,8 +8,10 @@ export const shouldExpand = (
     project: ProjectContext,
     resource: string | UnknownResource,
 ): boolean => {
+    const { expand } = project.interactive;
+
     if (typeof resource === 'string') {
-        return !!project.debug.find(pattern => resource.includes(pattern));
+        return !!expand.find(pattern => resource.includes(pattern));
     }
 
     const type = getResourceType(resource);
@@ -29,5 +31,5 @@ export const shouldExpand = (
         return false;
     };
 
-    return !!project.debug.find(matchResource);
+    return !!expand.find(matchResource);
 };

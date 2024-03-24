@@ -26,38 +26,30 @@ npm run dev:test  # tests
 npm run dev:lib   # build library (a regular vite build)
 ```
 
-**Note:** the `dev:nui` command is an entry point for [@noodles-ui/lib-tools](../../support/lib-tools/README.md).
+### Expanding build details
 
-To inspect the loaded resources, the generated project data, and eventual errors you can expand details with the `--expand` argument.
+> TODO display data and diagnostics in live preview app at http://localhost:3131/ as well.
 
-You can expand resources and build artifacts...
-
-- by matching all or part of its **name**
-- by **type** (one of `surface`, `theme`, `variant`, `component`, `mixin`)
-- by matching all or part of its **module**'s name (when pattern starts with `@`).
-
-Examples (by name, by type, by module):
+To inspect the loaded resources, the generated project data and source code, and eventual errors you can expand details with the `--expand` argument.
 
 ```bash
-npm run build:nui -- --expand Heading
-npm run build:test -- --expand theme
-npm run build:lib -- --expand @core-styled
+# expand all entities by type
+npm run build:nui -- --expand theme
+
+# expand all entities from modules that contain styled in their named
+npm run build:nui -- --expand @styled
+
+# show details about the project generated source files
+npm run build:nui -- --expand project --expand generated
 ```
 
-You can also expand details of build errors caught when linting generated files:
+For more information on things you can inspect via `--expand` type:
 
 ```bash
-npm run build:nui -- --expand eslint
+npm run build:nui -- --hints
 ```
 
-You can combine more than one pattern:
-
-```bash
-npm run build:nui -- --expand @core-styled --expand Heading
-```
-
-**Note:** the `--expand` patterns are combined as a union filter
-// TODO intersection filter
+For more information on `dev:nui` command check out [@noodles-ui/lib-tools](../../support/lib-tools/README.md).
 
 ## Building
 

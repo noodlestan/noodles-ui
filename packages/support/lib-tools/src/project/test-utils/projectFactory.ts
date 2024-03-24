@@ -35,7 +35,10 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
         },
         diagnostics,
         addDiagnostic,
-        debug: [],
+        interactive: {
+            expand: [],
+            hints: false,
+        },
         rootPath: '',
         resource: {
             name: '',

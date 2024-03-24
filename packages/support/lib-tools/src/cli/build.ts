@@ -14,6 +14,7 @@ import { ensureGeneratedDir } from '../project/private/ensureGeneratedDir';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
+import { getShowHints } from './arguments/getShowHints';
 import { stripFilename } from './format/stripFilename';
 import { saveProjectModulesCache } from './io/saveProjectModulesCache';
 import { saveProjectResourceCache } from './io/saveProjectResourceCache';
@@ -43,7 +44,13 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
     logInfo(`Build project`, stripFilename(projectFile, resolve('.')));
 
     const expandPatterns = getExpandPatterns();
-    const project = await createProject(projectFile, expandPatterns);
+    options.interactive = options.interactive || {};
+    options.interactive.expand = options.interactive.expand || [];
+    options.interactive.expand.push(...expandPatterns);
+    const showHints = getShowHints();
+    options.interactive.expand = options.interactive.expand || [];
+    options.interactive.hints = showHints;
+    const project = await createProject(projectFile, options);
     project.compileProjectFile();
     timings.push([Date.now(), 'TS compilation of project file']);
 
@@ -60,7 +67,7 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         const resourceData = require(resolve(fileName)).default;
         timings.push([Date.now(), 'Loading project file']);
 
-        logProjectResource(resourceData);
+        logProjectResource(project, resourceData);
         await saveProjectResourceCache(project, resourceData);
 
         loadProject(project, resourceData, options);
@@ -73,7 +80,6 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         const loadingErrors = project.diagnostics.length;
         if (!loadingErrors) {
             if (live) {
-                logInfo(`...generating live preview...`);
                 const liveDir = await deployLive(project);
                 await generateRoot(project, liveDir);
                 await generateSurfaces(project, liveDir);
@@ -102,11 +108,13 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         } else {
             logSuccess('Build successful');
             logProjectData(project);
-            logMessage('\n \\o/\n  |\n / \\\n\n');
         }
     }
 
-    logTimings(timings);
+    logTimings(project, timings);
+    if (project.build.success && !project.diagnostics.length) {
+        logMessage('\n \\o/\n  |\n / \\\n\n');
+    }
 
     return project;
 };

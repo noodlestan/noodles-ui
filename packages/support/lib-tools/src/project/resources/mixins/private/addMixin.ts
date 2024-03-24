@@ -1,7 +1,6 @@
 import { MixinResource } from '@noodles-ui/core-types';
 import { MixinContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../../cli/logger/logMessage';
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addMixin = (
@@ -28,7 +27,6 @@ export const addMixin = (
         return item?.entity;
     }
 
-    logMessage('+ mixin', key);
     items.set(key, { context, entity });
 
     return entity;

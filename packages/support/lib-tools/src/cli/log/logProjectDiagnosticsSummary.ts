@@ -1,6 +1,7 @@
 import { ProjectContext } from '@noodles-ui/support-types';
 import { red } from 'kleur';
 
+import { plural } from '../../util/string';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
 
@@ -17,8 +18,6 @@ export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
         },
         {} as { [key: string]: number },
     );
-
-    const plural = (num: number, text: string) => (num === 1 ? text : text + 's');
 
     if (diagnostics.length) {
         const issues = diagnostics.length;

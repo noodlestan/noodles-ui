@@ -21,10 +21,12 @@ import { formatMilieconds } from '../util/string';
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
 import { loadProjectSnapshotFile } from './io/private/loadProjectSnapshotFile';
+import { hintExpandPattern } from './log/hintExpandPattern';
 import { logFileNamesList } from './log/logFileNamesList';
 import { logFilenameMessage } from './log/logFilenameMessage';
 import { logHeader } from './log/logHeader';
 import { logProjectBasicInfo } from './log/logProjectBasicInfo';
+import { shouldExpand } from './log/shouldExpand';
 import { logError } from './logger/logError';
 import { logInfo } from './logger/logInfo';
 import { logMessage } from './logger/logMessage';
@@ -79,7 +81,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     let lastSnapshot: BuildFinishedEvent | undefined;
 
     const refreshWatchers = async (): Promise<void> => {
-        logInfo('...reloading project...');
+        logInfo('...reloading project...', undefined, hintExpandPattern(project, 'watcher'));
         logProjectBasicInfo(project);
         await loadProjectModulesCache(project);
         const sources = getProjectFilenamesWatchlist(project);
@@ -87,16 +89,20 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
 
         watched.forEach(filename => {
             if (!sources.includes(filename)) {
-                logFilenameMessage(project, '- unwatch ', filename);
                 watcher.unwatch(filename);
+                if (shouldExpand(project, 'watcher')) {
+                    logFilenameMessage(project, '- unwatch ', filename);
+                }
             } else {
                 const index = sources.indexOf(filename);
                 sources.splice(index, 1);
             }
         });
 
-        logFileNamesList(project, '+ watch ', sources);
         watcher.add(sources);
+        if (shouldExpand(project, 'watcher')) {
+            logFileNamesList(project, '+ watch ', sources);
+        }
     };
 
     const buildNow = async (): Promise<boolean> => {

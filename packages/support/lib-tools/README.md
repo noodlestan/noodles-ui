@@ -40,6 +40,7 @@ Builds, watches, and launches the [NUI Live](../live-app/README.md) web interfac
 - Forwards build status and outcome to the client app
 
 TODO switch `--no-live` disables both the Live Server / App
+TODO switch `--show-hints` reveal hints and shortcuts
 
 ### Live Server
 

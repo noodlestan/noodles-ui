@@ -1,7 +1,6 @@
 import { ComponentEntity } from '@noodles-ui/core-types';
 import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { logMessage } from '../../../../cli/logger/logMessage';
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addComponent = (
@@ -28,13 +27,11 @@ export const addComponent = (
         if (previous) {
             if (!previous.context.public) {
                 previous.context.public = true;
-                logMessage('  (+ public)', key);
             } else {
                 project.addDiagnostic(resource, `Duplicate component key "${key}".`);
             }
             return;
         }
-        logMessage('+ component (public)', key);
         items.set(key, { context, entity });
         return;
     }
@@ -46,7 +43,7 @@ export const addComponent = (
         );
         return item?.entity;
     }
-    logMessage('+ component', key);
+
     items.set(key, { context, entity });
 
     return entity;

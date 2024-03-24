@@ -13,6 +13,7 @@ import {
     VariantEntityMap,
 } from '@noodles-ui/support-types';
 
+import { BuildOptions } from '../build/types';
 import { findRootPath } from '../monorepo/findRootPath';
 
 import { PROJECT_MODULE_KEY, PROJECT_NODULE_NAME } from './constants';
@@ -22,7 +23,7 @@ import { createProgram } from './program/createProgram';
 
 export const createProject = async (
     projectFile: string,
-    expandPatterns: string[] = [],
+    options: BuildOptions = {},
 ): Promise<ProjectContext> => {
     const module = findLocalNodeModule('/', projectFile); // TODO cross-platform
     const projectPath = module ? module.path : dirname(projectFile);
@@ -49,6 +50,9 @@ export const createProject = async (
     const component: ComponentEntityMap = new Map();
     const token: TokenEntityMap = new Map();
     const mixin: MixinEntityMap = new Map();
+
+    const { hints = false, expand = [] } = options.interactive || {};
+
     const project: ProjectContext = {
         projectFile,
         projectPath,
@@ -69,7 +73,10 @@ export const createProject = async (
             token,
             mixin,
         },
-        debug: expandPatterns,
+        interactive: {
+            hints,
+            expand,
+        },
     };
 
     return project;

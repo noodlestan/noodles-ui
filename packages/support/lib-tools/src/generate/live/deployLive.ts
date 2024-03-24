@@ -4,8 +4,6 @@ import { join, resolve } from 'path';
 import { ProjectContext } from '@noodles-ui/support-types';
 
 import { logError } from '../../cli/logger/logError';
-import { logInfo } from '../../cli/logger/logInfo';
-import { logMessage } from '../../cli/logger/logMessage';
 import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
 import { NUI_LIVE_DIR } from '../constants';
 
@@ -38,10 +36,6 @@ export const deployLive = async (project: ProjectContext): Promise<string> => {
     const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
     resolve(join(__dirname, './skeleton'));
     const live = join(project.projectPath, NUI_LIVE_DIR);
-    logInfo('...deploying NUI live...');
-    const deployed = await copyFiles(sketleton, live);
-    logMessage('  deployed: ', deployed.join(', '));
-    console.info(' ');
-
+    await copyFiles(sketleton, live);
     return join(live, 'src/');
 };

@@ -46,7 +46,10 @@ type ProjectAPI = {
     compileProjectFile: () => Promise<void>;
     generatedSourceFiles: GeneratedSourceFile[];
     addGeneratedSourceFile: (source: GeneratedSourceFile) => void;
-    debug: string[];
+    interactive: {
+        hints: boolean;
+        expand: string[];
+    };
 };
 
 export type ProjectEntitiesMap = {

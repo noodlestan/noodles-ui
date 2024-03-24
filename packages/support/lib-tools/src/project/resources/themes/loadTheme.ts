@@ -54,6 +54,10 @@ export const loadTheme = async (
     const surfaces = Array.from(project.entities.surface.values());
     const tokens = Array.from(project.entities.token.values());
 
+    if (!options.getThemeTokens) {
+        throw new Error(`BuildOptions:getThemeTokens is required to build themes.`);
+    }
+
     const inputTokens = await options.getThemeTokens(theme.name);
 
     // console.log(surfaces, tokens, inputTokens);

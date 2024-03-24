@@ -1,4 +1,4 @@
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 
 import { sync as resolveSync } from 'resolve';
 

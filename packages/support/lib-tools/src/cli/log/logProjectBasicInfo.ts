@@ -1,5 +1,5 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-import { green } from 'kleur';
+import { gray, green } from 'kleur';
 
 import { logMessage } from '../logger/logMessage';
 
@@ -8,6 +8,15 @@ export const logProjectBasicInfo = (project: ProjectContext): void => {
         logMessage(green('<root>'), project.rootPath);
     }
     logMessage(green('<project>'), project.projectPath);
+
+    if (project.interactive.expand.length) {
+        logMessage(gray('expand:'), project.interactive.expand);
+    }
+
+    if (!project.interactive.hints && !project.interactive.expand.length) {
+        console.info('');
+        logMessage(gray('  use "--hints" to inspect detail'));
+    }
 
     console.info('');
 };
