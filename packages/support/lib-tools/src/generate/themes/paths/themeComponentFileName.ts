@@ -2,9 +2,9 @@ import { join } from 'path';
 
 import { ThemeBuildContext } from '@noodles-ui/support-types';
 
-import { capitalize } from '../../../util/string';
+import { getThemeIdentifier } from '../../../entities/theme/getters/getThemeIdentifier';
 
 export const themeComponentFileName = (target: string, theme: ThemeBuildContext): string => {
-    const name = capitalize(theme.entity.name) + 'Theme';
+    const name = getThemeIdentifier(theme.entity);
     return join(target, `/themes/${name}/${name}.tsx`);
 };

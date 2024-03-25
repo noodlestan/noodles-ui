@@ -27,7 +27,7 @@
         "--type-text-base-fontSize": "14px",
         "--type-text-base-lineHeight": "1.5",
         "--type-text-base-fontWeight": "300",
-        "--type-text-base-fletterSpacing": "normal",
+        "--type-text-base-letterSpacing": "normal",
         "--type-text-large-fontSize": "24px",
         "--type-text-large-lineHeight": "{--type-text-base-lineHeight}",
         "--type-text-large-fontWeight": "{--type-text-base-fontWeight}",
@@ -61,7 +61,7 @@
         }
       }
     },
-    "light": {
+    "alt": {
       "global": {},
       "surfaces": {
         "stage": {

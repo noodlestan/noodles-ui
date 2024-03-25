@@ -1,7 +1,7 @@
 import { ThemeResource } from '@noodles-ui/core-types';
 
-import { capitalize } from '../../../util/string';
+import { capitalize, safeName } from '../../../util/string';
 
 export function getThemeName(entity: ThemeResource): string {
-    return capitalize(entity.name);
+    return capitalize(safeName(entity.name));
 }

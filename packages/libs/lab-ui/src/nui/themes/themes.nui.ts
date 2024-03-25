@@ -1,5 +1,5 @@
-// import { GoodbyeTeamResource } from '../themes/Goodbye/GoodbyeTheme.nui';
-import { HelloTeamResource } from './Hello/HelloTheme.nui';
+// import { GoodbyeThemeResource } from '../themes/GoodbyeTheme/GoodbyeTheme.nui';
+import { HelloThemeResource } from './HelloTheme/HelloTheme.nui';
 
-// export default [HelloTeamResource, GoodbyeTeamResource];
-export default [HelloTeamResource];
+// export default [HelloThemeResource, GoodbyeThemeResource];
+export default [HelloThemeResource];
