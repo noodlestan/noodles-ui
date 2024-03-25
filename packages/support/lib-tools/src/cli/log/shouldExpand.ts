@@ -10,6 +10,10 @@ export const shouldExpand = (
 ): boolean => {
     const { expand } = project.interactive;
 
+    if (expand.find(pattern => pattern === 'all')) {
+        return true;
+    }
+
     if (typeof resource === 'string') {
         return !!expand.find(pattern => resource.includes(pattern));
     }

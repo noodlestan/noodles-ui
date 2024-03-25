@@ -10,12 +10,12 @@ import { themeTokensFactory } from '../../../test-utils/themeTokensFactory';
 
 import { addTheme } from './addTheme';
 
-describe('addTheme', () => {
+describe('addTheme()', () => {
     let project: ProjectContext | undefined;
     let context: ThemeContext;
     let resource: ThemeResource;
     let entity: ThemeEntity;
-    describe('given valid context', () => {
+    describe('given a valid context', () => {
         beforeEach(() => {
             project = projectFactory();
             resource = resourceFactory('theme', { name: 'bar' });
@@ -23,11 +23,13 @@ describe('addTheme', () => {
             entity = themeFactory(themeTokensFactory(), resource);
             addTheme(project, context, entity);
         });
-        it('should add context to project themes items', () => {
+
+        it('should store the entity', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
     });
-    describe('given context with an empty name', () => {
+
+    describe('given an entity with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();
             resource = resourceFactory(NUI.theme);
@@ -36,7 +38,7 @@ describe('addTheme', () => {
             addTheme(project, context, entity);
         });
 
-        it('should not add themes items', () => {
+        it('should not store the entity', () => {
             expect(project?.entities.theme.size).toEqual(0);
         });
 
@@ -45,7 +47,8 @@ describe('addTheme', () => {
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
-    describe('given entity with a duplicate key', () => {
+
+    describe('given an entity with a duplicate key', () => {
         beforeEach(() => {
             project = projectFactory();
             resource = resourceFactory('theme', { name: 'foo' });
@@ -55,7 +58,7 @@ describe('addTheme', () => {
             addTheme(project, context, entity);
         });
 
-        it('should not add themes items', () => {
+        it('it should not store the entity', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
 

@@ -60,9 +60,8 @@ Where we synchronously test new features and retro-compatibility with specific e
 
 Recommended software:
 
-- [NVM](https://github.com/nvm-sh/nvm)
-- [VS Code](https://code.visualstudio.com/)
-- \+ VS Code Plugins:
+- [Node.js](https://nodejs.org/en) (see [.nvmrc](./.nvmrc) for which version, use [NVM](https://github.com/nvm-sh/nvm) to install it)
+- [VS Code](https://code.visualstudio.com/) \+ VS Code Plugins:
   - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
   - [Spell Right](https://marketplace.visualstudio.com/items?itemName=ban.spellright)

@@ -21,8 +21,7 @@ const pickTokens = (
     const map = tokens
         .filter(token => token.entity.surface === surface)
         .reduce((acc, token) => {
-            // TODO why is token name missing in TokenEntity?
-            const name = token.entity.module;
+            const name = token.entity.name;
             if (name in tokenMap) {
                 acc[name] = tokenMap[name];
             }

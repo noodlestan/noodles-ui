@@ -60,3 +60,5 @@ fg
 bg
 noscript
 sk
+stringify
+nvmrc

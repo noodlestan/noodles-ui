@@ -8,7 +8,7 @@ export const Swatch: VariantOwnResource = {
     params: ['palette'],
     tokens: [
         {
-            pattern: '--palette-#{palette}-#{$option}-color',
+            pattern: '--palette-#{palette}-#{option}-color',
         },
     ],
 };

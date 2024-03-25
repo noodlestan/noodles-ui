@@ -10,7 +10,7 @@ export const FgColor: VariantOwnResource = {
     surface: true,
     tokens: [
         {
-            pattern: '--#{$group}-#{$option}-color',
+            pattern: '--#{group}-#{option}-color',
         },
     ],
 };

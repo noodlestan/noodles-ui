@@ -1,7 +1,7 @@
 import { MixinInlineResource } from './mixins';
 import { Value } from './primitives/params';
 import { Resource } from './resource';
-import { TokenResource } from './tokens';
+import { InlineTokenResource } from './tokens';
 
 export type VariantVars = {
     [key: string]: string | string[];
@@ -10,12 +10,12 @@ export type VariantVars = {
 export type VariantOwnResource = Resource<'variant'> & {
     mixin?: MixinInlineResource;
     options?: string[];
-    defaultValue?: Value;
+    defaultValue?: string;
     vars?: VariantVars;
     params?: string[];
     variable?: string;
     surface?: boolean;
-    tokens?: Array<Omit<TokenResource, 'type' | 'module'>>;
+    tokens?: Array<InlineTokenResource>;
 };
 
 export type VariantOverrides = Partial<Omit<VariantOwnResource, 'type' | 'mixin'>> & {
@@ -35,7 +35,8 @@ export type VariantInlineReferenceResource = {
 };
 
 export type VariantResource = VariantOwnResource | VariantExtendResource;
-export type VariantEntity = Omit<VariantOwnResource, 'vars'> & {
+export type VariantEntity = Omit<VariantOwnResource, 'options' | 'vars'> & {
+    options: string[];
     vars: VariantVars;
 };
 

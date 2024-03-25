@@ -30,7 +30,7 @@ const surfaceStatement = (surface: SurfaceBuildContext): ts.Statement => {
         factory.createVariableDeclarationList(
             [
                 factory.createVariableDeclaration(
-                    factory.createIdentifier('stage'),
+                    factory.createIdentifier(entity.name),
                     undefined,
                     factory.createTypeReferenceNode(
                         factory.createIdentifier('SurfaceResource'),

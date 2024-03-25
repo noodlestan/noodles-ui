@@ -35,10 +35,12 @@ export const addVariant = (
             item.context.consumers.add(consumer),
         );
         return item?.entity;
-    } else if (context.public) {
+    }
+
+    if (context.public) {
         validateVariantVars(project, entity);
     }
-    items.set(key, { context, entity });
 
+    items.set(key, { context, entity });
     return entity;
 };

@@ -20,16 +20,16 @@ export const TypographyFamilyVariants: VariantOwnResource = {
             pattern: '--type-#{family}-base-fontFamily',
         },
         {
-            pattern: '--type-#{family}-#{$option}-fontSize',
+            pattern: '--type-#{family}-#{option}-fontSize',
         },
         {
-            pattern: '--type-#{family}-#{$option}-lineHeight',
+            pattern: '--type-#{family}-#{option}-lineHeight',
         },
         {
-            pattern: '--type-#{family}-#{$option}-fontWeight',
+            pattern: '--type-#{family}-#{option}-fontWeight',
         },
         {
-            pattern: '--type-#{family}-#{$option}-letterSpacing',
+            pattern: '--type-#{family}-#{option}-letterSpacing',
         },
     ],
 };

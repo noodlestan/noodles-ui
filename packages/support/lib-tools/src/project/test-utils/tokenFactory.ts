@@ -8,7 +8,6 @@ export function tokenFactory(overides?: Partial<TokenEntity>): TokenEntity {
         surface: true,
         pattern: '',
         vars: {},
-        params: [],
         ...overides,
     };
 }

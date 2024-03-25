@@ -7,23 +7,24 @@ export const addToken = (
     project: ProjectContext,
     context: TokenContext,
     entity: TokenEntity,
-): void => {
+): TokenEntity | undefined => {
     const { token: items } = project.entities;
     const { resource } = context;
 
-    if ('name' in entity && !entity.name) {
-        project.addDiagnostic(resource, 'No token name.');
+    if (!entity.name) {
+        project.addDiagnostic(resource, 'Entity name is empty.');
         return;
     }
 
-    // TODO these should already be all named tokens?
-    // or should we store the patterns as private resources as well? with source reference, etc...
-    const name = 'name' in entity ? entity.name : entity.pattern;
-    const key = getResourceKey({ ...entity, name });
-    if (items.has(key)) {
-        project.addDiagnostic(resource, `Duplicate token key "${key}".`);
-        return;
+    const key = getResourceKey(entity);
+    const item = items.get(key);
+    if (item) {
+        Array.from(context.consumers.values()).forEach(consumer =>
+            item.context.consumers.add(consumer),
+        );
+        return item?.entity;
     }
 
     items.set(key, { context, entity });
+    return entity;
 };
