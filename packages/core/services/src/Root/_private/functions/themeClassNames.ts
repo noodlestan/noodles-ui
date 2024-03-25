@@ -1,9 +1,8 @@
-import { THEME_PREFIX } from '../../constants';
+import { NUI_THEME_PREFIX, makeNoodlesClassName } from '@noodles-ui/core-types';
+
 import { useThemeContext } from '../../providers/ThemeProvider';
 import { themesStore } from '../../stores';
 import { Theme } from '../../types';
-
-import { makeNoodlesClassName } from './makeNoodlesClassName';
 
 const themeNames = (theme: Theme): string[] => {
     const { themeByName } = themesStore;
@@ -13,6 +12,5 @@ const themeNames = (theme: Theme): string[] => {
 
 export const themeClassNames = (): string[] => {
     const { theme } = useThemeContext();
-
-    return themeNames(theme()).map(t => makeNoodlesClassName(THEME_PREFIX, t));
+    return themeNames(theme()).map(t => makeNoodlesClassName(NUI_THEME_PREFIX, t));
 };

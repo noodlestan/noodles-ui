@@ -1,9 +1,8 @@
-import { useColourSchemeContext } from '../../providers/ColourSchemeProvider';
+import { NUI_COLOUR_SCHEME_PREFIX, makeNoodlesClassName } from '@noodles-ui/core-types';
 
-import { makeNoodlesClassName } from './makeNoodlesClassName';
+import { useColourSchemeContext } from '../../providers/ColourSchemeProvider';
 
 export const colourSchemeClassNames = (): string[] => {
     const { colourScheme } = useColourSchemeContext();
-    const className = colourScheme() === 'dark' ? 'ColourScheme-dark' : 'ColourScheme-light';
-    return [makeNoodlesClassName(className)];
+    return [makeNoodlesClassName(NUI_COLOUR_SCHEME_PREFIX, colourScheme())];
 };

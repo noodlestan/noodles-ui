@@ -62,7 +62,9 @@
       }
     },
     "alt": {
-      "global": {},
+      "global": {
+        "--type-heading-item-fontWeight": "{--type-heading-base-fontWeight}"
+      },
       "surfaces": {
         "stage": {
           "--color-content-primary-color": "#111122",

@@ -6,5 +6,9 @@
       // "~/*": ["./src/*"]
     }
   },
-  "include": ["./src"]
+  "include": [
+    "./src",
+    "../types/src/classes/makeNoodlesClassName.ts",
+    "../types/src/classes/constants.ts"
+  ]
 }

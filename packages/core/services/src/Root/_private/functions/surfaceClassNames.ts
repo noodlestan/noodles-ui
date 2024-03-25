@@ -1,9 +1,8 @@
-import { SURFACE_PREFIX } from '../../constants';
+import { NUI_SURFACE_PREFIX, makeNoodlesClassName } from '@noodles-ui/core-types';
+
 import { useSurfacesContext } from '../../providers/SurfaceProvider';
 import { surfacesStore } from '../../stores/surfacesStore';
 import { Surface } from '../../types';
-
-import { makeNoodlesClassName } from './makeNoodlesClassName';
 
 const surfaceNames = (surface: Surface): string[] => {
     const { surfaceByName } = surfacesStore;
@@ -14,5 +13,5 @@ const surfaceNames = (surface: Surface): string[] => {
 export const surfaceClassNames = (): string[] => {
     const { surface } = useSurfacesContext();
 
-    return surfaceNames(surface()).map(s => makeNoodlesClassName(SURFACE_PREFIX, s));
+    return surfaceNames(surface()).map(s => makeNoodlesClassName(NUI_SURFACE_PREFIX, s));
 };

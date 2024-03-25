@@ -1,3 +1,5 @@
+export * from './classes/constants';
+export * from './classes/makeNoodlesClassName';
 export * from './primitives/params';
 export * from './color-schemes';
 export * from './components';
