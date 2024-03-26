@@ -32,9 +32,9 @@ export type SurfaceContext = ResourceContext<SurfaceResource>;
 export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;
 export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;
 
-export type ThemeContext = ResourceContext<ThemeResource>;
-export type ThemeBuildContext = EntityBuildContext<ThemeContext, ThemeEntity>;
-export type ThemeEntityMap = EntityBuildMap<ThemeBuildContext>;
+export type MixinContext = ResourceContext<MixinResource>;
+export type MixinBuildContext = EntityBuildContext<MixinContext, MixinResource>;
+export type MixinEntityMap = EntityBuildMap<MixinBuildContext>;
 
 export type VariantContext = ResourceContext<VariantResource>;
 export type VariantBuildContext = EntityBuildContext<VariantContext, VariantEntity>;
@@ -48,6 +48,6 @@ export type TokenContext = ResourceContext<TokenResource>;
 export type TokenBuildContext = EntityBuildContext<TokenContext, TokenEntity>;
 export type TokenEntityMap = EntityBuildMap<TokenBuildContext>;
 
-export type MixinContext = ResourceContext<MixinResource>;
-export type MixinBuildContext = EntityBuildContext<MixinContext, MixinResource>;
-export type MixinEntityMap = EntityBuildMap<MixinBuildContext>;
+export type ThemeContext = ResourceContext<ThemeResource>;
+export type ThemeBuildContext = EntityBuildContext<ThemeContext, ThemeEntity>;
+export type ThemeEntityMap = EntityBuildMap<ThemeBuildContext>;

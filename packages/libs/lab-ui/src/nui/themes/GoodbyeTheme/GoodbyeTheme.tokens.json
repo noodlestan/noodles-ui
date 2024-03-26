@@ -20,7 +20,7 @@
         }
       }
     },
-    "light": {
+    "alt": {
       "global": {},
       "surfaces": {
         "stage": {

@@ -8,7 +8,7 @@ const factory = ts.factory;
 // import './HelloTheme.css';
 
 export const importThemeCss = (theme: ThemeBuildContext): ts.Statement => {
-    const cssRelativeFileName = `./${getThemeIdentifier(theme.entity)}.css`;
+    const cssRelativeFileName = `./${getThemeIdentifier(theme.entity)}.tokens.css`;
     return factory.createImportDeclaration(
         undefined,
         undefined,

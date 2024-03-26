@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { factory } from '../components/component/ComponentPrivate/importComponentStyles';
+import { factory } from '../components/Components/ComponentPrivate/importComponentStyles';
 
 export const createScssModuleImport = (scssModuleFileName: string): ts.ImportDeclaration => {
     return factory.createImportDeclaration(

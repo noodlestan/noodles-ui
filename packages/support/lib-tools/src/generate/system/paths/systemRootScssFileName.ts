@@ -1,5 +1,10 @@
 import { join } from 'path';
 
-export const systemRootScssFileName = (target: string): string => {
-    return join(target, `/UIRoot.scss`);
+import { ProjectContext } from '@noodles-ui/support-types';
+
+import { systemComponentName } from '../RootComponent/systemComponentName';
+
+export const systemRootScssFileName = (project: ProjectContext, target: string): string => {
+    const componentName = systemComponentName(project);
+    return join(target, `/providers/${componentName}/${componentName}.scss`);
 };

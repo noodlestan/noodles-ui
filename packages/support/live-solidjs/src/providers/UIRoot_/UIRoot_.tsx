@@ -7,4 +7,4 @@ type UIProps = {
     children?: JSX.Element;
 };
 
-export const UIRoot: Component<UIProps> = () => <></>;
+export const UIRoot_: Component<UIProps> = props => <>{props.children}</>;

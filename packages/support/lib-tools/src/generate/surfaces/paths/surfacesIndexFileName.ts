@@ -1,5 +1,5 @@
 import { join } from 'path';
 
-export const surfacesFileName = (target: string): string => {
+export const surfacesIndexFileName = (target: string): string => {
     return join(target, `/surfaces/index.tsx`);
 };

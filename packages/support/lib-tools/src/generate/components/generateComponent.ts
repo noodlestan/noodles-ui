@@ -1,8 +1,9 @@
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
-import { generateComponentPrivate } from './component/generateComponentPrivate';
-import { generateComponentPublic } from './component/generateComponentPublic';
-import { generateComponentScssModule } from './component/generateComponentScssModule';
+import { generateComponentLive } from './Components/generateComponentLive';
+import { generateComponentPrivate } from './Components/generateComponentPrivate';
+import { generateComponentPublic } from './Components/generateComponentPublic';
+import { generateComponentScssModule } from './Components/generateComponentScssModule';
 
 export const generateComponent = async (
     project: ProjectContext,
@@ -10,9 +11,12 @@ export const generateComponent = async (
     component: ComponentBuildContext,
     targetDir: string,
 ): Promise<void> => {
-    const p1 = generateComponentPublic(project, component, targetDir);
-    const p2 = generateComponentPrivate(project, component, targetDir);
-    const p3 = generateComponentScssModule(project, component, targetDir);
+    const tasks = [
+        generateComponentPublic(project, component, targetDir),
+        generateComponentPrivate(project, component, targetDir),
+        generateComponentLive(project, component, targetDir),
+        generateComponentScssModule(project, component, targetDir),
+    ];
 
-    await Promise.all([p1, p2, p3]);
+    await Promise.all(tasks);
 };

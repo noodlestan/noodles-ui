@@ -13,16 +13,18 @@ const copyFiles = async (source: string, target: string, root?: string): Promise
         await mkdir(target, { recursive: true });
         const files = await readdir(source);
         for (const file of files) {
-            const sourceFile = join(source, file);
-            const fileStats = await stat(sourceFile);
-            if (fileStats.isDirectory()) {
-                const targetFile = join(target, file);
-                const nestedCopies = await copyFiles(sourceFile, targetFile, root || target);
-                copies.push(...nestedCopies);
-            } else if (!file.startsWith('_')) {
-                const targetFile = join(target, file);
-                await copyFile(sourceFile, targetFile);
-                copies.push(targetFile.replace(root || target, ''));
+            if (!file.startsWith('_') && !file.endsWith('_')) {
+                const sourceFile = join(source, file);
+                const fileStats = await stat(sourceFile);
+                if (fileStats.isDirectory()) {
+                    const targetFile = join(target, file);
+                    const nestedCopies = await copyFiles(sourceFile, targetFile, root || target);
+                    copies.push(...nestedCopies);
+                } else {
+                    const targetFile = join(target, file);
+                    await copyFile(sourceFile, targetFile);
+                    copies.push(targetFile.replace(root || target, ''));
+                }
             }
         }
     } catch (err) {

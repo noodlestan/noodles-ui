@@ -1,11 +1,11 @@
 // import { SystemUIProvider, createSystemUIContext } from '@noodles-ui/sandbox-components-solid';
-import { ColourSchemeName } from '@noodles-ui/core-types';
+import { LabUI } from './generated/LabUI';
 import { Route, Router, useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 
-import { UIRoot } from './UIRoot';
-import componentDemoMap from './demo.map';
+import { componentDemoMap } from './generated/component.map';
+import { ColourSchemeName } from '@noodles-ui/core-types';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -38,12 +38,12 @@ render(() => {
     // </SystemUIProvider>
     return (
         <>
-            <UIRoot colourScheme={colourScheme()} theme={theme()}>
+            <LabUI colourScheme={colourScheme()} theme={theme()}>
                 <Router>
                     <Route path="/component/*key" component={RenderComponent} />
                     <Route path="*" component={notFoundMessage('?')} />
                 </Router>
-            </UIRoot>
+            </LabUI>
         </>
     );
 }, root);

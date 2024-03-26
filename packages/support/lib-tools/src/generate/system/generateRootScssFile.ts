@@ -1,10 +1,11 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
+import { getThemesInTopologicalOrder } from '../../entities/theme/getters/getThemesInTopologicalOrder';
 import { ensuredFiledir, relativePath } from '../../util/fs';
+import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
-import { variantsScssFileName } from '../variants/paths/variantsScssFileName';
 
 import { systemRootScssFileName } from './paths/systemRootScssFileName';
 
@@ -12,13 +13,17 @@ export const generateRootScssFile = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
-    const fileName = systemRootScssFileName(targetDir);
+    const fileName = systemRootScssFileName(project, targetDir);
     await ensuredFiledir(fileName);
 
-    const variantsFileName = variantsScssFileName(targetDir);
-    const importVariants = `@import '${relativePath(fileName, variantsFileName)}';`;
+    const themes = getThemesInTopologicalOrder(project);
 
-    const lines = [importVariants];
+    const themeImportStatement = (theme: ThemeBuildContext, targetDir: string) => {
+        const themeFile = themeCssVarsFileName(targetDir, theme);
+        return `@import '${relativePath(fileName, themeFile)}';`;
+    };
+
+    const lines = themes.map(theme => themeImportStatement(theme, targetDir));
     const content = [...lines].join('\n');
 
     const output = tsFileHeader(project, fileName) + content + '\n';

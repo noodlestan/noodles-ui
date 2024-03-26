@@ -8,8 +8,8 @@ import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPr
 import { printTypescriptStatements } from '../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
-import { exportThemesStatement } from './ThemesIndex/statements/exportThemesStatement';
-import { importThemeStatements } from './ThemesIndex/statements/importThemeStatements';
+import { exportThemesStatement } from './ThemesIndex/exportThemesStatement';
+import { importThemeStatements } from './ThemesIndex/importThemeStatements';
 import { themesIndexFileName } from './paths/themesIndexFileName';
 
 export const generateThemesIndex = async (
