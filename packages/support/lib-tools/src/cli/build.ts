@@ -3,17 +3,19 @@ import { resolve } from 'path';
 import { ProjectContext } from '@noodles-ui/support-types';
 
 import { BuildOptions } from '../build/types';
+import { NUI_GENERATED_DIR } from '../generate/constants';
 import { generateComponents } from '../generate/generateComponents';
 import { generateRoot } from '../generate/generateRoot';
 import { generateSurfaces } from '../generate/generateSurfaces';
 import { generateThemes } from '../generate/generateThemes';
 import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
+import { updateLib } from '../generate/live/updateLib';
 import { createProject } from '../project/createProject';
-import { ensureGeneratedDir } from '../project/private/ensureGeneratedDir';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
+import { getNoEmit } from './arguments/getNoEmit';
 import { getShowHints } from './arguments/getShowHints';
 import { stripFilename } from './format/stripFilename';
 import { saveProjectModulesCache } from './io/saveProjectModulesCache';
@@ -91,7 +93,6 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
             }
             if (prod) {
                 logInfo(`...generating production code...`);
-                await ensureGeneratedDir(project);
                 logGeneratedSourceFiles(project);
                 timings.push([Date.now(), 'Generating code']);
             }
@@ -113,6 +114,11 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
 
     logTimings(project, timings);
     if (project.build.success && !project.diagnostics.length) {
+        if (!getNoEmit()) {
+            await updateLib(project);
+            logInfo('Updated source code', NUI_GENERATED_DIR);
+        }
+
         logMessage('\n \\o/\n  |\n / \\\n\n');
     }
 

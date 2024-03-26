@@ -10,7 +10,7 @@ import { Component } from 'solid-js';
 import {
     Heading as GeneratedHeading,
     HeadingProps as GeneratedHeadingProps,
-} from '../../generated/component.Heading';
+} from '../../generated/components';
 
 export type HeadingProps = GeneratedHeadingProps;
 

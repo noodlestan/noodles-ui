@@ -7,10 +7,7 @@
 
 import { Component } from 'solid-js';
 
-import {
-    Text as GeneratedText,
-    TextProps as GeneratedTextProps,
-} from '../../generated/component.Text';
+import { Text as GeneratedText, TextProps as GeneratedTextProps } from '../../generated/components';
 
 export type TextProps = GeneratedTextProps;
 

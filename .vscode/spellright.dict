@@ -62,3 +62,4 @@ noscript
 sk
 stringify
 nvmrc
+rimraf

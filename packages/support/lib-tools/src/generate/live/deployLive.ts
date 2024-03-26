@@ -1,40 +1,13 @@
-import { copyFile, mkdir, readFile, readdir, stat, writeFile } from 'fs/promises';
-import { join, resolve } from 'path';
+import { readFile, rm, writeFile } from 'fs/promises';
+import { join } from 'path';
 
 import { ProjectContext } from '@noodles-ui/support-types';
 
-import { logError } from '../../cli/logger/logError';
 import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
+import { copyFiles } from '../../util/copyFiles';
 import { NUI_LIVE_DIR } from '../constants';
 import { systemComponentName } from '../system/RootComponent/systemComponentName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
-
-const copyFiles = async (source: string, target: string, root?: string): Promise<string[]> => {
-    const copies: string[] = [];
-    try {
-        await mkdir(target, { recursive: true });
-        const files = await readdir(source);
-        for (const file of files) {
-            if (!file.startsWith('_') && !file.endsWith('_')) {
-                const sourceFile = join(source, file);
-                const fileStats = await stat(sourceFile);
-                if (fileStats.isDirectory()) {
-                    const targetFile = join(target, file);
-                    const nestedCopies = await copyFiles(sourceFile, targetFile, root || target);
-                    copies.push(...nestedCopies);
-                } else {
-                    const targetFile = join(target, file);
-                    await copyFile(sourceFile, targetFile);
-                    copies.push(targetFile.replace(root || target, ''));
-                }
-            }
-        }
-    } catch (err) {
-        logError('Error:', err as string);
-    }
-
-    return copies;
-};
 
 const copyUIRootFile = async (
     project: ProjectContext,
@@ -53,11 +26,13 @@ const copyUIRootFile = async (
     return destinationFile;
 };
 
+const fileFilter = (file: string) => !file.startsWith('_') && !file.endsWith('_');
+
 export const deployLive = async (project: ProjectContext): Promise<string> => {
     const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
-    resolve(join(__dirname, './skeleton'));
     const live = join(project.projectPath, NUI_LIVE_DIR);
-    await copyFiles(sketleton, live);
+    await rm(live, { recursive: true, force: true });
+    await copyFiles(sketleton, live, { fileFilter });
     await copyUIRootFile(project, sketleton, live);
     return join(live, 'src/');
 };
