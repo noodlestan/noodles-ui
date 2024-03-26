@@ -3,7 +3,7 @@ import { Route, Router, useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 
-import { UILive } from './UILive';
+import { UIRoot } from './UIRoot';
 import liveMap from './components/live.map';
 
 const root = document.getElementById('root') as HTMLElement;
@@ -34,15 +34,15 @@ render(() => {
     // const { colourScheme, theme } = systemUIContext;
     // <SystemUIProvider {...systemUIContext}>
     // </SystemUIProvider>
-    // <UILive colourScheme={colourScheme()} theme={theme()}>
+    // <UIRoot colourScheme={colourScheme()} theme={theme()}>
     return (
         <>
-            <UILive>
+            <UIRoot>
                 <Router>
                     <Route path="/component/*key" component={RenderComponent} />
                     <Route path="*" component={notFoundMessage('?')} />
                 </Router>
-            </UILive>
+            </UIRoot>
         </>
     );
 }, root);

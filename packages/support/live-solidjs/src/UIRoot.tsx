@@ -9,9 +9,9 @@ type Props = {
     theme?: string;
 };
 
-export const UILive: Component<Props> = props => {
+export const UIRoot: Component<Props> = props => {
     const colourScheme = () => props.colourScheme || 'dark';
-    const theme = () => props.theme || 'hello';
+    const theme = () => props.theme || 'Hello';
     return (
         <>
             <UIRoot_ colourScheme={colourScheme()} theme={theme()}>

@@ -5,6 +5,8 @@ import { VariantEntity } from './variants';
 export type PropType = 'prop';
 
 export type PropOwnResource = Resource<PropType> & {
+    // TODO ValueType = 'string' | 'number' | 'boolean' | string (e.g.: 'FooBar')
+    // TODO valueType?: ValueType
     defaultValue?: Value;
 };
 

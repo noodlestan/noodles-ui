@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readdir, stat } from 'fs/promises';
+import { copyFile, mkdir, readFile, readdir, stat, writeFile } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import { ProjectContext } from '@noodles-ui/support-types';
@@ -6,6 +6,8 @@ import { ProjectContext } from '@noodles-ui/support-types';
 import { logError } from '../../cli/logger/logError';
 import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
 import { NUI_LIVE_DIR } from '../constants';
+import { systemComponentName } from '../system/RootComponent/systemComponentName';
+import { tsFileHeader } from '../typescript/tsFileHeader';
 
 const copyFiles = async (source: string, target: string, root?: string): Promise<string[]> => {
     const copies: string[] = [];
@@ -34,10 +36,28 @@ const copyFiles = async (source: string, target: string, root?: string): Promise
     return copies;
 };
 
+const copyUIRootFile = async (
+    project: ProjectContext,
+    source: string,
+    target: string,
+): Promise<string> => {
+    const sourceFile = join(source, 'src/UIRoot.tsx');
+    const destinationFile = join(target, 'src/UIRoot.tsx');
+
+    const componentName = systemComponentName(project);
+    const contents = (await readFile(sourceFile)).toString();
+    const output =
+        tsFileHeader(project, destinationFile) + contents.replace(/UIRoot_/g, componentName);
+    await writeFile(destinationFile, output);
+
+    return destinationFile;
+};
+
 export const deployLive = async (project: ProjectContext): Promise<string> => {
     const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
     resolve(join(__dirname, './skeleton'));
     const live = join(project.projectPath, NUI_LIVE_DIR);
     await copyFiles(sketleton, live);
+    await copyUIRootFile(project, sketleton, live);
     return join(live, 'src/');
 };

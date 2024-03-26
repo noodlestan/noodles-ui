@@ -7,13 +7,13 @@ import { ensuredFiledir, relativePath } from '../../util/fs';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
-import { systemRootScssFileName } from './paths/systemRootScssFileName';
+import { systemRootCssFileName } from './paths/systemRootCssFileName';
 
 export const generateRootScssFile = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
-    const fileName = systemRootScssFileName(project, targetDir);
+    const fileName = systemRootCssFileName(project, targetDir);
     await ensuredFiledir(fileName);
 
     const themes = getThemesInTopologicalOrder(project);

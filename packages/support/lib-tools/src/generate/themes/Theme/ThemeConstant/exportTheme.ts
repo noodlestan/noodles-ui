@@ -2,28 +2,24 @@ import { ThemeBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getThemeIdentifier } from '../../../../entities/theme/getters/getThemeIdentifier';
+import { getThemeName } from '../../../../entities/theme/getters/getThemeName';
 
 import { createPropertyAssignment } from './createPropertyAssignment';
 import { createShorthandAssignment } from './createShorthandAssignment';
 
 export const factory = ts.factory;
 
-// export const HelloTheme: Theme = {
-//     name: 'Hello',
-//     module: '@noodles-ui/lab-ui',
-//     extend: [],
-//     mode: 'dark',
-//     component,
-//     tokens,
-// };
-
 export const exportTheme = (theme: ThemeBuildContext): ts.Statement => {
     const { entity } = theme;
-    const themeName = getThemeIdentifier(entity);
+    const themeIdentifier = getThemeIdentifier(entity);
 
-    const extendedThemes = [] as ts.Expression[];
+    const themeName = getThemeName(theme.entity);
+    const extendedThemes = entity.extend.map(extended => {
+        const extendedName = getThemeName(extended);
+        return factory.createStringLiteral(extendedName);
+    });
 
-    const name = createPropertyAssignment('name', factory.createStringLiteral(entity.name));
+    const name = createPropertyAssignment('name', factory.createStringLiteral(themeName));
     const module = createPropertyAssignment('module', factory.createStringLiteral(entity.module));
     const extend = createPropertyAssignment(
         'extend',
@@ -34,7 +30,7 @@ export const exportTheme = (theme: ThemeBuildContext): ts.Statement => {
     const tokens = createShorthandAssignment('tokens');
 
     const themeVar = factory.createVariableDeclaration(
-        factory.createIdentifier(themeName),
+        factory.createIdentifier(themeIdentifier),
         undefined,
         factory.createTypeReferenceNode(factory.createIdentifier('Theme'), undefined),
         factory.createObjectLiteralExpression(

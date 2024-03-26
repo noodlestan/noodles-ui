@@ -13,7 +13,6 @@ import { themeComponentFileName } from '../paths/themeComponentFileName';
 
 import { declareComponent } from './ThemeConstant/declareComponent';
 import { exportTheme } from './ThemeConstant/exportTheme';
-import { importThemeCss } from './ThemeConstant/importThemeCss';
 import { importTokens } from './ThemeConstant/importTokens';
 
 export const generateThemeConstant = async (
@@ -29,7 +28,6 @@ export const generateThemeConstant = async (
         ...createImportStatements(internalTypes),
         importFrameworkTypes(),
         importTokens(theme),
-        importThemeCss(theme),
         declareComponent(),
         exportTheme(theme),
     ];

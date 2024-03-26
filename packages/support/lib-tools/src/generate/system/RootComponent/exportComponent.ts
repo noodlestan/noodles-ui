@@ -1,9 +1,11 @@
+import { ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { classListStatement } from './body/classListStatement';
 import { registerStatements } from './body/registerStatements';
 import { renderStatement } from './body/renderStatement';
 import { storeStatements } from './body/storeStatements';
+import { systemComponentName } from './systemComponentName';
 
 const factory = ts.factory;
 
@@ -27,14 +29,13 @@ const componentArrowFunction = (statements: ts.Statement[]): ts.Expression => {
     );
 };
 
-export const exportComponent = (): ts.Statement => {
+export const exportComponent = (project: ProjectContext): ts.Statement => {
     const stores = storeStatements();
     const registers = registerStatements();
     const classList = classListStatement();
     const render = renderStatement();
 
-    // TODO const name = systemComponentName(project);
-    const name = 'UIRoot';
+    const name = systemComponentName(project);
 
     const statements: ts.Statement[] = [...stores, ...registers, classList, render];
     const componentDeclaration = factory.createVariableDeclaration(

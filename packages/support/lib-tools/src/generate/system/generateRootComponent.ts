@@ -14,6 +14,7 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { declareProps } from './RootComponent/declareProps';
 import { exportComponent } from './RootComponent/exportComponent';
+import { importRootCss } from './RootComponent/importRootCss';
 import { systemRootFileName } from './paths/systemRootFileName';
 
 export const generateRootComponent = async (
@@ -38,8 +39,9 @@ export const generateRootComponent = async (
     const statements = [
         importFrameworkTypes(true),
         ...createImportStatements([...internalTypes, ...localImports]),
+        importRootCss(project, fileName, targetDir),
         declareProps(),
-        exportComponent(),
+        exportComponent(project),
     ];
 
     const content = await printTypescriptStatements(statements);
