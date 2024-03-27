@@ -1,3 +1,4 @@
+import { ChildProcess } from 'child_process';
 import { join, resolve } from 'path';
 
 import { BuildSnapshotDto } from '@noodles-ui/support-types';
@@ -13,11 +14,13 @@ import {
 } from '../events/constants';
 import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
+import { execLive } from '../exec/execLive';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/private/getProjectFilenamesWatchlist';
 import { ServerOptions, createServer } from '../server/createServer';
 import { formatMilieconds } from '../util/string';
 
+import { getNoLive } from './arguments/getNoLive';
 import { stripFilename } from './format/stripFilename';
 import { loadProjectModulesCache } from './io/loadProjectModulesCache';
 import { loadProjectSnapshotFile } from './io/private/loadProjectSnapshotFile';
@@ -77,7 +80,8 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     logHeader('dev', blue);
 
     const port = options?.server?.port || defaultOptions.server?.port;
-    const server = createServer({ port });
+    const server = !getNoLive() ? createServer({ port }) : undefined;
+    let proc: ChildProcess;
 
     const projectFile = resolve(fileName);
     logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
@@ -120,11 +124,13 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
         try {
+            proc?.kill('SIGINT');
             await execBuild();
             const snapshot = await loadProjectSnapshotFile(project);
             lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logSuccess('Build successful');
+            proc = execLive(project);
         } catch (err) {
             const snapshot = await loadProjectSnapshotFile(project);
             lastSnapshot = snapshot;
@@ -142,7 +148,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         done();
         const color = !lastSnapshot?.success ? red : hasWarnings(lastSnapshot) ? yellow : green;
         logHeader('dev', color);
-        server.nudge();
+        server?.nudge();
         setTimeout(() => {
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
