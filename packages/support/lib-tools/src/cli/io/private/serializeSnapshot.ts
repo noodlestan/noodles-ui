@@ -8,6 +8,8 @@ import {
     VariantBuildContext,
 } from '@noodles-ui/support-types';
 
+import { getProjectErrors } from '../../../project/getters/getProjectErrors';
+
 function mapToObject<T>(map: Map<string, T>): { [key: string]: T } {
     return Object.fromEntries(map);
 }
@@ -19,7 +21,7 @@ export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => 
             name: project.resource?.name || '<unknown>',
             module: project.resource?.module || '<unknown>',
         },
-        success: !project.diagnostics.length,
+        success: !!project.build.success && getProjectErrors(project).length === 0,
         timestamp: new Date().toJSON(),
         entities: {
             surface: mapToObject<SurfaceBuildContext>(surface),
@@ -28,7 +30,7 @@ export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => 
             variant: mapToObject<VariantBuildContext>(variant),
             token: mapToObject<TokenBuildContext>(token),
         },
-        diagnostics: [],
+        diagnostics: project.diagnostics,
     };
     return data;
 };

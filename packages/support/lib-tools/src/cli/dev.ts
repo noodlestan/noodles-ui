@@ -1,8 +1,9 @@
 import { join, resolve } from 'path';
 
+import { BuildSnapshotDto } from '@noodles-ui/support-types';
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
-import { bold, green, red } from 'kleur';
+import { blue, bold, green, red, yellow } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
 import {
@@ -54,16 +55,26 @@ const getWatcherWatchedFiles = (watcher: FSWatcher): string[] => {
         return files.map(filename => join(dir, filename));
     });
 };
+const hasWarnings = (snapshot: BuildSnapshotDto): boolean => {
+    return snapshot?.diagnostics.filter(d => d.severity === 'warning').length > 0;
+};
 
-const formatBuildResult = (success: boolean | undefined): string | undefined => {
-    if (success === undefined) {
+const formatBuildResult = (snapshot?: BuildSnapshotDto): string | undefined => {
+    if (snapshot === undefined) {
         return;
     }
-    return bold(success ? green('\u2588\u2588 Success') : red('\u2588\u2588 Failed'));
+    const w = hasWarnings(snapshot);
+    return bold(
+        !snapshot.success
+            ? red('\u2588\u2588 Error')
+            : w
+              ? yellow('\u2588\u2588 Warning')
+              : green('\u2588\u2588 Success'),
+    );
 };
 
 export const dev = async (fileName: string, options?: Partial<DevOptions>): Promise<void> => {
-    logHeader('dev');
+    logHeader('dev', blue);
 
     const port = options?.server?.port || defaultOptions.server?.port;
     const server = createServer({ port });
@@ -104,7 +115,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         }
     };
 
-    const buildNow = async (): Promise<boolean> => {
+    const buildNow = async (): Promise<void> => {
         const event: BuildStartedEvent = { timestamp: new Date() };
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
@@ -114,31 +125,30 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logSuccess('Build successful');
-            return true;
         } catch (err) {
             const snapshot = await loadProjectSnapshotFile(project);
             lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logError('Build error(s)', 'exit code: ' + err);
-            return false;
         }
     };
 
     const queue = new Queue(async (_: string, done) => {
-        const lastBuild = formatBuildResult(lastSnapshot?.success);
+        const lastBuild = formatBuildResult(lastSnapshot);
         const re = lastBuild ? 're' : '';
         logInfo(`...${re}building...`, lastBuild ? 'last build: ' + lastBuild : '');
-        const success = await buildNow();
+        await buildNow();
         await refreshWatchers();
         done();
-        logHeader('dev', success);
+        const color = !lastSnapshot?.success ? red : hasWarnings(lastSnapshot) ? yellow : green;
+        logHeader('dev', color);
         server.nudge();
         setTimeout(() => {
             const fileCount = getWatcherWatchedFiles(watcher).length;
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
             logInfo('Build');
-            logMessage('  Last build:', formatBuildResult(success));
+            logMessage('  Last build:', formatBuildResult(lastSnapshot));
 
             logMessage('  Watched files:', fileCount);
             logMessage('  Build count:', buildCount);
