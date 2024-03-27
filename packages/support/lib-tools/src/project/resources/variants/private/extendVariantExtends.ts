@@ -10,15 +10,20 @@ export const extendVariantExtends = (
     resolvedParent: VariantEntity,
     overrideVars?: VariantVars,
 ): VariantEntity | undefined => {
-    const { vars: extendedVars } = extendVariant.extend;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { extend: _, vars: variantVars, ...rest } = extendVariant;
+    const { vars: parentVars, params: parentParams, tokens: parentTokens } = resolvedParent;
+    const {
+        vars: variantVars,
+        params: variantParams,
+        tokens: variantTokens,
+        ...rest
+    } = extendVariant;
 
-    const actualParams = [
-        ...(extendVariant.extend.params || []),
-        ...(extendVariant.params || []),
-    ].filter(filterOutDuplicates);
-    const actualVars = { ...variantVars, ...extendedVars, ...overrideVars };
+    const actualParams = [...(variantParams || []), ...(parentParams || [])].filter(
+        filterOutDuplicates,
+    );
+    const actualTokens = [...(variantTokens || []), ...(parentTokens || [])];
+    const actualVars = { ...variantVars, ...parentVars, ...overrideVars };
 
     return {
         ...resolvedParent,
@@ -27,6 +32,7 @@ export const extendVariantExtends = (
         module: context.resource.module,
         mixin: resolvedParent.mixin,
         params: actualParams,
+        tokens: actualTokens,
         vars: actualVars,
     };
 };

@@ -10,26 +10,35 @@ export const TypographyFamilyVariants: VariantOwnResource = {
         source: '@noodles-ui/core-styled/src/variants/TypographyFamily/TypographyFamilyVariants.scss',
         implementation: "@include TypographyFamilyVariants('#{family}', $#{variable});",
         params: ['family'],
+        tokens: [
+            {
+                pattern: '--type-#{family}-base-fontFamily',
+            },
+            {
+                pattern: '--type-#{family}-base-fontSize',
+            },
+            {
+                pattern: '--type-#{family}-base-lineHeight',
+            },
+            {
+                pattern: '--type-#{family}-base-fontWeight',
+            },
+            {
+                pattern: '--type-#{family}-base-letterSpacing',
+            },
+            {
+                pattern: '--type-#{family}-#{option}-fontSize',
+            },
+            {
+                pattern: '--type-#{family}-#{option}-lineHeight',
+            },
+            {
+                pattern: '--type-#{family}-#{option}-fontWeight',
+            },
+            {
+                pattern: '--type-#{family}-#{option}-letterSpacing',
+            },
+        ],
     },
     options: [],
-    // TODO infer params from mixin params
-    params: ['family'],
-    // TODO params: ['family', 'foo', 'bar'],
-    tokens: [
-        {
-            pattern: '--type-#{family}-base-fontFamily',
-        },
-        {
-            pattern: '--type-#{family}-#{option}-fontSize',
-        },
-        {
-            pattern: '--type-#{family}-#{option}-lineHeight',
-        },
-        {
-            pattern: '--type-#{family}-#{option}-fontWeight',
-        },
-        {
-            pattern: '--type-#{family}-#{option}-letterSpacing',
-        },
-    ],
 };

@@ -21,7 +21,9 @@ const fileFilter = (fileName: string): boolean => {
 
 export const updateLib = async (project: ProjectContext): Promise<void> => {
     const processFile = async (fileName: string) => {
-        await formatTypescriptFile(project, fileName);
+        if (fileName.endsWith('.ts') || fileName.endsWith('.tsx')) {
+            await formatTypescriptFile(project, fileName);
+        }
     };
 
     const live = join(project.projectPath, NUI_SOURCE_DIR);

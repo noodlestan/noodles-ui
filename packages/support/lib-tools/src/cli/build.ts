@@ -74,7 +74,7 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         logProjectResource(project, resourceData);
         await saveProjectResourceCache(project, resourceData);
 
-        loadProject(project, resourceData, options);
+        await loadProject(project, resourceData, options);
         timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
@@ -88,6 +88,12 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
             await generateVariants(project, liveDir);
             logGeneratedSourceFiles(project);
             timings.push([Date.now(), 'Generating code']);
+        }
+
+        if (!project.hasErrors() && !getNoEmit()) {
+            await updateLib(project);
+            logSuccess('Updated target', white().bold('./' + NUI_GENERATED_DIR));
+            timings.push([Date.now(), 'Updating target']);
         }
 
         if (project.diagnostics.length) {
@@ -104,15 +110,10 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         }
     }
 
-    logTimings(project, timings);
     if (!project.hasErrors()) {
-        if (!getNoEmit()) {
-            await updateLib(project);
-            logSuccess('Updated source code', white().bold('./' + NUI_GENERATED_DIR));
-        }
-
         logMessage('\n \\o/\n  |\n / \\\n\n');
     }
+    logTimings(project, timings);
 
     return project;
 };

@@ -27,12 +27,16 @@ const loadVariantOwnResource = (
 
     const actualMixin = loadVariantMixin(project, context, variant);
     const actualOptions = variant.options || [];
+    const actualParams = [...(variant.params || []), ...(actualMixin?.params || [])];
+    const actualTokens = [...(variant.tokens || []), ...(actualMixin?.tokens || [])];
 
-    const entity = {
+    const entity: VariantEntity = {
         ...structuredClone(variant),
         type: NUI.variant as 'variant',
         options: actualOptions,
         mixin: actualMixin,
+        params: actualParams,
+        tokens: actualTokens,
         vars: actualVars,
     };
 

@@ -6,13 +6,14 @@ import {
     UnknownBuildContext,
     UnknownResource,
 } from '@noodles-ui/support-types';
-import { blue, gray, red, yellow } from 'kleur';
+import { blue, gray, red, white, yellow } from 'kleur';
 
 import { getItemsWithErrors } from '../../project/getters/getItemsWithErrors';
 import { getItemsWithWarnings } from '../../project/getters/getItemsWithWarnings';
 import { getProjectErrors } from '../../project/getters/getProjectErrors';
 import { getResourceModule } from '../../project/resources/getters/getResourceModule';
 import { getResourceName } from '../../project/resources/getters/getResourceName';
+import { getResourceType } from '../../project/resources/getters/getResourceType';
 import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
 import { plural } from '../../util/string';
 import { logInfo } from '../logger/logInfo';
@@ -44,28 +45,27 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
     }
     items.forEach(item => {
         const { context, entity } = item;
-        const { resource, public: isPublic, consumes, consumers } = context;
+        const { public: isPublic, consumes, consumers } = context;
         const isExpanded = shouldExpand(project, entity);
-        const itemKey = getResourceTypedKey(entity || resource);
+        const type = getResourceType(entity);
+        const itemKey = getResourceTypedKey(entity);
         const name = getResourceName(entity);
         const mod = getResourceModule(entity);
         const warnCount = itemsWithWarnings[itemKey] || 0;
         const errorCount = itemsWithErrors[itemKey] || 0;
         const publicTag = isPublic ? blue(' public') : '';
-        const formatedName = errorCount ? red(name) : warnCount ? yellow(name) : name;
+        const formatedName = errorCount ? red(name) : warnCount ? yellow(name) : white(name);
         const counts = formatWarningsAndErrors(warnCount, errorCount);
         const title = formatedName + (counts ? ' ' + counts : '') + publicTag;
         if (!isExpanded && shouldExpand(project, 'project')) {
             logMessage('  ' + gray(mod), title);
         } else if (isExpanded) {
-            console.info('');
-            logMessage('  ' + gray(mod), title);
+            logMessage('  ' + type + '  ' + gray(mod), title);
             console.info('');
             console.info('public:', isPublic);
-            const ignore = ['name', 'type', 'module'];
-            Object.entries(entity || {})
-                .filter(([key]) => !ignore.includes(key))
-                .forEach(([key, value]) => console.info('entity.' + key, value));
+            Object.entries(entity || {}).forEach(([key, value]) =>
+                console.info('entity.' + key, value),
+            );
             console.info('consumes:', consumes);
             console.info('consumers:', consumers);
             console.info('');
@@ -115,6 +115,8 @@ export const logProjectData = (project: ProjectContext): void => {
             yellow('Items may be incomplete and generated code may contain errors'),
         );
     }
+
+    console.info('');
     logResourceGroup(project, 'Surfaces', surface, itemsWithWarnings, itemsWithErrors);
     logResourceGroup(project, 'Mixins', mixin, itemsWithWarnings, itemsWithErrors);
     logResourceGroup(project, 'Variants', variant, itemsWithWarnings, itemsWithErrors);
