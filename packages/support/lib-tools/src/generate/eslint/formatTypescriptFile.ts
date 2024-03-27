@@ -16,7 +16,7 @@ export const formatTypescriptFile = async (
     // eslint-disable-next-line security/detect-non-literal-require
     const eslintConfig = await require(configFiles[0]);
 
-    const eslintOptions = {
+    const eslintOptions: ESLint.Options = {
         useEslintrc: false,
         overrideConfig: eslintConfig,
         fix: true,
@@ -33,7 +33,7 @@ export const formatTypescriptFile = async (
                 column: m.column,
                 sourceCode: results[0].output,
             };
-            project.addDiagnostic(source, 'ESLint: ' + m.message, { eslintOptions });
+            project.addError(source, 'ESLint: ' + m.message, { eslintOptions });
         });
         return false;
     }

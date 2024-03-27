@@ -11,7 +11,7 @@ export const validateVariantVars = (
         const isMissingVar = !variant.vars || !(param in variant.vars);
         if (isMissingVar) {
             const variantKey = getResourceKey(variant);
-            project.addDiagnostic(
+            project.addError(
                 variant,
                 `A param for "${param}" was not supplied while creating variant from "${variantKey}".`,
             );

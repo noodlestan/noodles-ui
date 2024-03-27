@@ -3,7 +3,7 @@ export const viteCssConfigForLibraries = (baseDir: string): unknown => {
         css: {
             preprocessorOptions: {
                 scss: {
-                    additionalData: `@import "${baseDir}/src/styles/globals.scss";`,
+                    additionalData: `@import "${baseDir}/src/generated/styles/globals.scss";`,
                 },
             },
         },

@@ -12,12 +12,12 @@ export const addComponent = (
     const { resource } = context;
 
     if (!entity) {
-        project.addDiagnostic(resource, 'No entity generated.');
+        project.addError(resource, 'No entity generated.');
         return;
     }
 
     if (!entity.name) {
-        project.addDiagnostic(resource, 'Entity name is empty.');
+        project.addError(resource, 'Entity name is empty.');
         return;
     }
 
@@ -28,7 +28,7 @@ export const addComponent = (
             if (!previous.context.public) {
                 previous.context.public = true;
             } else {
-                project.addDiagnostic(resource, `Duplicate component key "${key}".`);
+                project.addError(resource, `Duplicate component key "${key}".`);
             }
             return;
         }

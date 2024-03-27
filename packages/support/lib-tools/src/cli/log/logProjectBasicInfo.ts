@@ -15,7 +15,7 @@ export const logProjectBasicInfo = (project: ProjectContext): void => {
 
     if (!project.interactive.hints && !project.interactive.expand.length) {
         console.info('');
-        logMessage(gray('  use "--hints" to inspect detail'));
+        logMessage(gray('  use "--hints" to know which details can be expanded'));
     }
 
     console.info('');

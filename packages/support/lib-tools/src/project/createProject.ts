@@ -6,6 +6,7 @@ import {
     MixinEntityMap,
     ProjectContext,
     ProjectDiagnostic,
+    ProjectDiagnosticSeverity,
     ProjectDiagnosticSource,
     SurfaceEntityMap,
     ThemeEntityMap,
@@ -20,6 +21,7 @@ import { PROJECT_MODULE_KEY, PROJECT_NODULE_NAME } from './constants';
 import { findLocalNodeModule } from './modules/findLocalNodeModule';
 import { namedModule } from './modules/namedModule';
 import { createProgram } from './program/createProgram';
+import { getBuildErrorMessage } from './program/getters/getBuildErrorMessage';
 
 export const createProject = async (
     projectFile: string,
@@ -33,12 +35,17 @@ export const createProject = async (
     modules.set(PROJECT_MODULE_KEY, namedModule(PROJECT_NODULE_NAME, projectPath));
 
     const diagnostics: ProjectDiagnostic[] = [];
-    const addDiagnostic = (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
-        diagnostics.push({
-            message,
-            source,
-            data,
-        });
+    const diagnosticFn =
+        (severity: ProjectDiagnosticSeverity) =>
+        (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
+            diagnostics.push({
+                severity,
+                message,
+                source,
+                data,
+            });
+
+    const hasErrors = () => diagnostics.filter(d => d.severity === 'error').length > 0;
 
     const generatedSourceFiles: GeneratedSourceFile[] = [];
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
@@ -59,9 +66,14 @@ export const createProject = async (
         rootPath,
         build: { timestamp: new Date(), files: [], modules: new Map() },
         diagnostics,
-        addDiagnostic,
+        addError: diagnosticFn('error'),
+        addWarning: diagnosticFn('warning'),
+        hasErrors,
         compileProjectFile: async () => {
             project.build = await createProgram(projectFile, projectPath, rootPath);
+            if (!project.build.success) {
+                diagnosticFn('error')('build', getBuildErrorMessage(project.build));
+            }
         },
         generatedSourceFiles,
         addGeneratedSourceFile,

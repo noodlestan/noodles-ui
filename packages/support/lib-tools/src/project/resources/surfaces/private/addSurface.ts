@@ -12,13 +12,13 @@ export const addSurface = (
     const { resource } = context;
 
     if (!entity.name) {
-        project.addDiagnostic(resource, 'Entity name is empty.');
+        project.addError(resource, 'Entity name is empty.');
         return;
     }
 
     const key = getResourceKey(entity);
     if (items.has(key)) {
-        project.addDiagnostic(resource, `Duplicate entity key "${key}".`);
+        project.addError(resource, `Duplicate entity key "${key}".`);
         return;
     }
 

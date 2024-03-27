@@ -32,7 +32,7 @@ const loadVariantInlineProp = (
 
     const variant = loadVariant(project, newContext, component.vars);
     if (!variant) {
-        project.addDiagnostic(
+        project.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );
@@ -62,7 +62,7 @@ const loadVariantExtendProp = (
 
     const variant = loadVariant(project, newContext, component.vars);
     if (!variant) {
-        project.addDiagnostic(
+        project.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );
@@ -92,7 +92,7 @@ const loadVariantReferenceProp = (
 
     const variant = loadVariant(project, newContext);
     if (!variant) {
-        project.addDiagnostic(
+        project.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );

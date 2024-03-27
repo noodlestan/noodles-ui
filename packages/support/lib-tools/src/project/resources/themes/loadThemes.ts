@@ -6,14 +6,14 @@ import { newResourceContextPublic } from '../../context/newResourceContextPublic
 
 import { loadTheme } from './loadTheme';
 
-export const loadThemes = (
+export const loadThemes = async (
     project: ProjectContext,
     resource: ProjectResource,
     options: BuildOptions,
-): void => {
+): Promise<void> => {
     const { themes } = resource.entities;
-    themes.forEach(theme => {
+    for (const theme of themes) {
         const context = newResourceContextPublic<ThemeResource>(theme);
-        loadTheme(project, context, options);
-    });
+        await loadTheme(project, context, options);
+    }
 };

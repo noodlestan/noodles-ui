@@ -2,8 +2,7 @@ import { join, resolve } from 'path';
 
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { black, bold, green, red, white } from 'kleur';
+import { bold, green, red } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
 import {

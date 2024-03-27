@@ -1,5 +1,5 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-import { gray } from 'kleur';
+import { gray, white } from 'kleur';
 
 import { stripFilename } from './stripFilename';
 
@@ -18,7 +18,7 @@ export const formatFileName = (
         const module = matches[0];
         const stripped = stripFilename(fileName, module.path, '').substring(1);
         if (colors) {
-            return gray().bold(matches[0].name) + '/' + stripped;
+            return gray().bold(matches[0].name) + '/' + white().bold(stripped);
         }
         return module.name + '/' + stripped;
     }

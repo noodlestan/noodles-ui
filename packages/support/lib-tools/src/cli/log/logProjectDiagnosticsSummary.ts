@@ -1,29 +1,34 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-import { red } from 'kleur';
 
-import { plural } from '../../util/string';
+import { getAllDiagnosticSourceKeys } from '../../project/getters/getAllDiagnosticSourceKeys';
+import { getItemsWithErrors } from '../../project/getters/getItemsWithErrors';
+import { getItemsWithWarnings } from '../../project/getters/getItemsWithWarnings';
+import { getProjectErrors } from '../../project/getters/getProjectErrors';
+import { getProjectWarnings } from '../../project/getters/getProjectWarnings';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
+import { logWarning } from '../logger/logWarning';
 
-import { getDiagnosticKey } from './getDiagnosticKey';
+import { formatWarningsAndErrors } from './formatWarningsAndErrors';
 
 export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
     const { diagnostics } = project;
-    const sources = diagnostics.reduce(
-        (acc, diagnostic) => {
-            const sourceKey = getDiagnosticKey(project, diagnostic.source);
-            acc[sourceKey] = acc[sourceKey] || 0;
-            acc[sourceKey]++;
-            return acc;
-        },
-        {} as { [key: string]: number },
-    );
+
+    const sourcesWithIssues = getAllDiagnosticSourceKeys(project);
+    const itemsWithWarnings = getItemsWithWarnings(project);
+    const itemsWithErrors = getItemsWithErrors(project);
+    const errorCount = getProjectErrors(project).length;
+    const warnCount = getProjectWarnings(project).length;
 
     if (diagnostics.length) {
-        const issues = diagnostics.length;
-        logError('Project errors:', red(`${issues} ${plural(issues, 'error')}`));
-        Object.entries(sources).forEach(([sourceKey, i]) => {
-            logMessage('  ' + sourceKey, red(`(${i} ${plural(i, 'error')})`));
+        const logFn = errorCount ? logError : logWarning;
+        logFn('Project issues', formatWarningsAndErrors(warnCount, errorCount));
+
+        sourcesWithIssues.forEach(sourceKey => {
+            const warnCount = itemsWithWarnings[sourceKey] || 0;
+            const errorCount = itemsWithErrors[sourceKey] || 0;
+            const counts = formatWarningsAndErrors(warnCount, errorCount);
+            logMessage('  ' + sourceKey, counts);
         });
         console.info(' ');
     }

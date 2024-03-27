@@ -1,6 +1,5 @@
 import { ProjectContext } from '@noodles-ui/support-types';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { gray, green, red, yellow } from 'kleur';
+import { gray, yellow } from 'kleur';
 
 import { formatMilieconds } from '../../util/string';
 import { logInfo } from '../logger/logInfo';
@@ -17,7 +16,7 @@ export const logTimings = (project: ProjectContext, timings: Array<[number, stri
 
         const hint = hintExpandPattern(project, 'timings');
         const time = formatMilieconds(totalTime);
-        logInfo('Build timings', yellow(time), hint);
+        logInfo('Build time', yellow(time), hint);
 
         if (shouldExpand(project, 'timings')) {
             logMessage('  ' + gray('Total:'), formatMilieconds(totalTime));

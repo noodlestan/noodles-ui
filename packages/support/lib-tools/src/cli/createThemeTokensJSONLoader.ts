@@ -19,7 +19,7 @@ export const createThemeTokensJSONLoader = (options?: LoaderOptions): ThemeToken
         const themeName = getThemeIdentifier(theme);
         const file = fileName(themeName);
         if (!existsSync(file)) {
-            project.addDiagnostic(theme, `JSON file not found "${file}".`);
+            project.addError(theme, `JSON file not found "${file}".`);
             return;
         }
         const contents = await readFile(fileName(themeName));
@@ -27,7 +27,7 @@ export const createThemeTokensJSONLoader = (options?: LoaderOptions): ThemeToken
             const data = JSON.parse(contents.toString()) as ThemeTokensSchema;
             return data;
         } catch (err) {
-            project.addDiagnostic(theme, `Invalid JSON in "${file}".`);
+            project.addError(theme, `Invalid JSON in "${file}".`);
         }
     };
 };

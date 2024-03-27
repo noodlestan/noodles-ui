@@ -26,7 +26,7 @@ export const propTypeNode = (
     const propVariant = isPropVariantEntity(prop);
     if (propVariant) {
         if (!propVariant.variant.name) {
-            project.addDiagnostic(entity, `Unnamed variant at prop ${prop.name}.`);
+            project.addError(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(
@@ -38,7 +38,7 @@ export const propTypeNode = (
     const propReference = isPropVariantReference(prop);
     if (propReference) {
         if (!propReference.reference.name) {
-            project.addDiagnostic(entity, `Unnamed variant at prop ${prop.name}.`);
+            project.addError(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(

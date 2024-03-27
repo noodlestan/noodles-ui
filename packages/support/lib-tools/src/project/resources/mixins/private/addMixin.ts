@@ -12,7 +12,7 @@ export const addMixin = (
     const { resource } = context;
 
     if (!entity.name) {
-        project.addDiagnostic(resource, 'Entity name is empty.');
+        project.addError(resource, 'Entity name is empty.');
         return;
     }
 

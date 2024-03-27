@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
     EntityBuildContext,
     EntityBuildMap,
@@ -7,17 +6,20 @@ import {
     UnknownBuildContext,
     UnknownResource,
 } from '@noodles-ui/support-types';
-import { gray, green, red, yellow } from 'kleur';
+import { blue, gray, red, yellow } from 'kleur';
 
+import { getItemsWithErrors } from '../../project/getters/getItemsWithErrors';
+import { getItemsWithWarnings } from '../../project/getters/getItemsWithWarnings';
+import { getProjectErrors } from '../../project/getters/getProjectErrors';
 import { getResourceModule } from '../../project/resources/getters/getResourceModule';
 import { getResourceName } from '../../project/resources/getters/getResourceName';
 import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
 import { plural } from '../../util/string';
-import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
+import { logWarning } from '../logger/logWarning';
 
-import { getDiagnosticKey } from './getDiagnosticKey';
+import { formatWarningsAndErrors } from './formatWarningsAndErrors';
 import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
@@ -29,6 +31,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
     project: ProjectContext,
     label: string,
     items: EntityBuildMap<EntityBuildContext<T, V>>,
+    itemsWithWarnings: ItemsWithErrors,
     itemsWithErrors: ItemsWithErrors,
 ) {
     const count = items.size;
@@ -44,25 +47,25 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
         const { resource, public: isPublic, consumes, consumers } = context;
         const isExpanded = shouldExpand(project, entity);
         const itemKey = getResourceTypedKey(entity || resource);
-        const name = entity ? getResourceName(entity) : red(getResourceName(resource));
-        const mod = entity ? getResourceModule(entity) : red(getResourceModule(resource));
-        const errors = (itemsWithErrors[itemKey] || 0) + (!entity ? 1 : 0);
-        const publicTag = isPublic ? green(' public') : '';
-        const formatedName = (errors ? red(`${name} (${errors})`) : yellow(name)) + publicTag;
+        const name = getResourceName(entity);
+        const mod = getResourceModule(entity);
+        const warnCount = itemsWithWarnings[itemKey] || 0;
+        const errorCount = itemsWithErrors[itemKey] || 0;
+        const publicTag = isPublic ? blue(' public') : '';
+        const formatedName = errorCount ? red(name) : warnCount ? yellow(name) : name;
+        const counts = formatWarningsAndErrors(warnCount, errorCount);
+        const title = formatedName + (counts ? ' ' + counts : '') + publicTag;
         if (!isExpanded && shouldExpand(project, 'project')) {
-            logMessage('  ' + gray(mod), formatedName);
+            logMessage('  ' + gray(mod), title);
         } else if (isExpanded) {
-            // rename to logDetail - same as Info but gray
             console.info('');
-            logMessage('  ' + gray(mod), formatedName);
+            logMessage('  ' + gray(mod), title);
             console.info('');
             console.info('public:', isPublic);
-            console.info('---');
             const ignore = ['name', 'type', 'module'];
             Object.entries(entity || {})
                 .filter(([key]) => !ignore.includes(key))
-                .forEach(([key, value]) => console.info(key, value));
-            console.info('---');
+                .forEach(([key, value]) => console.info('entity.' + key, value));
             console.info('consumes:', consumes);
             console.info('consumers:', consumers);
             console.info('');
@@ -88,23 +91,16 @@ const countProjectEntities = (project: ProjectContext): number => {
 export const logProjectData = (project: ProjectContext): void => {
     const { surface, theme, mixin, variant, component, token } = project.entities;
 
-    const itemsWithErrors = project.diagnostics.reduce((acc, item) => {
-        const sourceKey = getDiagnosticKey(project, item.source);
-        acc[sourceKey] = acc[sourceKey] || 0;
-        acc[sourceKey]++;
-        return acc;
-    }, {} as ItemsWithErrors);
+    const itemsWithWarnings = getItemsWithWarnings(project);
+    const itemsWithErrors = getItemsWithErrors(project);
 
     const entityCount = countProjectEntities(project);
     const count = entityCount
-        ? yellow(entityCount) + plural(entityCount, ' item')
-        : gray('0 items');
-
-    const diagnostics = project.diagnostics.length;
-    const errors = diagnostics ? ' / ' + red(diagnostics + plural(diagnostics, ' error')) : '';
+        ? yellow(entityCount) + plural(entityCount, ' item') + ' '
+        : gray('0 items ');
 
     const hint = hintExpandPattern(project, 'project');
-    logInfo('Project data', count + errors, hint);
+    logInfo('Project data', count, hint);
 
     if (shouldExpand(project, 'project')) {
         logMessage('  Name:', project.resource?.name);
@@ -112,18 +108,19 @@ export const logProjectData = (project: ProjectContext): void => {
         console.info('');
     }
 
-    if (project.diagnostics.length) {
-        logError(
+    const errorCount = getProjectErrors(project).length;
+    if (errorCount) {
+        logWarning(
             'Attention:',
-            red('Items may be incomplete and generated code may contain errors'),
+            yellow('Items may be incomplete and generated code may contain errors'),
         );
     }
-    logResourceGroup(project, 'Surfaces', surface, itemsWithErrors);
-    logResourceGroup(project, 'Mixins', mixin, itemsWithErrors);
-    logResourceGroup(project, 'Variants', variant, itemsWithErrors);
-    logResourceGroup(project, 'Components', component, itemsWithErrors);
-    logResourceGroup(project, 'Tokens', token, itemsWithErrors);
-    logResourceGroup(project, 'Themes', theme, itemsWithErrors);
+    logResourceGroup(project, 'Surfaces', surface, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(project, 'Mixins', mixin, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(project, 'Variants', variant, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(project, 'Components', component, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(project, 'Tokens', token, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(project, 'Themes', theme, itemsWithWarnings, itemsWithErrors);
 
     if (shouldExpand(project, 'project')) {
         console.info('');

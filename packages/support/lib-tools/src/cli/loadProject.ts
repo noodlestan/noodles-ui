@@ -8,11 +8,11 @@ import { loadThemes } from '../project/resources/themes/loadThemes';
 import { loadTokens } from '../project/resources/tokens/loadTokens';
 import { loadVariants } from '../project/resources/variants/loadVariants';
 
-export const loadProject = (
+export const loadProject = async (
     project: ProjectContext,
     resource: ProjectResource,
     options: BuildOptions,
-): void => {
+): Promise<void> => {
     const { name, module } = resource;
     project.resource = { name, module };
 
@@ -20,5 +20,5 @@ export const loadProject = (
     loadVariants(project, resource);
     loadComponents(project, resource);
     loadTokens(project, resource);
-    loadThemes(project, resource, options);
+    await loadThemes(project, resource, options);
 };

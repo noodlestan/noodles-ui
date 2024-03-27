@@ -15,7 +15,7 @@ export const exposeProp = (
     const propIsVariantExtendResource = isVariantInlineExtendResourceProp(prop);
     if (propIsVariantExtendResource) {
         if (!overrides?.name) {
-            project.addDiagnostic(
+            project.addError(
                 component,
                 `Could not extend component with a variant prop because a local name for the variant was not provided.`,
             );

@@ -5,32 +5,34 @@ import {
     ProjectDiagnosticSource,
     UnknownResource,
 } from '@noodles-ui/support-types';
-import { bold, gray, green, red, yellow } from 'kleur';
+import { bold, gray, red, white, yellow } from 'kleur';
 
 import { getResourceName } from '../../project/resources/getters/getResourceName';
 import { getResourceType } from '../../project/resources/getters/getResourceType';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
+import { logWarning } from '../logger/logWarning';
 
 import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';
+import { hintExpandPattern } from './hintExpandPattern';
 import { resourceFromDiagnosticSource } from './resourceFromDiagnosticSource';
 import { shouldExpand } from './shouldExpand';
 
 const logDiagnosticFileError = (project: ProjectContext, fileError: ProjectDiagnosticFileError) => {
-    const fileName = formatFileNameRelativeToProject(project, fileError.fileName);
-    const { line, column, sourceCode } = fileError;
-    logMessage('  in ' + green(fileName));
-    logMessage('  at line ' + line + ', column ' + column + '\n');
+    const fileName = formatFileNameRelativeToProject(project, fileError.fileName, true);
+    const { line: lineNumber, column: columnNumber, sourceCode } = fileError;
+    logMessage('  in ' + fileName);
+    logMessage('  at line ' + lineNumber + ', column ' + columnNumber + '\n');
     if (sourceCode) {
-        const locator = gray('-'.repeat(column - 1)) + red('^');
+        const locator = gray('-'.repeat(columnNumber - 1)) + red('^');
         const lines = sourceCode.split('\n');
-        const beforeLines = lines.slice(line - 4, line - 1);
-        const errorLine = lines[line - 1];
-        const afterLines = lines.slice(line, line + 1);
+        const beforeLines = lines.slice(lineNumber - 4, lineNumber - 1);
+        const errorLine = lines[lineNumber - 1];
+        const afterLines = lines.slice(lineNumber, lineNumber + 1);
         const snippet = [
             ...beforeLines.map(gray),
-            bold(errorLine),
+            white(errorLine),
             locator,
             ...afterLines.map(gray),
         ];
@@ -46,7 +48,7 @@ const logDiagnosticResource = (resource: UnknownResource, source: ProjectDiagnos
     logMessage('  in ' + bold(type) + ' ' + gray(module || '??') + ' / ' + name || '');
     if (Object.values(source).length) {
         console.info('');
-        console.info(yellow('  resource:'));
+        console.info(white(bold('  resource:')));
         console.info('');
         Object.keys(source).forEach(key =>
             console.info(`${key}:`, source[key as keyof ProjectDiagnosticSource]),
@@ -77,15 +79,22 @@ export const logProjectDiagnostic = (
     project: ProjectContext,
     diagnostic: ProjectDiagnostic,
 ): void => {
-    const { source, message } = diagnostic;
-    logError('Project error', red(message));
-    logDiagnosticSource(project, source);
-    if (diagnostic.data) {
-        const data = diagnostic.data as { [key: string]: unknown };
-        for (const key in data) {
-            // NOTE: key can be something like "eslintOptions"
-            if (shouldExpand(project, key)) {
-                logMessage('details:' + key, data[key] || '');
+    const { source, message, severity } = diagnostic;
+    if (severity === 'error') {
+        logError('Project error', red(message));
+    } else {
+        const hint = hintExpandPattern(project, 'warnings');
+        logWarning('Project warning', yellow(message), hint);
+    }
+    if (severity === 'error' || shouldExpand(project, 'warnings')) {
+        logDiagnosticSource(project, source);
+        if (diagnostic.data) {
+            const data = diagnostic.data as { [key: string]: unknown };
+            for (const key in data) {
+                // NOTE: key can be something like "eslintOptions"
+                if (shouldExpand(project, key)) {
+                    logMessage('details:' + key, data[key] || '');
+                }
             }
         }
     }

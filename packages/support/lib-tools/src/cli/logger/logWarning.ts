@@ -1,11 +1,11 @@
-import { blue } from 'kleur';
+import { yellow } from 'kleur';
 
-export const logInfo = (
+export const logWarning = (
     message: string,
     detail?: string | number | boolean | object,
     hint?: string,
 ): void => {
-    const header = blue().underline().bold(message);
+    const header = yellow().underline().bold(message);
     const parts = [header, detail || '', hint || ''];
-    console.info(...parts);
+    console.error(...parts);
 };

@@ -18,13 +18,13 @@ const validateTokenMap = (
     data: unknown,
 ): TokenMap => {
     if (typeof data !== 'object' && data !== null) {
-        project.addDiagnostic(theme, `Invalid token map "${tokenContextKey}".`);
+        project.addError(theme, `Invalid token map "${tokenContextKey}".`);
         return {};
     }
     const tokenMap = data as { [key: string]: unknown };
     for (const key in tokenMap || {}) {
         if (typeof tokenMap[key] !== 'string') {
-            project.addDiagnostic(theme, `Invalid token value in "${tokenContextKey}.${key}".`);
+            project.addError(theme, `Invalid token value in "${tokenContextKey}.${key}".`);
             delete tokenMap[key];
         }
     }
@@ -40,13 +40,13 @@ const validateSurfaceTokenMap = (
     const surfaces = Array.from(project.entities.surface.values());
 
     if (typeof data !== 'object' && data !== null) {
-        project.addDiagnostic(theme, `Invalid surface map "${surfaceContextKey}".`);
+        project.addError(theme, `Invalid surface map "${surfaceContextKey}".`);
         return { global: {}, surfaces: {} };
     }
     const surfaceMap = data as { [key: string]: unknown };
     for (const key in surfaceMap || {}) {
         if (!surfaces.find(surface => surface.entity.name === key)) {
-            project.addDiagnostic(
+            project.addError(
                 theme,
                 `Unknown surface "${key}" in surface map "${surfaceContextKey}".`,
             );
@@ -71,18 +71,18 @@ const validateModeTokens = (
     data: unknown,
 ): ThemeModeTokens => {
     if (typeof data !== 'object' && data !== null) {
-        project.addDiagnostic(theme, `Invalid mode tokens in "${modeName}".`);
+        project.addError(theme, `Invalid mode tokens in "${modeName}".`);
         return { global: {}, surfaces: {} };
     }
     const themeModeTokens = data as { [key: string]: unknown };
     for (const key in themeModeTokens || {}) {
         if (!themeModeTokenProps.includes(key)) {
-            project.addDiagnostic(theme, `Unknown key "${key}" in "${modeName}".`);
+            project.addError(theme, `Unknown key "${key}" in "${modeName}".`);
             delete themeModeTokens[key];
         }
     }
     if (!('global' in themeModeTokens)) {
-        project.addDiagnostic(theme, `Missing "global" attribute in "${modeName}".`);
+        project.addError(theme, `Missing "global" attribute in "${modeName}".`);
         themeModeTokens.global = {};
     } else {
         themeModeTokens.global = validateTokenMap(
@@ -93,7 +93,7 @@ const validateModeTokens = (
         );
     }
     if (!('surfaces' in themeModeTokens)) {
-        project.addDiagnostic(theme, `Missing "surfaces" attribute in "${modeName}".`);
+        project.addError(theme, `Missing "surfaces" attribute in "${modeName}".`);
         themeModeTokens.surfaces = {};
     } else {
         themeModeTokens.surfaces = validateSurfaceTokenMap(
@@ -112,19 +112,19 @@ export const validateThemeTokens = (
     data: unknown,
 ): ThemeTokens => {
     if (typeof data !== 'object' && data !== null) {
-        project.addDiagnostic(theme, `Invalid "tokens" object.`);
+        project.addError(theme, `Invalid "tokens" object.`);
         return { base: emptyThemeMode, alt: emptyThemeMode };
     }
     const themeTokens = data as { [key: string]: unknown };
     for (const key in themeTokens || {}) {
         if (!themeTokenProps.includes(key)) {
-            project.addDiagnostic(theme, `Unknown key "${key}" in "tokens" object.`);
+            project.addError(theme, `Unknown key "${key}" in "tokens" object.`);
             delete themeTokens[key];
         }
     }
     for (const prop of themeTokenProps) {
         if (!(prop in themeTokens)) {
-            project.addDiagnostic(theme, `Missing "${prop}" attribute in "tokens" object.`);
+            project.addError(theme, `Missing "${prop}" attribute in "tokens" object.`);
             themeTokens[prop] = emptyThemeMode;
         } else {
             themeTokens[prop] = validateModeTokens(project, theme, prop, themeTokens[prop]);

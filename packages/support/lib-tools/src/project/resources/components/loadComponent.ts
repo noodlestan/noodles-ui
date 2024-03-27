@@ -50,25 +50,25 @@ const loadOwnComponent = (
     component: ComponentOwnResource,
 ): ComponentOwnEntity | undefined => {
     if (component.exposes) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'The "exposes" property is ignored in components that do not extend other components.',
         );
     }
     if (component.hides) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'The "hides" property is ignored in components that do not extend other components.',
         );
     }
     if (component.overrides) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'The "overrides" property is ignored in components that do not extend other components.',
         );
     }
     if (component.replaces) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'The "replaces" property is ignored in components that do not extend other components.',
         );
@@ -101,7 +101,7 @@ const loadComponentRenders = (
     const { from: parent, name } = component.render;
     const loadedParent = loadRenderedComponent(project, context, parent);
     if (!loadedParent) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'Could not extend component because resolution of rendered component failed.',
         );
@@ -109,7 +109,7 @@ const loadComponentRenders = (
     }
     const part = getRenderedPart(component, loadedParent);
     if (!part) {
-        project.addDiagnostic(
+        project.addError(
             component,
             `Could not extend rendered component because could not resolve part "${name}".`,
         );
@@ -134,7 +134,7 @@ const loadComponentExtend = (
         component.extend,
     ) as ComponentOwnEntity;
     if (!loadedParent) {
-        project.addDiagnostic(
+        project.addError(
             component,
             'Could not extend component because resolution of extended component failed.',
         );

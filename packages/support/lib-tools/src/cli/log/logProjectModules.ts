@@ -3,7 +3,7 @@ import { green, yellow } from 'kleur';
 
 import { getProjectFilenamesWatchlist } from '../../project/private/getProjectFilenamesWatchlist';
 import { plural } from '../../util/string';
-import { formatFileName } from '../format/formatFileName';
+import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
@@ -38,7 +38,7 @@ export const logProjectModules = (project: ProjectContext): void => {
             if (module) {
                 const { name, path, filenames } = module;
                 logMessage(green(name));
-                logMessage('  path: ' + formatFileName(project, path, true));
+                logMessage('  path: ' + formatFileNameRelativeToProject(project, path, true));
                 logMessage('  files: ' + yellow(filenames.length));
             }
         });

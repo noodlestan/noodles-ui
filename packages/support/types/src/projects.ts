@@ -13,7 +13,10 @@ import { UnknownResource } from './resources';
 
 export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
 
+export type ProjectDiagnosticSeverity = 'error' | 'warning';
+
 export type ProjectDiagnostic = {
+    severity: ProjectDiagnosticSeverity;
     message: string;
     source: ProjectDiagnosticSource;
     data?: unknown;
@@ -42,8 +45,10 @@ type ProjectAttributes = {
 type ProjectAPI = {
     build: BuildContext;
     diagnostics: ProjectDiagnostic[];
-    addDiagnostic: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
+    addError: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
+    addWarning: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
     compileProjectFile: () => Promise<void>;
+    hasErrors: () => boolean;
     generatedSourceFiles: GeneratedSourceFile[];
     addGeneratedSourceFile: (source: GeneratedSourceFile) => void;
     interactive: {

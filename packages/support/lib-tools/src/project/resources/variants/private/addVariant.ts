@@ -14,17 +14,17 @@ export const addVariant = (
     const { resource } = context;
 
     if (!entity) {
-        project.addDiagnostic(resource, 'No entity generated');
+        project.addError(resource, 'No entity generated');
         return;
     }
 
     if (!entity.name) {
-        project.addDiagnostic(resource, 'Entity name is empty');
+        project.addError(resource, 'Entity name is empty');
         return;
     }
 
     if (!entity.module) {
-        project.addDiagnostic(resource, 'Empty module name');
+        project.addError(resource, 'Empty module name');
         return;
     }
 

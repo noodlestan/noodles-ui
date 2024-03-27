@@ -18,7 +18,7 @@ export const loadComponentMixin = (
 
     const mixin = loadMixin(project, newContext);
     if (!mixin) {
-        project.addDiagnostic(
+        project.addError(
             component,
             `Could not load mixin "${mixinResource.name}" because resolution failed.`,
         );

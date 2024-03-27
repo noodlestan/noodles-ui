@@ -2,6 +2,7 @@ import {
     GeneratedSourceFile,
     ProjectContext,
     ProjectDiagnostic,
+    ProjectDiagnosticSeverity,
     ProjectDiagnosticSource,
 } from '@noodles-ui/support-types';
 import ts from 'typescript';
@@ -10,13 +11,17 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
     const diagnostics: ProjectDiagnostic[] = [];
     const generatedSourceFiles = [];
 
-    const addDiagnostic = (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        diagnostics.push({
-            message,
-            source,
-            data,
-        });
+    const diagnosticFn =
+        (severity: ProjectDiagnosticSeverity) =>
+        (source: ProjectDiagnosticSource, message: string, data?: unknown) =>
+            diagnostics.push({
+                severity,
+                message,
+                source,
+                data,
+            });
+
+    const hasErrors = () => diagnostics.filter(d => d.severity === 'error').length > 0;
     const compileProjectFile = async () => undefined;
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
         generatedSourceFiles.push(source);
@@ -34,7 +39,9 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
             modules: new Map(),
         },
         diagnostics,
-        addDiagnostic,
+        addError: diagnosticFn('error'),
+        addWarning: diagnosticFn('warning'),
+        hasErrors,
         interactive: {
             expand: [],
             hints: false,

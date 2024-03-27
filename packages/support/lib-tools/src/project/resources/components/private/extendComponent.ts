@@ -24,7 +24,7 @@ export const extendComponent = (
 
     const actualName = name || parent.name;
     if (!actualName) {
-        project.addDiagnostic(component, 'Empty component name');
+        project.addError(component, 'Empty component name');
         return;
     }
 

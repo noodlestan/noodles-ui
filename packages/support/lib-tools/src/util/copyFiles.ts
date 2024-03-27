@@ -5,6 +5,7 @@ import { logError } from '../cli/logger/logError';
 
 type CopyOptions = {
     fileFilter?: (fileName: string) => boolean;
+    processFile?: (fileName: string) => Promise<void>;
 };
 export const copyFiles = async (
     source: string,
@@ -12,7 +13,7 @@ export const copyFiles = async (
     options: CopyOptions,
     root?: string,
 ): Promise<string[]> => {
-    const { fileFilter } = options;
+    const { fileFilter, processFile } = options;
     const copies: string[] = [];
     try {
         await mkdir(target, { recursive: true });
@@ -33,6 +34,9 @@ export const copyFiles = async (
                 } else {
                     const targetFile = join(target, file);
                     await copyFile(sourceFile, targetFile);
+                    if (processFile) {
+                        await processFile(targetFile);
+                    }
                     copies.push(targetFile.replace(root || target, ''));
                 }
             }

@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 
 import { ProjectContext } from '@noodles-ui/support-types';
+import { white } from 'kleur';
 
 import { BuildOptions } from '../build/types';
 import { NUI_GENERATED_DIR } from '../generate/constants';
@@ -12,6 +13,7 @@ import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { createProject } from '../project/createProject';
+import { getProjectErrors } from '../project/getters/getProjectErrors';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
@@ -58,10 +60,10 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
 
     await ensureProjectCacheDir(project);
     logProjectBasicInfo(project);
-    logProgramDiagnostics(project.build.diagnostics || []);
+    logProgramDiagnostics(project);
     logBuildOutcome(project);
 
-    if (project.build.success) {
+    if (!project.hasErrors()) {
         logProjectModules(project);
         await saveProjectModulesCache(project);
 
@@ -76,34 +78,24 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
-        const live = true;
-        const prod = false;
-
-        const loadingErrors = project.diagnostics.length;
-        if (!loadingErrors) {
-            if (live) {
-                const liveDir = await deployLive(project);
-                await generateRoot(project, liveDir);
-                await generateSurfaces(project, liveDir);
-                await generateThemes(project, liveDir);
-                await generateComponents(project, liveDir);
-                await generateVariants(project, liveDir);
-                logGeneratedSourceFiles(project);
-                timings.push([Date.now(), 'Generating code']);
-            }
-            if (prod) {
-                logInfo(`...generating production code...`);
-                logGeneratedSourceFiles(project);
-                timings.push([Date.now(), 'Generating code']);
-            }
+        const loadingErrors = getProjectErrors(project);
+        if (!loadingErrors.length) {
+            const liveDir = await deployLive(project);
+            await generateRoot(project, liveDir);
+            await generateSurfaces(project, liveDir);
+            await generateThemes(project, liveDir);
+            await generateComponents(project, liveDir);
+            await generateVariants(project, liveDir);
+            logGeneratedSourceFiles(project);
+            timings.push([Date.now(), 'Generating code']);
         }
 
         if (project.diagnostics.length) {
             logProjectDiagnostics(project);
             logProjectData(project);
             logProjectDiagnosticsSummary(project);
-            if (loadingErrors) {
-                logError(`Encountered ${loadingErrors} issues during load.`);
+            if (loadingErrors.length) {
+                logError(`Encountered ${loadingErrors.length} issues during load.`);
                 logError(`Code generation was skipped.`);
             }
         } else {
@@ -113,10 +105,10 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
     }
 
     logTimings(project, timings);
-    if (project.build.success && !project.diagnostics.length) {
+    if (!project.hasErrors()) {
         if (!getNoEmit()) {
             await updateLib(project);
-            logInfo('Updated source code', NUI_GENERATED_DIR);
+            logSuccess('Updated source code', white().bold('./' + NUI_GENERATED_DIR));
         }
 
         logMessage('\n \\o/\n  |\n / \\\n\n');

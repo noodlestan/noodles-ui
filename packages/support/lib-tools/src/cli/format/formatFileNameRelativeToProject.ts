@@ -1,7 +1,7 @@
 import { relative } from 'path';
 
 import { ProjectContext } from '@noodles-ui/support-types';
-import { gray, green } from 'kleur';
+import { gray, white } from 'kleur';
 
 import { PROJECT_MODULE_KEY } from '../../project/constants';
 
@@ -24,7 +24,7 @@ export const formatFileNameRelativeToProject = (
     if (matches.length) {
         const module = matches[0];
         if (colors) {
-            return gray().bold(matches[0].name) + ' ' + green(relativeFileName);
+            return gray().bold(matches[0].name) + ' ' + white().bold(relativeFileName);
         }
         return module.name + ' ' + relativeFileName;
     }
