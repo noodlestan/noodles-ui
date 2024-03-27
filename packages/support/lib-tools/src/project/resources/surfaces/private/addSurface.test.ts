@@ -13,19 +13,20 @@ describe('addSurface', () => {
     let context: SurfaceContext;
     let resource: SurfaceResource;
 
-    describe('given valid context', () => {
+    describe('given a valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory(NUI.surface, { name: 'bar' });
+            resource = resourceFactory(NUI.surface, { name: 'foo' });
             context = contextFactory(resource);
             addSurface(project, context, resource);
-            // result = addSurface
         });
-        it('should add context to project surfaces items', () => {
+
+        it('should store the entity', () => {
             expect(project?.entities.surface.size).toEqual(1);
         });
     });
-    describe('given context with an empty name', () => {
+
+    describe('given an entity with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
@@ -33,16 +34,18 @@ describe('addSurface', () => {
             addSurface(project, context, resource);
         });
 
-        it('it should not add surfaces items', () => {
+        it('should not store the entity', () => {
             expect(project?.entities.surface.size).toEqual(0);
         });
 
-        it('it should add a project diagnostics', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
-    describe('given context with a duplicate key', () => {
+
+    describe('given an entity with a duplicate name', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
@@ -51,12 +54,13 @@ describe('addSurface', () => {
             addSurface(project, context, resource);
         });
 
-        it('it should not add surfaces items', () => {
+        it('should not store duplicates', () => {
             expect(project?.entities.surface.size).toEqual(1);
         });
 
-        it('it should add a project diagnostics', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Duplicate entity key "/foo".');
         });
     });

@@ -12,18 +12,21 @@ describe('addMixin', () => {
     let project: ProjectContext | undefined;
     let context: MixinContext;
     let resource: MixinResource;
-    describe('given valid context', () => {
+
+    describe('given a valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory(NUI.mixin, { name: 'bar' });
+            resource = resourceFactory(NUI.mixin, { name: 'foo' });
             context = contextFactory(resource);
             addMixin(project, context, resource);
         });
-        it('Add context to project mixins items', () => {
+
+        it('should store the entity', () => {
             expect(project?.entities.mixin.size).toEqual(1);
         });
     });
-    describe('given context with an empty name', () => {
+
+    describe('given an entity with an empty name', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
@@ -31,16 +34,18 @@ describe('addMixin', () => {
             addMixin(project, context, resource);
         });
 
-        it('it should not add mixins items', () => {
+        it('should not store the entity', () => {
             expect(project?.entities.mixin.size).toEqual(0);
         });
 
-        it('it should add a project diagnostics', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
-    describe('given context with a duplicate key', () => {
+
+    describe('given an entity with a duplicate name', () => {
         beforeEach(() => {
             project = projectFactory();
             context = contextFactory();
@@ -49,12 +54,12 @@ describe('addMixin', () => {
             addMixin(project, context, resource);
         });
 
-        it('it should not add mixins items', () => {
+        it('should not store duplicates', () => {
             expect(project?.entities.mixin.size).toEqual(1);
         });
 
         // TODO ????
-        // it('it should add a project diagnostics', () => {
+        // it('should add a project diagnostics', () => {
         //     expect(project?.diagnostics.length).toEqual(1);
         //     expect(project?.diagnostics[0].message).toContain('Duplicate entity key "/foo".');
         // });

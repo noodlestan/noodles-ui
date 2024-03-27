@@ -1,10 +1,11 @@
-import { resolve } from 'path';
+import { rm } from 'fs/promises';
+import { join, resolve } from 'path';
 
 import { ProjectContext } from '@noodles-ui/support-types';
 import { white } from 'kleur';
 
 import { BuildOptions } from '../build/types';
-import { NUI_GENERATED_DIR } from '../generate/constants';
+import { NUI_GENERATED_DIR, NUI_TMP_DIR } from '../generate/constants';
 import { generateComponents } from '../generate/generateComponents';
 import { generateRoot } from '../generate/generateRoot';
 import { generateSurfaces } from '../generate/generateSurfaces';
@@ -15,6 +16,7 @@ import { updateLib } from '../generate/live/updateLib';
 import { createProject } from '../project/createProject';
 import { getProjectErrors } from '../project/getters/getProjectErrors';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
+import { copyFiles } from '../util/copyFiles';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { getNoEmit } from './arguments/getNoEmit';
@@ -80,13 +82,16 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
 
         const loadingErrors = getProjectErrors(project);
         if (!loadingErrors.length) {
-            const liveDir = await deployLive(project);
-            await generateRoot(project, liveDir);
-            await generateSurfaces(project, liveDir);
-            await generateThemes(project, liveDir);
-            await generateComponents(project, liveDir);
-            await generateVariants(project, liveDir);
+            const tmpDir = join(project.projectPath, NUI_TMP_DIR);
+            await rm(tmpDir, { recursive: true, force: true });
+            await generateRoot(project, tmpDir);
+            await generateSurfaces(project, tmpDir);
+            await generateThemes(project, tmpDir);
+            await generateComponents(project, tmpDir);
+            await generateVariants(project, tmpDir);
             logGeneratedSourceFiles(project);
+            const liveDir = await deployLive(project);
+            await copyFiles(tmpDir, liveDir);
             timings.push([Date.now(), 'Generating code']);
         }
 

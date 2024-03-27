@@ -50,16 +50,17 @@ describe('addToken()', () => {
             expect(project?.entities.token.size).toEqual(0);
         });
 
-        it('should add a project diagnostic', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
 
-    describe('given an entity with a duplicate key', () => {
+    describe('given an entity with a duplicate name', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory('token', { name: 'bar' });
+            resource = resourceFactory('token', { name: 'foo' });
             context = contextFactory(resource);
             context.consumers.add('variant-one');
             entity = tokenFactory(resource);
@@ -70,14 +71,14 @@ describe('addToken()', () => {
             result = addToken(project, context, entity);
         });
 
-        it('it should not store the duplicated entity', () => {
+        it('should not store the duplicated entity', () => {
             expect(project?.entities.token.size).toEqual(1);
         });
 
         it('should merge the consumers of the entity', () => {
-            expect(project?.entities.token.get('/bar')?.context.consumers.size).toEqual(2);
-            expect(project?.entities.token.get('/bar')?.context.consumers).toContain('variant-one');
-            expect(project?.entities.token.get('/bar')?.context.consumers).toContain('variant-two');
+            expect(project?.entities.token.get('/foo')?.context.consumers.size).toEqual(2);
+            expect(project?.entities.token.get('/foo')?.context.consumers).toContain('variant-one');
+            expect(project?.entities.token.get('/foo')?.context.consumers).toContain('variant-two');
         });
     });
 });

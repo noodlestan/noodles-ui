@@ -10,10 +10,10 @@ type CopyOptions = {
 export const copyFiles = async (
     source: string,
     target: string,
-    options: CopyOptions,
+    options?: CopyOptions,
     root?: string,
 ): Promise<string[]> => {
-    const { fileFilter, processFile } = options;
+    const { fileFilter, processFile } = options || {};
     const copies: string[] = [];
     try {
         await mkdir(target, { recursive: true });

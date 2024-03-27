@@ -15,10 +15,11 @@ describe('addTheme()', () => {
     let context: ThemeContext;
     let resource: ThemeResource;
     let entity: ThemeEntity;
+
     describe('given a valid context', () => {
         beforeEach(() => {
             project = projectFactory();
-            resource = resourceFactory('theme', { name: 'bar' });
+            resource = resourceFactory('theme', { name: 'foo' });
             context = contextFactory(resource);
             entity = themeFactory(themeTokensFactory(), resource);
             addTheme(project, context, entity);
@@ -42,13 +43,14 @@ describe('addTheme()', () => {
             expect(project?.entities.theme.size).toEqual(0);
         });
 
-        it('should add a project diagnostics', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Entity name is empty.');
         });
     });
 
-    describe('given an entity with a duplicate key', () => {
+    describe('given an entity with a duplicate name', () => {
         beforeEach(() => {
             project = projectFactory();
             resource = resourceFactory('theme', { name: 'foo' });
@@ -58,12 +60,13 @@ describe('addTheme()', () => {
             addTheme(project, context, entity);
         });
 
-        it('it should not store the entity', () => {
+        it('should not store the entity', () => {
             expect(project?.entities.theme.size).toEqual(1);
         });
 
-        it('should add a project diagnostics', () => {
+        it('should add a project error', () => {
             expect(project?.diagnostics.length).toEqual(1);
+            expect(project?.diagnostics[0].severity).toBe('error');
             expect(project?.diagnostics[0].message).toContain('Duplicate entity key "/foo".');
         });
     });
