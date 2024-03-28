@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises';
 import { ProjectContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
+import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
@@ -17,6 +18,7 @@ export const generateSurfacesIndex = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = surfacesIndexFileName(targetDir);
     await ensuredFiledir(fileName);
 
@@ -34,5 +36,5 @@ export const generateSurfacesIndex = async (
     await writeFile(fileName, formatted);
     const success = await formatTypescriptFile(project, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

@@ -1,7 +1,7 @@
 import { ProjectContext } from '@noodles-ui/support-types';
 import { gray, yellow } from 'kleur';
 
-import { formatMilieconds } from '../../util/string';
+import { formatSeconds } from '../../util/string';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 
@@ -15,18 +15,18 @@ export const logTimings = (project: ProjectContext, timings: Array<[number, stri
         const totalTime = last - first;
 
         const hint = hintExpandPattern(project, 'timings');
-        const time = formatMilieconds(totalTime);
+        const time = formatSeconds(totalTime);
         logInfo('Build time', yellow(time), hint);
 
         if (shouldExpand(project, 'timings')) {
-            logMessage('  ' + gray('Total:'), formatMilieconds(totalTime));
+            logMessage('  ' + gray('Total:'), formatSeconds(totalTime));
             timings.forEach(([ts, name], index) => {
                 if (!index) {
                     return;
                 }
                 const previous = timings[index - 1];
                 const [previousTs] = previous;
-                logMessage('  - ' + gray(name), formatMilieconds(ts - previousTs));
+                logMessage('  - ' + gray(name), formatSeconds(ts - previousTs));
             });
             console.info('');
         }

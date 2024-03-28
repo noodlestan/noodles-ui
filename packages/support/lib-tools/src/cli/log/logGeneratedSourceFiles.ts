@@ -12,14 +12,15 @@ import { shouldExpand } from './shouldExpand';
 
 const logListWithErrors = (project: ProjectContext) => {
     logError('Errors generating source code');
-    project.generatedSourceFiles.forEach(({ fileName, skipped, success }) => {
+    project.generatedSourceFiles.forEach(({ fileName, skipped, success, time }) => {
         const formatedFileName = formatFileNameRelativeToProject(project, fileName, success);
+        const t = ' ' + yellow((time || 0) + 'ms');
         if (skipped) {
             logMessage(gray(' (skipped)'), gray(formatedFileName));
         } else if (success) {
-            logMessage(green('          '), formatedFileName);
+            logMessage(green('         √'), formatedFileName + t);
         } else {
-            logMessage(red('   (error)'), red(formatedFileName));
+            logMessage(red('   (error)'), red(formatedFileName) + t);
         }
     });
 };
@@ -34,14 +35,15 @@ const logListWithoutErrors = (project: ProjectContext) => {
         const hasSkipped =
             project.generatedSourceFiles.filter(({ skipped }) => !!skipped).length > 0;
         const prefix = hasSkipped ? '          ' : '  ';
-        project.generatedSourceFiles.forEach(({ fileName, skipped }) => {
+        project.generatedSourceFiles.forEach(({ fileName, skipped, time }) => {
+            const t = ' ' + yellow((time || 0) + 'ms');
             if (skipped) {
                 logMessage(
                     gray(' (skipped)'),
                     gray(formatFileNameRelativeToProject(project, fileName)),
                 );
             } else {
-                logMessage(prefix, formatFileNameRelativeToProject(project, fileName, true));
+                logMessage(prefix, formatFileNameRelativeToProject(project, fileName, true) + t);
             }
         });
         console.info(' ');

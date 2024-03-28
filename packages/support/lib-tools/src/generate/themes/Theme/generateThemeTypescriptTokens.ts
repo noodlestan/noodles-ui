@@ -5,6 +5,7 @@ import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { ensuredFiledir } from '../../../util/fs';
+import { diffDateNow, getDateNow } from '../../../util/time';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../../internal/createImportStatements';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
@@ -103,6 +104,7 @@ export const generateThemeTypescriptTokens = async (
     targetDir: string,
     theme: ThemeBuildContext,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = themeTypescriptTokensFileName(targetDir, theme);
     await ensuredFiledir(fileName);
 
@@ -123,5 +125,5 @@ export const generateThemeTypescriptTokens = async (
     await writeFile(fileName, formatted);
     const success = await formatTypescriptFile(project, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

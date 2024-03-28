@@ -5,6 +5,7 @@ import { ProjectContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
+import { diffDateNow, getDateNow } from '../../util/time';
 import { componentIndexFileName } from '../components/paths/componentIndexFileName';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
@@ -50,6 +51,7 @@ export const generateIndexFile = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = systemIndexFileName(targetDir);
     await ensuredFiledir(fileName);
 
@@ -64,5 +66,5 @@ export const generateIndexFile = async (
     await writeFile(fileName, formatted);
     const success = await formatTypescriptFile(project, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

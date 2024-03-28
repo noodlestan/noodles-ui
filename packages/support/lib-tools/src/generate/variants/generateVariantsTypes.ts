@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises';
 import { ProjectContext, VariantBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
+import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -18,6 +19,7 @@ export const generateVariantsTypes = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = variantsTypesFileName(targetDir);
     await ensuredFiledir(fileName);
 
@@ -32,5 +34,5 @@ export const generateVariantsTypes = async (
     await writeFile(fileName, output);
     const success = await formatTypescriptFile(project, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

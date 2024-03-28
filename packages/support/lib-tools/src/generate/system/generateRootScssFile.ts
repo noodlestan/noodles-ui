@@ -4,6 +4,7 @@ import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
 import { getThemesInTopologicalOrder } from '../../entities/theme/getters/getThemesInTopologicalOrder';
 import { ensuredFiledir, relativePath } from '../../util/fs';
+import { diffDateNow, getDateNow } from '../../util/time';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -13,6 +14,7 @@ export const generateRootScssFile = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = systemRootCssFileName(project, targetDir);
     await ensuredFiledir(fileName);
 
@@ -29,5 +31,5 @@ export const generateRootScssFile = async (
     const output = tsFileHeader(project, fileName) + content + '\n';
     await writeFile(fileName, output);
 
-    project.addGeneratedSourceFile({ fileName, success: true });
+    project.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
 };

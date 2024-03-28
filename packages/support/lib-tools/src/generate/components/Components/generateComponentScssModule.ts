@@ -7,6 +7,7 @@ import { getComponentMixins } from '../../../entities/component/getters/getCompo
 import { getPropMixin } from '../../../entities/component/prop/getters/getPropMixin';
 import { getVariantPropsWithMixin } from '../../../entities/component/prop/getters/getVariantPropsWithMixin';
 import { ensuredFiledir } from '../../../util/fs';
+import { diffDateNow, getDateNow } from '../../../util/time';
 import { indent } from '../../text/indent';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentScssModuleFileName } from '../paths/componentScssModuleFileName';
@@ -100,6 +101,7 @@ export const generateComponentScssModule = async (
     component: ComponentBuildContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = componentScssModuleFileName(targetDir, component.entity);
     await ensuredFiledir(fileName);
 
@@ -115,5 +117,5 @@ export const generateComponentScssModule = async (
     const output = tsFileHeader(project, fileName) + content.join('\n') + '\n';
     await writeFile(fileName, output);
 
-    project.addGeneratedSourceFile({ fileName, success: true });
+    project.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
 };

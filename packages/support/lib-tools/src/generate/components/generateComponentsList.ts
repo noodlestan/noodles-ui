@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises';
 import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
+import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -28,6 +29,7 @@ export const generateComponentsList = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
+    const time = getDateNow();
     const fileName = componentIndexFileName(targetDir);
     await ensuredFiledir(fileName);
 
@@ -43,5 +45,5 @@ export const generateComponentsList = async (
     await writeFile(fileName, output);
     const success = await formatTypescriptFile(project, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

@@ -18,7 +18,7 @@ import { execLive } from '../exec/execLive';
 import { createProject } from '../project/createProject';
 import { getProjectFilenamesWatchlist } from '../project/private/getProjectFilenamesWatchlist';
 import { ServerOptions, createServer } from '../server/createServer';
-import { formatMilieconds } from '../util/string';
+import { formatSeconds } from '../util/string';
 
 import { getNoLive } from './arguments/getNoLive';
 import { stripFilename } from './format/stripFilename';
@@ -158,7 +158,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
 
             logMessage('  Watched files:', fileCount);
             logMessage('  Build count:', buildCount);
-            logMessage('  Build time (average):', formatMilieconds(avgBuildTime));
+            logMessage('  Build time (average):', formatSeconds(avgBuildTime));
             logMessage('  Queue size:', queueLength || '<empty>');
             console.info();
             logInfo('...watching for file changes...');

@@ -1,7 +1,8 @@
 export const camelCase = (str: string): string =>
     str.replace(/-([a-z])/gi, match => match[1].toUpperCase());
 
-export const formatMilieconds = (ms: number): string => (Math.round(ms) / 1000).toFixed(1) + 's';
+export const formatSeconds = (ms: number, decimals: number = 1): string =>
+    (Math.round(ms) / 1000).toFixed(decimals) + 's';
 
 export const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1);
 
