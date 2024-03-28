@@ -1,14 +1,14 @@
+import {
+    PROJECT_MODULE_KEY,
+    PROJECT_MODULE_NAME,
+    ROOT_MODULE_KEY,
+    ROOT_MODULE_NAME,
+    UNKNOWN_MODULE_KEY,
+    UNKNOWN_MODULE_NAME,
+} from '@noodles-ui/core-types';
 import { ProgramModule, ProgramModuleContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-import {
-    PROJECT_MODULE_KEY,
-    PROJECT_NODULE_NAME,
-    ROOT_MODULE_KEY,
-    ROOT_NODULE_NAME,
-    UNKNOWN_MODULE_KEY,
-    UNKNOWN_MODULE_NAME,
-} from '../../constants';
 import { findLocalNodeModule } from '../../modules/findLocalNodeModule';
 import { getLastNodeModule } from '../../modules/getLastNodeModule';
 import { namedModule } from '../../modules/namedModule';
@@ -82,9 +82,9 @@ export const makeProgramModules = (
 
     const map: Map<string, ProgramModuleContext> = new Map();
 
-    map.set(PROJECT_MODULE_KEY, namedModule(PROJECT_NODULE_NAME, projectPath));
+    map.set(PROJECT_MODULE_KEY, namedModule(PROJECT_MODULE_NAME, projectPath));
     if (rootPath) {
-        map.set(ROOT_MODULE_KEY, namedModule(ROOT_NODULE_NAME, rootPath));
+        map.set(ROOT_MODULE_KEY, namedModule(ROOT_MODULE_NAME, rootPath));
     }
 
     files

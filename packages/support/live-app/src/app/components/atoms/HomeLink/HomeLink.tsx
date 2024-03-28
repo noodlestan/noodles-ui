@@ -1,7 +1,7 @@
 import { A } from '@solidjs/router';
 import { Component } from 'solid-js';
 
-import styles from './HomeLink.module.css';
+import styles from './HomeLink.module.scss';
 
 export const HomeLink: Component = () => {
     const classList = () => ({

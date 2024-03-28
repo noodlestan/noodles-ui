@@ -7,11 +7,16 @@ export type CompileResult = {
     diagnostics: ts.Diagnostic[];
 };
 
-export type BuildContext = Partial<CompileResult> & {
-    files: ts.SourceFile[];
+export type BuildResources = {
+    fileNames: string[];
     modules: Map<string, ProgramModuleContext>;
-    timestamp: Date;
 };
+
+export type BuildContext = BuildResources &
+    Partial<CompileResult> & {
+        files: ts.SourceFile[];
+        timestamp: Date;
+    };
 
 export type ProgramModule = {
     name: string;

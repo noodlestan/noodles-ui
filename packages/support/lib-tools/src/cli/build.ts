@@ -1,7 +1,7 @@
 import { rm } from 'fs/promises';
 import { join, resolve } from 'path';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { ProjectContext, getDiagnosticErrors } from '@noodles-ui/support-types';
 import { white } from 'kleur';
 
 import { BuildOptions } from '../build/types';
@@ -14,7 +14,6 @@ import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { createProject } from '../project/createProject';
-import { getProjectErrors } from '../project/getters/getProjectErrors';
 import { ensureProjectCacheDir } from '../project/private/ensureProjectCacheDir';
 import { copyFiles } from '../util/copyFiles';
 
@@ -80,7 +79,7 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Pr
         timings.push([Date.now(), 'Loading resources from project']);
         await saveProjectSnapshot(project);
 
-        const loadingErrors = getProjectErrors(project);
+        const loadingErrors = getDiagnosticErrors(project.diagnostics);
         if (!loadingErrors.length) {
             const tmpDir = join(project.projectPath, NUI_TMP_DIR);
             await rm(tmpDir, { recursive: true, force: true });

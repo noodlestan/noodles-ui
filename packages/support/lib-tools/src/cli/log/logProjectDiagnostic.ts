@@ -4,6 +4,7 @@ import {
     ProjectDiagnosticFileError,
     ProjectDiagnosticSource,
     UnknownResource,
+    fileErrorFromDiagnosticSource,
 } from '@noodles-ui/support-types';
 import { bold, gray, red, white, yellow } from 'kleur';
 
@@ -14,7 +15,6 @@ import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
 import { logWarning } from '../logger/logWarning';
 
-import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';
 import { hintExpandPattern } from './hintExpandPattern';
 import { resourceFromDiagnosticSource } from './resourceFromDiagnosticSource';
 import { shouldExpand } from './shouldExpand';

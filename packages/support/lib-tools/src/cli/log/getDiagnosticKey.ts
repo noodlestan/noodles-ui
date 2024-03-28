@@ -2,12 +2,11 @@ import {
     ProjectContext,
     ProjectDiagnosticSource,
     UnknownResource,
+    fileErrorFromDiagnosticSource,
 } from '@noodles-ui/support-types';
 
 import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
-
-import { fileErrorFromDiagnosticSource } from './fileErrorFromDiagnosticSource';
 
 export const getDiagnosticKey = (
     project: ProjectContext,

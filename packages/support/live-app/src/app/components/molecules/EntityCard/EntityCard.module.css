@@ -1,7 +1,7 @@
 .EntityCard {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     min-width: 200px;
     min-height: 100px;
     padding: 10px;

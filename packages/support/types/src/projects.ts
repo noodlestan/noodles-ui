@@ -1,5 +1,6 @@
 import { ProjectOwnResource } from '@noodles-ui/core-types';
 
+import { ProjectDiagnostic, ProjectDiagnosticSource } from './diagnostics';
 import {
     ComponentEntityMap,
     MixinEntityMap,
@@ -9,25 +10,6 @@ import {
     VariantEntityMap,
 } from './entities';
 import { BuildContext } from './program';
-import { UnknownResource } from './resources';
-
-export type ProjectDiagnosticSource = string | UnknownResource | ProjectDiagnosticFileError;
-
-export type ProjectDiagnosticSeverity = 'error' | 'warning';
-
-export type ProjectDiagnostic = {
-    severity: ProjectDiagnosticSeverity;
-    message: string;
-    source: ProjectDiagnosticSource;
-    data?: unknown;
-};
-
-export type ProjectDiagnosticFileError = {
-    fileName: string;
-    line: number;
-    column: number;
-    sourceCode?: string;
-};
 
 export type GeneratedSourceFile = {
     fileName: string;
@@ -58,6 +40,8 @@ type ProjectAPI = {
     };
 };
 
+export type EntityType = keyof ProjectEntitiesMap;
+
 export type ProjectEntitiesMap = {
     surface: SurfaceEntityMap;
     theme: ThemeEntityMap;
@@ -66,8 +50,6 @@ export type ProjectEntitiesMap = {
     token: TokenEntityMap;
     mixin: MixinEntityMap;
 };
-
-export type EntityType = 'surface' | 'theme' | 'component' | 'variant' | 'token' | 'mixin';
 
 export type ProjectEntities = {
     entities: ProjectEntitiesMap;

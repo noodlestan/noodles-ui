@@ -13,13 +13,14 @@
   },
   "dependencies": {
     "@noodles-ui/core-types": "0.0.1",
-    "@noodles-ui/lib-tools": "0.0.1",
-    "@noodles-ui/support-types": "0.0.1",
-    "@noodles-ui/sandbox-components-solid": "0.0.1",
     "@noodles-ui/lab-ui": "0.0.1",
+    "@noodles-ui/lib-tools": "0.0.1",
+    "@noodles-ui/sandbox-components-solid": "0.0.1",
+    "@noodles-ui/support-types": "0.0.1",
     "@solid-primitives/date": "^2.0.21",
     "@solid-primitives/storage": "^2.1.2",
     "@solidjs/router": "^0.13.0",
+    "lucide-solid": "^0.363.0",
     "solid-js": "^1.8.15",
     "vite": "^5.1.4",
     "vite-plugin-solid": "^2.10.1"

@@ -12,9 +12,6 @@
     "strict": true,
     "noEmit": true,
     "types": ["vinxi/client"],
-    "isolatedModules": true,
-    "paths": {
-      "~/*": ["./src/*"]
-    }
+    "isolatedModules": true
   }
 }

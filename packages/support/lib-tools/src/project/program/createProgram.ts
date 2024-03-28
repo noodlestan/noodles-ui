@@ -14,7 +14,8 @@ export const createProgram = async (
 
     const timestamp = new Date();
     const files = getProgramResourceFiles(program);
+    const fileNames = files.map(file => file.fileName);
     const modules = makeProgramModules(program, projectPath, rootPath);
 
-    return { timestamp, program, result, success, diagnostics, files, modules };
+    return { timestamp, program, result, success, diagnostics, files, fileNames, modules };
 };

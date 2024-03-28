@@ -25,6 +25,7 @@ export const addToken = (
         return item?.entity;
     }
 
+    context.key = getResourceKey(entity);
     items.set(key, { context, entity });
     return entity;
 };

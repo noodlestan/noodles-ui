@@ -46,8 +46,8 @@ const loadPatternToken = (
             const newResource: PatternedTokenResource = {
                 ...token,
                 type: 'token',
-                pattern: token.pattern,
                 module: variant.module,
+                pattern: token.pattern,
             };
 
             const newContext = newResourceContextPublicWithConsumer<TokenResource>(

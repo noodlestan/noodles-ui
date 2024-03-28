@@ -1,0 +1,10 @@
+.DashboardGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.DashboardGrid > * {
+    min-width: 40vw;
+    max-width: 40vw;
+}

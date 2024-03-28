@@ -2,6 +2,8 @@
     color: gold;
     text-decoration: none;
     opacity: 0.9;
+    padding: 5px;
+    border-radius: 5px;
 
     &:global(.active) {
         text-decoration: underline;
@@ -9,6 +11,7 @@
     }
 
     &:hover {
+        background-color: lighten(black, 20);
         text-decoration: underline;
         opacity: 1;
     }

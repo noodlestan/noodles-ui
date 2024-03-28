@@ -36,6 +36,7 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
             diagnostics: [],
             timestamp: new Date(),
             files: [],
+            fileNames: [],
             modules: new Map(),
         },
         diagnostics,

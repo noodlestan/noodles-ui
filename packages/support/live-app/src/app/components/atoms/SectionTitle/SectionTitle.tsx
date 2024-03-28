@@ -12,5 +12,5 @@ export const SectionTitle: Component<SectionTitleProps> = props => {
         [styles.SectionTitle]: true,
     });
 
-    return <h1 classList={classList()}>{props.children}</h1>;
+    return <h3 classList={classList()}>{props.children}</h3>;
 };

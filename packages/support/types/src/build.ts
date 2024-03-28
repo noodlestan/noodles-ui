@@ -1,5 +1,6 @@
 import {
     ComponentEntity,
+    MixinResource,
     ProjectOwnResource,
     SurfaceResource,
     ThemeEntity,
@@ -8,14 +9,15 @@ import {
 } from '@noodles-ui/core-types';
 
 import { ResourceContext } from './context';
+import { ProjectDiagnostic } from './diagnostics';
 import {
     ComponentContext,
+    MixinContext,
     SurfaceContext,
     ThemeContext,
     TokenContext,
     VariantContext,
 } from './entities';
-import { ProjectDiagnostic } from './projects';
 import { UnknownResource } from './resources';
 
 export type EntityMapDto<T extends ResourceContext<UnknownResource>, V extends UnknownResource> = {
@@ -25,12 +27,13 @@ export type EntityMapDto<T extends ResourceContext<UnknownResource>, V extends U
     };
 };
 
-type EntitiesMapDto = {
+export type EntitiesMapDto = {
     surface: EntityMapDto<SurfaceContext, SurfaceResource>;
-    theme: EntityMapDto<ThemeContext, ThemeEntity>;
-    component: EntityMapDto<ComponentContext, ComponentEntity>;
+    mixin: EntityMapDto<MixinContext, MixinResource>;
     variant: EntityMapDto<VariantContext, VariantEntity>;
+    component: EntityMapDto<ComponentContext, ComponentEntity>;
     token: EntityMapDto<TokenContext, TokenEntity>;
+    theme: EntityMapDto<ThemeContext, ThemeEntity>;
 };
 
 export type BuildSnapshotDto = {

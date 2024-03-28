@@ -1,7 +1,5 @@
 import { Component, JSX } from 'solid-js';
 
-import { Link } from '../Link';
-
 import styles from './PageHeader.module.css';
 
 type PageHeaderProps = {
@@ -17,7 +15,6 @@ export const PageHeader: Component<PageHeaderProps> = props => {
     return (
         <div classList={classList()}>
             <div>{props.children}</div>
-            <Link href="/">X</Link>
         </div>
     );
 };

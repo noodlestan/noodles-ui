@@ -1,5 +1,6 @@
 import { dirname } from 'path';
 
+import { PROJECT_MODULE_KEY, PROJECT_MODULE_NAME } from '@noodles-ui/core-types';
 import {
     ComponentEntityMap,
     GeneratedSourceFile,
@@ -17,7 +18,6 @@ import {
 import { BuildOptions } from '../build/types';
 import { findRootPath } from '../monorepo/findRootPath';
 
-import { PROJECT_MODULE_KEY, PROJECT_NODULE_NAME } from './constants';
 import { findLocalNodeModule } from './modules/findLocalNodeModule';
 import { namedModule } from './modules/namedModule';
 import { createProgram } from './program/createProgram';
@@ -32,7 +32,7 @@ export const createProject = async (
     const rootPath = findRootPath(projectPath);
 
     const modules = new Map();
-    modules.set(PROJECT_MODULE_KEY, namedModule(PROJECT_NODULE_NAME, projectPath));
+    modules.set(PROJECT_MODULE_KEY, namedModule(PROJECT_MODULE_NAME, projectPath));
 
     const diagnostics: ProjectDiagnostic[] = [];
     const diagnosticFn =
@@ -64,7 +64,7 @@ export const createProject = async (
         projectFile,
         projectPath,
         rootPath,
-        build: { timestamp: new Date(), files: [], modules: new Map() },
+        build: { timestamp: new Date(), files: [], modules: new Map(), fileNames: [] },
         diagnostics,
         addError: diagnosticFn('error'),
         addWarning: diagnosticFn('warning'),

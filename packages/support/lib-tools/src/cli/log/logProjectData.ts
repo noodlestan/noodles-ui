@@ -5,12 +5,12 @@ import {
     ResourceContext,
     UnknownBuildContext,
     UnknownResource,
+    getDiagnosticErrors,
+    getItemsWithErrors,
+    getItemsWithWarnings,
 } from '@noodles-ui/support-types';
 import { blue, gray, red, white, yellow } from 'kleur';
 
-import { getItemsWithErrors } from '../../project/getters/getItemsWithErrors';
-import { getItemsWithWarnings } from '../../project/getters/getItemsWithWarnings';
-import { getProjectErrors } from '../../project/getters/getProjectErrors';
 import { getResourceModule } from '../../project/resources/getters/getResourceModule';
 import { getResourceName } from '../../project/resources/getters/getResourceName';
 import { getResourceType } from '../../project/resources/getters/getResourceType';
@@ -91,8 +91,8 @@ const countProjectEntities = (project: ProjectContext): number => {
 export const logProjectData = (project: ProjectContext): void => {
     const { surface, theme, mixin, variant, component, token } = project.entities;
 
-    const itemsWithWarnings = getItemsWithWarnings(project);
-    const itemsWithErrors = getItemsWithErrors(project);
+    const itemsWithWarnings = getItemsWithWarnings(project.diagnostics);
+    const itemsWithErrors = getItemsWithErrors(project.diagnostics);
 
     const entityCount = countProjectEntities(project);
     const count = entityCount
@@ -108,7 +108,7 @@ export const logProjectData = (project: ProjectContext): void => {
         console.info('');
     }
 
-    const errorCount = getProjectErrors(project).length;
+    const errorCount = getDiagnosticErrors(project.diagnostics).length;
     if (errorCount) {
         logWarning(
             'Attention:',

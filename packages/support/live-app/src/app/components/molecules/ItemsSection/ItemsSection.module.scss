@@ -1,0 +1,28 @@
+.ItemsSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.ItemsSection--details {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.ItemsSection--items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0px;
+    padding: 0;
+}
+
+.ItemsSection--items li {
+    list-style: none;
+}
+
+.ItemsSection--items span {
+    padding: 2px;
+    padding: 0;
+}

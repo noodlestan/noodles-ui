@@ -1,21 +1,25 @@
+import { getDiagnosticErrors, getDiagnosticWarnings } from '@noodles-ui/support-types';
 import { Component, Show } from 'solid-js';
 
 import { useBuildContext } from '../../../providers/BuildContextProvider';
 import { Button } from '../../atoms/Button';
 import { TimeAgo } from '../../atoms/TimeAgo/TimeAgo';
 import { TimeElapsed } from '../../atoms/TimeElapsed/TimeElapsed';
+import { WarningsErrors } from '../../atoms/WarningsErrors';
 
 import styles from './DevBarTools.module.scss';
 
 export const DevBarTools: Component = () => {
     const { lastSnapshot, error, isBuilding, requestBuild } = useBuildContext();
 
+    const errors = () => getDiagnosticErrors(lastSnapshot()?.diagnostics);
+    const warnings = () => getDiagnosticWarnings(lastSnapshot()?.diagnostics);
+
     const isSuccess = () => !!lastSnapshot()?.success;
     const timestamp = () => lastSnapshot()?.timestamp;
 
     const classList = () => ({
         [styles.DevBarTools]: true,
-
         [styles['DevBarTools-has-build']]: !!lastSnapshot(),
         [styles['DevBarTools-is-building']]: !!isBuilding(),
         [styles['DevBarTools-is-success']]: isSuccess(),
@@ -37,7 +41,11 @@ export const DevBarTools: Component = () => {
                         </div>
                         <div>{timestamp() ? <TimeAgo date={timestamp()} /> : 'x,x'}</div>
                     </div>
+                    <a class={styles['DevBarTools--diagnostics']} href="/diagnostics">
+                        <WarningsErrors warnings={warnings().length} errors={errors().length} />
+                    </a>
                 </Show>
+
                 <div class={styles['DevBarTools--Actions']}>
                     <Button onClick={requestBuild}>{lastSnapshot() ? 'rebuild' : 'build'}</Button>
                 </div>

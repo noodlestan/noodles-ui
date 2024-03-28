@@ -3,3 +3,8 @@
     font-size: 20px;
     font-weight: normal;
 }
+
+.EntityName-small {
+    font-size: 16px;
+    font-weight: 100;
+}

@@ -5,6 +5,8 @@ import styles from './StageLayout.module.css';
 
 type StageLayoutProps = {
     tag?: string;
+
+    classList?: { [key: string]: boolean };
     children: JSX.Element;
 };
 
@@ -16,6 +18,7 @@ export const StageLayout: Component<StageLayoutProps> = props => {
     const tag = () => props.tag || defaultProps.tag;
 
     const classList = () => ({
+        ...props.classList,
         [styles.StageLayout]: true,
     });
 

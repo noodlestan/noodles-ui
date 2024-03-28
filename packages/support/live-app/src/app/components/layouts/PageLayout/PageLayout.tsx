@@ -5,6 +5,7 @@ import styles from './PageLayout.module.css';
 
 type PageLayoutProps = {
     tag?: string;
+    classList?: { [key: string]: boolean };
     children: JSX.Element;
 };
 
@@ -16,6 +17,7 @@ export const PageLayout: Component<PageLayoutProps> = props => {
     const tag = () => props.tag || defaultProps.tag;
 
     const classList = () => ({
+        ...props.classList,
         [styles.PageLayout]: true,
     });
 

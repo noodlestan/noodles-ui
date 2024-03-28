@@ -1,0 +1,27 @@
+.Icon {
+    display: inline-block;
+    width: var(--icon-size);
+    min-width: var(--icon-size);
+    max-width: var(--icon-size);
+    height: var(--icon-size);
+    min-height: var(--icon-size);
+    max-height: var(--icon-size);
+    flex-shrink: 0;
+}
+
+.Icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.Icon-size-s {
+    --icon-size: 20px;
+}
+
+.Icon-size-m {
+    --icon-size: 40px;
+}
+
+.Icon-size-l {
+    --icon-size: 60px;
+}

@@ -2,7 +2,7 @@ import { TokenBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 // import { EntityName } from '../../../atoms/EntityName';
-import { ModuleName } from '../../../atoms/ModuleName';
+import { EntityName } from '../../../atoms/EntityName';
 import { EntityCard } from '../../../molecules/EntityCard';
 
 import styles from './TokenCard.module.css';
@@ -21,8 +21,7 @@ export const TokenCard: Component<TokenCardProps> = props => {
 
     return (
         <EntityCard classList={classList()} public={props.token.context.public} href={path()}>
-            <ModuleName>{entity().module}</ModuleName>
-            {/* <EntityName>{entity().name}</EntityName> */}
+            <EntityName small>{entity().name}</EntityName>
         </EntityCard>
     );
 };
