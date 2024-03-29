@@ -1,5 +1,4 @@
-// import { Heading, Text } from '@noodles-ui/lab-ui';
-import { Component, For } from 'solid-js';
+import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader';
@@ -15,18 +14,20 @@ export const SurfacesPage: Component = () => {
     const { lastSnapshot } = useBuildContext();
 
     return (
-        <StageLayout tag="main">
-            <PageHeader>
-                <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
-                <PageTitle>Surfaces</PageTitle>
-            </PageHeader>
-            <SectionLayout>
-                <CardGrid>
-                    <For each={surfaces(lastSnapshot())}>
-                        {surface => <SurfaceCard surface={surface} />}
-                    </For>
-                </CardGrid>
-            </SectionLayout>
-        </StageLayout>
+        <Show when={lastSnapshot()}>
+            <StageLayout tag="main">
+                <PageHeader>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <PageTitle>Surfaces</PageTitle>
+                </PageHeader>
+                <SectionLayout>
+                    <CardGrid>
+                        <For each={surfaces(lastSnapshot())}>
+                            {surface => <SurfaceCard surface={surface} />}
+                        </For>
+                    </CardGrid>
+                </SectionLayout>
+            </StageLayout>
+        </Show>
     );
 };

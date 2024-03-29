@@ -27,10 +27,19 @@
     text-decoration: none;
     padding: 5px;
     border-radius: 5px;
+    opacity: 0.9;
 }
 
-.DevBarTools--diagnostics:hover {
-    background-color: lighten(black, 20);
+.DevBarTools--diagnostics {
+    &:global(.active) {
+        background-color: lighten(black, 20);
+        opacity: 1;
+    }
+
+    &:hover {
+        background-color: lighten(black, 20);
+        opacity: 1;
+    }
 }
 
 .DevBarTools--Actions {

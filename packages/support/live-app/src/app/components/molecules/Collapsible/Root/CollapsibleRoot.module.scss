@@ -1,0 +1,59 @@
+.CollapsibleRoot {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    // button {
+    //     display: flex;
+    //     gap: 10px;
+    //     color: inherit;
+    //     background: none;
+    //     border: none;
+    //     border-radius: 5px;
+    //     opacity: 0.8;
+    //     cursor: pointer;
+
+    //     > span > svg {
+    //         color: white;
+    //         transition: all 100ms ease;
+    //     }
+    // }
+
+    // &:hover button,
+    // button[data-expanded] {
+    //     background-color: lighten(black, 20);
+    //     opacity: 1;
+    // }
+
+    // button[data-expanded] > span > svg {
+    //     transform: rotate(90deg);
+    // }
+
+    // &-content {
+    //     padding-left: 45px;
+    //     overflow: hidden;
+    //     animation: slideUp 100ms ease;
+    // }
+
+    // &-content[data-expanded] {
+    //     animation: slideDown 100ms ease;
+    // }
+}
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--kb-collapsible-content-height);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: var(--kb-collapsible-content-height);
+    }
+    to {
+        height: 0;
+    }
+}

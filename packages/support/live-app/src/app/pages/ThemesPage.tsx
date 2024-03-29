@@ -1,6 +1,5 @@
-// import { Heading, Text } from '@noodles-ui/lab-ui';
 import { getDiagnosticByResourcetype } from '@noodles-ui/support-types';
-import { Component, For } from 'solid-js';
+import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader';
@@ -19,20 +18,22 @@ export const ThemesPage: Component = () => {
     const diagnostics = () => getDiagnosticByResourcetype('theme', lastSnapshot()?.diagnostics);
 
     return (
-        <StageLayout tag="main">
-            <PageHeader>
-                <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
-                <PageTitle>Themes</PageTitle>
-            </PageHeader>
-            <DiagnosticsBanner diagnostics={diagnostics()} />
-            <SectionLayout>
-                <></>
-                <CardGrid>
-                    <For each={themes(lastSnapshot())}>
-                        {theme => <ThemeCard snapshot={lastSnapshot()} theme={theme} />}
-                    </For>
-                </CardGrid>
-            </SectionLayout>
-        </StageLayout>
+        <Show when={lastSnapshot()}>
+            <StageLayout tag="main">
+                <PageHeader>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <PageTitle>Themes</PageTitle>
+                </PageHeader>
+                <DiagnosticsBanner diagnostics={diagnostics()} />
+                <SectionLayout>
+                    <></>
+                    <CardGrid>
+                        <For each={themes(lastSnapshot())}>
+                            {theme => <ThemeCard snapshot={lastSnapshot()} theme={theme} />}
+                        </For>
+                    </CardGrid>
+                </SectionLayout>
+            </StageLayout>
+        </Show>
     );
 };

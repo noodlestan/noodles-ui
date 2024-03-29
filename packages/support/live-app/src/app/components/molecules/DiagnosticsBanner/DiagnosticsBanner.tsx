@@ -7,16 +7,18 @@ import {
 } from '@noodles-ui/support-types';
 import { Component, Show } from 'solid-js';
 
+import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { Link } from '../../atoms/Link';
 import { Plural } from '../../atoms/Plural';
 import { SectionTitle } from '../../atoms/SectionTitle';
-import { WarningsErrors } from '../../atoms/WarningsErrors';
 import { SectionLayout } from '../../layouts/SectionLayout';
 
 import styles from './DiagnosticsBanner.module.scss';
 
 type DiagnosticSourceItemProps = {
     diagnostics?: ProjectDiagnostic[];
+    onItem?: boolean;
+    noLink?: boolean;
 };
 
 export const DiagnosticsBanner: Component<DiagnosticSourceItemProps> = props => {
@@ -36,12 +38,17 @@ export const DiagnosticsBanner: Component<DiagnosticSourceItemProps> = props => 
             <SectionLayout classList={classList()}>
                 <SectionTitle>Diagnostics</SectionTitle>
                 <div class={styles['DiagnosticsBanner--details']}>
-                    <WarningsErrors warnings={warnings().length} errors={errors().length} />
+                    <DiagnosticCounts warnings={warnings().length} errors={errors().length} />
                     <div class={styles['DiagnosticsBanner--items']}>
-                        in {items().length} <Plural count={items().length}>item</Plural>
+                        <Show when={!props.onItem}>
+                            in {items().length} <Plural count={items().length}>item</Plural>
+                        </Show>
+                        <Show when={props.onItem}>in this item</Show>
                     </div>
                 </div>
-                <Link href="/diagnostics">See all diagnostics</Link>
+                <Show when={!props.noLink && !props.onItem}>
+                    <Link href="/diagnostics">See all diagnostics</Link>
+                </Show>
             </SectionLayout>
         </Show>
     );

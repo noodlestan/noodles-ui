@@ -1,15 +1,15 @@
 import {
     BuildSnapshotDto,
-    ThemeBuildContext,
+    ThemeBuildContextDto,
     getItemErrors,
     getItemWarnings,
     getResourceTypedKey,
 } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
+import { DiagnosticCounts } from '../../../atoms/DiagnosticCounts';
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
-import { WarningsErrors } from '../../../atoms/WarningsErrors';
 import { EntityCard } from '../../../molecules/EntityCard';
 import { EntityCardTitle } from '../../../molecules/EntityCardTitle';
 
@@ -17,7 +17,7 @@ import styles from './ThemeCard.module.css';
 
 type ThemeCardProps = {
     snapshot?: BuildSnapshotDto;
-    theme: ThemeBuildContext;
+    theme: ThemeBuildContextDto;
 };
 
 export const ThemeCard: Component<ThemeCardProps> = props => {
@@ -39,7 +39,7 @@ export const ThemeCard: Component<ThemeCardProps> = props => {
                 <ModuleName>{entity().module}</ModuleName>
                 <EntityName>{entity().name}</EntityName>
             </EntityCardTitle>
-            <WarningsErrors warnings={warnings().length} errors={errors().length} mini />
+            <DiagnosticCounts warnings={warnings().length} errors={errors().length} mini />
         </EntityCard>
     );
 };

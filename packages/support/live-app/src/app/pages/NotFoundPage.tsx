@@ -1,4 +1,3 @@
-// import { Heading, Text } from '@noodles-ui/lab-ui';
 import { Component } from 'solid-js';
 
 import { Link } from '../components/atoms/Link';

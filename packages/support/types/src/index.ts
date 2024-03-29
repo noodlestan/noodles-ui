@@ -1,6 +1,6 @@
 export * from './diagnostics';
 export * from './resources';
-export * from './build';
+export * from './snapshot';
 export * from './context';
 export * from './entities';
 export * from './program';

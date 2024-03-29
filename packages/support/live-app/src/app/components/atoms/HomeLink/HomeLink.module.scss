@@ -6,13 +6,13 @@
     border-radius: 5px;
 
     &:global(.active) {
+        background-color: lighten(black, 20);
         text-decoration: underline;
         opacity: 1;
     }
 
     &:hover {
         background-color: lighten(black, 20);
-        text-decoration: underline;
         opacity: 1;
     }
 }

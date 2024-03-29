@@ -6,6 +6,7 @@ export * from './getDiagnosticItemsWithErrors';
 export * from './getDiagnosticItemsWithWarnings';
 export * from './getDiagnosticKey';
 export * from './getDiagnosticWarnings';
+export * from './getItemDiagnostics';
 export * from './getItemErrors';
 export * from './getItemWarnings';
 export * from './hasDiagnostics';

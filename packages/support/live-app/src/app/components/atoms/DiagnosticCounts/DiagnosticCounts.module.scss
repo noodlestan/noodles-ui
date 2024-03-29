@@ -1,0 +1,29 @@
+.DiagnosticCounts {
+    margin: 0;
+    display: flex;
+    gap: 5px;
+
+    .DiagnosticCounts--plus {
+        text-decoration: none;
+    }
+
+    &--errors,
+    &--warnings {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &--errors {
+        color: orangered;
+    }
+
+    &--plus {
+        color: gray;
+        font-size: 20px;
+    }
+
+    &--warnings {
+        color: orange;
+    }
+}

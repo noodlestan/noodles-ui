@@ -5,8 +5,8 @@ import {
 } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
+import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { EntityKeyLink } from '../../atoms/EntityKeyLink';
-import { WarningsErrors } from '../../atoms/WarningsErrors';
 
 import styles from './DiagnosticSourceItem.module.scss';
 
@@ -29,7 +29,7 @@ export const DiagnosticSourceItem: Component<DiagnosticSourceItemProps> = props 
     return (
         <li classList={classList()}>
             <EntityKeyLink key={props.sourceKey} />
-            <WarningsErrors warnings={warnCount()} errors={errorCount()} />
+            <DiagnosticCounts warnings={warnCount()} errors={errorCount()} />
         </li>
     );
 };

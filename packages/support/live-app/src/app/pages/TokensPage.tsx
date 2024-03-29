@@ -1,5 +1,4 @@
-// import { Heading, Text } from '@noodles-ui/lab-ui';
-import { Component, For } from 'solid-js';
+import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader';
@@ -16,17 +15,21 @@ export const TokensPage: Component = () => {
     const { lastSnapshot } = useBuildContext();
 
     return (
-        <StageLayout tag="main">
-            <PageHeader>
-                <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
-                <PageTitle>Tokens</PageTitle>
-            </PageHeader>
-            <SectionLayout>
-                <SectionTitle>Tokens</SectionTitle>
-                <CardGrid>
-                    <For each={tokens(lastSnapshot())}>{token => <TokenCard token={token} />}</For>
-                </CardGrid>
-            </SectionLayout>
-        </StageLayout>
+        <Show when={lastSnapshot()}>
+            <StageLayout tag="main">
+                <PageHeader>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <PageTitle>Tokens</PageTitle>
+                </PageHeader>
+                <SectionLayout>
+                    <SectionTitle>Tokens</SectionTitle>
+                    <CardGrid>
+                        <For each={tokens(lastSnapshot())}>
+                            {token => <TokenCard token={token} />}
+                        </For>
+                    </CardGrid>
+                </SectionLayout>
+            </StageLayout>
+        </Show>
     );
 };

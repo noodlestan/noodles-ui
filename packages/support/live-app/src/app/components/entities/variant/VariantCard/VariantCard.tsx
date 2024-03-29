@@ -1,4 +1,4 @@
-import { VariantBuildContext } from '@noodles-ui/support-types';
+import { VariantBuildContextDto } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './VariantCard.module.css';
 
 type VariantCardProps = {
-    variant: VariantBuildContext;
+    variant: VariantBuildContextDto;
 };
 
 export const VariantCard: Component<VariantCardProps> = props => {

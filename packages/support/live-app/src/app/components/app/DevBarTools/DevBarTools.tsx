@@ -1,11 +1,12 @@
 import { getDiagnosticErrors, getDiagnosticWarnings } from '@noodles-ui/support-types';
+import { A } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
 import { useBuildContext } from '../../../providers/BuildContextProvider';
 import { Button } from '../../atoms/Button';
+import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { TimeAgo } from '../../atoms/TimeAgo/TimeAgo';
 import { TimeElapsed } from '../../atoms/TimeElapsed/TimeElapsed';
-import { WarningsErrors } from '../../atoms/WarningsErrors';
 
 import styles from './DevBarTools.module.scss';
 
@@ -41,9 +42,9 @@ export const DevBarTools: Component = () => {
                         </div>
                         <div>{timestamp() ? <TimeAgo date={timestamp()} /> : 'x,x'}</div>
                     </div>
-                    <a class={styles['DevBarTools--diagnostics']} href="/diagnostics">
-                        <WarningsErrors warnings={warnings().length} errors={errors().length} />
-                    </a>
+                    <A class={styles['DevBarTools--diagnostics']} href="/diagnostics">
+                        <DiagnosticCounts warnings={warnings().length} errors={errors().length} />
+                    </A>
                 </Show>
 
                 <div class={styles['DevBarTools--Actions']}>

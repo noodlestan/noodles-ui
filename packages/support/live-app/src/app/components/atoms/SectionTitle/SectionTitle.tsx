@@ -1,6 +1,6 @@
 import { Component, JSX } from 'solid-js';
 
-import styles from './SectionTitle.module.css';
+import styles from './SectionTitle.module.scss';
 
 type SectionTitleProps = {
     children: JSX.Element;

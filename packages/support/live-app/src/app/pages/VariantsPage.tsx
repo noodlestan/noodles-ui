@@ -1,6 +1,5 @@
-// import { Heading, Text } from '@noodles-ui/lab-ui';
-import { VariantBuildContext } from '@noodles-ui/support-types';
-import { Component, For } from 'solid-js';
+import { VariantBuildContextDto } from '@noodles-ui/support-types';
+import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader';
@@ -16,22 +15,24 @@ import { variants } from '../providers/BuildContextProvider/variants';
 export const VariantsPage: Component = () => {
     const { lastSnapshot } = useBuildContext();
 
-    const isPublicVariant = (variant: VariantBuildContext) => !!variant.context.public;
+    const isPublicVariant = (variant: VariantBuildContextDto) => !!variant.context.public;
 
     return (
-        <StageLayout tag="main">
-            <PageHeader>
-                <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
-                <PageTitle>Variants</PageTitle>
-            </PageHeader>
-            <SectionLayout>
-                <SectionTitle>Variants</SectionTitle>
-                <CardGrid>
-                    <For each={variants(lastSnapshot()).filter(isPublicVariant)}>
-                        {variant => <VariantCard variant={variant} />}
-                    </For>
-                </CardGrid>
-            </SectionLayout>
-        </StageLayout>
+        <Show when={lastSnapshot()}>
+            <StageLayout tag="main">
+                <PageHeader>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <PageTitle>Variants</PageTitle>
+                </PageHeader>
+                <SectionLayout>
+                    <SectionTitle>Variants</SectionTitle>
+                    <CardGrid>
+                        <For each={variants(lastSnapshot()).filter(isPublicVariant)}>
+                            {variant => <VariantCard variant={variant} />}
+                        </For>
+                    </CardGrid>
+                </SectionLayout>
+            </StageLayout>
+        </Show>
     );
 };

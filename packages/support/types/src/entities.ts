@@ -7,6 +7,7 @@ import {
     ThemeResource,
     TokenEntity,
     TokenResource,
+    UnknownEntity,
     VariantEntity,
     VariantResource,
 } from '@noodles-ui/core-types';
@@ -21,7 +22,7 @@ export type EntityBuildContext<T, V> = {
 
 export type UnknownBuildContext = EntityBuildContext<
     ResourceContext<UnknownResource>,
-    UnknownResource
+    UnknownEntity
 >;
 
 export type EntityBuildMap<

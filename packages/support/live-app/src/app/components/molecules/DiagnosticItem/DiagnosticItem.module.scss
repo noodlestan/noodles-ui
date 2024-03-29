@@ -1,0 +1,11 @@
+.DiagnosticItem {
+    margin: 0;
+
+    &:-is-warning {
+        color: orange;
+    }
+
+    &:-is-error {
+        color: orangered;
+    }
+}

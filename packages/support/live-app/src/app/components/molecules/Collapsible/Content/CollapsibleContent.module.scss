@@ -1,0 +1,27 @@
+.CollapsibleContent {
+    padding-left: 45px;
+    overflow: hidden;
+    animation: slideUp 100ms ease;
+
+    &[data-expanded] {
+        animation: slideDown 100ms ease;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--kb-collapsible-content-height);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: var(--kb-collapsible-content-height);
+    }
+    to {
+        height: 0;
+    }
+}
