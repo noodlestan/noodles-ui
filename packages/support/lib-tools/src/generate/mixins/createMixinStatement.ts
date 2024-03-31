@@ -1,8 +1,8 @@
 import { MixinInlineResource, MixinVars } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 export const createMixinStatement = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     mixin: MixinInlineResource,
     vars?: MixinVars,
 ): string => {

@@ -1,18 +1,18 @@
 import { TokenEntity } from '@noodles-ui/core-types';
-import { ProjectContext, TokenContext } from '@noodles-ui/support-types';
+import { CompilerContext, TokenContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addToken = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: TokenContext,
     entity: TokenEntity,
 ): TokenEntity | undefined => {
-    const { token: items } = project.entities;
+    const { token: items } = compiler.entities;
     const { resource } = context;
 
     if (!entity.name) {
-        project.addError(resource, 'Entity name is empty.');
+        compiler.addError(resource, 'Entity name is empty.');
         return;
     }
 

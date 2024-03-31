@@ -1,11 +1,11 @@
 import { ComponentOwnResource, MixinResource } from '@noodles-ui/core-types';
-import { ComponentContext, NUI, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext, NUI } from '@noodles-ui/support-types';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { loadMixin } from '../../mixins/loadMixin';
 
 export const loadComponentMixin = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     mixinResource: MixinResource,
@@ -16,9 +16,9 @@ export const loadComponentMixin = (
     };
     const newContext = newResourceContextPublicWithConsumer<MixinResource>(context, newResource);
 
-    const mixin = loadMixin(project, newContext);
+    const mixin = loadMixin(compiler, newContext);
     if (!mixin) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not load mixin "${mixinResource.name}" because resolution failed.`,
         );

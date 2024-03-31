@@ -1,30 +1,30 @@
 import { VariantEntity } from '@noodles-ui/core-types';
-import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
+import { CompilerContext, VariantContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../getters/getResourceKey';
 
 import { validateVariantVars } from './validateVariantVars';
 
 export const addVariant = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     entity: VariantEntity,
 ): VariantEntity | undefined => {
-    const { variant: items } = project.entities;
+    const { variant: items } = compiler.entities;
     const { resource } = context;
 
     if (!entity) {
-        project.addError(resource, 'No entity generated');
+        compiler.addError(resource, 'No entity generated');
         return;
     }
 
     if (!entity.name) {
-        project.addError(resource, 'Entity name is empty');
+        compiler.addError(resource, 'Entity name is empty');
         return;
     }
 
     if (!entity.module) {
-        project.addError(resource, 'Empty module name');
+        compiler.addError(resource, 'Empty module name');
         return;
     }
 
@@ -38,7 +38,7 @@ export const addVariant = (
     }
 
     if (context.public) {
-        validateVariantVars(project, entity);
+        validateVariantVars(compiler, entity);
     }
 
     items.set(key, { context, entity });

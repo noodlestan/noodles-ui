@@ -24,7 +24,7 @@ type ProjectAttributes = {
     rootPath?: string;
 };
 
-type ProjectAPI = {
+type CompilerAPI = {
     build: BuildContext;
     diagnostics: ProjectDiagnostic[];
     addError: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
@@ -55,4 +55,4 @@ export type ProjectEntities = {
     entities: ProjectEntitiesMap;
 };
 
-export type ProjectContext = ProjectAttributes & ProjectAPI & ProjectEntities;
+export type CompilerContext = ProjectAttributes & CompilerAPI & ProjectEntities;

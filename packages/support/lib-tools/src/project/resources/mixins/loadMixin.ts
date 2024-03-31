@@ -1,13 +1,13 @@
 import { MixinResource } from '@noodles-ui/core-types';
-import { MixinContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, MixinContext } from '@noodles-ui/support-types';
 
 import { addMixin } from './private/addMixin';
 
 export const loadMixin = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: MixinContext,
 ): MixinResource | undefined => {
     const { resource: mixin } = context;
     const entity = structuredClone(mixin);
-    return addMixin(project, context, entity);
+    return addMixin(compiler, context, entity);
 };

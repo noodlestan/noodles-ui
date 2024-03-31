@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, green, red, yellow } from 'kleur';
 
 import { plural } from '../../util/string';
@@ -10,10 +10,10 @@ import { logMessage } from '../logger/logMessage';
 import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
-const logListWithErrors = (project: ProjectContext) => {
+const logListWithErrors = (compiler: CompilerContext) => {
     logError('Errors generating source code');
-    project.generatedSourceFiles.forEach(({ fileName, skipped, success, time }) => {
-        const formatedFileName = formatFileNameRelativeToProject(project, fileName, success);
+    compiler.generatedSourceFiles.forEach(({ fileName, skipped, success, time }) => {
+        const formatedFileName = formatFileNameRelativeToProject(compiler, fileName, success);
         const t = ' ' + yellow((time || 0) + 'ms');
         if (skipped) {
             logMessage(gray(' (skipped)'), gray(formatedFileName));
@@ -25,38 +25,38 @@ const logListWithErrors = (project: ProjectContext) => {
     });
 };
 
-const logListWithoutErrors = (project: ProjectContext) => {
-    const hint = hintExpandPattern(project, 'generated');
-    const count = project.generatedSourceFiles.length;
+const logListWithoutErrors = (compiler: CompilerContext) => {
+    const hint = hintExpandPattern(compiler, 'generated');
+    const count = compiler.generatedSourceFiles.length;
     const formatted = yellow(count) + plural(count, ' file');
     logInfo('Generated sources', formatted, hint);
 
-    if (shouldExpand(project, 'generated')) {
+    if (shouldExpand(compiler, 'generated')) {
         const hasSkipped =
-            project.generatedSourceFiles.filter(({ skipped }) => !!skipped).length > 0;
+            compiler.generatedSourceFiles.filter(({ skipped }) => !!skipped).length > 0;
         const prefix = hasSkipped ? '          ' : '  ';
-        project.generatedSourceFiles.forEach(({ fileName, skipped, time }) => {
+        compiler.generatedSourceFiles.forEach(({ fileName, skipped, time }) => {
             const t = ' ' + yellow((time || 0) + 'ms');
             if (skipped) {
                 logMessage(
                     gray(' (skipped)'),
-                    gray(formatFileNameRelativeToProject(project, fileName)),
+                    gray(formatFileNameRelativeToProject(compiler, fileName)),
                 );
             } else {
-                logMessage(prefix, formatFileNameRelativeToProject(project, fileName, true) + t);
+                logMessage(prefix, formatFileNameRelativeToProject(compiler, fileName, true) + t);
             }
         });
         console.info(' ');
     }
 };
 
-export const logGeneratedSourceFiles = (project: ProjectContext): void => {
-    const errors = project.generatedSourceFiles.filter(
+export const logGeneratedSourceFiles = (compiler: CompilerContext): void => {
+    const errors = compiler.generatedSourceFiles.filter(
         ({ success, skipped }) => !success && !skipped,
     );
     if (errors.length) {
-        logListWithErrors(project);
-    } else if (project.generatedSourceFiles.length) {
-        logListWithoutErrors(project);
+        logListWithErrors(compiler);
+    } else if (compiler.generatedSourceFiles.length) {
+        logListWithoutErrors(compiler);
     }
 };

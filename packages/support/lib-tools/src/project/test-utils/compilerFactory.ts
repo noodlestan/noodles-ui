@@ -1,13 +1,13 @@
 import {
+    CompilerContext,
     GeneratedSourceFile,
-    ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticSeverity,
     ProjectDiagnosticSource,
 } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
-export const projectFactory = (overides?: Partial<ProjectContext>): ProjectContext => {
+export const compilerFactory = (overides?: Partial<CompilerContext>): CompilerContext => {
     const diagnostics: ProjectDiagnostic[] = [];
     const generatedSourceFiles = [];
 

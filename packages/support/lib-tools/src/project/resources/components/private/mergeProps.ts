@@ -1,12 +1,12 @@
 import { ComponentResource } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { exposeProp } from './exposeProp';
 import { Props } from './extendComponent';
 import { isVariantInlineReferenceResourceProp } from './getters/isVariantInlineReferenceResourceProp';
 
 export const mergeProps = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentResource,
     parentProps: Props,
@@ -17,13 +17,13 @@ export const mergeProps = (
     if (defaults) {
         for (const name in defaults) {
             if (!parentProps || !(name in parentProps)) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with a default prop. Parent does not expose "${name}".`,
                 );
                 continue;
             }
-            const prop = exposeProp(project, context, component, parentProps[name], {
+            const prop = exposeProp(compiler, context, component, parentProps[name], {
                 defaultValue: defaults[name].value,
             });
             if (prop) {
@@ -33,7 +33,7 @@ export const mergeProps = (
     }
 
     if (hides && exposes) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not extend a component with both "hides" and "exposes" strategies.`,
         );
@@ -42,7 +42,7 @@ export const mergeProps = (
     if (hides && !exposes) {
         for (const name in hides) {
             if (!parentProps || !(name in parentProps)) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with a hidden prop. Parent does not expose "${name}".`,
                 );
@@ -52,7 +52,7 @@ export const mergeProps = (
         }
         for (const name in parentProps) {
             if (!(name in hides) && !(name in replaces) && !(name in overrides)) {
-                const prop = exposeProp(project, context, component, parentProps[name]);
+                const prop = exposeProp(compiler, context, component, parentProps[name]);
                 if (prop) {
                     actualProps[name] = prop;
                 }
@@ -64,7 +64,7 @@ export const mergeProps = (
         if (exposes !== '*') {
             for (const name of exposes) {
                 if (!parentProps || !(name in parentProps)) {
-                    project.addError(
+                    compiler.addError(
                         component,
                         `Could not extend component with a parent prop. Parent does not expose "${name}".`,
                     );
@@ -79,7 +79,7 @@ export const mergeProps = (
                 !(name in replaces) &&
                 !(name in overrides)
             ) {
-                const prop = exposeProp(project, context, component, parentProps[name]);
+                const prop = exposeProp(compiler, context, component, parentProps[name]);
                 if (prop) {
                     actualProps[name] = prop;
                 }
@@ -90,21 +90,21 @@ export const mergeProps = (
     if (overrides) {
         for (const name in overrides) {
             if (!parentProps || !(name in parentProps)) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with prop overrides. Parent does not expose "${name}".`,
                 );
                 continue;
             }
             if (isVariantInlineReferenceResourceProp(parentProps[name])) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with prop overrides. Prop "${name}" is a reference.`,
                 );
                 continue;
             }
             const prop = exposeProp(
-                project,
+                compiler,
                 context,
                 component,
                 parentProps[name],
@@ -119,14 +119,14 @@ export const mergeProps = (
     if (replaces) {
         for (const name in replaces) {
             if (!parentProps || !(name in parentProps)) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with prop replaces. Parent does not expose "${name}".`,
                 );
                 continue;
             }
             if (isVariantInlineReferenceResourceProp(parentProps[name])) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with prop replaces. Prop "${name}" is a reference.`,
                 );
@@ -139,7 +139,7 @@ export const mergeProps = (
     if (props) {
         for (const name in props) {
             if (parentProps && name in parentProps) {
-                project.addError(
+                compiler.addError(
                     component,
                     `Could not extend component with a new prop. Prop "${name}" is already inherited from parent, use "override" instead of "props".`,
                 );

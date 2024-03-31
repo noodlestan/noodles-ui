@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getPublicComponents } from '../../../entities/component/getters/getPublicComponents';
@@ -6,8 +6,8 @@ import { getResourceKey } from '../../../project/resources/getters/getResourceKe
 
 const factory = ts.factory;
 
-export const declareLiveMap = (project: ProjectContext): ts.VariableStatement => {
-    const components = getPublicComponents(project);
+export const declareLiveMap = (compiler: CompilerContext): ts.VariableStatement => {
+    const components = getPublicComponents(compiler);
 
     const map = components.map(component =>
         factory.createPropertyAssignment(

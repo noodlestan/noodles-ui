@@ -1,10 +1,10 @@
 import { VariantEntity, VariantInlineExtendResource, VariantVars } from '@noodles-ui/core-types';
-import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
+import { CompilerContext, VariantContext } from '@noodles-ui/support-types';
 
 import { filterOutDuplicates } from '../../../../util/array';
 
 export const extendVariantExtends = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     extendVariant: VariantInlineExtendResource,
     resolvedParent: VariantEntity,

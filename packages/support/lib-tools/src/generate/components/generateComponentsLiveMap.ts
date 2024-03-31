@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getPublicComponents } from '../../entities/component/getters/getPublicComponents';
@@ -18,13 +18,13 @@ import { componentsLiveMapFileName } from './paths/componentsLiveMapFileName';
 const factory = ts.factory;
 
 export const generateComponentsLiveMap = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const fileName = componentsLiveMapFileName(targetDir);
     await ensuredFiledir(fileName);
 
-    const components = getPublicComponents(project);
+    const components = getPublicComponents(compiler);
     const importComponents = components.map(component => importComponent(component, targetDir));
 
     const exportDefault = factory.createExportAssignment(
@@ -36,15 +36,15 @@ export const generateComponentsLiveMap = async (
     const statements = [
         importFrameworkTypes(),
         ...importComponents,
-        declareLiveMap(project),
+        declareLiveMap(compiler),
         exportDefault,
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    compiler.addGeneratedSourceFile({ fileName, success });
 };

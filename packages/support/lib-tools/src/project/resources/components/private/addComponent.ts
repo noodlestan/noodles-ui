@@ -1,23 +1,23 @@
 import { ComponentEntity } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     entity: ComponentEntity,
 ): ComponentEntity | undefined => {
-    const { component: items } = project.entities;
+    const { component: items } = compiler.entities;
     const { resource } = context;
 
     if (!entity) {
-        project.addError(resource, 'No entity generated.');
+        compiler.addError(resource, 'No entity generated.');
         return;
     }
 
     if (!entity.name) {
-        project.addError(resource, 'Entity name is empty.');
+        compiler.addError(resource, 'Entity name is empty.');
         return;
     }
 
@@ -28,7 +28,7 @@ export const addComponent = (
             if (!previous.context.public) {
                 previous.context.public = true;
             } else {
-                project.addError(resource, `Duplicate component key "${key}".`);
+                compiler.addError(resource, `Duplicate component key "${key}".`);
             }
             return;
         }

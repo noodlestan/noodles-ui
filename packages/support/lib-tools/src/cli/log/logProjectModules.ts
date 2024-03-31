@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { green, yellow } from 'kleur';
 
 import { getProjectFilenamesWatchlist } from '../../project/private/getProjectFilenamesWatchlist';
@@ -10,9 +10,9 @@ import { logMessage } from '../logger/logMessage';
 import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
-export const logProjectModules = (project: ProjectContext): void => {
-    const sources = getProjectFilenamesWatchlist(project);
-    const modules = project.build.modules;
+export const logProjectModules = (compiler: CompilerContext): void => {
+    const sources = getProjectFilenamesWatchlist(compiler);
+    const modules = compiler.build.modules;
 
     const relevantModules = Array.from(modules.values()).filter(m => m.filenames.length > 0);
 
@@ -24,11 +24,11 @@ export const logProjectModules = (project: ProjectContext): void => {
         ' / ' +
         yellow(countM) +
         plural(countM, ' module');
-    if (!shouldExpand(project, 'modules')) {
-        const hint = hintExpandPattern(project, 'modules');
+    if (!shouldExpand(compiler, 'modules')) {
+        const hint = hintExpandPattern(compiler, 'modules');
         logInfo('Project modules', counts, hint);
     }
-    if (shouldExpand(project, 'modules')) {
+    if (shouldExpand(compiler, 'modules')) {
         logInfo('Project modules');
         logMessage('  Files:', sources.length);
         logMessage('  Modules:', relevantModules.length);
@@ -38,7 +38,7 @@ export const logProjectModules = (project: ProjectContext): void => {
             if (module) {
                 const { name, path, filenames } = module;
                 logMessage(green(name));
-                logMessage('  path: ' + formatFileNameRelativeToProject(project, path, true));
+                logMessage('  path: ' + formatFileNameRelativeToProject(compiler, path, true));
                 logMessage('  files: ' + yellow(filenames.length));
             }
         });

@@ -10,14 +10,14 @@ import {
     VariantEntity,
     VariantOwnResource,
 } from '@noodles-ui/core-types';
-import { ProjectContext, VariantContext } from '@noodles-ui/support-types';
+import { CompilerContext, VariantContext } from '@noodles-ui/support-types';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { getResourceTypedKey } from '../../getters/getResourceTypedKey';
 import { loadToken } from '../../tokens/loadToken';
 
 const loadNamedToken = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantOwnResource,
     token: NamedTokenResource,
@@ -31,11 +31,11 @@ const loadNamedToken = (
 
     const newContext = newResourceContextPublicWithConsumer<TokenResource>(context, newResource);
 
-    return loadToken(project, newContext);
+    return loadToken(compiler, newContext);
 };
 
 const loadPatternToken = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantOwnResource,
     token: PatternedTokenResource,
@@ -55,7 +55,7 @@ const loadPatternToken = (
                 newResource,
             );
 
-            return loadToken(project, newContext, vars);
+            return loadToken(compiler, newContext, vars);
         })
         .filter(Boolean) as TokenEntity[];
 };
@@ -85,7 +85,7 @@ const makeMatrix = (variant: VariantOwnResource): TokenVars[] => {
 };
 
 const loadVariantTokenTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantEntity,
     token: InlineTokenResource,
@@ -100,7 +100,7 @@ const loadVariantTokenTokens = (
             surface: variant.surface,
         };
 
-        return [loadNamedToken(project, context, variant, resource)];
+        return [loadNamedToken(compiler, context, variant, resource)];
     }
     if ((token as InlinePatternedTokenResource).pattern) {
         const tokenVars = makeMatrix(variant);
@@ -110,27 +110,27 @@ const loadVariantTokenTokens = (
             module,
             surface: variant.surface || false,
         };
-        return loadPatternToken(project, context, variant, resource, tokenVars);
+        return loadPatternToken(compiler, context, variant, resource, tokenVars);
     }
-    project.addError(variant, `Could not resolve token "${JSON.stringify(token)}".`);
+    compiler.addError(variant, `Could not resolve token "${JSON.stringify(token)}".`);
     return [];
 };
 
 const loadVariantToken = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantEntity,
     token: InlineTokenResource,
 ): void => {
-    const tokens = loadVariantTokenTokens(project, context, variant, token);
+    const tokens = loadVariantTokenTokens(compiler, context, variant, token);
     const filtered = tokens.filter(token => Boolean(token)) as TokenEntity[];
     filtered.forEach(token => context.consumes.add(getResourceTypedKey(token)));
 };
 
 export const loadVariantTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantEntity,
 ): void => {
-    variant.tokens?.forEach(token => loadVariantToken(project, context, variant, token));
+    variant.tokens?.forEach(token => loadVariantToken(compiler, context, variant, token));
 };

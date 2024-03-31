@@ -11,7 +11,7 @@ import {
     VariantInlineResource,
     VariantResource,
 } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { getResourceTypedKey } from '../../getters/getResourceTypedKey';
@@ -22,7 +22,7 @@ import { isVariantInlineProp } from './getters/isVariantInlineProp';
 import { isVariantInlineReferenceResourceProp } from './getters/isVariantInlineReferenceResourceProp';
 
 const loadVariantInlineProp = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     key: string,
@@ -31,9 +31,9 @@ const loadVariantInlineProp = (
     const newResource = { ...structuredClone(inlineVariant), module: component.module };
     const newContext = newResourceContextPublicWithConsumer<VariantResource>(context, newResource);
 
-    const variant = loadVariant(project, newContext, component.vars);
+    const variant = loadVariant(compiler, newContext, component.vars);
     if (!variant) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );
@@ -52,7 +52,7 @@ const loadVariantInlineProp = (
 };
 
 const loadVariantExtendProp = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     key: string,
@@ -61,9 +61,9 @@ const loadVariantExtendProp = (
     const newResource = { ...structuredClone(extendVariant), module: component.module };
     const newContext = newResourceContextPublicWithConsumer<VariantResource>(context, newResource);
 
-    const variant = loadVariant(project, newContext, component.vars);
+    const variant = loadVariant(compiler, newContext, component.vars);
     if (!variant) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );
@@ -82,7 +82,7 @@ const loadVariantExtendProp = (
 };
 
 const loadVariantReferenceProp = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     key: string,
@@ -91,9 +91,9 @@ const loadVariantReferenceProp = (
     const newResource = structuredClone(variantReference.reference);
     const newContext = newResourceContextPublicWithConsumer<VariantResource>(context, newResource);
 
-    const variant = loadVariant(project, newContext);
+    const variant = loadVariant(compiler, newContext);
     if (!variant) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not load prop "${key}" because variant resolution failed.`,
         );
@@ -112,7 +112,7 @@ const loadVariantReferenceProp = (
 };
 
 export const loadComponentProp = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
     key: string,
@@ -120,17 +120,17 @@ export const loadComponentProp = (
 ): PropEntity | undefined => {
     const variant = isVariantInlineProp(prop);
     if (variant) {
-        return loadVariantInlineProp(project, context, component, key, variant);
+        return loadVariantInlineProp(compiler, context, component, key, variant);
     }
 
     const variantExtends = isVariantInlineExtendResourceProp(prop);
     if (variantExtends) {
-        return loadVariantExtendProp(project, context, component, key, variantExtends);
+        return loadVariantExtendProp(compiler, context, component, key, variantExtends);
     }
 
     const variantReference = isVariantInlineReferenceResourceProp(prop);
     if (variantReference) {
-        return loadVariantReferenceProp(project, context, component, key, variantReference);
+        return loadVariantReferenceProp(compiler, context, component, key, variantReference);
     }
 
     const { type = 'prop', name = key, module = component.module } = prop as PropOwnResource;

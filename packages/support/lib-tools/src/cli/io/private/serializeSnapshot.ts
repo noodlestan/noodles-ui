@@ -1,10 +1,10 @@
 import {
     BuildSnapshotDto,
+    CompilerContext,
     ComponentBuildContext,
     ComponentBuildContextDto,
     MixinBuildContext,
     MixinBuildContextDto,
-    ProjectContext,
     SurfaceBuildContext,
     SurfaceBuildContextDto,
     ThemeBuildContext,
@@ -39,13 +39,13 @@ function transform<T extends UnknownBuildContext, V extends UnknownBuildContextD
     } as V;
 }
 
-export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => {
-    const { surface, mixin, variant, component, token, theme } = project.entities;
+export const serializeSnapshot = (compiler: CompilerContext): BuildSnapshotDto => {
+    const { surface, mixin, variant, component, token, theme } = compiler.entities;
     const data = {
-        success: !!project.build.success && getDiagnosticErrors(project.diagnostics).length === 0,
+        success: !!compiler.build.success && getDiagnosticErrors(compiler.diagnostics).length === 0,
         timestamp: new Date().toJSON(),
         entities: {
-            project: project.entities.project,
+            project: compiler.entities.project,
             surface: mapToObject<SurfaceBuildContext, SurfaceBuildContextDto>(surface, transform),
             mixin: mapToObject<MixinBuildContext, MixinBuildContextDto>(mixin, transform),
             variant: mapToObject<VariantBuildContext, VariantBuildContextDto>(variant, transform),
@@ -56,7 +56,7 @@ export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => 
             theme: mapToObject<ThemeBuildContext, ThemeBuildContextDto>(theme, transform),
             token: mapToObject<TokenBuildContext, TokenBuildContextDto>(token, transform),
         },
-        diagnostics: project.diagnostics,
+        diagnostics: compiler.diagnostics,
     };
     return data;
 };

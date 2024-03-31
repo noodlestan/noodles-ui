@@ -1,12 +1,12 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logMessage } from '../logger/logMessage';
 
 export const logFilenameMessage = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     message: string,
     filename: string,
 ): void => {
-    logMessage(message, formatFileNameRelativeToProject(project, filename, true));
+    logMessage(message, formatFileNameRelativeToProject(compiler, filename, true));
 };

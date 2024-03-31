@@ -1,10 +1,10 @@
 import { readdirSync, statSync } from 'fs';
 import { dirname, join } from 'path';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 export const findEslintConfig = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     startDir: string,
 ): Promise<string[]> => {
     const possibleConfigs = ['.eslintrc', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json'];
@@ -21,7 +21,7 @@ export const findEslintConfig = async (
                 }
             }
         }
-        if (dirname(dir).includes(project.rootPath || project.projectPath)) {
+        if (dirname(dir).includes(compiler.rootPath || compiler.projectPath)) {
             search(dirname(dir));
         }
     }

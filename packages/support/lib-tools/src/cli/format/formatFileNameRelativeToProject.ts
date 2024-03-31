@@ -1,15 +1,15 @@
 import { relative } from 'path';
 
 import { PROJECT_MODULE_KEY } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, white } from 'kleur';
 
 export const formatFileNameRelativeToProject = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
     colors: boolean = false,
 ): string => {
-    const { modules } = project.build;
+    const { modules } = compiler.build;
     const projectPath = modules.get(PROJECT_MODULE_KEY);
     const basePath = projectPath?.path as string;
     const relativeFileName = relative(basePath, fileName);

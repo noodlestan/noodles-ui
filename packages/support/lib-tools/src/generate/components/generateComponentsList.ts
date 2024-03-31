@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -11,7 +11,7 @@ import { componentFileName } from './paths/componentFileName';
 import { componentIndexFileName } from './paths/componentIndexFileName';
 
 const generateComponentLine = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     key: string,
     component: ComponentBuildContext,
     fileName: string,
@@ -26,24 +26,24 @@ const generateComponentLine = (
 };
 
 export const generateComponentsList = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = componentIndexFileName(targetDir);
     await ensuredFiledir(fileName);
 
-    const lines = Array.from(project.entities.component.entries())
+    const lines = Array.from(compiler.entities.component.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, item]) => item.context.public)
         .map(([key, item]) => {
-            return generateComponentLine(project, key, item, fileName, targetDir);
+            return generateComponentLine(compiler, key, item, fileName, targetDir);
         });
     const content = [...lines].join('\n');
 
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     await writeFile(fileName, output);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

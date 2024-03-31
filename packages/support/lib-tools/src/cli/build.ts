@@ -1,7 +1,7 @@
 import { rm } from 'fs/promises';
 import { join, resolve } from 'path';
 
-import { ProjectContext, getDiagnosticErrors } from '@noodles-ui/support-types';
+import { CompilerContext, getDiagnosticErrors } from '@noodles-ui/support-types';
 import { white } from 'kleur';
 
 import { BuildOptions } from '../build/types';
@@ -41,7 +41,7 @@ import { logInfo } from './logger/logInfo';
 import { logMessage } from './logger/logMessage';
 import { logSuccess } from './logger/logSuccess';
 
-export const build = async (fileName: string, options: BuildOptions): Promise<ProjectContext> => {
+export const build = async (fileName: string, options: BuildOptions): Promise<CompilerContext> => {
     logHeader('build');
     const timings: Array<[number, string]> = [[Date.now(), 'start']];
 

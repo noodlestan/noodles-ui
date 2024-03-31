@@ -1,5 +1,5 @@
 import { PropEntity } from '@noodles-ui/core-types';
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { isPropVariantEntity } from '../../../../../entities/component/prop/getters/isPropVariantEntity';
@@ -8,7 +8,7 @@ import { isPropVariantReference } from '../../../../../entities/component/prop/g
 const factory = ts.factory;
 
 export const propTypeNode = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     component: ComponentBuildContext,
     prop: PropEntity,
 ): ts.TypeNode | undefined => {
@@ -26,7 +26,7 @@ export const propTypeNode = (
     const propVariant = isPropVariantEntity(prop);
     if (propVariant) {
         if (!propVariant.variant.name) {
-            project.addError(entity, `Unnamed variant at prop ${prop.name}.`);
+            compiler.addError(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(
@@ -38,7 +38,7 @@ export const propTypeNode = (
     const propReference = isPropVariantReference(prop);
     if (propReference) {
         if (!propReference.reference.name) {
-            project.addError(entity, `Unnamed variant at prop ${prop.name}.`);
+            compiler.addError(entity, `Unnamed variant at prop ${prop.name}.`);
             return;
         }
         return factory.createTypeReferenceNode(

@@ -1,15 +1,15 @@
 import { dirname } from 'path';
 
-import { ProjectContext, ProjectDiagnosticFileError } from '@noodles-ui/support-types';
+import { CompilerContext, ProjectDiagnosticFileError } from '@noodles-ui/support-types';
 import { ESLint } from 'eslint';
 
 import { findEslintConfig } from './findEslintConfig';
 
 export const formatTypescriptFile = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
 ): Promise<boolean> => {
-    const configFiles = await findEslintConfig(project, dirname(fileName));
+    const configFiles = await findEslintConfig(compiler, dirname(fileName));
     if (!configFiles.length) {
         throw new Error(`Could not resolve ESLint config for "${fileName}".`);
     }
@@ -33,7 +33,7 @@ export const formatTypescriptFile = async (
                 column: m.column,
                 sourceCode: results[0].output,
             };
-            project.addError(source, 'ESLint: ' + m.message, { eslintOptions });
+            compiler.addError(source, 'ESLint: ' + m.message, { eslintOptions });
         });
         return false;
     }

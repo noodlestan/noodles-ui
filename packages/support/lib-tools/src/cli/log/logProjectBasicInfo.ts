@@ -1,19 +1,19 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, green } from 'kleur';
 
 import { logMessage } from '../logger/logMessage';
 
-export const logProjectBasicInfo = (project: ProjectContext): void => {
-    if (project.rootPath) {
-        logMessage(green('<root>'), project.rootPath);
+export const logProjectBasicInfo = (compiler: CompilerContext): void => {
+    if (compiler.rootPath) {
+        logMessage(green('<root>'), compiler.rootPath);
     }
-    logMessage(green('<project>'), project.projectPath);
+    logMessage(green('<project>'), compiler.projectPath);
 
-    if (project.interactive.expand.length) {
-        logMessage(gray('expand:'), project.interactive.expand);
+    if (compiler.interactive.expand.length) {
+        logMessage(gray('expand:'), compiler.interactive.expand);
     }
 
-    if (!project.interactive.hints && !project.interactive.expand.length) {
+    if (!compiler.interactive.hints && !compiler.interactive.expand.length) {
         console.info('');
         logMessage(gray('  use "--hints" to know which details can be expanded'));
     }

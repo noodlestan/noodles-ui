@@ -1,12 +1,12 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getThemeIdentifier } from '../../../entities/theme/getters/getThemeIdentifier';
 
 const factory = ts.factory;
 
-export const exportThemesStatement = (project: ProjectContext): ts.Statement => {
-    const themes = Array.from(project.entities.theme.values());
+export const exportThemesStatement = (compiler: CompilerContext): ts.Statement => {
+    const themes = Array.from(compiler.entities.theme.values());
     const themeNames = themes.map(theme => {
         const themeIdentifier = getThemeIdentifier(theme.entity);
         return factory.createIdentifier(themeIdentifier);

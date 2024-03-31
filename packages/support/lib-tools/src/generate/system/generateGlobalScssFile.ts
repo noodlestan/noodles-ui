@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -10,7 +10,7 @@ import { variantsScssFileName } from '../variants/paths/variantsScssFileName';
 import { systemGlobalsScssFileName } from './paths/systemGlobalsScssFileName';
 
 export const generateGlobalScssFile = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
@@ -23,8 +23,8 @@ export const generateGlobalScssFile = async (
     const lines = [importVariants];
     const content = [...lines].join('\n');
 
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     await writeFile(fileName, output);
 
-    project.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
 };

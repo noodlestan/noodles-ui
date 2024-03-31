@@ -1,12 +1,12 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { logProjectDiagnostic } from './logProjectDiagnostic';
 
-export const logProjectDiagnostics = (project: ProjectContext): void => {
-    const { diagnostics } = project;
+export const logProjectDiagnostics = (compiler: CompilerContext): void => {
+    const { diagnostics } = compiler;
 
     diagnostics.forEach(diagnostic => {
-        logProjectDiagnostic(project, diagnostic);
+        logProjectDiagnostic(compiler, diagnostic);
     });
 
     if (diagnostics.length) {

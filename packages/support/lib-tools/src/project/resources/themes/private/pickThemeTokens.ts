@@ -1,8 +1,8 @@
 import { SurfaceTokenMap, ThemeResource, ThemeTokens, TokenMap } from '@noodles-ui/core-types';
-import { ProjectContext, SurfaceBuildContext, TokenBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, SurfaceBuildContext, TokenBuildContext } from '@noodles-ui/support-types';
 
 const pickTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     tokens: TokenBuildContext[],
     tag: string,
@@ -23,14 +23,14 @@ const pickTokens = (
     }, {} as TokenMap);
 
     for (const name in input) {
-        project.addWarning(theme, `Unknown token "${name}" in input "${tag}".`);
+        compiler.addWarning(theme, `Unknown token "${name}" in input "${tag}".`);
     }
 
     return map;
 };
 
 const pickSurfaceTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
 
     theme: ThemeResource,
     surfaces: SurfaceBuildContext[],
@@ -41,24 +41,24 @@ const pickSurfaceTokens = (
     const map = surfaces.reduce((acc, surface) => {
         const name = surface.entity.name;
         const tag = themeTag + '.' + name;
-        acc[name] = pickTokens(project, theme, tokens, tag, true, surfaceTokenMap[name]);
+        acc[name] = pickTokens(compiler, theme, tokens, tag, true, surfaceTokenMap[name]);
         return acc;
     }, {} as SurfaceTokenMap);
     return map;
 };
 
 export const pickThemeTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     tokens: TokenBuildContext[],
     inputTokens?: ThemeTokens,
 ): ThemeTokens => {
-    const surfaces = Array.from(project.entities.surface.values());
+    const surfaces = Array.from(compiler.entities.surface.values());
 
     return {
         base: {
             global: pickTokens(
-                project,
+                compiler,
                 theme,
                 tokens,
                 'base.global',
@@ -66,7 +66,7 @@ export const pickThemeTokens = (
                 inputTokens?.base.global,
             ),
             surfaces: pickSurfaceTokens(
-                project,
+                compiler,
                 theme,
                 surfaces,
                 tokens,
@@ -76,7 +76,7 @@ export const pickThemeTokens = (
         },
         alt: {
             global: pickTokens(
-                project,
+                compiler,
                 theme,
                 tokens,
                 'alt.global',
@@ -84,7 +84,7 @@ export const pickThemeTokens = (
                 inputTokens?.alt.global,
             ),
             surfaces: pickSurfaceTokens(
-                project,
+                compiler,
                 theme,
                 surfaces,
                 tokens,

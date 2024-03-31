@@ -2,10 +2,10 @@ import { dirname } from 'path';
 
 import { PROJECT_MODULE_KEY, PROJECT_MODULE_NAME } from '@noodles-ui/core-types';
 import {
+    CompilerContext,
     ComponentEntityMap,
     GeneratedSourceFile,
     MixinEntityMap,
-    ProjectContext,
     ProjectDiagnostic,
     ProjectDiagnosticSeverity,
     ProjectDiagnosticSource,
@@ -26,7 +26,7 @@ import { getBuildErrorMessage } from './program/getters/getBuildErrorMessage';
 export const createProject = async (
     projectFile: string,
     options: BuildOptions = {},
-): Promise<ProjectContext> => {
+): Promise<CompilerContext> => {
     const module = findLocalNodeModule('/', projectFile);
     const projectPath = module ? module.path : dirname(projectFile);
     const rootPath = findRootPath(projectPath);
@@ -60,7 +60,7 @@ export const createProject = async (
 
     const { hints = false, expand = [] } = options.interactive || {};
 
-    const project: ProjectContext = {
+    const compiler: CompilerContext = {
         projectFile,
         projectPath,
         rootPath,
@@ -70,9 +70,9 @@ export const createProject = async (
         addWarning: diagnosticFn('warning'),
         hasErrors,
         compileProjectFile: async () => {
-            project.build = await createProgram(projectFile, projectPath, rootPath);
-            if (!project.build.success) {
-                diagnosticFn('error')('build', getBuildErrorMessage(project.build));
+            compiler.build = await createProgram(projectFile, projectPath, rootPath);
+            if (!compiler.build.success) {
+                diagnosticFn('error')('build', getBuildErrorMessage(compiler.build));
             }
         },
         generatedSourceFiles,
@@ -92,5 +92,5 @@ export const createProject = async (
         },
     };
 
-    return project;
+    return compiler;
 };

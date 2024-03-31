@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { relativePath } from '../../../util/fs';
@@ -7,11 +7,11 @@ import { systemRootModuleFileName } from '../paths/systemRootModuleFileName';
 const factory = ts.factory;
 
 export const importRootScssModule = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
     target: string,
 ): ts.Statement => {
-    const rootCssFileName = systemRootModuleFileName(project, target);
+    const rootCssFileName = systemRootModuleFileName(compiler, target);
     const cssRelativeFileName = relativePath(fileName, rootCssFileName);
     return factory.createImportDeclaration(
         undefined,

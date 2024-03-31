@@ -5,7 +5,7 @@ import {
     VariantResource,
     VariantVars,
 } from '@noodles-ui/core-types';
-import { NUI, ProjectContext, VariantContext } from '@noodles-ui/support-types';
+import { CompilerContext, NUI, VariantContext } from '@noodles-ui/support-types';
 
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
 import { getResourceKey } from '../getters/getResourceKey';
@@ -18,14 +18,14 @@ import { loadVariantMixin } from './private/loadVariantMixin';
 import { loadVariantTokens } from './private/loadVariantTokens';
 
 const loadVariantOwnResource = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantOwnResource,
     vars?: VariantVars,
 ): VariantEntity | undefined => {
     const actualVars = { ...variant.vars, ...vars };
 
-    const actualMixin = loadVariantMixin(project, context, variant);
+    const actualMixin = loadVariantMixin(compiler, context, variant);
     const actualOptions = variant.options || [];
     const actualParams = [...(variant.params || []), ...(actualMixin?.params || [])];
     const actualTokens = [...(variant.tokens || []), ...(actualMixin?.tokens || [])];
@@ -41,14 +41,14 @@ const loadVariantOwnResource = (
     };
 
     if (context.public) {
-        loadVariantTokens(project, context, entity);
+        loadVariantTokens(compiler, context, entity);
     }
 
-    return addVariant(project, context, entity);
+    return addVariant(compiler, context, entity);
 };
 
 const loadExtendedVariant = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     extendVariant: VariantInlineExtendResource,
 ): VariantEntity | undefined => {
@@ -57,37 +57,37 @@ const loadExtendedVariant = (
         extendVariant.extend,
     );
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return loadVariant(project, newContext) as VariantEntity;
+    return loadVariant(compiler, newContext) as VariantEntity;
 };
 
 const loadVariantExtend = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     extendVariant: VariantInlineExtendResource,
     vars?: VariantVars,
 ): VariantEntity | undefined => {
-    const parent = loadExtendedVariant(project, context, extendVariant);
+    const parent = loadExtendedVariant(compiler, context, extendVariant);
     if (!parent) {
         const name = getResourceKey(extendVariant);
-        project.addError(extendVariant, `Could not load extended variant "${name}".`);
+        compiler.addError(extendVariant, `Could not load extended variant "${name}".`);
         return;
     }
 
-    const entity = extendVariantExtends(project, context, extendVariant, parent, vars);
+    const entity = extendVariantExtends(compiler, context, extendVariant, parent, vars);
     if (!entity) {
-        project.addError(extendVariant, 'Could not load variant');
+        compiler.addError(extendVariant, 'Could not load variant');
         return;
     }
 
     if (context.public) {
-        loadVariantTokens(project, context, entity);
+        loadVariantTokens(compiler, context, entity);
     }
 
-    return addVariant(project, context, entity);
+    return addVariant(compiler, context, entity);
 };
 
 export const loadVariant = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     vars?: VariantVars,
 ): VariantEntity | undefined => {
@@ -95,12 +95,12 @@ export const loadVariant = (
 
     const variantExtend = isVariantExtendResource(resource);
     if (variantExtend) {
-        return loadVariantExtend(project, context, variantExtend, vars);
+        return loadVariantExtend(compiler, context, variantExtend, vars);
     }
 
     const variant = isVariantOwnResource(resource);
     if (variant) {
-        return loadVariantOwnResource(project, context, variant, vars);
+        return loadVariantOwnResource(compiler, context, variant, vars);
     }
 
     throw new Error('Type error: could not match variant resource by shape');

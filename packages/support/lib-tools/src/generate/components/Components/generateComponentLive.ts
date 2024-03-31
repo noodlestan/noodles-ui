@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../../util/fs';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
@@ -16,7 +16,7 @@ import { exportComponent } from './ComponentDemo/exportComponent';
 import { importComponent } from './ComponentDemo/importComponent';
 
 export const generateComponentLive = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     component: ComponentBuildContext,
     targetDir: string,
 ): Promise<void> => {
@@ -33,10 +33,10 @@ export const generateComponentLive = async (
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    compiler.addGeneratedSourceFile({ fileName, success });
 };

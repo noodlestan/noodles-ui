@@ -1,4 +1,4 @@
-import { ProjectContext, SurfaceBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, SurfaceBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 const factory = ts.factory;
@@ -45,8 +45,8 @@ const surfaceStatement = (surface: SurfaceBuildContext): ts.Statement => {
     );
 };
 
-export const surfaceStatements = (project: ProjectContext): ts.Statement[] => {
-    const surfaces = Array.from(project.entities.surface.values());
+export const surfaceStatements = (compiler: CompilerContext): ts.Statement[] => {
+    const surfaces = Array.from(compiler.entities.surface.values());
 
     return surfaces.map(surface => surfaceStatement(surface));
 };

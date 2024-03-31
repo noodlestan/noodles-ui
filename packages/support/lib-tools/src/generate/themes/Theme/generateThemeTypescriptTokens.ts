@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 
 import { ThemeModeTokens, TokenMap } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { ensuredFiledir } from '../../../util/fs';
@@ -36,10 +36,10 @@ function createThemeSurfaceTokens(tokenMap: TokenMap): ts.PropertyAssignment[] {
 }
 
 function modeSurfaceTokens(
-    project: ProjectContext,
+    compiler: CompilerContext,
     modeTokens: ThemeModeTokens,
 ): ts.PropertyAssignment {
-    const surfaces = Array.from(project.entities.surface.values());
+    const surfaces = Array.from(compiler.entities.surface.values());
     const surfaceMaps = surfaces.map(surface =>
         factory.createPropertyAssignment(
             factory.createIdentifier(surface.entity.name),
@@ -58,18 +58,18 @@ function modeSurfaceTokens(
 }
 
 function getThemeModeTokens(
-    project: ProjectContext,
+    compiler: CompilerContext,
     modeTokens: ThemeModeTokens,
 ): ts.PropertyAssignment[] {
     const globaltokens = modeGlobalTokens(modeTokens);
-    const surfaceTokens = modeSurfaceTokens(project, modeTokens);
+    const surfaceTokens = modeSurfaceTokens(compiler, modeTokens);
 
     return [globaltokens, surfaceTokens];
 }
 
-function declareTokens(project: ProjectContext, theme: ThemeBuildContext): ts.Statement {
-    const baseTokens = getThemeModeTokens(project, theme.entity.tokens.base);
-    const altTokens = getThemeModeTokens(project, theme.entity.tokens.alt);
+function declareTokens(compiler: CompilerContext, theme: ThemeBuildContext): ts.Statement {
+    const baseTokens = getThemeModeTokens(compiler, theme.entity.tokens.base);
+    const altTokens = getThemeModeTokens(compiler, theme.entity.tokens.alt);
 
     const base = factory.createPropertyAssignment(
         factory.createIdentifier('base'),
@@ -100,7 +100,7 @@ function declareTokens(project: ProjectContext, theme: ThemeBuildContext): ts.St
 }
 
 export const generateThemeTypescriptTokens = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
     theme: ThemeBuildContext,
 ): Promise<void> => {
@@ -110,7 +110,7 @@ export const generateThemeTypescriptTokens = async (
 
     const internalTypes: TypesToImport = [['@noodles-ui/core-types', ['ThemeTokens']]];
     const internalImports = createImportStatements(internalTypes);
-    const tokensDeclaration = declareTokens(project, theme);
+    const tokensDeclaration = declareTokens(compiler, theme);
     const exportDefault = factory.createExportAssignment(
         undefined,
         undefined,
@@ -120,10 +120,10 @@ export const generateThemeTypescriptTokens = async (
     const statements = [...internalImports, tokensDeclaration, exportDefault];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

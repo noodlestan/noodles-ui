@@ -1,5 +1,5 @@
 import { ComponentOwnEntity, RenderedComponentResource } from '@noodles-ui/core-types';
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
@@ -26,7 +26,7 @@ const pickProps = (fromType: string, names: string[]) =>
     ]);
 
 export const declareRenderedProps = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     component: ComponentBuildContext,
 ): ts.TypeAliasDeclaration => {
     const { resource } = component.context;

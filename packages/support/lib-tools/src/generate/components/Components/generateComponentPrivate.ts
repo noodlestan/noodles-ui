@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../../util/fs';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
@@ -20,7 +20,7 @@ import { importRenderedComponent } from './ComponentPrivate/importRenderedCompon
 import { importVariantTypes } from './ComponentPrivate/importVariantTypes';
 
 export const generateComponentPrivate = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     component: ComponentBuildContext,
     targetDir: string,
 ): Promise<void> => {
@@ -36,16 +36,16 @@ export const generateComponentPrivate = async (
         ...importVariantTypes(component, targetDir),
         importComponentStyles(component),
         ...exportDefaultValues(component),
-        declareRenderedProps(project, component),
-        exportComponentProps(project, component),
+        declareRenderedProps(compiler, component),
+        exportComponentProps(compiler, component),
         exportComponent(component),
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success });
+    compiler.addGeneratedSourceFile({ fileName, success });
 };

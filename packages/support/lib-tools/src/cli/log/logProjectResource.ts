@@ -1,5 +1,5 @@
 import { ProjectResource } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, yellow } from 'kleur';
 
 import { plural } from '../../util/string';
@@ -9,13 +9,13 @@ import { logMessage } from '../logger/logMessage';
 import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
-export const logProjectResource = (project: ProjectContext, resource: ProjectResource): void => {
-    const { surfaces, variants, components, themes } = resource.entities;
+export const logProjectResource = (compiler: CompilerContext, project: ProjectResource): void => {
+    const { surfaces, variants, components, themes } = project.resources;
     const total = [...surfaces, ...variants, ...components, ...themes].length;
 
-    if (!shouldExpand(project, 'resources')) {
+    if (!shouldExpand(compiler, 'resources')) {
         const counts = yellow(total) + plural(total, ' resource');
-        const hint = hintExpandPattern(project, 'resources');
+        const hint = hintExpandPattern(compiler, 'resources');
         logInfo('Project resources', counts, hint);
         return;
     }

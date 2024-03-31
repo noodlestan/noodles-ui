@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { classListStatement } from './body/classListStatement';
@@ -29,13 +29,13 @@ const componentArrowFunction = (statements: ts.Statement[]): ts.Expression => {
     );
 };
 
-export const exportComponent = (project: ProjectContext): ts.Statement => {
+export const exportComponent = (compiler: CompilerContext): ts.Statement => {
     const stores = storeStatements();
     const registers = registerStatements();
     const classList = classListStatement();
     const render = renderStatement();
 
-    const name = systemComponentName(project);
+    const name = systemComponentName(compiler);
 
     const statements: ts.Statement[] = [...stores, ...registers, classList, render];
     const componentDeclaration = factory.createVariableDeclaration(

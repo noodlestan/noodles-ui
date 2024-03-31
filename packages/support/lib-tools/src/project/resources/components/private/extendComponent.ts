@@ -4,7 +4,7 @@ import {
     ComponentOwnResource,
     LocalPropResource,
 } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { getRenderedProps } from '../../../../entities/component/getters/getRenderedProps';
 
@@ -15,7 +15,7 @@ export type Props = {
 };
 
 export const extendComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentExtendResource,
     parent: ComponentOwnEntity,
@@ -24,7 +24,7 @@ export const extendComponent = (
 
     const actualName = name || parent.name;
     if (!actualName) {
-        project.addError(component, 'Empty component name');
+        compiler.addError(component, 'Empty component name');
         return;
     }
 
@@ -33,7 +33,7 @@ export const extendComponent = (
     const parentProps = { ...renderedProps, ...parent.props };
     const parentVars = parent.vars;
 
-    const actualProps = mergeProps(project, context, component, parentProps);
+    const actualProps = mergeProps(compiler, context, component, parentProps);
     const actualUses = (parent.use || []).concat(use || []);
 
     return {

@@ -1,7 +1,7 @@
 import {
+    CompilerContext,
     EntityBuildContext,
     EntityBuildMap,
-    ProjectContext,
     ResourceContext,
     UnknownBuildContext,
     UnknownResource,
@@ -29,7 +29,7 @@ type ItemsWithErrors = {
 };
 
 function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends UnknownResource>(
-    project: ProjectContext,
+    compiler: CompilerContext,
     label: string,
     items: EntityBuildMap<EntityBuildContext<T, V>>,
     itemsWithWarnings: ItemsWithErrors,
@@ -37,7 +37,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
 ) {
     const count = items.size;
 
-    if (shouldExpand(project, 'project')) {
+    if (shouldExpand(compiler, 'project')) {
         logMessage(`${label} (${count})`);
         if (!count) {
             logMessage('  ' + gray('<empty>'));
@@ -46,7 +46,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
     items.forEach(item => {
         const { context, entity } = item;
         const { public: isPublic, consumes, consumers } = context;
-        const isExpanded = shouldExpand(project, entity);
+        const isExpanded = shouldExpand(compiler, entity);
         const type = getResourceType(entity);
         const itemKey = getResourceTypedKey(entity);
         const name = getResourceName(entity);
@@ -57,7 +57,7 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
         const formatedName = errorCount ? red(name) : warnCount ? yellow(name) : white(name);
         const counts = formatWarningsAndErrors(warnCount, errorCount);
         const title = formatedName + (counts ? ' ' + counts : '') + publicTag;
-        if (!isExpanded && shouldExpand(project, 'project')) {
+        if (!isExpanded && shouldExpand(compiler, 'project')) {
             logMessage('  ' + gray(mod), title);
         } else if (isExpanded) {
             logMessage('  ' + type + '  ' + gray(mod), title);
@@ -73,8 +73,8 @@ function logResourceGroup<T extends ResourceContext<UnknownResource>, V extends 
     });
 }
 
-const allProjectEntities = (project: ProjectContext): Array<UnknownBuildContext> => {
-    const { surface, theme, mixin, variant, component, token } = project.entities;
+const allProjectEntities = (compiler: CompilerContext): Array<UnknownBuildContext> => {
+    const { surface, theme, mixin, variant, component, token } = compiler.entities;
     return [
         ...Array.from(surface.values()),
         ...Array.from(theme.values()),
@@ -84,31 +84,31 @@ const allProjectEntities = (project: ProjectContext): Array<UnknownBuildContext>
         ...Array.from(token.values()),
     ];
 };
-const countProjectEntities = (project: ProjectContext): number => {
-    return allProjectEntities(project).length;
+const countProjectEntities = (compiler: CompilerContext): number => {
+    return allProjectEntities(compiler).length;
 };
 
-export const logProjectData = (project: ProjectContext): void => {
-    const { surface, theme, mixin, variant, component, token } = project.entities;
+export const logProjectData = (compiler: CompilerContext): void => {
+    const { surface, theme, mixin, variant, component, token } = compiler.entities;
 
-    const itemsWithWarnings = getItemsWithWarnings(project.diagnostics);
-    const itemsWithErrors = getItemsWithErrors(project.diagnostics);
+    const itemsWithWarnings = getItemsWithWarnings(compiler.diagnostics);
+    const itemsWithErrors = getItemsWithErrors(compiler.diagnostics);
 
-    const entityCount = countProjectEntities(project);
+    const entityCount = countProjectEntities(compiler);
     const count = entityCount
         ? yellow(entityCount) + plural(entityCount, ' item') + ' '
         : gray('0 items ');
 
-    const hint = hintExpandPattern(project, 'project');
+    const hint = hintExpandPattern(compiler, 'project');
     logInfo('Project data', count, hint);
 
-    if (shouldExpand(project, 'project')) {
-        logMessage('  Name:', project.entities.project.name);
-        logMessage('  Module:', project.entities.project.module);
+    if (shouldExpand(compiler, 'project')) {
+        logMessage('  Name:', compiler.entities.project.name);
+        logMessage('  Module:', compiler.entities.project.module);
         console.info('');
     }
 
-    const errorCount = getDiagnosticErrors(project.diagnostics).length;
+    const errorCount = getDiagnosticErrors(compiler.diagnostics).length;
     if (errorCount) {
         logWarning(
             'Attention:',
@@ -117,14 +117,14 @@ export const logProjectData = (project: ProjectContext): void => {
     }
 
     console.info('');
-    logResourceGroup(project, 'Surfaces', surface, itemsWithWarnings, itemsWithErrors);
-    logResourceGroup(project, 'Mixins', mixin, itemsWithWarnings, itemsWithErrors);
-    logResourceGroup(project, 'Variants', variant, itemsWithWarnings, itemsWithErrors);
-    logResourceGroup(project, 'Components', component, itemsWithWarnings, itemsWithErrors);
-    logResourceGroup(project, 'Tokens', token, itemsWithWarnings, itemsWithErrors);
-    logResourceGroup(project, 'Themes', theme, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Surfaces', surface, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Mixins', mixin, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Variants', variant, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Components', component, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Tokens', token, itemsWithWarnings, itemsWithErrors);
+    logResourceGroup(compiler, 'Themes', theme, itemsWithWarnings, itemsWithErrors);
 
-    if (shouldExpand(project, 'project')) {
+    if (shouldExpand(compiler, 'project')) {
         console.info('');
     }
 };

@@ -9,7 +9,7 @@ import {
     ComponentResource,
     MixinResource,
 } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
 import { getResourceTypedKey } from '../getters/getResourceTypedKey';
@@ -25,62 +25,62 @@ import { loadComponentMixin } from './private/loadComponentMixin';
 import { loadComponentProps } from './private/loadComponentProps';
 
 const loadRenderedComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     parent: ComponentResource,
 ): ComponentImportEntity | undefined => {
     const newContext = newResourceContextWithConsumer<ComponentResource>(context, parent);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return loadComponent(project, newContext) as ComponentImportEntity;
+    return loadComponent(compiler, newContext) as ComponentImportEntity;
 };
 
 const loadParentComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     parent: ComponentResource,
 ): ComponentEntity | undefined => {
     const newContext = newResourceContextWithConsumer<ComponentResource>(context, parent);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return loadComponent(project, newContext);
+    return loadComponent(compiler, newContext);
 };
 
 const loadOwnComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
 ): ComponentOwnEntity | undefined => {
     if (component.exposes) {
-        project.addError(
+        compiler.addError(
             component,
             'The "exposes" property is ignored in components that do not extend other components.',
         );
     }
     if (component.hides) {
-        project.addError(
+        compiler.addError(
             component,
             'The "hides" property is ignored in components that do not extend other components.',
         );
     }
     if (component.overrides) {
-        project.addError(
+        compiler.addError(
             component,
             'The "overrides" property is ignored in components that do not extend other components.',
         );
     }
     if (component.replaces) {
-        project.addError(
+        compiler.addError(
             component,
             'The "replaces" property is ignored in components that do not extend other components.',
         );
     }
 
     const actualProps = context.public
-        ? loadComponentProps(project, context, component, component.props || {})
+        ? loadComponentProps(compiler, context, component, component.props || {})
         : (component.props as ComponentEntityProps);
 
     const actualMixins: MixinResource[] =
         (component.use
-            ?.map(mixin => loadComponentMixin(project, context, component, mixin))
+            ?.map(mixin => loadComponentMixin(compiler, context, component, mixin))
             .filter(Boolean) as MixinResource[]) || [];
 
     const entity = {
@@ -90,18 +90,18 @@ const loadOwnComponent = (
         vars: component.vars || {},
     };
 
-    return addComponent(project, context, entity) as ComponentOwnEntity;
+    return addComponent(compiler, context, entity) as ComponentOwnEntity;
 };
 
 const loadComponentRenders = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentOwnResource,
 ): ComponentOwnEntity | undefined => {
     const { from: parent, name } = component.render;
-    const loadedParent = loadRenderedComponent(project, context, parent);
+    const loadedParent = loadRenderedComponent(compiler, context, parent);
     if (!loadedParent) {
-        project.addError(
+        compiler.addError(
             component,
             'Could not extend component because resolution of rendered component failed.',
         );
@@ -109,74 +109,74 @@ const loadComponentRenders = (
     }
     const part = getRenderedPart(component, loadedParent);
     if (!part) {
-        project.addError(
+        compiler.addError(
             component,
             `Could not extend rendered component because could not resolve part "${name}".`,
         );
         return;
     }
-    const extended = extendRenderedComponent(project, context, component, part);
+    const extended = extendRenderedComponent(compiler, context, component, part);
     if (extended) {
         context.consumes.add(getResourceTypedKey(parent));
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        return loadOwnComponent(project, context, extended);
+        return loadOwnComponent(compiler, context, extended);
     }
 };
 
 const loadComponentExtend = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentExtendResource,
 ): ComponentOwnEntity | undefined => {
     const loadedParent = loadParentComponent(
-        project,
+        compiler,
         context,
         component.extend,
     ) as ComponentOwnEntity;
     if (!loadedParent) {
-        project.addError(
+        compiler.addError(
             component,
             'Could not extend component because resolution of extended component failed.',
         );
         return;
     }
-    const extended = extendComponent(project, context, component, loadedParent);
+    const extended = extendComponent(compiler, context, component, loadedParent);
     if (extended) {
         context.consumes.add(getResourceTypedKey(loadedParent));
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        return loadOwnComponent(project, context, extended);
+        return loadOwnComponent(compiler, context, extended);
     }
 };
 
 const loadComponentImport = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentImportResource,
 ): ComponentImportEntity | undefined => {
     const entity = structuredClone(component) as ComponentImportEntity;
 
-    return addComponent(project, context, entity) as ComponentImportEntity;
+    return addComponent(compiler, context, entity) as ComponentImportEntity;
 };
 
 export const loadComponent = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
 ): ComponentEntity | undefined => {
     const { resource } = context;
 
     const component = isComponentOwnResource(resource);
     if (component) {
-        return loadComponentRenders(project, context, component);
+        return loadComponentRenders(compiler, context, component);
     }
 
     const componentExtend = isComponentExtendResource(resource);
     if (componentExtend) {
-        return loadComponentExtend(project, context, componentExtend);
+        return loadComponentExtend(compiler, context, componentExtend);
     }
 
     const componentImport = isComponentImportResource(resource);
     if (componentImport) {
-        return loadComponentImport(project, context, componentImport);
+        return loadComponentImport(compiler, context, componentImport);
     }
 
     throw new Error('Type error: could not match component resource by shape');

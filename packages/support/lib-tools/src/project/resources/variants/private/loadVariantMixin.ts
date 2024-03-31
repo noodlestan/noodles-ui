@@ -1,11 +1,11 @@
 import { MixinResource, VariantOwnResource } from '@noodles-ui/core-types';
-import { NUI, ProjectContext, VariantContext } from '@noodles-ui/support-types';
+import { CompilerContext, NUI, VariantContext } from '@noodles-ui/support-types';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { loadMixin } from '../../mixins/loadMixin';
 
 export const loadVariantMixin = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: VariantContext,
     variant: VariantOwnResource,
 ): MixinResource | undefined => {
@@ -19,6 +19,6 @@ export const loadVariantMixin = (
             context,
             newResource,
         );
-        return loadMixin(project, newContext);
+        return loadMixin(compiler, newContext);
     }
 };

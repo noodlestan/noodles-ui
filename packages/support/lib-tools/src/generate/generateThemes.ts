@@ -1,13 +1,16 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { generateThemeComponent } from './themes/generateTheme';
 import { generateThemesIndex } from './themes/generateThemesIndex';
 
-export const generateThemes = async (project: ProjectContext, targetDir: string): Promise<void> => {
-    const themes = Array.from(project.entities.theme.values());
-    const tasks = themes.map(theme => generateThemeComponent(project, targetDir, theme));
+export const generateThemes = async (
+    compiler: CompilerContext,
+    targetDir: string,
+): Promise<void> => {
+    const themes = Array.from(compiler.entities.theme.values());
+    const tasks = themes.map(theme => generateThemeComponent(compiler, targetDir, theme));
 
-    tasks.push(generateThemesIndex(project, targetDir));
+    tasks.push(generateThemesIndex(compiler, targetDir));
 
     await Promise.all(tasks);
 };

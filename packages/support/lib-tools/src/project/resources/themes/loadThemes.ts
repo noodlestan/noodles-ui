@@ -1,5 +1,5 @@
 import { ProjectResource, ThemeResource } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { BuildOptions } from '../../../build/types';
 import { newResourceContextPublic } from '../../context/newResourceContextPublic';
@@ -7,13 +7,13 @@ import { newResourceContextPublic } from '../../context/newResourceContextPublic
 import { loadTheme } from './loadTheme';
 
 export const loadThemes = async (
-    project: ProjectContext,
-    resource: ProjectResource,
+    compiler: CompilerContext,
+    project: ProjectResource,
     options: BuildOptions,
 ): Promise<void> => {
-    const { themes } = resource.entities;
+    const { themes } = project.resources;
     for (const theme of themes) {
         const context = newResourceContextPublic<ThemeResource>(theme);
-        await loadTheme(project, context, options);
+        await loadTheme(compiler, context, options);
     }
 };

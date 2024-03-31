@@ -9,14 +9,14 @@ export type ProjectOwnResource = Resource<'project'> & {
     use: MixinResource[];
 };
 
-type EntityResourceMap = {
-    components: ComponentResource[];
+type ResourceMap = {
     surfaces: SurfaceResource[];
-    themes: ThemeResource[];
-    variants: VariantResource[];
     mixins: MixinResource[];
+    variants: VariantResource[];
+    components: ComponentResource[];
+    themes: ThemeResource[];
 };
 
 export type ProjectResource = ProjectOwnResource & {
-    entities: EntityResourceMap;
+    resources: ResourceMap;
 };

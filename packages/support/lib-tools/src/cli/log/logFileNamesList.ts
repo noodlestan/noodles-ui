@@ -1,13 +1,13 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { logFilenameMessage } from './logFilenameMessage';
 
 export const logFileNamesList = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     prefix: string,
     filenames: string[],
 ): void => {
-    filenames.forEach(filename => logFilenameMessage(project, prefix, filename));
+    filenames.forEach(filename => logFilenameMessage(compiler, prefix, filename));
     if (filenames.length) {
         console.info('');
     }

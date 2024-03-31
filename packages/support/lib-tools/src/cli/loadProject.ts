@@ -1,5 +1,5 @@
 import { ProjectResource } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { BuildOptions } from '../build/types';
 import { loadComponents } from '../project/resources/components/loadComponents';
@@ -10,17 +10,17 @@ import { loadTokens } from '../project/resources/tokens/loadTokens';
 import { loadVariants } from '../project/resources/variants/loadVariants';
 
 export const loadProject = async (
-    project: ProjectContext,
-    resource: ProjectResource,
+    compiler: CompilerContext,
+    project: ProjectResource,
     options: BuildOptions,
 ): Promise<void> => {
-    const { name, module, use } = resource;
-    project.entities.project = { name, module, use };
+    const { name, module, use } = project;
+    compiler.entities.project = { name, module, use };
 
-    loadSurfaces(project, resource);
-    loadMixins(project, resource);
-    loadVariants(project, resource);
-    loadComponents(project, resource);
-    loadTokens(project, resource);
-    await loadThemes(project, resource, options);
+    loadSurfaces(compiler, project);
+    loadMixins(compiler, project);
+    loadVariants(compiler, project);
+    loadComponents(compiler, project);
+    loadTokens(compiler, project);
+    await loadThemes(compiler, project, options);
 };

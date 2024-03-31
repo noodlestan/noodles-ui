@@ -1,18 +1,18 @@
 import { MixinResource } from '@noodles-ui/core-types';
-import { MixinContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, MixinContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addMixin = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: MixinContext,
     entity: MixinResource,
 ): MixinResource | undefined => {
-    const { mixin: items } = project.entities;
+    const { mixin: items } = compiler.entities;
     const { resource } = context;
 
     if (!entity.name) {
-        project.addError(resource, 'Entity name is empty.');
+        compiler.addError(resource, 'Entity name is empty.');
         return;
     }
 

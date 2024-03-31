@@ -1,10 +1,10 @@
 import { ComponentResource, LocalPropOverrides, LocalPropResource } from '@noodles-ui/core-types';
-import { ComponentContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentContext } from '@noodles-ui/support-types';
 
 import { isVariantInlineExtendResourceProp } from './getters/isVariantInlineExtendResourceProp';
 
 export const exposeProp = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentResource,
     prop: LocalPropResource,
@@ -15,7 +15,7 @@ export const exposeProp = (
     const propIsVariantExtendResource = isVariantInlineExtendResourceProp(prop);
     if (propIsVariantExtendResource) {
         if (!overrides?.name) {
-            project.addError(
+            compiler.addError(
                 component,
                 `Could not extend component with a variant prop because a local name for the variant was not provided.`,
             );

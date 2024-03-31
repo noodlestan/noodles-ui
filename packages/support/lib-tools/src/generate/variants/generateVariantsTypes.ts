@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext, VariantBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, VariantBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -9,30 +9,30 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { variantsTypesFileName } from './paths/variantsTypesFileName';
 
-const generateVariantLine = (project: ProjectContext, variant: VariantBuildContext): string => {
+const generateVariantLine = (compiler: CompilerContext, variant: VariantBuildContext): string => {
     const { entity } = variant;
     const options = entity.options?.map(option => `'${option}'`).join(' | ');
     return `export type ${entity.name} = ${options};`;
 };
 
 export const generateVariantsTypes = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = variantsTypesFileName(targetDir);
     await ensuredFiledir(fileName);
 
-    const variants = Array.from(project.entities.variant.values()).filter(item => {
+    const variants = Array.from(compiler.entities.variant.values()).filter(item => {
         return item.context.public;
     });
 
-    const lines = variants.map(item => generateVariantLine(project, item));
+    const lines = variants.map(item => generateVariantLine(compiler, item));
     const content = [...lines].join('\n');
 
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     await writeFile(fileName, output);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

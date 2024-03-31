@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
@@ -28,17 +28,17 @@ const exportStarFrom = (moduleName: string): ts.Statement => {
 };
 
 const exportProvider = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
     targetDir: string,
 ): ts.Statement => {
-    const providerFileName = systemRootFileName(project, targetDir);
+    const providerFileName = systemRootFileName(compiler, targetDir);
     const path = relativePath(fileName, providerFileName, true);
     return exportStarFrom(path);
 };
 
 const exportComponents = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
     targetDir: string,
 ): ts.Statement => {
@@ -48,7 +48,7 @@ const exportComponents = (
 };
 
 export const generateIndexFile = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
@@ -56,15 +56,15 @@ export const generateIndexFile = async (
     await ensuredFiledir(fileName);
 
     const statements = [
-        exportProvider(project, fileName, targetDir),
-        exportComponents(project, fileName, targetDir),
+        exportProvider(compiler, fileName, targetDir),
+        exportComponents(compiler, fileName, targetDir),
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

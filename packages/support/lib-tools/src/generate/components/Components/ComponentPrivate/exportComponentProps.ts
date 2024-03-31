@@ -1,5 +1,5 @@
 import { ComponentOwnEntity } from '@noodles-ui/core-types';
-import { ComponentBuildContext, ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
@@ -9,7 +9,7 @@ import { componentPropsSignatures } from './props/componentPropsSignatures';
 const factory = ts.factory;
 
 export const exportComponentProps = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     component: ComponentBuildContext,
 ): ts.TypeAliasDeclaration => {
     const entity = component.entity as ComponentOwnEntity;
@@ -20,7 +20,7 @@ export const exportComponentProps = (
         undefined,
     );
 
-    const props = componentPropsSignatures(project, component);
+    const props = componentPropsSignatures(compiler, component);
     const typeDef = props.length
         ? factory.createIntersectionTypeNode([inheritedType, factory.createTypeLiteralNode(props)])
         : inheritedType;

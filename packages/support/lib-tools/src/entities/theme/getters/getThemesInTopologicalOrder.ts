@@ -1,5 +1,5 @@
 import { ThemeResource } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../../project/resources/getters/getResourceKey';
 
@@ -11,8 +11,8 @@ const addTheme = (set: Set<string>, theme: ThemeResource) => {
     set.add(key);
 };
 
-export function getThemesInTopologicalOrder(project: ProjectContext): ThemeBuildContext[] {
-    const themes = Array.from(project.entities.theme.values());
+export function getThemesInTopologicalOrder(compiler: CompilerContext): ThemeBuildContext[] {
+    const themes = Array.from(compiler.entities.theme.values());
 
     const ordered = themes.reduce(
         (acc, item) => {

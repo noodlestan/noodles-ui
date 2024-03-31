@@ -2,13 +2,13 @@ import { relative } from 'path';
 
 import { PROJECT_MODULE_KEY } from '@noodles-ui/core-types';
 
-import { ProjectContext } from '../projects';
+import { CompilerContext } from '../projects';
 
 export const formatFileNameRelativeToProject = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
 ): string => {
-    const { modules } = project.build;
+    const { modules } = compiler.build;
     const projectPath = modules.get(PROJECT_MODULE_KEY);
     const basePath = projectPath?.path as string;
     const relativeFileName = relative(basePath, fileName);

@@ -1,4 +1,4 @@
-import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
 import { getThemeIdentifier } from '../../../entities/theme/getters/getThemeIdentifier';
@@ -29,8 +29,8 @@ const importThemeStatement = (theme: ThemeBuildContext): ts.Statement => {
     );
 };
 
-export const importThemeStatements = (project: ProjectContext): ts.Statement[] => {
-    const themes = Array.from(project.entities.theme.values());
+export const importThemeStatements = (compiler: CompilerContext): ts.Statement[] => {
+    const themes = Array.from(compiler.entities.theme.values());
 
     return themes.map(theme => importThemeStatement(theme));
 };

@@ -5,26 +5,26 @@ import {
     ThemeTokens,
     TokenMap,
 } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 const themeTokenProps = ['base', 'alt'];
 const themeModeTokenProps = ['global', 'surfaces'];
 const emptyThemeMode = { global: {}, surfaces: {} };
 
 const validateTokenMap = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     tokenContextKey: string,
     data: unknown,
 ): TokenMap => {
     if (typeof data !== 'object' && data !== null) {
-        project.addError(theme, `Invalid token map "${tokenContextKey}".`);
+        compiler.addError(theme, `Invalid token map "${tokenContextKey}".`);
         return {};
     }
     const tokenMap = data as { [key: string]: unknown };
     for (const key in tokenMap || {}) {
         if (typeof tokenMap[key] !== 'string') {
-            project.addError(theme, `Invalid token value in "${tokenContextKey}.${key}".`);
+            compiler.addError(theme, `Invalid token value in "${tokenContextKey}.${key}".`);
             delete tokenMap[key];
         }
     }
@@ -32,28 +32,28 @@ const validateTokenMap = (
 };
 
 const validateSurfaceTokenMap = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     surfaceContextKey: string,
     data: unknown,
 ): SurfaceTokenMap => {
-    const surfaces = Array.from(project.entities.surface.values());
+    const surfaces = Array.from(compiler.entities.surface.values());
 
     if (typeof data !== 'object' && data !== null) {
-        project.addError(theme, `Invalid surface map "${surfaceContextKey}".`);
+        compiler.addError(theme, `Invalid surface map "${surfaceContextKey}".`);
         return { global: {}, surfaces: {} };
     }
     const surfaceMap = data as { [key: string]: unknown };
     for (const key in surfaceMap || {}) {
         if (!surfaces.find(surface => surface.entity.name === key)) {
-            project.addError(
+            compiler.addError(
                 theme,
                 `Unknown surface "${key}" in surface map "${surfaceContextKey}".`,
             );
             delete surfaceMap[key];
         } else {
             surfaceMap[key] = validateTokenMap(
-                project,
+                compiler,
                 theme,
                 `${surfaceContextKey}.surfaces.${key}`,
                 surfaceMap[key],
@@ -65,39 +65,39 @@ const validateSurfaceTokenMap = (
 };
 
 const validateModeTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     modeName: string,
     data: unknown,
 ): ThemeModeTokens => {
     if (typeof data !== 'object' && data !== null) {
-        project.addError(theme, `Invalid mode tokens in "${modeName}".`);
+        compiler.addError(theme, `Invalid mode tokens in "${modeName}".`);
         return { global: {}, surfaces: {} };
     }
     const themeModeTokens = data as { [key: string]: unknown };
     for (const key in themeModeTokens || {}) {
         if (!themeModeTokenProps.includes(key)) {
-            project.addError(theme, `Unknown key "${key}" in "${modeName}".`);
+            compiler.addError(theme, `Unknown key "${key}" in "${modeName}".`);
             delete themeModeTokens[key];
         }
     }
     if (!('global' in themeModeTokens)) {
-        project.addError(theme, `Missing "global" attribute in "${modeName}".`);
+        compiler.addError(theme, `Missing "global" attribute in "${modeName}".`);
         themeModeTokens.global = {};
     } else {
         themeModeTokens.global = validateTokenMap(
-            project,
+            compiler,
             theme,
             `${modeName}.global`,
             themeModeTokens.global,
         );
     }
     if (!('surfaces' in themeModeTokens)) {
-        project.addError(theme, `Missing "surfaces" attribute in "${modeName}".`);
+        compiler.addError(theme, `Missing "surfaces" attribute in "${modeName}".`);
         themeModeTokens.surfaces = {};
     } else {
         themeModeTokens.surfaces = validateSurfaceTokenMap(
-            project,
+            compiler,
             theme,
             modeName,
             themeModeTokens.surfaces,
@@ -107,27 +107,27 @@ const validateModeTokens = (
 };
 
 export const validateThemeTokens = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     data: unknown,
 ): ThemeTokens => {
     if (typeof data !== 'object' && data !== null) {
-        project.addError(theme, `Invalid "tokens" object.`);
+        compiler.addError(theme, `Invalid "tokens" object.`);
         return { base: emptyThemeMode, alt: emptyThemeMode };
     }
     const themeTokens = data as { [key: string]: unknown };
     for (const key in themeTokens || {}) {
         if (!themeTokenProps.includes(key)) {
-            project.addError(theme, `Unknown key "${key}" in "tokens" object.`);
+            compiler.addError(theme, `Unknown key "${key}" in "tokens" object.`);
             delete themeTokens[key];
         }
     }
     for (const prop of themeTokenProps) {
         if (!(prop in themeTokens)) {
-            project.addError(theme, `Missing "${prop}" attribute in "tokens" object.`);
+            compiler.addError(theme, `Missing "${prop}" attribute in "tokens" object.`);
             themeTokens[prop] = emptyThemeMode;
         } else {
-            themeTokens[prop] = validateModeTokens(project, theme, prop, themeTokens[prop]);
+            themeTokens[prop] = validateModeTokens(compiler, theme, prop, themeTokens[prop]);
         }
     }
     return themeTokens as ThemeTokens;

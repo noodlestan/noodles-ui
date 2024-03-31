@@ -1,5 +1,5 @@
 import {
-    ProjectContext,
+    CompilerContext,
     getAllDiagnosticSourceKeys,
     getDiagnosticErrors,
     getDiagnosticWarnings,
@@ -13,14 +13,14 @@ import { logWarning } from '../logger/logWarning';
 
 import { formatWarningsAndErrors } from './formatWarningsAndErrors';
 
-export const logProjectDiagnosticsSummary = (project: ProjectContext): void => {
-    const { diagnostics } = project;
+export const logProjectDiagnosticsSummary = (compiler: CompilerContext): void => {
+    const { diagnostics } = compiler;
 
-    const sourcesWithIssues = getAllDiagnosticSourceKeys(project.diagnostics);
-    const itemsWithWarnings = getItemsWithWarnings(project.diagnostics);
-    const itemsWithErrors = getItemsWithErrors(project.diagnostics);
-    const errorCount = getDiagnosticErrors(project.diagnostics).length;
-    const warnCount = getDiagnosticWarnings(project.diagnostics).length;
+    const sourcesWithIssues = getAllDiagnosticSourceKeys(compiler.diagnostics);
+    const itemsWithWarnings = getItemsWithWarnings(compiler.diagnostics);
+    const itemsWithErrors = getItemsWithErrors(compiler.diagnostics);
+    const errorCount = getDiagnosticErrors(compiler.diagnostics).length;
+    const warnCount = getDiagnosticWarnings(compiler.diagnostics).length;
 
     if (diagnostics.length) {
         const logFn = errorCount ? logError : logWarning;

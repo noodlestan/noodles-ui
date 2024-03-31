@@ -5,7 +5,7 @@ import {
     TokenResource,
     TokenVars,
 } from '@noodles-ui/core-types';
-import { ProjectContext, TokenContext } from '@noodles-ui/support-types';
+import { CompilerContext, TokenContext } from '@noodles-ui/support-types';
 
 import { addToken } from './private/addToken';
 
@@ -23,7 +23,7 @@ const makeTokenName = (token: TokenResource, tokenVars: TokenVars = {}): string 
 };
 
 export const loadToken = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: TokenContext,
     tokenVars?: TokenVars,
 ): TokenEntity | undefined => {
@@ -41,5 +41,5 @@ export const loadToken = (
         (entity as PatternedTokenEntity).vars = tokenVars || {};
     }
 
-    return addToken(project, context, entity);
+    return addToken(compiler, context, entity);
 };

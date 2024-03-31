@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
@@ -7,12 +7,15 @@ import { deserializeSnapshot } from './private/deserializeSnapshot';
 import { getProjectSnapshotFileName } from './private/getProjectSnapshotFileName';
 import { loadProjectSnapshotFile } from './private/loadProjectSnapshotFile';
 
-export const loadProjectSnapshot = async (project: ProjectContext): Promise<void> => {
-    const data = await loadProjectSnapshotFile(project);
+export const loadProjectSnapshot = async (compiler: CompilerContext): Promise<void> => {
+    const data = await loadProjectSnapshotFile(compiler);
     const { entities } = deserializeSnapshot(data);
 
-    project.entities = entities;
+    compiler.entities = entities;
 
-    const fileName = getProjectSnapshotFileName(project);
-    logSuccess('Loaded project snapshot', formatFileNameRelativeToProject(project, fileName, true));
+    const fileName = getProjectSnapshotFileName(compiler);
+    logSuccess(
+        'Loaded project snapshot',
+        formatFileNameRelativeToProject(compiler, fileName, true),
+    );
 };

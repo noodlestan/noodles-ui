@@ -1,14 +1,14 @@
-import { ProjectContext, UnknownResource } from '@noodles-ui/support-types';
+import { CompilerContext, UnknownResource } from '@noodles-ui/support-types';
 
 import { getResourceModule } from '../../project/resources/getters/getResourceModule';
 import { getResourceName } from '../../project/resources/getters/getResourceName';
 import { getResourceType } from '../../project/resources/getters/getResourceType';
 
 export const shouldExpand = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     resource: string | UnknownResource,
 ): boolean => {
-    const { expand } = project.interactive;
+    const { expand } = compiler.interactive;
 
     if (expand.find(pattern => pattern === 'all')) {
         return true;

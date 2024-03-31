@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -11,33 +11,33 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { systemRootModuleFileName } from './paths/systemRootModuleFileName';
 
-const mixinImplementationStatements = (project: ProjectContext): string[] => {
-    const { use } = project.entities.project || {};
-    return [...(use || [])].map(mixin => createMixinStatement(project, mixin));
+const mixinImplementationStatements = (compiler: CompilerContext): string[] => {
+    const { use } = compiler.entities.project || {};
+    return [...(use || [])].map(mixin => createMixinStatement(compiler, mixin));
 };
 
-const mixinImportStatements = (project: ProjectContext): string[] => {
-    const { use } = project.entities.project || {};
-    return [...(use || [])].map(mixin => createMixinImportStatement(project, mixin));
+const mixinImportStatements = (compiler: CompilerContext): string[] => {
+    const { use } = compiler.entities.project || {};
+    return [...(use || [])].map(mixin => createMixinImportStatement(compiler, mixin));
 };
 
 export const generateRootScssModule = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
-    const fileName = systemRootModuleFileName(project, targetDir);
+    const fileName = systemRootModuleFileName(compiler, targetDir);
     await ensuredFiledir(fileName);
 
     const content = [
-        ...mixinImportStatements(project),
+        ...mixinImportStatements(compiler),
         '',
         `.Root {`,
-        ...indent(mixinImplementationStatements(project)),
+        ...indent(mixinImplementationStatements(compiler)),
         `}`,
     ];
-    const output = tsFileHeader(project, fileName) + content.join('\n') + '\n';
+    const output = tsFileHeader(compiler, fileName) + content.join('\n') + '\n';
     await writeFile(fileName, output);
 
-    project.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
 };

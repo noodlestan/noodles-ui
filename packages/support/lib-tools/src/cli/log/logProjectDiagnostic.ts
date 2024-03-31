@@ -1,5 +1,5 @@
 import {
-    ProjectContext,
+    CompilerContext,
     ProjectDiagnostic,
     ProjectDiagnosticFileError,
     ProjectDiagnosticSource,
@@ -19,8 +19,11 @@ import { hintExpandPattern } from './hintExpandPattern';
 import { resourceFromDiagnosticSource } from './resourceFromDiagnosticSource';
 import { shouldExpand } from './shouldExpand';
 
-const logDiagnosticFileError = (project: ProjectContext, fileError: ProjectDiagnosticFileError) => {
-    const fileName = formatFileNameRelativeToProject(project, fileError.fileName, true);
+const logDiagnosticFileError = (
+    compiler: CompilerContext,
+    fileError: ProjectDiagnosticFileError,
+) => {
+    const fileName = formatFileNameRelativeToProject(compiler, fileError.fileName, true);
     const { line: lineNumber, column: columnNumber, sourceCode } = fileError;
     logMessage('  in ' + fileName);
     logMessage('  at line ' + lineNumber + ', column ' + columnNumber + '\n');
@@ -57,10 +60,10 @@ const logDiagnosticResource = (resource: UnknownResource, source: ProjectDiagnos
     }
 };
 
-const logDiagnosticSource = (project: ProjectContext, source: ProjectDiagnosticSource): void => {
+const logDiagnosticSource = (compiler: CompilerContext, source: ProjectDiagnosticSource): void => {
     const fileError = fileErrorFromDiagnosticSource(source);
     if (fileError) {
-        logDiagnosticFileError(project, fileError);
+        logDiagnosticFileError(compiler, fileError);
         return;
     }
     const resource = resourceFromDiagnosticSource(source);
@@ -76,23 +79,23 @@ const logDiagnosticSource = (project: ProjectContext, source: ProjectDiagnosticS
 };
 
 export const logProjectDiagnostic = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     diagnostic: ProjectDiagnostic,
 ): void => {
     const { source, message, severity } = diagnostic;
     if (severity === 'error') {
         logError('Project error', red(message));
     } else {
-        const hint = hintExpandPattern(project, 'warnings');
+        const hint = hintExpandPattern(compiler, 'warnings');
         logWarning('Project warning', yellow(message), hint);
     }
-    if (severity === 'error' || shouldExpand(project, 'warnings')) {
-        logDiagnosticSource(project, source);
+    if (severity === 'error' || shouldExpand(compiler, 'warnings')) {
+        logDiagnosticSource(compiler, source);
         if (diagnostic.data) {
             const data = diagnostic.data as { [key: string]: unknown };
             for (const key in data) {
                 // NOTE: key can be something like "eslintOptions"
-                if (shouldExpand(project, key)) {
+                if (shouldExpand(compiler, key)) {
                     logMessage('details:' + key, data[key] || '');
                 }
             }

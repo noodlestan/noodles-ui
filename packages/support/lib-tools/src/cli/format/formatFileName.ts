@@ -1,14 +1,14 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, white } from 'kleur';
 
 import { stripFilename } from './stripFilename';
 
 export const formatFileName = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     fileName: string,
     colors: boolean = false,
 ): string => {
-    const { modules } = project.build;
+    const { modules } = compiler.build;
     const matches = Array.from(modules.values())
         .filter(module => {
             return fileName !== module.path && fileName.startsWith(module.path);

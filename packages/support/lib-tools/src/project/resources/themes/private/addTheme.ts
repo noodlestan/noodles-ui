@@ -1,24 +1,24 @@
 import { ThemeEntity } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeContext } from '@noodles-ui/support-types';
 
 import { getResourceKey } from '../../getters/getResourceKey';
 
 export const addTheme = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     context: ThemeContext,
     entity: ThemeEntity,
 ): void => {
-    const { theme: items } = project.entities;
+    const { theme: items } = compiler.entities;
     const { resource } = context;
 
     if (!entity.name) {
-        project.addError(resource, 'Entity name is empty.');
+        compiler.addError(resource, 'Entity name is empty.');
         return;
     }
 
     const key = getResourceKey(entity);
     if (items.has(key)) {
-        project.addError(resource, `Duplicate entity key "${key}".`);
+        compiler.addError(resource, `Duplicate entity key "${key}".`);
         return;
     }
 

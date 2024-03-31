@@ -11,7 +11,7 @@ const LabUIResource: ProjectResource = {
     name: 'Lab UI',
     module: '@noodles-ui/lab-ui',
     use: [SurfaceColor],
-    entities: {
+    resources: {
         surfaces,
         mixins: [],
         variants,

@@ -1,5 +1,5 @@
 import {
-    ProjectContext,
+    CompilerContext,
     ProjectDiagnosticSource,
     UnknownResource,
     fileErrorFromDiagnosticSource,
@@ -9,15 +9,15 @@ import { getResourceTypedKey } from '../../project/resources/getters/getResource
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
 export const getDiagnosticKey = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     source: ProjectDiagnosticSource,
 ): string => {
     if (typeof source === 'string') {
-        return formatFileNameRelativeToProject(project, source);
+        return formatFileNameRelativeToProject(compiler, source);
     }
     const fileError = fileErrorFromDiagnosticSource(source);
     if (fileError) {
-        return formatFileNameRelativeToProject(project, fileError.fileName);
+        return formatFileNameRelativeToProject(compiler, fileError.fileName);
     }
     return getResourceTypedKey(source as UnknownResource);
 };

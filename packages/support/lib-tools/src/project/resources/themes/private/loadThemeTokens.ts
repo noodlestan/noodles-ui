@@ -1,17 +1,17 @@
 import { ThemeResource, ThemeTokens } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { ThemeTokensLoader } from '../../../../build/types';
 
 export const loadThemeTokens = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     theme: ThemeResource,
     getThemeTokens: ThemeTokensLoader,
 ): Promise<ThemeTokens | undefined> => {
     try {
-        const loaded = await getThemeTokens(project, theme);
+        const loaded = await getThemeTokens(compiler, theme);
         return loaded?.tokens;
     } catch (err) {
-        project.addError('project', (err as Error).message);
+        compiler.addError('project', (err as Error).message);
     }
 };

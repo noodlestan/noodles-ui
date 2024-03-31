@@ -1,9 +1,9 @@
-import { ProjectContext, SurfaceContext } from '@noodles-ui/support-types';
+import { CompilerContext, SurfaceContext } from '@noodles-ui/support-types';
 
 import { addSurface } from './private/addSurface';
 
-export const loadSurface = (project: ProjectContext, context: SurfaceContext): void => {
+export const loadSurface = (compiler: CompilerContext, context: SurfaceContext): void => {
     const { resource: surface } = context;
     const entity = structuredClone(surface);
-    addSurface(project, context, entity);
+    addSurface(compiler, context, entity);
 };

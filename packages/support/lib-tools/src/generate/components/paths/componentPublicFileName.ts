@@ -1,13 +1,13 @@
 import { join } from 'path';
 
 import { ComponentEntity } from '@noodles-ui/core-types';
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 export const componentPublicFileName = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     entity: ComponentEntity,
 ): string => {
     const name = entity.name;
     // TODO BuildOptions getComponentPath(entity) => string
-    return join(project.projectPath, `src/components/${name}/${name}.tsx`);
+    return join(compiler.projectPath, `src/components/${name}/${name}.tsx`);
 };

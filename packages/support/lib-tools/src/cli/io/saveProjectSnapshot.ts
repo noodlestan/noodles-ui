@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
@@ -8,11 +8,11 @@ import { logSuccess } from '../logger/logSuccess';
 import { getProjectSnapshotFileName } from './private/getProjectSnapshotFileName';
 import { serializeSnapshot } from './private/serializeSnapshot';
 
-export const saveProjectSnapshot = async (project: ProjectContext): Promise<void> => {
-    const data = serializeSnapshot(project);
+export const saveProjectSnapshot = async (compiler: CompilerContext): Promise<void> => {
+    const data = serializeSnapshot(compiler);
     const json = JSON.stringify(data);
-    const fileName = getProjectSnapshotFileName(project);
+    const fileName = getProjectSnapshotFileName(compiler);
     await writeFile(fileName, json);
 
-    logSuccess('Updated snapshot', formatFileNameRelativeToProject(project, fileName, true));
+    logSuccess('Updated snapshot', formatFileNameRelativeToProject(compiler, fileName, true));
 };

@@ -7,7 +7,7 @@ import {
     TokenMap,
     makeNoodlesClassName,
 } from '@noodles-ui/core-types';
-import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
 import { getThemeName } from '../../../entities/theme/getters/getThemeName';
 import { ensuredFiledir } from '../../../util/fs';
@@ -34,7 +34,7 @@ const classDeclaration = (classes: string[], tokens: TokenMap): string[] => {
 };
 
 export const generateThemeScssVars = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
     theme: ThemeBuildContext,
 ): Promise<void> => {
@@ -81,8 +81,8 @@ export const generateThemeScssVars = async (
 
     const content = [...baseGlobals, ...baseSurfaces, ...altGlobals, ...altSurfaces].join('\n');
 
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     await writeFile(fileName, output);
 
-    project.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success: true, time: diffDateNow(time) });
 };

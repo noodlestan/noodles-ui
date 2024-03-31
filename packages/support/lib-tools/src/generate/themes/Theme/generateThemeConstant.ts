@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../../util/fs';
 import { diffDateNow, getDateNow } from '../../../util/time';
@@ -17,7 +17,7 @@ import { exportTheme } from './ThemeConstant/exportTheme';
 import { importTokens } from './ThemeConstant/importTokens';
 
 export const generateThemeConstant = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
     theme: ThemeBuildContext,
 ): Promise<void> => {
@@ -35,10 +35,10 @@ export const generateThemeConstant = async (
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext, VariantBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext, VariantBuildContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -10,14 +10,14 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 import { variantsConstantsFileName } from './paths/variantsConstantsFileName';
 
 const generateTypeImportLine = (
-    project: ProjectContext,
+    compiler: CompilerContext,
     variants: VariantBuildContext[],
 ): string => {
     const names = variants.map(item => item.entity.name);
     return `import { ${names.join(', ')} } from './variants.types';`;
 };
 
-const generateVariantLine = (project: ProjectContext, variant: VariantBuildContext): string => {
+const generateVariantLine = (compiler: CompilerContext, variant: VariantBuildContext): string => {
     const { entity } = variant;
     const name = `${entity.name}DefaultOption`;
     const type = entity.name;
@@ -26,24 +26,24 @@ const generateVariantLine = (project: ProjectContext, variant: VariantBuildConte
 };
 
 export const generateVariantsConstants = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = variantsConstantsFileName(targetDir);
     await ensuredFiledir(fileName);
 
-    const variants = Array.from(project.entities.variant.values()).filter(item => {
+    const variants = Array.from(compiler.entities.variant.values()).filter(item => {
         return item.entity.defaultValue;
     });
 
-    const importsLine = generateTypeImportLine(project, variants);
-    const constantsLines = variants.map(item => generateVariantLine(project, item));
+    const importsLine = generateTypeImportLine(compiler, variants);
+    const constantsLines = variants.map(item => generateVariantLine(compiler, item));
     const content = [importsLine, '\n', ...constantsLines].join('\n');
 
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     await writeFile(fileName, output);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };

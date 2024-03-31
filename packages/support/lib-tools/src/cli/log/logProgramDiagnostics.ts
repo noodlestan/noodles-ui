@@ -1,4 +1,4 @@
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 import { gray, red, white } from 'kleur';
 import ts from 'typescript';
 
@@ -6,13 +6,13 @@ import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativ
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';
 
-const logDiagnosticEntry = (project: ProjectContext, diagnostic: ts.Diagnostic) => {
+const logDiagnosticEntry = (compiler: CompilerContext, diagnostic: ts.Diagnostic) => {
     const { code, messageText } = diagnostic;
     const message = typeof messageText === 'object' ? messageText.messageText : messageText;
     logError('Compile error', gray(`TS${code}: `) + red(message));
 
     const fileName = diagnostic.file?.fileName
-        ? formatFileNameRelativeToProject(project, diagnostic.file?.fileName, true)
+        ? formatFileNameRelativeToProject(compiler, diagnostic.file?.fileName, true)
         : '??';
     logMessage('  in ' + fileName);
     const start = diagnostic.start || 0;
@@ -38,10 +38,10 @@ const logDiagnosticEntry = (project: ProjectContext, diagnostic: ts.Diagnostic) 
     }
 };
 
-export function logProgramDiagnostics(project: ProjectContext): void {
-    const diagnostics = project.build.diagnostics || [];
+export function logProgramDiagnostics(compiler: CompilerContext): void {
+    const diagnostics = compiler.build.diagnostics || [];
     diagnostics.forEach(diagnostic => {
-        logDiagnosticEntry(project, diagnostic);
+        logDiagnosticEntry(compiler, diagnostic);
     });
     if (diagnostics.length) {
         console.info('');

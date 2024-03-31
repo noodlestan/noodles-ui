@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { ProjectContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/support-types';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -20,11 +20,11 @@ import { importRootScssModule } from './RootComponent/importRootScssModule';
 import { systemRootFileName } from './paths/systemRootFileName';
 
 export const generateRootComponent = async (
-    project: ProjectContext,
+    compiler: CompilerContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
-    const fileName = systemRootFileName(project, targetDir);
+    const fileName = systemRootFileName(compiler, targetDir);
     await ensuredFiledir(fileName);
 
     const surfacesPath = relativePath(fileName, surfacesIndexFileName(targetDir), true);
@@ -42,17 +42,17 @@ export const generateRootComponent = async (
     const statements = [
         importFrameworkTypes(true),
         ...createImportStatements([...internalTypes, ...localImports]),
-        importRootCssTokens(project, fileName, targetDir),
-        importRootScssModule(project, fileName, targetDir),
+        importRootCssTokens(compiler, fileName, targetDir),
+        importRootScssModule(compiler, fileName, targetDir),
         declareProps(),
-        exportComponent(project),
+        exportComponent(compiler),
     ];
 
     const content = await printTypescriptStatements(statements);
-    const output = tsFileHeader(project, fileName) + content + '\n';
+    const output = tsFileHeader(compiler, fileName) + content + '\n';
     const formatted = await formatSourceCodeWithPrettier(fileName, output);
     await writeFile(fileName, formatted);
-    const success = await formatTypescriptFile(project, fileName);
+    const success = await formatTypescriptFile(compiler, fileName);
 
-    project.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
+    compiler.addGeneratedSourceFile({ fileName, success, time: diffDateNow(time) });
 };
