@@ -1,12 +1,11 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext, serializeSnapshot } from '@noodles-ui/support-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
 import { getBuildSnapshotFileName } from './private/getBuildSnapshotFileName';
-import { serializeSnapshot } from './private/serializeSnapshot';
 
 export const saveBuildSnapshot = async (compiler: CompilerContext): Promise<void> => {
     const data = serializeSnapshot(compiler);

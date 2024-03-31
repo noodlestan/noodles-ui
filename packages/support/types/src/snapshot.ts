@@ -15,6 +15,7 @@ import {
     ComponentContext,
     EntityBuildContext,
     MixinContext,
+    ProjectContext,
     SurfaceContext,
     ThemeContext,
     TokenContext,
@@ -32,47 +33,33 @@ export type UnknownBuildContextDto = EntityBuildContext<
     UnknownEntity
 >;
 
-export type ProjectContextDto = Omit<SurfaceContext, 'consumes' | 'consumers'> & {
+export type EntityContextDto<T extends ResourceContext<UnknownResource>> = Omit<
+    T,
+    'consumes' | 'consumers'
+> & {
     consumes: string[];
     consumers: string[];
 };
 
-export type SurfaceContextDto = Omit<SurfaceContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
-export type MixinContextDto = Omit<MixinContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
-export type VariantContextDto = Omit<VariantContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
-export type ComponentContextDto = Omit<ComponentContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
-export type TokenContextDto = Omit<TokenContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
-export type ThemeContextDto = Omit<ThemeContext, 'consumes' | 'consumers'> & {
-    consumes: string[];
-    consumers: string[];
-};
-
+export type ProjectContextDto = EntityContextDto<ProjectContext>;
 export type ProjectBuildContextDto = EntityBuildContext<ProjectContextDto, ProjectResource>;
+
+export type SurfaceContextDto = EntityContextDto<SurfaceContext>;
 export type SurfaceBuildContextDto = EntityBuildContext<SurfaceContextDto, SurfaceResource>;
+
+export type MixinContextDto = EntityContextDto<MixinContext>;
 export type MixinBuildContextDto = EntityBuildContext<MixinContextDto, MixinResource>;
+
+export type VariantContextDto = EntityContextDto<VariantContext>;
 export type VariantBuildContextDto = EntityBuildContext<VariantContextDto, VariantEntity>;
+
+export type ComponentContextDto = EntityContextDto<ComponentContext>;
 export type ComponentBuildContextDto = EntityBuildContext<ComponentContextDto, ComponentEntity>;
+
+export type TokenContextDto = EntityContextDto<TokenContext>;
 export type TokenBuildContextDto = EntityBuildContext<TokenContextDto, TokenEntity>;
+
+export type ThemeContextDto = EntityContextDto<ThemeContext>;
 export type ThemeBuildContextDto = EntityBuildContext<ThemeContextDto, ThemeEntity>;
 
 export type EntityBuildMapDto<

@@ -1,9 +1,8 @@
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext, deserializeSnapshot } from '@noodles-ui/support-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
-import { deserializeSnapshot } from './private/deserializeSnapshot';
 import { getBuildSnapshotFileName } from './private/getBuildSnapshotFileName';
 import { loadBuildSnapshotFile } from './private/loadBuildSnapshotFile';
 

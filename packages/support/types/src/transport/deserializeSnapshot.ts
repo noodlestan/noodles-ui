@@ -1,23 +1,25 @@
+import { CompilerDiagnostics, ProjectEntities } from '../compiler';
+import {
+    ComponentBuildContext,
+    MixinBuildContext,
+    ProjectBuildContext,
+    SurfaceBuildContext,
+    ThemeBuildContext,
+    TokenBuildContext,
+    UnknownBuildContext,
+    VariantBuildContext,
+} from '../entities';
 import {
     BuildSnapshotDto,
-    ComponentBuildContext,
     ComponentBuildContextDto,
-    MixinBuildContext,
     MixinBuildContextDto,
-    ProjectBuildContext,
     ProjectBuildContextDto,
-    ProjectEntities,
-    SurfaceBuildContext,
     SurfaceBuildContextDto,
-    ThemeBuildContext,
     ThemeBuildContextDto,
-    TokenBuildContext,
     TokenBuildContextDto,
-    UnknownBuildContext,
     UnknownBuildContextDto,
-    VariantBuildContext,
     VariantBuildContextDto,
-} from '@noodles-ui/support-types';
+} from '../snapshot';
 
 function toMap<T, V>(object: { [key: string]: V }, transform: (t: V) => T): Map<string, T> {
     const entries = Object.entries(object).map(entry => {
@@ -41,8 +43,10 @@ function transform<T extends UnknownBuildContextDto, V extends UnknownBuildConte
     } as V;
 }
 
-export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): ProjectEntities => {
-    const { entities } = snapshotDto;
+export const deserializeSnapshot = (
+    snapshotDto: BuildSnapshotDto,
+): ProjectEntities & CompilerDiagnostics => {
+    const { entities, diagnostics } = snapshotDto;
     const { project, surface, mixin, variant, component, token, theme } = entities;
 
     const entityMaps = {
@@ -55,5 +59,5 @@ export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): ProjectEntit
         theme: toMap<ThemeBuildContext, ThemeBuildContextDto>(theme, transform),
     };
 
-    return { entities: entityMaps };
+    return { entities: entityMaps, diagnostics };
 };

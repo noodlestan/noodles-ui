@@ -25,7 +25,6 @@ type CompilerAttributes = {
 
 type CompilerAPI = {
     build: BuildContext;
-    diagnostics: ProjectDiagnostic[];
     addError: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
     addWarning: (source: ProjectDiagnosticSource, message: string, data?: unknown) => void;
     compileProjectFile: () => Promise<void>;
@@ -36,6 +35,10 @@ type CompilerAPI = {
         hints: boolean;
         expand: string[];
     };
+};
+
+export type CompilerDiagnostics = {
+    diagnostics: ProjectDiagnostic[];
 };
 
 export type EntityType = keyof ProjectEntitiesMap;
@@ -54,4 +57,7 @@ export type ProjectEntities = {
     entities: ProjectEntitiesMap;
 };
 
-export type CompilerContext = CompilerAttributes & CompilerAPI & ProjectEntities;
+export type CompilerContext = CompilerAttributes &
+    CompilerAPI &
+    ProjectEntities &
+    CompilerDiagnostics;

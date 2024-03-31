@@ -1,24 +1,26 @@
+import { CompilerContext } from '../compiler';
+import { getDiagnosticErrors } from '../diagnostics';
+import {
+    ComponentBuildContext,
+    MixinBuildContext,
+    ProjectBuildContext,
+    SurfaceBuildContext,
+    ThemeBuildContext,
+    TokenBuildContext,
+    UnknownBuildContext,
+    VariantBuildContext,
+} from '../entities';
 import {
     BuildSnapshotDto,
-    CompilerContext,
-    ComponentBuildContext,
     ComponentBuildContextDto,
-    MixinBuildContext,
     MixinBuildContextDto,
-    ProjectBuildContext,
     ProjectBuildContextDto,
-    SurfaceBuildContext,
     SurfaceBuildContextDto,
-    ThemeBuildContext,
     ThemeBuildContextDto,
-    TokenBuildContext,
     TokenBuildContextDto,
-    UnknownBuildContext,
     UnknownBuildContextDto,
-    VariantBuildContext,
     VariantBuildContextDto,
-    getDiagnosticErrors,
-} from '@noodles-ui/support-types';
+} from '../snapshot';
 
 function mapToObject<T, V>(map: Map<string, T>, transform: (t: T) => V): { [key: string]: V } {
     const init = {} as { [key: string]: V };
