@@ -5,13 +5,13 @@ import { CompilerContext } from '@noodles-ui/support-types';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
-import { getModulesCacheFileName } from './private/getModulesCacheFileName';
+import { getBuildModulesCacheFileName } from './private/getBuildModulesCacheFileName';
 
-export const saveProjectModulesCache = async (compiler: CompilerContext): Promise<void> => {
+export const saveBuildModulesCache = async (compiler: CompilerContext): Promise<void> => {
     const modules = compiler.build.modules;
     const data = Object.fromEntries(modules);
     const json = JSON.stringify(data);
-    const fileName = getModulesCacheFileName(compiler);
+    const fileName = getBuildModulesCacheFileName(compiler);
     await writeFile(fileName, json);
 
     logSuccess('Updated modules cache', formatFileNameRelativeToProject(compiler, fileName, true));

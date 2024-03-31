@@ -1,7 +1,7 @@
 import { ThemeResource, ThemeTokens } from '@noodles-ui/core-types';
 import { CompilerContext } from '@noodles-ui/support-types';
 
-import { ThemeTokensLoader } from '../../../../build/types';
+import { ThemeTokensLoader } from '../../../../cli/types';
 
 export const loadThemeTokens = async (
     compiler: CompilerContext,

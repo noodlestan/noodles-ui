@@ -17,7 +17,9 @@ export const MixinsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
+                    <ModuleName>
+                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                    </ModuleName>
                     <PageTitle>Mixins</PageTitle>
                 </PageHeader>
                 <SectionLayout>

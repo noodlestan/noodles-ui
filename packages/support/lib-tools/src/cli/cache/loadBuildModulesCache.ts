@@ -5,11 +5,11 @@ import { CompilerContext, ProgramModuleContext } from '@noodles-ui/support-types
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
-import { getModulesCacheFileName } from './private/getModulesCacheFileName';
+import { getBuildModulesCacheFileName } from './private/getBuildModulesCacheFileName';
 
-export const loadProjectModulesCache = async (compiler: CompilerContext): Promise<void> => {
+export const loadBuildModulesCache = async (compiler: CompilerContext): Promise<void> => {
     const modules = compiler.build.modules;
-    const fileName = getModulesCacheFileName(compiler);
+    const fileName = getBuildModulesCacheFileName(compiler);
 
     const contents = await readFile(fileName);
     const data = JSON.parse(contents.toString()) as { [key: string]: ProgramModuleContext };

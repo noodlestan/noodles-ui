@@ -1,7 +1,7 @@
 import { ThemeResource } from '@noodles-ui/core-types';
 import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
-import { getResourceKey } from '../../../project/resources/getters/getResourceKey';
+import { getResourceKey } from '../../../compiler/resources/getters/getResourceKey';
 
 const addTheme = (set: Set<string>, theme: ThemeResource) => {
     if (theme.extend) {

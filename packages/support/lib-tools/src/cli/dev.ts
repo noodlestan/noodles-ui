@@ -7,6 +7,8 @@ import { FSWatcher, watch as chok } from 'chokidar';
 import { blue, bold, green, red, yellow } from 'kleur';
 import * as PubSub from 'pubsub-js';
 
+import { createCompiler } from '../compiler/createCompiler';
+import { getProjectFilenamesWatchlist } from '../compiler/private/getProjectFilenamesWatchlist';
 import {
     EVENT_BUILD_FINISHED,
     EVENT_BUILD_STARTED,
@@ -15,15 +17,13 @@ import {
 import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
 import { execLive } from '../exec/execLive';
-import { createProject } from '../project/createProject';
-import { getProjectFilenamesWatchlist } from '../project/private/getProjectFilenamesWatchlist';
 import { ServerOptions, createServer } from '../server/createServer';
 import { formatSeconds } from '../util/string';
 
 import { getNoLive } from './arguments/getNoLive';
+import { loadBuildModulesCache } from './cache/loadBuildModulesCache';
+import { loadBuildSnapshotFile } from './cache/private/loadBuildSnapshotFile';
 import { stripFilename } from './format/stripFilename';
-import { loadProjectModulesCache } from './io/loadProjectModulesCache';
-import { loadProjectSnapshotFile } from './io/private/loadProjectSnapshotFile';
 import { hintExpandPattern } from './log/hintExpandPattern';
 import { logFileNamesList } from './log/logFileNamesList';
 import { logFilenameMessage } from './log/logFilenameMessage';
@@ -85,7 +85,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
 
     const projectFile = resolve(fileName);
     logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
-    const project = await createProject(projectFile);
+    const compiler = await createCompiler(projectFile);
 
     const watcher = chok(projectFile, {
         ignored: /(^|[/\\])\../,
@@ -95,17 +95,17 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
     let lastSnapshot: BuildFinishedEvent | undefined;
 
     const refreshWatchers = async (): Promise<void> => {
-        logInfo('...reloading project...', undefined, hintExpandPattern(project, 'watcher'));
-        logProjectBasicInfo(project);
-        await loadProjectModulesCache(project);
-        const sources = getProjectFilenamesWatchlist(project);
+        logInfo('...reloading project...', undefined, hintExpandPattern(compiler, 'watcher'));
+        logProjectBasicInfo(compiler);
+        await loadBuildModulesCache(compiler);
+        const sources = getProjectFilenamesWatchlist(compiler);
         const watched = getWatcherWatchedFiles(watcher);
 
         watched.forEach(filename => {
             if (!sources.includes(filename)) {
                 watcher.unwatch(filename);
-                if (shouldExpand(project, 'watcher')) {
-                    logFilenameMessage(project, '- unwatch ', filename);
+                if (shouldExpand(compiler, 'watcher')) {
+                    logFilenameMessage(compiler, '- unwatch ', filename);
                 }
             } else {
                 const index = sources.indexOf(filename);
@@ -114,8 +114,8 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         });
 
         watcher.add(sources);
-        if (shouldExpand(project, 'watcher')) {
-            logFileNamesList(project, '+ watch ', sources);
+        if (shouldExpand(compiler, 'watcher')) {
+            logFileNamesList(compiler, '+ watch ', sources);
         }
     };
 
@@ -126,13 +126,13 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         try {
             proc?.kill('SIGINT');
             await execBuild();
-            const snapshot = await loadProjectSnapshotFile(project);
+            const snapshot = await loadBuildSnapshotFile(compiler);
             lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logSuccess('Build successful');
-            proc = execLive(project);
+            proc = execLive(compiler);
         } catch (err) {
-            const snapshot = await loadProjectSnapshotFile(project);
+            const snapshot = await loadBuildSnapshotFile(compiler);
             lastSnapshot = snapshot;
             PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
             logError('Build error(s)', 'exit code: ' + err);

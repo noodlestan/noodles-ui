@@ -11,10 +11,11 @@ import {
 } from '@noodles-ui/support-types';
 import { blue, gray, red, white, yellow } from 'kleur';
 
-import { getResourceModule } from '../../project/resources/getters/getResourceModule';
-import { getResourceName } from '../../project/resources/getters/getResourceName';
-import { getResourceType } from '../../project/resources/getters/getResourceType';
-import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
+import { getResourceModule } from '../../compiler/resources/getters/getResourceModule';
+import { getResourceName } from '../../compiler/resources/getters/getResourceName';
+import { getResourceType } from '../../compiler/resources/getters/getResourceType';
+import { getResourceTypedKey } from '../../compiler/resources/getters/getResourceTypedKey';
+import { getProject } from '../../entities/project/getProject';
 import { plural } from '../../util/string';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
@@ -103,8 +104,8 @@ export const logProjectData = (compiler: CompilerContext): void => {
     logInfo('Project data', count, hint);
 
     if (shouldExpand(compiler, 'project')) {
-        logMessage('  Name:', compiler.entities.project.name);
-        logMessage('  Module:', compiler.entities.project.module);
+        logMessage('  Name:', getProject(compiler).entity.name);
+        logMessage('  Module:', getProject(compiler).entity.module);
         console.info('');
     }
 

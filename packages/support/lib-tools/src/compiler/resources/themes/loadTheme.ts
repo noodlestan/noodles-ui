@@ -1,7 +1,7 @@
 import { ThemeTokens } from '@noodles-ui/core-types';
 import { CompilerContext, ThemeContext } from '@noodles-ui/support-types';
 
-import { BuildOptions } from '../../../build/types';
+import { BuildOptions } from '../../../cli/types';
 
 import { addTheme } from './private/addTheme';
 import { loadThemeTokens } from './private/loadThemeTokens';

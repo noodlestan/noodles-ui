@@ -4,8 +4,9 @@ import { readFile } from 'fs/promises';
 import { ThemeResource } from '@noodles-ui/core-types';
 import { CompilerContext } from '@noodles-ui/support-types';
 
-import { ThemeTokensLoader, ThemeTokensSchema } from '../build/types';
 import { getThemeIdentifier } from '../entities/theme/getters/getThemeIdentifier';
+
+import { ThemeTokensLoader, ThemeTokensSchema } from './types';
 
 type LoaderOptions = {
     fileName?: (theme: string) => string;

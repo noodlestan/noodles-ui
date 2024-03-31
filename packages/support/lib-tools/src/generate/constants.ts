@@ -1,4 +1,4 @@
-import { NUI_RESOURCES_DIR } from '../project/resources/constants';
+import { NUI_RESOURCES_DIR } from '../compiler/resources/constants';
 
 export const NUI_RENDERED_PROPS_NAME = 'RenderedProps';
 

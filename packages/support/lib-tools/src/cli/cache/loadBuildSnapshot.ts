@@ -4,16 +4,16 @@ import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativ
 import { logSuccess } from '../logger/logSuccess';
 
 import { deserializeSnapshot } from './private/deserializeSnapshot';
-import { getProjectSnapshotFileName } from './private/getProjectSnapshotFileName';
-import { loadProjectSnapshotFile } from './private/loadProjectSnapshotFile';
+import { getBuildSnapshotFileName } from './private/getBuildSnapshotFileName';
+import { loadBuildSnapshotFile } from './private/loadBuildSnapshotFile';
 
-export const loadProjectSnapshot = async (compiler: CompilerContext): Promise<void> => {
-    const data = await loadProjectSnapshotFile(compiler);
+export const loadBuildSnapshot = async (compiler: CompilerContext): Promise<void> => {
+    const data = await loadBuildSnapshotFile(compiler);
     const { entities } = deserializeSnapshot(data);
 
     compiler.entities = entities;
 
-    const fileName = getProjectSnapshotFileName(compiler);
+    const fileName = getBuildSnapshotFileName(compiler);
     logSuccess(
         'Loaded project snapshot',
         formatFileNameRelativeToProject(compiler, fileName, true),

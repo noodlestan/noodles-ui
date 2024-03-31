@@ -1,7 +1,8 @@
 import { CompilerContext } from '@noodles-ui/support-types';
 
+import { getProject } from '../../../entities/project/getProject';
 import { safeName } from '../../../util/string';
 
 export const systemComponentName = (compiler: CompilerContext): string => {
-    return safeName(compiler.entities.project.name || 'NUI') + 'Root';
+    return safeName(getProject(compiler).entity.name || 'NUI') + 'Root';
 };

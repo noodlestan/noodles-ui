@@ -4,6 +4,8 @@ import {
     ComponentBuildContextDto,
     MixinBuildContext,
     MixinBuildContextDto,
+    ProjectBuildContext,
+    ProjectBuildContextDto,
     ProjectEntities,
     SurfaceBuildContext,
     SurfaceBuildContextDto,
@@ -44,7 +46,7 @@ export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): ProjectEntit
     const { project, surface, mixin, variant, component, token, theme } = entities;
 
     const entityMaps = {
-        project,
+        project: toMap<ProjectBuildContext, ProjectBuildContextDto>(project, transform),
         surface: toMap<SurfaceBuildContext, SurfaceBuildContextDto>(surface, transform),
         mixin: toMap<MixinBuildContext, MixinBuildContextDto>(mixin, transform),
         variant: toMap<VariantBuildContext, VariantBuildContextDto>(variant, transform),

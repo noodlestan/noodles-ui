@@ -2,6 +2,7 @@ import {
     ComponentEntity,
     ComponentResource,
     MixinResource,
+    ProjectResource,
     SurfaceResource,
     ThemeEntity,
     ThemeResource,
@@ -29,9 +30,9 @@ export type EntityBuildMap<
     T extends EntityBuildContext<ResourceContext<UnknownResource>, UnknownResource>,
 > = Map<string, T>;
 
-// export type SurfaceContext = ResourceContext<SurfaceResource>;
-// export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;
-// export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;
+export type ProjectContext = ResourceContext<ProjectResource>;
+export type ProjectBuildContext = EntityBuildContext<ProjectContext, ProjectResource>;
+export type ProjectEntityMap = EntityBuildMap<ProjectBuildContext>;
 
 export type SurfaceContext = ResourceContext<SurfaceResource>;
 export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;

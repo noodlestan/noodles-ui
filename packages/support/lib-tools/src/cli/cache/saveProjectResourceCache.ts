@@ -4,7 +4,7 @@ import { join } from 'path';
 import { ProjectResource } from '@noodles-ui/core-types';
 import { CompilerContext } from '@noodles-ui/support-types';
 
-import { NUI_RESOURCES_CACHE_FILE, NUI_RESOURCES_DIR } from '../../project/resources/constants';
+import { NUI_RESOURCES_CACHE_FILE, NUI_RESOURCES_DIR } from '../../compiler/resources/constants';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 

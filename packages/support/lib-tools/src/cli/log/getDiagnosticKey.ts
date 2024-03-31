@@ -5,7 +5,7 @@ import {
     fileErrorFromDiagnosticSource,
 } from '@noodles-ui/support-types';
 
-import { getResourceTypedKey } from '../../project/resources/getters/getResourceTypedKey';
+import { getResourceTypedKey } from '../../compiler/resources/getters/getResourceTypedKey';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
 export const getDiagnosticKey = (

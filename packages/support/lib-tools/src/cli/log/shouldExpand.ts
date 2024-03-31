@@ -1,8 +1,8 @@
 import { CompilerContext, UnknownResource } from '@noodles-ui/support-types';
 
-import { getResourceModule } from '../../project/resources/getters/getResourceModule';
-import { getResourceName } from '../../project/resources/getters/getResourceName';
-import { getResourceType } from '../../project/resources/getters/getResourceType';
+import { getResourceModule } from '../../compiler/resources/getters/getResourceModule';
+import { getResourceName } from '../../compiler/resources/getters/getResourceName';
+import { getResourceType } from '../../compiler/resources/getters/getResourceType';
 
 export const shouldExpand = (
     compiler: CompilerContext,

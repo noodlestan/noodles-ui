@@ -1,9 +1,8 @@
-import { ProjectOwnResource } from '@noodles-ui/core-types';
-
 import { ProjectDiagnostic, ProjectDiagnosticSource } from './diagnostics';
 import {
     ComponentEntityMap,
     MixinEntityMap,
+    ProjectEntityMap,
     SurfaceEntityMap,
     ThemeEntityMap,
     TokenEntityMap,
@@ -18,7 +17,7 @@ export type GeneratedSourceFile = {
     time?: number;
 };
 
-type ProjectAttributes = {
+type CompilerAttributes = {
     projectFile: string;
     projectPath: string;
     rootPath?: string;
@@ -42,7 +41,7 @@ type CompilerAPI = {
 export type EntityType = keyof ProjectEntitiesMap;
 
 export type ProjectEntitiesMap = {
-    project: Omit<ProjectOwnResource, 'type'>;
+    project: ProjectEntityMap;
     surface: SurfaceEntityMap;
     theme: ThemeEntityMap;
     component: ComponentEntityMap;
@@ -55,4 +54,4 @@ export type ProjectEntities = {
     entities: ProjectEntitiesMap;
 };
 
-export type CompilerContext = ProjectAttributes & CompilerAPI & ProjectEntities;
+export type CompilerContext = CompilerAttributes & CompilerAPI & ProjectEntities;

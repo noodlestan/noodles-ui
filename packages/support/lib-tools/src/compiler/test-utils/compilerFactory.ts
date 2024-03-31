@@ -53,11 +53,7 @@ export const compilerFactory = (overides?: Partial<CompilerContext>): CompilerCo
         generatedSourceFiles: [{ fileName: '' }],
         addGeneratedSourceFile,
         entities: {
-            project: {
-                name: '',
-                module: '',
-                use: [],
-            },
+            project: new Map(),
             surface: new Map(),
             theme: new Map(),
             component: new Map(),

@@ -2,7 +2,7 @@ import { relative } from 'path';
 
 import { PROJECT_MODULE_KEY } from '@noodles-ui/core-types';
 
-import { CompilerContext } from '../projects';
+import { CompilerContext } from '../compiler';
 
 export const formatFileNameRelativeToProject = (
     compiler: CompilerContext,

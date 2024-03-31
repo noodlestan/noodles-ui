@@ -21,7 +21,9 @@ export const ThemesPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
+                    <ModuleName>
+                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                    </ModuleName>
                     <PageTitle>Themes</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={diagnostics()} />

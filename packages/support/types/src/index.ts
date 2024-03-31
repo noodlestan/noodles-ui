@@ -4,6 +4,6 @@ export * from './snapshot';
 export * from './context';
 export * from './entities';
 export * from './program';
-export * from './projects';
+export * from './compiler';
 
 export * from './constants';

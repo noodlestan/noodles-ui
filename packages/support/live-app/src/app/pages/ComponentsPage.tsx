@@ -20,7 +20,9 @@ export const ComponentsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
+                    <ModuleName>
+                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                    </ModuleName>
                     <PageTitle>Components</PageTitle>
                 </PageHeader>
                 <SectionLayout>

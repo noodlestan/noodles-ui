@@ -1,7 +1,7 @@
 import { ProjectResource, ThemeResource } from '@noodles-ui/core-types';
 import { CompilerContext } from '@noodles-ui/support-types';
 
-import { BuildOptions } from '../../../build/types';
+import { BuildOptions } from '../../../cli/types';
 import { newResourceContextPublic } from '../../context/newResourceContextPublic';
 
 import { loadTheme } from './loadTheme';

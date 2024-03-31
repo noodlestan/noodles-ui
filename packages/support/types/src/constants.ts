@@ -1,4 +1,4 @@
-import { EntityType } from './projects';
+import { EntityType } from './compiler';
 
 export const NUI: Record<EntityType, EntityType> = {
     project: 'project',

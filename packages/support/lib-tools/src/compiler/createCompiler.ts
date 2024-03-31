@@ -9,13 +9,14 @@ import {
     ProjectDiagnostic,
     ProjectDiagnosticSeverity,
     ProjectDiagnosticSource,
+    ProjectEntityMap,
     SurfaceEntityMap,
     ThemeEntityMap,
     TokenEntityMap,
     VariantEntityMap,
 } from '@noodles-ui/support-types';
 
-import { BuildOptions } from '../build/types';
+import { BuildOptions } from '../cli/types';
 import { findRootPath } from '../monorepo/findRootPath';
 
 import { findLocalNodeModule } from './modules/findLocalNodeModule';
@@ -23,7 +24,7 @@ import { namedModule } from './modules/namedModule';
 import { createProgram } from './program/createProgram';
 import { getBuildErrorMessage } from './program/getters/getBuildErrorMessage';
 
-export const createProject = async (
+export const createCompiler = async (
     projectFile: string,
     options: BuildOptions = {},
 ): Promise<CompilerContext> => {
@@ -51,6 +52,7 @@ export const createProject = async (
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
         generatedSourceFiles.push(source);
 
+    const project: ProjectEntityMap = new Map();
     const theme: ThemeEntityMap = new Map();
     const surface: SurfaceEntityMap = new Map();
     const variant: VariantEntityMap = new Map();
@@ -82,7 +84,7 @@ export const createProject = async (
             expand,
         },
         entities: {
-            project: { name: '', module: '', use: [] },
+            project,
             surface,
             theme,
             variant,

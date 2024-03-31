@@ -2,12 +2,12 @@ import { readFile } from 'fs/promises';
 
 import { BuildSnapshotDto, CompilerContext } from '@noodles-ui/support-types';
 
-import { getProjectSnapshotFileName } from './getProjectSnapshotFileName';
+import { getBuildSnapshotFileName } from './getBuildSnapshotFileName';
 
-export const loadProjectSnapshotFile = async (
+export const loadBuildSnapshotFile = async (
     compiler: CompilerContext,
 ): Promise<BuildSnapshotDto> => {
-    const file = getProjectSnapshotFileName(compiler);
+    const file = getBuildSnapshotFileName(compiler);
     const contents = await readFile(file);
     return JSON.parse(contents.toString()) as BuildSnapshotDto;
 };

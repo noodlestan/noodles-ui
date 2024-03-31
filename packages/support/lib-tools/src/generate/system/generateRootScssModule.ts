@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/support-types';
 
+import { getProject } from '../../entities/project/getProject';
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { createMixinImportStatement } from '../mixins/createMixinImportStatement';
@@ -12,12 +13,12 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 import { systemRootModuleFileName } from './paths/systemRootModuleFileName';
 
 const mixinImplementationStatements = (compiler: CompilerContext): string[] => {
-    const { use } = compiler.entities.project || {};
+    const { use } = getProject(compiler).entity;
     return [...(use || [])].map(mixin => createMixinStatement(compiler, mixin));
 };
 
 const mixinImportStatements = (compiler: CompilerContext): string[] => {
-    const { use } = compiler.entities.project || {};
+    const { use } = getProject(compiler).entity;
     return [...(use || [])].map(mixin => createMixinImportStatement(compiler, mixin));
 };
 

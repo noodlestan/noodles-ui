@@ -1,7 +1,7 @@
 import {
     ComponentEntity,
     MixinResource,
-    ProjectOwnResource,
+    ProjectResource,
     SurfaceResource,
     ThemeEntity,
     TokenEntity,
@@ -31,6 +31,11 @@ export type UnknownBuildContextDto = EntityBuildContext<
     ResourceContextDto<UnknownResource>,
     UnknownEntity
 >;
+
+export type ProjectContextDto = Omit<SurfaceContext, 'consumes' | 'consumers'> & {
+    consumes: string[];
+    consumers: string[];
+};
 
 export type SurfaceContextDto = Omit<SurfaceContext, 'consumes' | 'consumers'> & {
     consumes: string[];
@@ -62,6 +67,7 @@ export type ThemeContextDto = Omit<ThemeContext, 'consumes' | 'consumers'> & {
     consumers: string[];
 };
 
+export type ProjectBuildContextDto = EntityBuildContext<ProjectContextDto, ProjectResource>;
 export type SurfaceBuildContextDto = EntityBuildContext<SurfaceContextDto, SurfaceResource>;
 export type MixinBuildContextDto = EntityBuildContext<MixinContextDto, MixinResource>;
 export type VariantBuildContextDto = EntityBuildContext<VariantContextDto, VariantEntity>;
@@ -74,7 +80,7 @@ export type EntityBuildMapDto<
 > = { [key: string]: T };
 
 export type EntitiesMapDto = {
-    project: Omit<ProjectOwnResource, 'type'>;
+    project: EntityBuildMapDto<ProjectBuildContextDto>;
     surface: EntityBuildMapDto<SurfaceBuildContextDto>;
     mixin: EntityBuildMapDto<MixinBuildContextDto>;
     variant: EntityBuildMapDto<VariantBuildContextDto>;

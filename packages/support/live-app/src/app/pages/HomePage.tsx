@@ -16,8 +16,10 @@ export const HomePage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
-                    <PageTitle>{lastSnapshot()?.entities.project.name || '?'}</PageTitle>
+                    <ModuleName>
+                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                    </ModuleName>
+                    <PageTitle>{lastSnapshot()?.entities.project[''].entity.name || '?'}</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} />
                 <DashboardGrid>

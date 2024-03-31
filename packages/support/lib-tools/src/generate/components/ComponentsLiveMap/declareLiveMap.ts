@@ -1,8 +1,8 @@
 import { CompilerContext } from '@noodles-ui/support-types';
 import ts from 'typescript';
 
+import { getResourceKey } from '../../../compiler/resources/getters/getResourceKey';
 import { getPublicComponents } from '../../../entities/component/getters/getPublicComponents';
-import { getResourceKey } from '../../../project/resources/getters/getResourceKey';
 
 const factory = ts.factory;
 

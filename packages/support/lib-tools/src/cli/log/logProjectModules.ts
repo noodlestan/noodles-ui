@@ -1,7 +1,7 @@
 import { CompilerContext } from '@noodles-ui/support-types';
 import { green, yellow } from 'kleur';
 
-import { getProjectFilenamesWatchlist } from '../../project/private/getProjectFilenamesWatchlist';
+import { getProjectFilenamesWatchlist } from '../../compiler/private/getProjectFilenamesWatchlist';
 import { plural } from '../../util/string';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logInfo } from '../logger/logInfo';
