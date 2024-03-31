@@ -7,18 +7,18 @@ import { SurfaceCard } from '../components/entities/surface/SurfaceCard';
 import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { surfaces } from '../providers/BuildContextProvider/surfaces';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { surfaces } from '../providers/SnapshotContextProvider/surfaces';
 
 export const SurfacesPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
     return (
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
                     <PageTitle>Surfaces</PageTitle>
                 </PageHeader>

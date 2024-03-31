@@ -9,8 +9,8 @@ import {
     VariantEntity,
 } from '@noodles-ui/core-types';
 
-import { ResourceContext } from './context';
-import { ProjectDiagnostic } from './diagnostics';
+import { ResourceContext } from '../context';
+import { ProjectDiagnostic } from '../diagnostics';
 import {
     ComponentContext,
     EntityBuildContext,
@@ -20,8 +20,8 @@ import {
     ThemeContext,
     TokenContext,
     VariantContext,
-} from './entities';
-import { UnknownResource } from './resources';
+} from '../entities';
+import { UnknownResource } from '../resources';
 
 export type ResourceContextDto<T> = Omit<ResourceContext<T>, 'consumes' | 'consumers'> & {
     consumes: string[];
@@ -66,6 +66,11 @@ export type EntityBuildMapDto<
     T extends EntityBuildContext<ResourceContextDto<UnknownResource>, UnknownResource>,
 > = { [key: string]: T };
 
+export type BuildSnapshotAttributesDto = {
+    success: boolean;
+    timestamp: string;
+};
+
 export type EntitiesMapDto = {
     project: EntityBuildMapDto<ProjectBuildContextDto>;
     surface: EntityBuildMapDto<SurfaceBuildContextDto>;
@@ -76,9 +81,7 @@ export type EntitiesMapDto = {
     theme: EntityBuildMapDto<ThemeBuildContextDto>;
 };
 
-export type BuildSnapshotDto = {
-    success: boolean;
-    timestamp: string;
+export type BuildSnapshotDto = BuildSnapshotAttributesDto & {
     entities: EntitiesMapDto;
     diagnostics: ProjectDiagnostic[];
 };

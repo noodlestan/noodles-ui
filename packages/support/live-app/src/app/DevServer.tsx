@@ -1,30 +1,35 @@
 /// <reference types="vite/client" />
-import { BuildSnapshotDto } from '@noodles-ui/support-types';
+
+import { BuildSnapshot, BuildSnapshotDto, deserializeSnapshot } from '@noodles-ui/support-types';
 import { Component, JSX, batch, createEffect } from 'solid-js';
 
-import { BuildContextProvider, createBuildContext } from './providers/BuildContextProvider';
+import {
+    SnapshotContextProvider,
+    createSnapshotContext,
+} from './providers/SnapshotContextProvider';
 
 type EndpointResponse = BuildSnapshotDto;
+type EndpointResponseTransformed = BuildSnapshot;
 
 const SERVER_HOST = 'localhost';
 const SERVER_PORT = import.meta.env.VITE_SERVER_PORT || 3000;
 const SOCKET_ENDPOINT = `ws://${SERVER_HOST}:${SERVER_PORT}/api`;
 const SERVER_ENDPOINT = `http://${SERVER_HOST}:${SERVER_PORT}/api`;
 
-const fetchBuildStatus = async (): Promise<EndpointResponse> => {
+const fetchBuildStatus = async (): Promise<EndpointResponseTransformed> => {
     const response = await fetch(`${SERVER_ENDPOINT}/status`);
     if (!response.ok) {
         throw new Error('Failed to fetch data');
     }
-    return response.json();
+    const data = (await response.json()) as EndpointResponse;
+    return deserializeSnapshot(data);
 };
 
-export const requestBuild = async (): Promise<EndpointResponse> => {
+export const requestBuild = async (): Promise<void> => {
     const response = await fetch(`${SERVER_ENDPOINT}/build`);
     if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error('Failed to request build');
     }
-    return response.json();
 };
 
 type DevServerProps = {
@@ -32,7 +37,7 @@ type DevServerProps = {
 };
 
 export const DevServer: Component<DevServerProps> = props => {
-    const context = createBuildContext(requestBuild);
+    const context = createSnapshotContext(requestBuild);
 
     const { setSnapshots: setBuilds, setError, setIsBuilding } = context;
 
@@ -44,7 +49,7 @@ export const DevServer: Component<DevServerProps> = props => {
             setIsBuilding(prev => prev || new Date());
         }
         if (data.name === 'build.finished') {
-            const snapshot = data.value as BuildSnapshotDto;
+            const snapshot = deserializeSnapshot(data.value as BuildSnapshotDto);
             batch(() => {
                 setIsBuilding(undefined);
                 setBuilds(builds => [...builds, snapshot]);
@@ -69,5 +74,5 @@ export const DevServer: Component<DevServerProps> = props => {
             });
     });
 
-    return <BuildContextProvider value={context}>{props.children}</BuildContextProvider>;
+    return <SnapshotContextProvider value={context}>{props.children}</SnapshotContextProvider>;
 };

@@ -1,8 +1,4 @@
-import {
-    BuildSnapshotDto,
-    getItemsWithErrors,
-    getItemsWithWarnings,
-} from '@noodles-ui/support-types';
+import { BuildSnapshot, getItemsWithErrors, getItemsWithWarnings } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
@@ -11,7 +7,7 @@ import { EntityKeyLink } from '../../atoms/EntityKeyLink';
 import styles from './DiagnosticSourceItem.module.scss';
 
 type DiagnosticSourceItemProps = {
-    snapshot?: BuildSnapshotDto;
+    snapshot?: BuildSnapshot;
     sourceKey: string;
 };
 

@@ -7,19 +7,21 @@ import { DashboardGrid } from '../components/layouts/DashboardGrid';
 import { StageLayout } from '../components/layouts/StageLayout';
 import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
 import { ItemsSection } from '../components/molecules/ItemsSection/ItemsSection';
-import { useBuildContext } from '../providers/BuildContextProvider';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
 export const HomePage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
     return (
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
-                    <PageTitle>{lastSnapshot()?.entities.project[''].entity.name || '?'}</PageTitle>
+                    <PageTitle>
+                        {lastSnapshot()?.entities.project.get('')?.entity.name || '?'}
+                    </PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} />
                 <DashboardGrid>

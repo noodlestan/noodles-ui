@@ -9,10 +9,10 @@ import { ListLayout } from '../components/layouts/ListLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { DiagnosticSourceItem } from '../components/molecules/DiagnosticSourceItem/DiagnosticSourceItem';
 import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
-import { useBuildContext } from '../providers/BuildContextProvider';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
 export const DiagnosticsPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
     const sourcesWithIssues = () => getAllDiagnosticSourceKeys(lastSnapshot()?.diagnostics);
 
@@ -21,7 +21,7 @@ export const DiagnosticsPage: Component = () => {
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
                     <PageTitle>Diagnostics</PageTitle>
                 </PageHeader>

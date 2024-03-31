@@ -1,4 +1,4 @@
-import { BuildSnapshotDto } from '@noodles-ui/support-types';
+import { BuildSnapshot } from '@noodles-ui/support-types';
 import {
     Accessor,
     Component,
@@ -9,23 +9,23 @@ import {
     useContext,
 } from 'solid-js';
 
-type BuildContextState = {
+type SnapshotContextState = {
     error: Accessor<Error | undefined>;
     setError: Setter<Error | undefined>;
     isBuilding: Accessor<Date | undefined>;
     setIsBuilding: Setter<Date | undefined>;
-    snapshots: Accessor<BuildSnapshotDto[]>;
-    lastSnapshot: () => BuildSnapshotDto | undefined;
-    setSnapshots: Setter<BuildSnapshotDto[]>;
+    snapshots: Accessor<BuildSnapshot[]>;
+    lastSnapshot: () => BuildSnapshot | undefined;
+    setSnapshots: Setter<BuildSnapshot[]>;
     requestBuild: () => void;
 };
 
-export const BuildContext = createContext<BuildContextState>({} as BuildContextState);
+export const SnapshotContext = createContext<SnapshotContextState>({} as SnapshotContextState);
 
-export const createBuildContext = (onRequestBuild: () => void): BuildContextState => {
+export const createSnapshotContext = (onRequestBuild: () => void): SnapshotContextState => {
     const [error, setError] = createSignal<Error>();
     const [isBuilding, setIsBuilding] = createSignal<Date>();
-    const [snapshots, setSnapshots] = createSignal<BuildSnapshotDto[]>([]);
+    const [snapshots, setSnapshots] = createSignal<BuildSnapshot[]>([]);
 
     const lastSnapshot = () => {
         const items = snapshots();
@@ -50,19 +50,19 @@ export const createBuildContext = (onRequestBuild: () => void): BuildContextStat
     };
 };
 
-type BuildContextProviderProps = {
-    value: BuildContextState;
+type SnapshotContextProviderProps = {
+    value: SnapshotContextState;
     children?: JSX.Element;
 };
 
-export const BuildContextProvider: Component<BuildContextProviderProps> = props => {
+export const SnapshotContextProvider: Component<SnapshotContextProviderProps> = props => {
     const value = () => props.value;
     // eslint-disable-next-line solid/reactivity
-    return <BuildContext.Provider value={value()}>{props.children}</BuildContext.Provider>;
+    return <SnapshotContext.Provider value={value()}>{props.children}</SnapshotContext.Provider>;
 };
 
-export const useBuildContext = (): BuildContextState => {
-    const context = useContext(BuildContext);
+export const useSnapshotContext = (): SnapshotContextState => {
+    const context = useContext(SnapshotContext);
     if (!context || !context.snapshots) {
         throw new Error(`No BuildContext found`);
     }

@@ -1,13 +1,13 @@
 import { Component, Show } from 'solid-js';
 
-import { useBuildContext } from '../../../providers/BuildContextProvider';
+import { useSnapshotContext } from '../../../providers/SnapshotContextProvider';
 import { HomeLink } from '../../atoms/HomeLink';
 import { DevBarTools } from '../DevBarTools';
 
 import styles from './DevBar.module.scss';
 
 export const DevBar: Component = () => {
-    const { lastSnapshot, error, isBuilding } = useBuildContext();
+    const { lastSnapshot, error, isBuilding } = useSnapshotContext();
 
     const isLoading = () => !lastSnapshot();
     const isSuccess = () => !!lastSnapshot()?.success;

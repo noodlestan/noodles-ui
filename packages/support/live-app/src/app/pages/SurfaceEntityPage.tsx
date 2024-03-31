@@ -8,11 +8,11 @@ import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { surfaceByKey } from '../providers/BuildContextProvider/surfaceByKey';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { surfaceByKey } from '../providers/SnapshotContextProvider/surfaceByKey';
 
 export const SurfaceEntityPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
     const surface = () => surfaceByKey(lastSnapshot(), params.key);

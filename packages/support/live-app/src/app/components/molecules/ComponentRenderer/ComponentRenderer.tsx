@@ -1,10 +1,10 @@
-import { ComponentBuildContextDto, getResourceKey } from '@noodles-ui/support-types';
+import { ComponentBuildContext, getResourceKey } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import styles from './ComponentRenderer.module.scss';
 
 type EntityDiagnosticsProps = {
-    component: ComponentBuildContextDto;
+    component: ComponentBuildContext;
 };
 
 export const ComponentRenderer: Component<EntityDiagnosticsProps> = props => {

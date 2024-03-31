@@ -1,4 +1,4 @@
-import { ComponentBuildContextDto } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './ComponentCard.module.css';
 
 type ComponentCardProps = {
-    component: ComponentBuildContextDto;
+    component: ComponentBuildContext;
 };
 
 export const ComponentCard: Component<ComponentCardProps> = props => {

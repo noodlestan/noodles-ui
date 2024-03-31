@@ -10,6 +10,7 @@ import {
     UnknownBuildContext,
     VariantBuildContext,
 } from '../entities';
+
 import {
     BuildSnapshotDto,
     ComponentBuildContextDto,
@@ -20,7 +21,7 @@ import {
     TokenBuildContextDto,
     UnknownBuildContextDto,
     VariantBuildContextDto,
-} from '../snapshot';
+} from './types';
 
 function mapToObject<T, V>(map: Map<string, T>, transform: (t: T) => V): { [key: string]: V } {
     const init = {} as { [key: string]: V };

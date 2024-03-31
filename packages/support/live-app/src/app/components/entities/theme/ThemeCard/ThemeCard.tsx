@@ -1,6 +1,6 @@
 import {
-    BuildSnapshotDto,
-    ThemeBuildContextDto,
+    BuildSnapshot,
+    ThemeBuildContext,
     getItemErrors,
     getItemWarnings,
     getResourceTypedKey,
@@ -16,8 +16,8 @@ import { EntityCardTitle } from '../../../molecules/EntityCardTitle';
 import styles from './ThemeCard.module.css';
 
 type ThemeCardProps = {
-    snapshot?: BuildSnapshotDto;
-    theme: ThemeBuildContextDto;
+    snapshot?: BuildSnapshot;
+    theme: ThemeBuildContext;
 };
 
 export const ThemeCard: Component<ThemeCardProps> = props => {

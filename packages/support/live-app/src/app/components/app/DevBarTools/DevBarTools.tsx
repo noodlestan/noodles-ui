@@ -2,7 +2,7 @@ import { getDiagnosticErrors, getDiagnosticWarnings } from '@noodles-ui/support-
 import { A } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
-import { useBuildContext } from '../../../providers/BuildContextProvider';
+import { useSnapshotContext } from '../../../providers/SnapshotContextProvider';
 import { Button } from '../../atoms/Button';
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { TimeAgo } from '../../atoms/TimeAgo/TimeAgo';
@@ -11,7 +11,7 @@ import { TimeElapsed } from '../../atoms/TimeElapsed/TimeElapsed';
 import styles from './DevBarTools.module.scss';
 
 export const DevBarTools: Component = () => {
-    const { lastSnapshot, error, isBuilding, requestBuild } = useBuildContext();
+    const { lastSnapshot, error, isBuilding, requestBuild } = useSnapshotContext();
 
     const errors = () => getDiagnosticErrors(lastSnapshot()?.diagnostics);
     const warnings = () => getDiagnosticWarnings(lastSnapshot()?.diagnostics);

@@ -10,11 +10,11 @@ import { ComponentProps } from '../components/molecules/ComponentProps/Component
 import { ComponentRenderer } from '../components/molecules/ComponentRenderer/ComponentRenderer';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { componentByKey } from '../providers/BuildContextProvider/componentByKey';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { componentByKey } from '../providers/SnapshotContextProvider/componentByKey';
 
 export const ComponentEntityPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
     const component = () => componentByKey(lastSnapshot(), params.key);

@@ -11,11 +11,11 @@ import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { variantByKey } from '../providers/BuildContextProvider/variantByKey';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { variantByKey } from '../providers/SnapshotContextProvider/variantByKey';
 
 export const VariantEntityPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
     const variant = () => variantByKey(lastSnapshot(), params.key);

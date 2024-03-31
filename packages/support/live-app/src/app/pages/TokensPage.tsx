@@ -8,18 +8,18 @@ import { TokenCard } from '../components/entities/token/TokenCard';
 import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { tokens } from '../providers/BuildContextProvider/tokens';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { tokens } from '../providers/SnapshotContextProvider/tokens';
 
 export const TokensPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
     return (
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
                     <PageTitle>Tokens</PageTitle>
                 </PageHeader>

@@ -1,4 +1,4 @@
-import { UnknownBuildContextDto } from '@noodles-ui/support-types';
+import { UnknownBuildContext } from '@noodles-ui/support-types';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';
@@ -11,7 +11,7 @@ const TITLE = {
 };
 
 type EntityDiagnosticsProps = {
-    item: UnknownBuildContextDto;
+    item: UnknownBuildContext;
     key: 'consumes' | 'consumers';
 };
 

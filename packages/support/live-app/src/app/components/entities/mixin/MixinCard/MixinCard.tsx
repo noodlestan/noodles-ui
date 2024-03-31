@@ -1,4 +1,4 @@
-import { MixinBuildContextDto } from '@noodles-ui/support-types';
+import { MixinBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -8,7 +8,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './MixinCard.module.css';
 
 type MixinCardProps = {
-    mixin: MixinBuildContextDto;
+    mixin: MixinBuildContext;
 };
 
 export const MixinCard: Component<MixinCardProps> = props => {

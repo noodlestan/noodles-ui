@@ -1,4 +1,3 @@
-import { CompilerDiagnostics, ProjectEntities } from '../compiler';
 import {
     ComponentBuildContext,
     MixinBuildContext,
@@ -9,6 +8,8 @@ import {
     UnknownBuildContext,
     VariantBuildContext,
 } from '../entities';
+import { BuildSnapshot } from '../snapshot/types';
+
 import {
     BuildSnapshotDto,
     ComponentBuildContextDto,
@@ -19,7 +20,7 @@ import {
     TokenBuildContextDto,
     UnknownBuildContextDto,
     VariantBuildContextDto,
-} from '../snapshot';
+} from './types';
 
 function toMap<T, V>(object: { [key: string]: V }, transform: (t: V) => T): Map<string, T> {
     const entries = Object.entries(object).map(entry => {
@@ -43,10 +44,8 @@ function transform<T extends UnknownBuildContextDto, V extends UnknownBuildConte
     } as V;
 }
 
-export const deserializeSnapshot = (
-    snapshotDto: BuildSnapshotDto,
-): ProjectEntities & CompilerDiagnostics => {
-    const { entities, diagnostics } = snapshotDto;
+export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): BuildSnapshot => {
+    const { entities, diagnostics, timestamp, success } = snapshotDto;
     const { project, surface, mixin, variant, component, token, theme } = entities;
 
     const entityMaps = {
@@ -59,5 +58,5 @@ export const deserializeSnapshot = (
         theme: toMap<ThemeBuildContext, ThemeBuildContextDto>(theme, transform),
     };
 
-    return { entities: entityMaps, diagnostics };
+    return { entities: entityMaps, diagnostics, timestamp: new Date(timestamp), success };
 };

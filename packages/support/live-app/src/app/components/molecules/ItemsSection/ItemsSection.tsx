@@ -1,13 +1,13 @@
 import {
-    BuildSnapshotDto,
-    EntitiesMapDto,
+    BuildSnapshot,
+    EntityType,
     getDiagnosticByResourcetype,
     getDiagnosticErrors,
     getDiagnosticWarnings,
 } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
-import { entitiesByType } from '../../../providers/BuildContextProvider/entitiesByType';
+import { entitiesByType } from '../../../providers/SnapshotContextProvider/entitiesByType';
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { EntityLink } from '../../atoms/EntityLink';
 import { Link } from '../../atoms/Link';
@@ -18,8 +18,8 @@ import { SectionLayout } from '../../layouts/SectionLayout';
 import styles from './ItemsSection.module.scss';
 
 type DiagnosticSourceItemProps = {
-    snapshot?: BuildSnapshotDto;
-    type: keyof EntitiesMapDto;
+    snapshot?: BuildSnapshot;
+    type: EntityType;
     title: string;
     link: string;
 };

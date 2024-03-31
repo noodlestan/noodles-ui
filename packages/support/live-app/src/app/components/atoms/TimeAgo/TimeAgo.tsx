@@ -2,7 +2,7 @@ import { createDate, createTimeAgo } from '@solid-primitives/date';
 import { Component, createRenderEffect, onCleanup } from 'solid-js';
 
 type TimeAgoProps = {
-    date?: string | undefined;
+    date?: Date | undefined;
 };
 
 export const TimeAgo: Component<TimeAgoProps> = props => {

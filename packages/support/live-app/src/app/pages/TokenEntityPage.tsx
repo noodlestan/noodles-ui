@@ -8,11 +8,11 @@ import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { tokenByKey } from '../providers/BuildContextProvider/tokenByKey';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { tokenByKey } from '../providers/SnapshotContextProvider/tokenByKey';
 
 export const TokenEntityPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
     const token = () => tokenByKey(lastSnapshot(), params.key);

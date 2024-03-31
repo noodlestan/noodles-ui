@@ -1,4 +1,4 @@
-import { ComponentBuildContextDto } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';
@@ -6,7 +6,7 @@ import { Collapsible } from '../Collapsible';
 import { ComponentPropList } from '../ComponentPropList/ComponentPropList';
 
 type ComponentPropsProps = {
-    component: ComponentBuildContextDto;
+    component: ComponentBuildContext;
 };
 
 export const ComponentProps: Component<ComponentPropsProps> = props => {

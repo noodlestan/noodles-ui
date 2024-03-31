@@ -1,4 +1,4 @@
-import { TokenBuildContextDto } from '@noodles-ui/support-types';
+import { TokenBuildContext } from '@noodles-ui/support-types';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';
@@ -7,7 +7,7 @@ import { EntityCard } from '../../../molecules/EntityCard';
 import styles from './TokenCard.module.css';
 
 type TokenCardProps = {
-    token: TokenBuildContextDto;
+    token: TokenBuildContext;
 };
 
 export const TokenCard: Component<TokenCardProps> = props => {

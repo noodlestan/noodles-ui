@@ -1,4 +1,4 @@
-import { ComponentBuildContextDto } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -8,20 +8,20 @@ import { ComponentCard } from '../components/entities/component/ComponentCard/Co
 import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { components } from '../providers/BuildContextProvider/components';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { components } from '../providers/SnapshotContextProvider/components';
 
 export const ComponentsPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
-    const isPublicComponent = (component: ComponentBuildContextDto) => !!component.context.public;
+    const isPublicComponent = (component: ComponentBuildContext) => !!component.context.public;
 
     return (
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
                     <PageTitle>Components</PageTitle>
                 </PageHeader>

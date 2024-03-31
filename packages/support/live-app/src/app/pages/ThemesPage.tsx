@@ -9,11 +9,11 @@ import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { themes } from '../providers/BuildContextProvider/themes';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { themes } from '../providers/SnapshotContextProvider/themes';
 
 export const ThemesPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
 
     const diagnostics = () => getDiagnosticByResourcetype('theme', lastSnapshot()?.diagnostics);
 
@@ -22,7 +22,7 @@ export const ThemesPage: Component = () => {
             <StageLayout tag="main">
                 <PageHeader>
                     <ModuleName>
-                        {lastSnapshot()?.entities.project[''].entity.module || '?'}
+                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
                     </ModuleName>
                     <PageTitle>Themes</PageTitle>
                 </PageHeader>

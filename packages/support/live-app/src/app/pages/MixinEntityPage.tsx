@@ -8,11 +8,11 @@ import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
-import { useBuildContext } from '../providers/BuildContextProvider';
-import { mixinByKey } from '../providers/BuildContextProvider/mixinByKey';
+import { useSnapshotContext } from '../providers/SnapshotContextProvider';
+import { mixinByKey } from '../providers/SnapshotContextProvider/mixinByKey';
 
 export const MixinEntityPage: Component = () => {
-    const { lastSnapshot } = useBuildContext();
+    const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
     const mixin = () => mixinByKey(lastSnapshot(), params.key);
