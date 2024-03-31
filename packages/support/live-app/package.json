@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "@kobalte/core": "^0.12.6",
+    "@noodles-ui/core-compiler-types": "0.0.1",
+    "@noodles-ui/core-diagnostics": "0.0.1",
+    "@noodles-ui/core-entities": "0.0.1",
+    "@noodles-ui/core-resources": "0.0.1",
     "@noodles-ui/core-types": "0.0.1",
     "@noodles-ui/lab-ui": "0.0.1",
     "@noodles-ui/lib-tools": "0.0.1",

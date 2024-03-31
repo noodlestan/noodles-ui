@@ -1,10 +1,12 @@
-import { CompilerContext, deserializeSnapshot } from '@noodles-ui/support-types';
+import {
+    CompilerContext,
+    getBuildSnapshotFileName,
+    loadBuildSnapshotFile,
+} from '@noodles-ui/core-compiler';
+import { deserializeSnapshot } from '@noodles-ui/core-compiler-types';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
-
-import { getBuildSnapshotFileName } from './private/getBuildSnapshotFileName';
-import { loadBuildSnapshotFile } from './private/loadBuildSnapshotFile';
 
 export const loadBuildSnapshot = async (compiler: CompilerContext): Promise<void> => {
     const data = await loadBuildSnapshotFile(compiler);

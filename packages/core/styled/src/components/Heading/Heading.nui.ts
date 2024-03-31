@@ -1,4 +1,4 @@
-import { ComponentOwnResource, VariantExtendResource } from '@noodles-ui/core-types';
+import { ComponentOwnResource, VariantExtendResource } from '@noodles-ui/core-resources';
 import { HeadingResource as HeadingUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins/index.nui';

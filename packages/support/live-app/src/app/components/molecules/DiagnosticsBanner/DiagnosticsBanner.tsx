@@ -4,7 +4,7 @@ import {
     getDiagnosticErrors,
     getDiagnosticWarnings,
     hasDiagnostics,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
 import { Component, Show } from 'solid-js';
 
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';

@@ -1,4 +1,4 @@
-import { ComponentOwnEntity } from '@noodles-ui/core-types';
+import { ComponentOwnEntity } from '@noodles-ui/core-entities';
 import ts, { JsxAttributeLike } from 'typescript';
 
 import { renderedComponentAlias } from '../util/renderedComponentAlias';

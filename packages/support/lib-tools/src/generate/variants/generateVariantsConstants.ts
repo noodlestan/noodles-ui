@@ -1,6 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext, VariantBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { VariantBuildContext } from '@noodles-ui/core-entities';
 
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';

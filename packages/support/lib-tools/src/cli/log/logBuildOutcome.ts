@@ -1,7 +1,9 @@
-import { CompilerContext } from '@noodles-ui/support-types';
+import {
+    CompilerContext,
+    getBuildErrorMessage,
+    getBuildFilesWithErrors,
+} from '@noodles-ui/core-compiler';
 
-import { getBuildErrorMessage } from '../../compiler/program/getters/getBuildErrorMessage';
-import { getBuildFilesWithErrors } from '../../compiler/program/getters/getBuildFilesWithErrors';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';

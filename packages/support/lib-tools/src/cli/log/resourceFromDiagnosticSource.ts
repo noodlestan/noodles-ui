@@ -1,4 +1,5 @@
-import { ProjectDiagnosticSource, UnknownResource } from '@noodles-ui/support-types';
+import { ProjectDiagnosticSource } from '@noodles-ui/core-diagnostics';
+import { UnknownResource } from '@noodles-ui/core-resources';
 
 export const resourceFromDiagnosticSource = (
     source: ProjectDiagnosticSource,

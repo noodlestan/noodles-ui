@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@noodles-ui/core-services": "0.0.1",
-    "@noodles-ui/core-types": "0.0.1",
+    "@noodles-ui/core-resources": "0.0.1",
     "@noodles-ui/core-unstyled": "0.0.1"
   },
   "peerDependencies": {

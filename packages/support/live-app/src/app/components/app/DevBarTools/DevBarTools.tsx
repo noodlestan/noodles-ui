@@ -1,4 +1,4 @@
-import { getDiagnosticErrors, getDiagnosticWarnings } from '@noodles-ui/support-types';
+import { getDiagnosticErrors, getDiagnosticWarnings } from '@noodles-ui/core-diagnostics';
 import { A } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 

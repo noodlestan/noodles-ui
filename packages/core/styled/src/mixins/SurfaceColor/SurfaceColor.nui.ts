@@ -1,4 +1,4 @@
-import { MixinResource } from '@noodles-ui/core-types';
+import { MixinResource } from '@noodles-ui/core-resources';
 
 export const SurfaceColor: MixinResource = {
     type: 'mixin',

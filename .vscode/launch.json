@@ -11,7 +11,7 @@
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/libs/lab-ui"
+      "cwd": "${workspaceFolder}/packages/ui-systems/lab-ui"
     },
     {
       "name": "Lab UI / dev:nui",
@@ -20,7 +20,7 @@
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/libs/lab-ui"
+      "cwd": "${workspaceFolder}/packages/ui-systems/lab-ui"
     }
   ]
 }

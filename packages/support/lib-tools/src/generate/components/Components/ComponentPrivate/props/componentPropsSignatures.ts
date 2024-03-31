@@ -1,4 +1,5 @@
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 import { propTypeNode } from './propTypeNode';

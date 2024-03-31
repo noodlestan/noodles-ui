@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { ComponentEntity } from '@noodles-ui/core-types';
+import { ComponentEntity } from '@noodles-ui/core-entities';
 
 import { componentScssModuleBaseName } from './componentScssModuleBaseName';
 

@@ -1,6 +1,10 @@
 /// <reference types="vite/client" />
 
-import { BuildSnapshot, BuildSnapshotDto, deserializeSnapshot } from '@noodles-ui/support-types';
+import {
+    BuildSnapshot,
+    BuildSnapshotDto,
+    deserializeSnapshot,
+} from '@noodles-ui/core-compiler-types';
 import { Component, JSX, batch, createEffect } from 'solid-js';
 
 import {

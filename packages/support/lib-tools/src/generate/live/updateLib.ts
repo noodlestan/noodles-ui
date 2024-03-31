@@ -1,7 +1,7 @@
 import { rm } from 'fs/promises';
 import { basename, join } from 'path';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 import { copyFiles } from '../../util/copyFiles';
 import { NUI_GENERATED_DIR, NUI_SOURCE_DIR } from '../constants';

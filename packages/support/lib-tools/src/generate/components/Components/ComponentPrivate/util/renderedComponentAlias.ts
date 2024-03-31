@@ -1,4 +1,4 @@
-import { RenderedComponentResource } from '@noodles-ui/core-types';
+import { RenderedComponentResource } from '@noodles-ui/core-resources';
 
 import { camelCase } from '../../../../../util/string';
 

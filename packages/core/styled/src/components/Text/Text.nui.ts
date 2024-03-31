@@ -1,4 +1,4 @@
-import { ComponentOwnResource, VariantInlineExtendResource } from '@noodles-ui/core-types';
+import { ComponentOwnResource, VariantInlineExtendResource } from '@noodles-ui/core-resources';
 import { TextResource as TextUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { TypeReset } from '../../mixins/index.nui';

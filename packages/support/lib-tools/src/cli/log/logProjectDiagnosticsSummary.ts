@@ -1,11 +1,11 @@
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
-    CompilerContext,
     getAllDiagnosticSourceKeys,
     getDiagnosticErrors,
     getDiagnosticWarnings,
     getItemsWithErrors,
     getItemsWithWarnings,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
 
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';

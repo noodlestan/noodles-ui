@@ -1,9 +1,9 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { getPublicComponents } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { getPublicComponents } from '../../entities/component/getters/getPublicComponents';
 import { ensuredFiledir } from '../../util/fs';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';

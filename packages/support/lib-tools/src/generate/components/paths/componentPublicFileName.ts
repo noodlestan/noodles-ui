@@ -1,7 +1,7 @@
 import { join } from 'path';
 
-import { ComponentEntity } from '@noodles-ui/core-types';
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ComponentEntity } from '@noodles-ui/core-entities';
 
 export const componentPublicFileName = (
     compiler: CompilerContext,

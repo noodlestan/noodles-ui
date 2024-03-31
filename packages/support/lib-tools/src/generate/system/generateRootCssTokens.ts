@@ -1,8 +1,8 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ThemeBuildContext, getThemesInTopologicalOrder } from '@noodles-ui/core-entities';
 
-import { getThemesInTopologicalOrder } from '../../entities/theme/getters/getThemesInTopologicalOrder';
 import { ensuredFiledir, relativePath } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';

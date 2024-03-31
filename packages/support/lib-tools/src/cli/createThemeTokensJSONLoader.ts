@@ -1,12 +1,9 @@
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 
-import { ThemeResource } from '@noodles-ui/core-types';
-import { CompilerContext } from '@noodles-ui/support-types';
-
-import { getThemeIdentifier } from '../entities/theme/getters/getThemeIdentifier';
-
-import { ThemeTokensLoader, ThemeTokensSchema } from './types';
+import { CompilerContext, ThemeTokensLoader, ThemeTokensSchema } from '@noodles-ui/core-compiler';
+import { getThemeIdentifier } from '@noodles-ui/core-entities';
+import { ThemeResource } from '@noodles-ui/core-resources';
 
 type LoaderOptions = {
     fileName?: (theme: string) => string;

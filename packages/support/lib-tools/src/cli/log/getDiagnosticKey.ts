@@ -1,11 +1,10 @@
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
-    CompilerContext,
     ProjectDiagnosticSource,
-    UnknownResource,
     fileErrorFromDiagnosticSource,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
+import { UnknownResource, getResourceTypedKey } from '@noodles-ui/core-resources';
 
-import { getResourceTypedKey } from '../../compiler/resources/getters/getResourceTypedKey';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 
 export const getDiagnosticKey = (

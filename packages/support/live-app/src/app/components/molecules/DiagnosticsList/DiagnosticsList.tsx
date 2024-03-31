@@ -2,7 +2,7 @@ import {
     ProjectDiagnostic,
     getDiagnosticErrors,
     getDiagnosticWarnings,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
 import { OctagonAlert, TriangleAlert } from 'lucide-solid';
 import { Component, For, Show } from 'solid-js';
 

@@ -1,4 +1,5 @@
-import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ThemeBuildContext } from '@noodles-ui/core-entities';
 
 import { generateThemeConstant } from './Theme/generateThemeConstant';
 import { generateThemeScssVars } from './Theme/generateThemeScssVars';

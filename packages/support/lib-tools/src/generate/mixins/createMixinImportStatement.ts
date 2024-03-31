@@ -1,5 +1,5 @@
-import { MixinInlineResource, MixinResource } from '@noodles-ui/core-types';
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { MixinInlineResource, MixinResource } from '@noodles-ui/core-resources';
 
 export const createMixinImportStatement = (
     compiler: CompilerContext,

@@ -1,5 +1,5 @@
-import { ComponentOwnEntity } from '@noodles-ui/core-types';
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ComponentBuildContext, ComponentOwnEntity } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';

@@ -1,9 +1,6 @@
-import { VariantEntity } from '@noodles-ui/core-types';
-import {
-    getItemDiagnostics,
-    getResourceTypedKey,
-    getVariantByKey,
-} from '@noodles-ui/support-types';
+import { getItemDiagnostics } from '@noodles-ui/core-diagnostics';
+import { getVariantByKey } from '@noodles-ui/core-entities';
+import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { useParams } from '@solidjs/router';
 import { Component, For, Show } from 'solid-js';
 
@@ -22,7 +19,7 @@ export const VariantEntityPage: Component = () => {
     const params = useParams();
 
     const variant = () => getVariantByKey(lastSnapshot(), params.key);
-    const entity = () => variant().entity as VariantEntity;
+    const entity = () => variant().entity;
 
     const diagnostics = () =>
         getItemDiagnostics(getResourceTypedKey(entity()), lastSnapshot()?.diagnostics);

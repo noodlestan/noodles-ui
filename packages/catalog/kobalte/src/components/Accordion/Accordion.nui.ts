@@ -1,4 +1,4 @@
-import { ComponentImportResource } from '@noodles-ui/core-types';
+import { ComponentImportResource } from '@noodles-ui/core-resources';
 
 export const AccordionResource: ComponentImportResource = {
     type: 'component',

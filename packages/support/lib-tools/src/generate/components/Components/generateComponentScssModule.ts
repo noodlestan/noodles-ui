@@ -1,12 +1,17 @@
 import { writeFile } from 'fs/promises';
 
-import { ComponentOwnEntity, MixinInlineResource, PropEntity } from '@noodles-ui/core-types';
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import {
+    ComponentBuildContext,
+    ComponentOwnEntity,
+    PropEntity,
+    getComponentMixins,
+    getPropMixin,
+    getPropVariantName,
+    getVariantPropsWithMixin,
+} from '@noodles-ui/core-entities';
+import { MixinInlineResource } from '@noodles-ui/core-resources';
 
-import { getComponentMixins } from '../../../entities/component/getters/getComponentMixins';
-import { getPropMixin } from '../../../entities/component/prop/getters/getPropMixin';
-import { getPropVariantName } from '../../../entities/component/prop/getters/getPropVariantName';
-import { getVariantPropsWithMixin } from '../../../entities/component/prop/getters/getVariantPropsWithMixin';
 import { ensuredFiledir } from '../../../util/fs';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { createMixinImportStatement } from '../../mixins/createMixinImportStatement';

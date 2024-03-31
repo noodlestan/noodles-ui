@@ -29,7 +29,12 @@ export const RootProvider: Component<RootProviderProps> = props => {
     const { themes } = themesStore;
     return (
         <>
-            <For each={themes()}>{Theme => <Theme.component />}</For>
+            <For each={themes()}>
+                {Theme => {
+                    const Comp = Theme.component as Component;
+                    return <Comp />;
+                }}
+            </For>
             <ColourSchemeProvider>
                 <ThemeProvider theme={props.theme} shallow>
                     <SurfaceProvider surface={props.surface} shallow>

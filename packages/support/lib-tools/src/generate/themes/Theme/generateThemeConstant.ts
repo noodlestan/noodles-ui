@@ -1,6 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ThemeBuildContext } from '@noodles-ui/core-entities';
 
 import { ensuredFiledir } from '../../../util/fs';
 import { diffDateNow, getDateNow } from '../../../util/time';
@@ -25,7 +26,7 @@ export const generateThemeConstant = async (
     const fileName = themeComponentFileName(targetDir, theme);
     await ensuredFiledir(fileName);
 
-    const internalTypes: TypesToImport = [['@noodles-ui/core-services', ['Theme']]];
+    const internalTypes: TypesToImport = [['@noodles-ui/core-types', ['Theme']]];
     const statements = [
         ...createImportStatements(internalTypes),
         importFrameworkTypes(),

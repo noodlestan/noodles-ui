@@ -1,8 +1,10 @@
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import {
+    ComponentBuildContext,
+    getPropDefaultConstantName,
+    getPropVariantsWithDefaultValues,
+} from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { getPropDefaultConstantName } from '../../../../entities/component/prop/getters/getPropDefaultConstantName';
-import { getPropVariantsWithDefaultValues } from '../../../../entities/component/prop/getters/getPropVariantsWithDefaultValues';
 import { relativePath } from '../../../../util/fs';
 import { variantsConstantsFileName } from '../../../variants/paths/variantsConstantsFileName';
 import { componentFileName } from '../../paths/componentFileName';

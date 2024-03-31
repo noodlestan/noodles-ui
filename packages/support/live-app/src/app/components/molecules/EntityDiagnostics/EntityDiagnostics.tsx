@@ -1,4 +1,4 @@
-import { ProjectDiagnostic } from '@noodles-ui/support-types';
+import { ProjectDiagnostic } from '@noodles-ui/core-diagnostics';
 import { Component, Show } from 'solid-js';
 
 import { Collapsible } from '../Collapsible';

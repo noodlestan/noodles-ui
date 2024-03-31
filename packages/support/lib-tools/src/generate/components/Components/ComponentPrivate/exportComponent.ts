@@ -1,9 +1,10 @@
-import { ComponentOwnEntity } from '@noodles-ui/core-types';
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import {
+    ComponentBuildContext,
+    ComponentOwnEntity,
+    getPropsWithDefaultValues,
+    getRenderedProps,
+} from '@noodles-ui/core-entities';
 import ts, { JsxAttribute } from 'typescript';
-
-import { getRenderedProps } from '../../../../entities/component/getters/getRenderedProps';
-import { getPropsWithDefaultValues } from '../../../../entities/component/prop/getters/getPropsWithDefaultValues';
 
 import { componentClassListStatement } from './body/componentClassListStatement';
 import { componentDefaultsStatements } from './body/componentDefaultsStatements';

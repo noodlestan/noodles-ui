@@ -1,4 +1,5 @@
-import { CompilerContext, SurfaceBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { SurfaceBuildContext } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 const factory = ts.factory;

@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`<Foo /> > renders 1`] = `"<div>4<hr></div>"`;
-
-exports[`<Foo /> > updates 1`] = `"<div>4<hr>foo</div>"`;

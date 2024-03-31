@@ -1,7 +1,7 @@
+import { Theme } from '@noodles-ui/core-types';
 import { Accessor, createSignal } from 'solid-js';
 
 import { ThemesError } from '../errors/ThemesError';
-import { Theme } from '../types';
 
 const [themes, setThemes] = createSignal<Theme[]>([]);
 

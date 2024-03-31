@@ -1,17 +1,8 @@
 export * from './classes/constants';
 export * from './classes/makeNoodlesClassName';
-export * from './primitives/params';
 
-export * from './constants';
-
-export * from './color-schemes';
-export * from './components';
-export * from './entities';
-export * from './mixins';
-export * from './projects';
-export * from './props';
-export * from './resource';
-export * from './surfaces';
-export * from './themes';
-export * from './tokens';
-export * from './variants';
+export * from './primitives/value';
+export * from './primitives/color-schemes';
+export * from './primitives/surface';
+export * from './primitives/theme';
+export * from './primitives/tokens';

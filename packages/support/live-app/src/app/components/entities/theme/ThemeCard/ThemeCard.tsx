@@ -1,10 +1,7 @@
-import {
-    BuildSnapshot,
-    ThemeBuildContext,
-    getItemErrors,
-    getItemWarnings,
-    getResourceTypedKey,
-} from '@noodles-ui/support-types';
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
+import { getItemErrors, getItemWarnings } from '@noodles-ui/core-diagnostics';
+import { ThemeBuildContext } from '@noodles-ui/core-entities';
+import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { Component } from 'solid-js';
 
 import { DiagnosticCounts } from '../../../atoms/DiagnosticCounts';

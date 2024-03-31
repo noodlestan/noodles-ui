@@ -1,7 +1,7 @@
+import { Surface } from '@noodles-ui/core-types';
 import { Accessor, createSignal } from 'solid-js';
 
 import { surfacesStore } from '../../stores/surfacesStore';
-import { Surface } from '../../types';
 
 const [surface, setSurface] = createSignal<string>('');
 

@@ -1,4 +1,4 @@
-import { SurfaceBuildContext } from '@noodles-ui/support-types';
+import { SurfaceBuildContext } from '@noodles-ui/core-entities';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';

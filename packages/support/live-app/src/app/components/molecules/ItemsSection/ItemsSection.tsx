@@ -1,11 +1,10 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import {
-    BuildSnapshot,
-    EntityType,
-    getDiagnosticByResourcetype,
+    getDiagnosticByResourceType,
     getDiagnosticErrors,
     getDiagnosticWarnings,
-    getEntitiesByType,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
+import { EntityType, getEntitiesByType } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
@@ -27,7 +26,7 @@ type DiagnosticSourceItemProps = {
 export const ItemsSection: Component<DiagnosticSourceItemProps> = props => {
     const entities = () =>
         getEntitiesByType(props.snapshot, props.type, item => item.context.public);
-    const diagnostics = () => getDiagnosticByResourcetype(props.type, props.snapshot?.diagnostics);
+    const diagnostics = () => getDiagnosticByResourceType(props.type, props.snapshot?.diagnostics);
     const warnings = () => getDiagnosticWarnings(diagnostics());
     const errors = () => getDiagnosticErrors(diagnostics());
 

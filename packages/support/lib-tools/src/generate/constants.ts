@@ -1,4 +1,4 @@
-import { NUI_RESOURCES_DIR } from '../compiler/resources/constants';
+import { NUI_RESOURCES_DIR } from '@noodles-ui/core-compiler';
 
 export const NUI_RENDERED_PROPS_NAME = 'RenderedProps';
 

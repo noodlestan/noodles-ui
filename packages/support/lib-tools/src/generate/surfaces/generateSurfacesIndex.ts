@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 import { ensuredFiledir } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';
@@ -22,7 +22,7 @@ export const generateSurfacesIndex = async (
     const fileName = surfacesIndexFileName(targetDir);
     await ensuredFiledir(fileName);
 
-    const internalTypes = [['@noodles-ui/core-types', ['SurfaceResource']]] as TypesToImport;
+    const internalTypes = [['@noodles-ui/core-resources', ['SurfaceResource']]] as TypesToImport;
 
     const statements = [
         ...createImportStatements(internalTypes),

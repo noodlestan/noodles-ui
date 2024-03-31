@@ -1,4 +1,4 @@
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 import { logProjectDiagnostic } from './logProjectDiagnostic';
 

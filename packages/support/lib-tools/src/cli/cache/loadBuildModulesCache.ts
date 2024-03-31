@@ -1,18 +1,15 @@
-import { readFile } from 'fs/promises';
-
-import { CompilerContext, ProgramModuleContext } from '@noodles-ui/support-types';
+import {
+    CompilerContext,
+    getBuildModulesCacheFileName,
+    loadBuildModulesCacheFile,
+} from '@noodles-ui/core-compiler';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
-import { getBuildModulesCacheFileName } from './private/getBuildModulesCacheFileName';
-
 export const loadBuildModulesCache = async (compiler: CompilerContext): Promise<void> => {
     const modules = compiler.build.modules;
-    const fileName = getBuildModulesCacheFileName(compiler);
-
-    const contents = await readFile(fileName);
-    const data = JSON.parse(contents.toString()) as { [key: string]: ProgramModuleContext };
+    const data = loadBuildModulesCacheFile(compiler);
 
     modules.clear();
     const entries = Array.from(Object.entries(data));
@@ -20,5 +17,6 @@ export const loadBuildModulesCache = async (compiler: CompilerContext): Promise<
         modules.set(key, value);
     });
 
+    const fileName = getBuildModulesCacheFileName(compiler);
     logSuccess('Loaded modules cache', formatFileNameRelativeToProject(compiler, fileName, true));
 };

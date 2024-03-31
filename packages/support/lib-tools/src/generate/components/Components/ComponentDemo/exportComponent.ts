@@ -1,5 +1,5 @@
-import { ComponentOwnResource } from '@noodles-ui/core-types';
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
+import { ComponentOwnResource } from '@noodles-ui/core-resources';
 import ts from 'typescript';
 
 const factory = ts.factory;

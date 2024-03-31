@@ -1,4 +1,4 @@
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';

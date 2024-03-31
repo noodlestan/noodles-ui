@@ -1,4 +1,4 @@
-import { ComponentOwnResource, VariantInlineReferenceResource } from '@noodles-ui/core-types';
+import { ComponentOwnResource, VariantInlineReferenceResource } from '@noodles-ui/core-resources';
 import { SurfaceResource as SurfaceUnstyledResource } from '@noodles-ui/core-unstyled';
 
 import { SurfaceVariant } from '../../variants/SurfaceVariant/SurfaceVariant.nui';

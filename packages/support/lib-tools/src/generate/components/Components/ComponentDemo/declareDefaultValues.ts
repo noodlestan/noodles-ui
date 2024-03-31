@@ -1,8 +1,11 @@
-import { ComponentEntity, PropEntity, Value } from '@noodles-ui/core-types';
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import {
+    ComponentBuildContext,
+    ComponentEntity,
+    PropEntity,
+    hasPropDefaultValue,
+} from '@noodles-ui/core-entities';
+import { Value } from '@noodles-ui/core-types';
 import ts from 'typescript';
-
-import { hasPropDefaultValue } from '../../../../entities/component/prop/getters/hasPropDefaultValue';
 
 const factory = ts.factory;
 

@@ -1,5 +1,5 @@
-import { UnknownEntity } from '@noodles-ui/core-types';
-import { getResourceTypedKey } from '@noodles-ui/support-types';
+import { UnknownEntity } from '@noodles-ui/core-entities';
+import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { Component } from 'solid-js';
 
 import { Link } from '../Link';

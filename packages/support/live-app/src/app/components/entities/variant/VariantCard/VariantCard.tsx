@@ -1,4 +1,4 @@
-import { VariantBuildContext } from '@noodles-ui/support-types';
+import { VariantBuildContext } from '@noodles-ui/core-entities';
 import { Component } from 'solid-js';
 
 import { EntityName } from '../../../atoms/EntityName';

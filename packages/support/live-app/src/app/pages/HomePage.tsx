@@ -1,4 +1,4 @@
-import { getProject } from '@noodles-ui/support-types';
+import { getProject } from '@noodles-ui/core-entities';
 import { Component, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';

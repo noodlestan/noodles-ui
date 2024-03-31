@@ -1,4 +1,4 @@
-import { ProjectDiagnostic } from '@noodles-ui/support-types';
+import { ProjectDiagnostic } from '@noodles-ui/core-diagnostics';
 // import { OctagonAlert, TriangleAlert } from 'lucide-solid';
 import { Component } from 'solid-js';
 

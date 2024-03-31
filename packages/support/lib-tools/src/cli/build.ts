@@ -1,11 +1,16 @@
 import { rm } from 'fs/promises';
 import { join, resolve } from 'path';
 
-import { CompilerContext, getDiagnosticErrors } from '@noodles-ui/support-types';
+import {
+    CompilerContext,
+    CompilerOptions,
+    NUI_RESOURCES_DIR,
+    createCompiler,
+    loadProject,
+} from '@noodles-ui/core-compiler';
+import { getDiagnosticErrors } from '@noodles-ui/core-diagnostics';
 import { white } from 'kleur';
 
-import { createCompiler } from '../compiler/createCompiler';
-import { ensureProjectCacheDir } from '../compiler/private/ensureProjectCacheDir';
 import { NUI_GENERATED_DIR, NUI_TMP_DIR } from '../generate/constants';
 import { generateComponents } from '../generate/generateComponents';
 import { generateRoot } from '../generate/generateRoot';
@@ -15,6 +20,7 @@ import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { copyFiles } from '../util/copyFiles';
+import { ensuredFiledir } from '../util/fs';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { getNoEmit } from './arguments/getNoEmit';
@@ -23,7 +29,6 @@ import { saveBuildModulesCache } from './cache/saveBuildModulesCache';
 import { saveBuildSnapshot } from './cache/saveBuildSnapshot';
 import { saveProjectResourceCache } from './cache/saveProjectResourceCache';
 import { stripFilename } from './format/stripFilename';
-import { loadProject } from './loadProject';
 import { logBuildOutcome } from './log/logBuildOutcome';
 import { logGeneratedSourceFiles } from './log/logGeneratedSourceFiles';
 import { logHeader } from './log/logHeader';
@@ -39,9 +44,11 @@ import { logError } from './logger/logError';
 import { logInfo } from './logger/logInfo';
 import { logMessage } from './logger/logMessage';
 import { logSuccess } from './logger/logSuccess';
-import { BuildOptions } from './types';
 
-export const build = async (fileName: string, options: BuildOptions): Promise<CompilerContext> => {
+export const build = async (
+    fileName: string,
+    options: CompilerOptions,
+): Promise<CompilerContext> => {
     logHeader('build');
     const timings: Array<[number, string]> = [[Date.now(), 'start']];
 
@@ -59,7 +66,7 @@ export const build = async (fileName: string, options: BuildOptions): Promise<Co
     compiler.compileProjectFile();
     timings.push([Date.now(), 'TS compilation of project file']);
 
-    await ensureProjectCacheDir(compiler);
+    await ensuredFiledir(join(compiler.projectPath, NUI_RESOURCES_DIR, 'file'));
     logProjectBasicInfo(compiler);
     logProgramDiagnostics(compiler);
     logBuildOutcome(compiler);

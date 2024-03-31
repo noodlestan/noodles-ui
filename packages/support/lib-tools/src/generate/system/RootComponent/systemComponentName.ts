@@ -1,6 +1,6 @@
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { getProject } from '@noodles-ui/core-entities';
 
-import { getProject } from '../../../entities/project/getProject';
 import { safeName } from '../../../util/string';
 
 export const systemComponentName = (compiler: CompilerContext): string => {

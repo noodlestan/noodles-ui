@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 import { systemComponentName } from '../RootComponent/systemComponentName';
 

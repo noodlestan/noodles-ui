@@ -1,9 +1,8 @@
-import type { ColourSchemeName, TokenMap } from '@noodles-ui/core-types';
+import type { ColourSchemeName, Surface, Theme, TokenMap } from '@noodles-ui/core-types';
 import { merge } from 'ts-deepmerge';
 
 import { themesStore } from '../stores';
 import { surfacesStore } from '../stores/surfacesStore';
-import type { Surface, Theme } from '../types';
 
 export const contextTokens = (mode: ColourSchemeName, theme: Theme, surface: Surface): TokenMap => {
     const { themeByName } = themesStore;

@@ -1,4 +1,5 @@
-import { ComponentBuildContext, getResourceKey } from '@noodles-ui/support-types';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
+import { getResourceKey } from '@noodles-ui/core-resources';
 import { Component } from 'solid-js';
 
 import styles from './ComponentRenderer.module.scss';

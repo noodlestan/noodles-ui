@@ -1,4 +1,5 @@
-import { getAllDiagnosticSourceKeys, getProject } from '@noodles-ui/support-types';
+import { getAllDiagnosticSourceKeys } from '@noodles-ui/core-diagnostics';
+import { getProject } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';

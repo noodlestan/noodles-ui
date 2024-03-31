@@ -1,21 +1,25 @@
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
-    CompilerContext,
-    EntityBuildContext,
-    EntityBuildMap,
-    ResourceContext,
-    UnknownBuildContext,
-    UnknownResource,
     getDiagnosticErrors,
     getItemsWithErrors,
     getItemsWithWarnings,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
+import {
+    EntityBuildContext,
+    EntityBuildMap,
+    UnknownBuildContext,
+    getProject,
+} from '@noodles-ui/core-entities';
+import {
+    ResourceContext,
+    UnknownResource,
+    getResourceModule,
+    getResourceName,
+    getResourceType,
+    getResourceTypedKey,
+} from '@noodles-ui/core-resources';
 import { blue, gray, red, white, yellow } from 'kleur';
 
-import { getResourceModule } from '../../compiler/resources/getters/getResourceModule';
-import { getResourceName } from '../../compiler/resources/getters/getResourceName';
-import { getResourceType } from '../../compiler/resources/getters/getResourceType';
-import { getResourceTypedKey } from '../../compiler/resources/getters/getResourceTypedKey';
-import { getProject } from '../../entities/project/getProject';
 import { plural } from '../../util/string';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';

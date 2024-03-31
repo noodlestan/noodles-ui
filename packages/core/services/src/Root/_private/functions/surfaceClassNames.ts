@@ -1,8 +1,7 @@
-import { NUI_SURFACE_PREFIX, makeNoodlesClassName } from '@noodles-ui/core-types';
+import { NUI_SURFACE_PREFIX, Surface, makeNoodlesClassName } from '@noodles-ui/core-types';
 
 import { useSurfacesContext } from '../../providers/SurfaceProvider';
 import { surfacesStore } from '../../stores/surfacesStore';
-import { Surface } from '../../types';
 
 const surfaceNames = (surface: Surface): string[] => {
     const { surfaceByName } = surfacesStore;

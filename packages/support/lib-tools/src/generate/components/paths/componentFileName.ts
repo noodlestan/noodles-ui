@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { ComponentEntity } from '@noodles-ui/core-types';
+import { ComponentEntity } from '@noodles-ui/core-entities';
 
 export const componentFileName = (target: string, entity: ComponentEntity): string => {
     const name = entity.name;

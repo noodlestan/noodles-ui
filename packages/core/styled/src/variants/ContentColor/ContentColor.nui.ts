@@ -1,4 +1,4 @@
-import { VariantExtendResource } from '@noodles-ui/core-types';
+import { VariantExtendResource } from '@noodles-ui/core-resources';
 
 import { FgColor } from '../FgColor/FgColor.nui';
 

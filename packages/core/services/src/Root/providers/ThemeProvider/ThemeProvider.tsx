@@ -1,8 +1,8 @@
+import { Theme } from '@noodles-ui/core-types';
 import { Component, JSX, createContext, useContext } from 'solid-js';
 
 import { ThemesError } from '../../errors';
 import { themesStore } from '../../stores/themesStore';
-import { Theme } from '../../types';
 import { TokensProvider } from '../TokensProvider';
 
 type ThemeContextState = { theme: () => Theme };
@@ -27,8 +27,6 @@ export const ThemeProvider: Component<ThemeProviderProps> = props => {
     const { themeByName } = themesStore;
 
     const value = () => ({ theme: () => themeByName(props.theme) });
-
-    // TODO for themes to be nestable
 
     return (
         <ThemeContext.Provider value={value()}>

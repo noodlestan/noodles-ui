@@ -2,7 +2,7 @@ import {
     ComponentImportResource,
     PropInlineResource,
     VariantInlineResource,
-} from '@noodles-ui/core-types';
+} from '@noodles-ui/core-resources';
 
 const children: PropInlineResource = {};
 const tag: VariantInlineResource = {

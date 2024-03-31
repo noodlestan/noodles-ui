@@ -1,4 +1,5 @@
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
 import { generateComponentLive } from './Components/generateComponentLive';
 import { generateComponentPrivate } from './Components/generateComponentPrivate';

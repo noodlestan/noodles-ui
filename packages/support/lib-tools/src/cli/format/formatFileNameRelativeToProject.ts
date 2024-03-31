@@ -1,7 +1,6 @@
 import { relative } from 'path';
 
-import { PROJECT_MODULE_KEY } from '@noodles-ui/core-types';
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import { gray, white } from 'kleur';
 
 export const formatFileNameRelativeToProject = (
@@ -10,9 +9,8 @@ export const formatFileNameRelativeToProject = (
     colors: boolean = false,
 ): string => {
     const { modules } = compiler.build;
-    const projectPath = modules.get(PROJECT_MODULE_KEY);
-    const basePath = projectPath?.path as string;
-    const relativeFileName = relative(basePath, fileName);
+    const projectPath = compiler.projectPath;
+    const relativeFileName = relative(projectPath, fileName);
 
     const matches = Array.from(modules.values())
         .filter(module => {

@@ -1,4 +1,4 @@
-import { BuildSnapshotDto } from '@noodles-ui/support-types';
+import { BuildSnapshotDto } from '@noodles-ui/core-compiler-types';
 
 export type BuildStartedEvent = {
     timestamp: Date;

@@ -1,15 +1,13 @@
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
-    CompilerContext,
     ProjectDiagnostic,
     ProjectDiagnosticFileError,
     ProjectDiagnosticSource,
-    UnknownResource,
     fileErrorFromDiagnosticSource,
-} from '@noodles-ui/support-types';
+} from '@noodles-ui/core-diagnostics';
+import { UnknownResource, getResourceName, getResourceType } from '@noodles-ui/core-resources';
 import { bold, gray, red, white, yellow } from 'kleur';
 
-import { getResourceName } from '../../compiler/resources/getters/getResourceName';
-import { getResourceType } from '../../compiler/resources/getters/getResourceType';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logMessage } from '../logger/logMessage';

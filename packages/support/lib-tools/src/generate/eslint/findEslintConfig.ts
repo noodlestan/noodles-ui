@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'fs';
 import { dirname, join } from 'path';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 export const findEslintConfig = async (
     compiler: CompilerContext,

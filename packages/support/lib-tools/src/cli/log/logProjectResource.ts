@@ -1,5 +1,5 @@
-import { ProjectResource } from '@noodles-ui/core-types';
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ProjectResource } from '@noodles-ui/core-resources';
 import { gray, yellow } from 'kleur';
 
 import { plural } from '../../util/string';

@@ -1,4 +1,4 @@
-import { PropEntity } from '@noodles-ui/core-types';
+import { PropEntity } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ListLayout } from '../../layouts/ListLayout';

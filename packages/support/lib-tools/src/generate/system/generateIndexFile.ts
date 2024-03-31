@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 import ts from 'typescript';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';

@@ -1,4 +1,5 @@
-import { BuildSnapshot, getItemsWithErrors, getItemsWithWarnings } from '@noodles-ui/support-types';
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
+import { getItemsWithErrors, getItemsWithWarnings } from '@noodles-ui/core-diagnostics';
 import { Component } from 'solid-js';
 
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';

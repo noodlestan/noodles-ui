@@ -61,7 +61,7 @@ Implemented by [dev.ts](./src/cli/dev.ts)
 npm run dev
 ```
 
-Execute the tool by running `npm run dev:nui` or `npm run build:nui` in one of the UI libraries, for instance [Lab UI](../../libs/lab-ui/README.md).
+Execute the tool by running `npm run dev:nui` or `npm run build:nui` in one of the UI libraries, for instance [Lab UI](../../ui-systems/lab-ui/README.md).
 
 ## Building
 

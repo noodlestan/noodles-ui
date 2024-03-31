@@ -1,4 +1,4 @@
-import { BuildSnapshot } from '@noodles-ui/support-types';
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import {
     Accessor,
     Component,

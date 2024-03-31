@@ -1,8 +1,10 @@
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import {
+    ComponentBuildContext,
+    getPropVariantName,
+    getVariantProps,
+} from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { getPropVariantName } from '../../../../entities/component/prop/getters/getPropVariantName';
-import { getVariantProps } from '../../../../entities/component/prop/getters/getVariantProps';
 import { filterOutDuplicates } from '../../../../util/array';
 import { relativePath } from '../../../../util/fs';
 import { variantsTypesFileName } from '../../../variants/paths/variantsTypesFileName';

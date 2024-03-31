@@ -1,8 +1,6 @@
 import { join } from 'path';
 
-import { ThemeBuildContext } from '@noodles-ui/support-types';
-
-import { getThemeIdentifier } from '../../../entities/theme/getters/getThemeIdentifier';
+import { ThemeBuildContext, getThemeIdentifier } from '@noodles-ui/core-entities';
 
 export const themeComponentFileName = (target: string, theme: ThemeBuildContext): string => {
     const name = getThemeIdentifier(theme.entity);

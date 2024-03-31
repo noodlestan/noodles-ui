@@ -1,7 +1,7 @@
 import { readFile, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
 
-import { CompilerContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
 
 import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
 import { copyFiles } from '../../util/copyFiles';

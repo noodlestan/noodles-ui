@@ -1,6 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
 import { ensuredFiledir, relativePath } from '../../util/fs';
 import { diffDateNow, getDateNow } from '../../util/time';

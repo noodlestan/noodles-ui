@@ -1,8 +1,8 @@
+import { Surface } from '@noodles-ui/core-types';
 import { Component, JSX, createContext, useContext } from 'solid-js';
 
 import { ThemesError } from '../../errors';
 import { surfacesStore } from '../../stores/surfacesStore';
-import { Surface } from '../../types';
 import { TokensProvider } from '../TokensProvider';
 
 type SurfaceContextState = { surface: () => Surface };

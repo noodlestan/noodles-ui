@@ -1,4 +1,4 @@
-import { VariantOwnResource } from '@noodles-ui/core-types';
+import { VariantOwnResource } from '@noodles-ui/core-resources';
 
 export const Swatch: VariantOwnResource = {
     type: 'variant',

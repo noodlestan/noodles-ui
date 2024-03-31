@@ -1,8 +1,5 @@
-import { ThemeBuildContext } from '@noodles-ui/support-types';
+import { ThemeBuildContext, getThemeIdentifier, getThemeName } from '@noodles-ui/core-entities';
 import ts from 'typescript';
-
-import { getThemeIdentifier } from '../../../../entities/theme/getters/getThemeIdentifier';
-import { getThemeName } from '../../../../entities/theme/getters/getThemeName';
 
 import { createPropertyAssignment } from './createPropertyAssignment';
 import { createShorthandAssignment } from './createShorthandAssignment';

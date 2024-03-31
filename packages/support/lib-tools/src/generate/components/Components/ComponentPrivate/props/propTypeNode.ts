@@ -1,9 +1,11 @@
-import { PropEntity } from '@noodles-ui/core-types';
-import { CompilerContext, ComponentBuildContext } from '@noodles-ui/support-types';
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import {
+    ComponentBuildContext,
+    PropEntity,
+    isPropVariantEntity,
+    isPropVariantReference,
+} from '@noodles-ui/core-entities';
 import ts from 'typescript';
-
-import { isPropVariantEntity } from '../../../../../entities/component/prop/getters/isPropVariantEntity';
-import { isPropVariantReference } from '../../../../../entities/component/prop/getters/isPropVariantReference';
 
 const factory = ts.factory;
 

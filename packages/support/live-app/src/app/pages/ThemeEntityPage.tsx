@@ -1,4 +1,6 @@
-import { getItemDiagnostics, getResourceTypedKey, getThemeByKey } from '@noodles-ui/support-types';
+import { getItemDiagnostics } from '@noodles-ui/core-diagnostics';
+import { getThemeByKey } from '@noodles-ui/core-entities';
+import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 

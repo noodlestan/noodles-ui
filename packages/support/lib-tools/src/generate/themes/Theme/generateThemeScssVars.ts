@@ -1,5 +1,7 @@
 import { writeFile } from 'fs/promises';
 
+import { CompilerContext } from '@noodles-ui/core-compiler';
+import { ThemeBuildContext, getThemeName } from '@noodles-ui/core-entities';
 import {
     NUI_COLOUR_SCHEME_PREFIX,
     NUI_SURFACE_PREFIX,
@@ -7,9 +9,7 @@ import {
     TokenMap,
     makeNoodlesClassName,
 } from '@noodles-ui/core-types';
-import { CompilerContext, ThemeBuildContext } from '@noodles-ui/support-types';
 
-import { getThemeName } from '../../../entities/theme/getters/getThemeName';
 import { ensuredFiledir } from '../../../util/fs';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { tsFileHeader } from '../../typescript/tsFileHeader';

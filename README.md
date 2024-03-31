@@ -27,9 +27,9 @@ See each package's README for more details.
 
 ### UI libraries
 
-- [Lab UI Library](./packages/libs/lab-ui/README.md) - Noodles UI experimentation & playground library
-- [Standard UI Library](./packages/libs/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
-- [Proto UI Library](./packages/libs/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
+- [Lab UI Library](./packages/ui-systems/lab-ui/README.md) - Noodles UI experimentation & playground library
+- [Standard UI Library](./packages/ui-systems/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
+- [Proto UI Library](./packages/ui-systems/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel
 
 ### Catalogue
