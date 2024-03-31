@@ -3,6 +3,7 @@ import { ProjectContext } from '@noodles-ui/support-types';
 
 import { BuildOptions } from '../build/types';
 import { loadComponents } from '../project/resources/components/loadComponents';
+import { loadMixins } from '../project/resources/mixins/loadMixins';
 import { loadSurfaces } from '../project/resources/surfaces/loadSurfaces';
 import { loadThemes } from '../project/resources/themes/loadThemes';
 import { loadTokens } from '../project/resources/tokens/loadTokens';
@@ -13,10 +14,11 @@ export const loadProject = async (
     resource: ProjectResource,
     options: BuildOptions,
 ): Promise<void> => {
-    const { name, module } = resource;
-    project.resource = { name, module };
+    const { name, module, use } = resource;
+    project.entities.project = { name, module, use };
 
     loadSurfaces(project, resource);
+    loadMixins(project, resource);
     loadVariants(project, resource);
     loadComponents(project, resource);
     loadTokens(project, resource);

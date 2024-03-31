@@ -3,6 +3,20 @@ import ts from 'typescript';
 const factory = ts.factory;
 
 export const classListStatement = (): ts.Statement => {
+    const objectLiteral = factory.createObjectLiteralExpression(
+        [
+            factory.createPropertyAssignment(
+                factory.createComputedPropertyName(
+                    factory.createPropertyAccessExpression(
+                        factory.createIdentifier('styles'),
+                        factory.createIdentifier('Root'),
+                    ),
+                ),
+                factory.createTrue(),
+            ),
+        ],
+        true,
+    );
     return factory.createVariableStatement(
         undefined,
         factory.createVariableDeclarationList(
@@ -17,11 +31,7 @@ export const classListStatement = (): ts.Statement => {
                         [],
                         undefined,
                         factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
-                        factory.createCallExpression(
-                            factory.createIdentifier('surfaceClassList'),
-                            undefined,
-                            [],
-                        ),
+                        factory.createParenthesizedExpression(objectLiteral),
                     ),
                 ),
             ],

@@ -21,7 +21,7 @@ export const VariantsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
                     <PageTitle>Variants</PageTitle>
                 </PageHeader>
                 <SectionLayout>

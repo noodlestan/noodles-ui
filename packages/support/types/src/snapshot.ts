@@ -74,6 +74,7 @@ export type EntityBuildMapDto<
 > = { [key: string]: T };
 
 export type EntitiesMapDto = {
+    project: Omit<ProjectOwnResource, 'type'>;
     surface: EntityBuildMapDto<SurfaceBuildContextDto>;
     mixin: EntityBuildMapDto<MixinBuildContextDto>;
     variant: EntityBuildMapDto<VariantBuildContextDto>;
@@ -85,7 +86,6 @@ export type EntitiesMapDto = {
 export type BuildSnapshotDto = {
     success: boolean;
     timestamp: string;
-    project: Omit<ProjectOwnResource, 'type'>;
     entities: EntitiesMapDto;
     diagnostics: ProjectDiagnostic[];
 };

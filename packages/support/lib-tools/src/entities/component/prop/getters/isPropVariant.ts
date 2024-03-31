@@ -1,10 +1,8 @@
-import { PropEntity, PropVariantEntity, PropVariantReference } from '@noodles-ui/core-types';
+import { PropEntity } from '@noodles-ui/core-types';
 
 import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const isPropVariant = (
-    prop: PropEntity,
-): PropVariantEntity | PropVariantReference | undefined => {
+export const isPropVariant = (prop: PropEntity): PropEntity | undefined => {
     return isPropVariantEntity(prop) || isPropVariantReference(prop);
 };

@@ -42,13 +42,10 @@ function transform<T extends UnknownBuildContext, V extends UnknownBuildContextD
 export const serializeSnapshot = (project: ProjectContext): BuildSnapshotDto => {
     const { surface, mixin, variant, component, token, theme } = project.entities;
     const data = {
-        project: {
-            name: project.resource?.name || '<unknown>',
-            module: project.resource?.module || '<unknown>',
-        },
         success: !!project.build.success && getDiagnosticErrors(project.diagnostics).length === 0,
         timestamp: new Date().toJSON(),
         entities: {
+            project: project.entities.project,
             surface: mapToObject<SurfaceBuildContext, SurfaceBuildContextDto>(surface, transform),
             mixin: mapToObject<MixinBuildContext, MixinBuildContextDto>(mixin, transform),
             variant: mapToObject<VariantBuildContext, VariantBuildContextDto>(variant, transform),

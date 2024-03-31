@@ -29,6 +29,10 @@ export type EntityBuildMap<
     T extends EntityBuildContext<ResourceContext<UnknownResource>, UnknownResource>,
 > = Map<string, T>;
 
+// export type SurfaceContext = ResourceContext<SurfaceResource>;
+// export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;
+// export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;
+
 export type SurfaceContext = ResourceContext<SurfaceResource>;
 export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceResource>;
 export type SurfaceEntityMap = EntityBuildMap<SurfaceBuildContext>;

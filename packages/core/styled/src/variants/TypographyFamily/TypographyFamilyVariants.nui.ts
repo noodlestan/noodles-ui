@@ -8,7 +8,7 @@ export const TypographyFamilyVariants: VariantOwnResource = {
         name: 'TypographyFamilyVariants',
         role: 'scss:variant',
         source: '@noodles-ui/core-styled/src/variants/TypographyFamily/TypographyFamilyVariants.scss',
-        implementation: "@include TypographyFamilyVariants('#{family}', $#{variable});",
+        implementation: "@include TypographyFamilyVariants($#{VARIANTS}, '#{family}');",
         params: ['family'],
         tokens: [
             {

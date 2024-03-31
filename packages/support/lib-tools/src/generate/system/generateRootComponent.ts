@@ -15,7 +15,8 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 
 import { declareProps } from './RootComponent/declareProps';
 import { exportComponent } from './RootComponent/exportComponent';
-import { importRootCss } from './RootComponent/importRootCss';
+import { importRootCssTokens } from './RootComponent/importRootCssTokens';
+import { importRootScssModule } from './RootComponent/importRootScssModule';
 import { systemRootFileName } from './paths/systemRootFileName';
 
 export const generateRootComponent = async (
@@ -31,9 +32,9 @@ export const generateRootComponent = async (
 
     const internalTypes: TypesToImport = [
         ['@noodles-ui/core-services', ['RootProvider, surfacesStore, themesStore']],
-        ['@noodles-ui/core-styled', ['surfaceClassList']],
         ['@noodles-ui/core-types', ['ColourSchemeName']],
     ];
+
     const localImports: TypesToImport = [
         [surfacesPath, 'surfaces'],
         [themesPath, 'themes'],
@@ -41,7 +42,8 @@ export const generateRootComponent = async (
     const statements = [
         importFrameworkTypes(true),
         ...createImportStatements([...internalTypes, ...localImports]),
-        importRootCss(project, fileName, targetDir),
+        importRootCssTokens(project, fileName, targetDir),
+        importRootScssModule(project, fileName, targetDir),
         declareProps(),
         exportComponent(project),
     ];

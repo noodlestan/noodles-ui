@@ -1,3 +1,4 @@
+import { SurfaceColor } from '@noodles-ui/core-styled';
 import { ProjectResource } from '@noodles-ui/core-types';
 
 import components from './components/components.nui';
@@ -9,12 +10,13 @@ const LabUIResource: ProjectResource = {
     type: 'project',
     name: 'Lab UI',
     module: '@noodles-ui/lab-ui',
+    use: [SurfaceColor],
     entities: {
-        themes,
         surfaces,
+        mixins: [],
         variants,
         components,
-        mixins: [],
+        themes,
     },
 };
 

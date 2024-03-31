@@ -1,6 +1,4 @@
-@mixin Surface() {
-    color: var(--surface-base-fg);
-    background-color: var(--surface-base-bg);
+@mixin SurfaceBorder() {
     border-color: var(--surface-base-border-color);
     border-style: var(--surface-base-border-style);
     border-width: var(--surface-base-border-width);
@@ -8,8 +6,6 @@
     box-shadow: var(--surface-base-box-shadow);
 
     &[data-is-interactive] {
-        color: var(--surface-interactive-fg);
-        background-color: var(--surface-interactive-bg);
         border-color: var(--surface-interactive-border-color);
         border-style: var(--surface-interactive-border-style);
         border-width: var(--surface-interactive-border-width);
@@ -18,8 +14,6 @@
     }
 
     &[data-is-active] {
-        color: var(--surface-active-fg);
-        background-color: var(--surface-active-bg);
         border-color: var(--surface-active-border-color);
         border-style: var(--surface-active-border-style);
         border-width: var(--surface-active-border-width);
@@ -28,8 +22,6 @@
     }
 
     &[data-is-disabled] {
-        color: var(--surface-disabled-fg);
-        background-color: var(--surface-disabled-bg);
         border-color: var(--surface-disabled-border-color);
         border-style: var(--surface-disabled-border-style);
         border-width: var(--surface-disabled-border-width);

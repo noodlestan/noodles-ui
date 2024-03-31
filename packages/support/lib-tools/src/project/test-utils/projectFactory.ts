@@ -48,14 +48,16 @@ export const projectFactory = (overides?: Partial<ProjectContext>): ProjectConte
             hints: false,
         },
         rootPath: '',
-        resource: {
-            name: '',
-            module: '',
-        },
+
         compileProjectFile,
         generatedSourceFiles: [{ fileName: '' }],
         addGeneratedSourceFile,
         entities: {
+            project: {
+                name: '',
+                module: '',
+                use: [],
+            },
             surface: new Map(),
             theme: new Map(),
             component: new Map(),

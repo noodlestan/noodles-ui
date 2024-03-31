@@ -27,7 +27,7 @@ export const createProject = async (
     projectFile: string,
     options: BuildOptions = {},
 ): Promise<ProjectContext> => {
-    const module = findLocalNodeModule('/', projectFile); // TODO cross-platform
+    const module = findLocalNodeModule('/', projectFile);
     const projectPath = module ? module.path : dirname(projectFile);
     const rootPath = findRootPath(projectPath);
 
@@ -77,17 +77,18 @@ export const createProject = async (
         },
         generatedSourceFiles,
         addGeneratedSourceFile,
+        interactive: {
+            hints,
+            expand,
+        },
         entities: {
+            project: { name: '', module: '', use: [] },
             surface,
             theme,
             variant,
             component,
             token,
             mixin,
-        },
-        interactive: {
-            hints,
-            expand,
         },
     };
 

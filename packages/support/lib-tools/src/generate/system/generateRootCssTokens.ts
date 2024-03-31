@@ -8,14 +8,14 @@ import { diffDateNow, getDateNow } from '../../util/time';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
-import { systemRootCssFileName } from './paths/systemRootCssFileName';
+import { systemRootTokensFileName } from './paths/systemRootTokensFileName';
 
-export const generateRootScssFile = async (
+export const generateRootCssTokens = async (
     project: ProjectContext,
     targetDir: string,
 ): Promise<void> => {
     const time = getDateNow();
-    const fileName = systemRootCssFileName(project, targetDir);
+    const fileName = systemRootTokensFileName(project, targetDir);
     await ensuredFiledir(fileName);
 
     const themes = getThemesInTopologicalOrder(project);

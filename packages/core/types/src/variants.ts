@@ -11,9 +11,8 @@ export type VariantOwnResource = Resource<'variant'> & {
     mixin?: MixinInlineResource;
     options?: string[];
     defaultValue?: string;
-    vars?: VariantVars;
     params?: string[];
-    variable?: string;
+    vars?: VariantVars;
     surface?: boolean;
     tokens?: Array<InlineTokenResource>;
 };

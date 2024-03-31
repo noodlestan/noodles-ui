@@ -3,9 +3,7 @@ import { PropEntity, PropVariantEntity, PropVariantReference } from '@noodles-ui
 import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const hasPropVariantMixin = (
-    prop: PropEntity,
-): PropVariantEntity | PropVariantReference | undefined => {
+export const hasPropVariantMixin = (prop: PropEntity): PropEntity | undefined => {
     const propVariant = isPropVariantEntity(prop);
     if (propVariant && propVariant.variant.mixin) {
         return prop as PropVariantEntity;

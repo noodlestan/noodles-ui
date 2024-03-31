@@ -18,7 +18,7 @@ export const TokensPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.entities.project.module || '?'}</ModuleName>
                     <PageTitle>Tokens</PageTitle>
                 </PageHeader>
                 <SectionLayout>

@@ -22,7 +22,6 @@ type ProjectAttributes = {
     projectFile: string;
     projectPath: string;
     rootPath?: string;
-    resource?: Omit<ProjectOwnResource, 'type'>;
 };
 
 type ProjectAPI = {
@@ -43,6 +42,7 @@ type ProjectAPI = {
 export type EntityType = keyof ProjectEntitiesMap;
 
 export type ProjectEntitiesMap = {
+    project: Omit<ProjectOwnResource, 'type'>;
     surface: SurfaceEntityMap;
     theme: ThemeEntityMap;
     component: ComponentEntityMap;

@@ -24,4 +24,5 @@ export type PropResource = PropOwnResource | PropExtendResource;
 
 export type PropVariantEntity = PropOwnResource & { variant: VariantEntity };
 export type PropVariantReference = PropOwnResource & { reference: VariantEntity };
-export type PropEntity = PropOwnResource | PropVariantEntity | PropVariantReference;
+export type PropGenericEntity = PropOwnResource;
+export type PropEntity = PropVariantEntity | PropVariantReference | PropGenericEntity;

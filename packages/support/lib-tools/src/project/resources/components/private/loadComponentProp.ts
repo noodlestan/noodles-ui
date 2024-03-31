@@ -2,6 +2,7 @@ import {
     ComponentOwnResource,
     LocalPropResource,
     PropEntity,
+    PropGenericEntity,
     PropOwnResource,
     PropVariantEntity,
     PropVariantReference,
@@ -139,5 +140,5 @@ export const loadComponentProp = (
         type,
         name,
         module,
-    };
+    } as PropGenericEntity;
 };

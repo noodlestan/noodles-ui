@@ -5,7 +5,9 @@ import { SurfaceResource } from './surfaces';
 import { ThemeResource } from './themes';
 import { VariantResource } from './variants';
 
-export type ProjectOwnResource = Resource<'project'>;
+export type ProjectOwnResource = Resource<'project'> & {
+    use: MixinResource[];
+};
 
 type EntityResourceMap = {
     components: ComponentResource[];

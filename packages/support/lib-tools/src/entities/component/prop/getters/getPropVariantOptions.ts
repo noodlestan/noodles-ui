@@ -1,9 +1,9 @@
-import { PropVariantEntity, PropVariantReference } from '@noodles-ui/core-types';
+import { PropEntity } from '@noodles-ui/core-types';
 
 import { isPropVariantEntity } from './isPropVariantEntity';
 import { isPropVariantReference } from './isPropVariantReference';
 
-export const getPropVariantOptions = (prop: PropVariantEntity | PropVariantReference): string[] => {
+export const getPropVariantOptions = (prop: PropEntity): string[] => {
     const entity = isPropVariantEntity(prop);
     if (entity) {
         return entity.variant.options || [];

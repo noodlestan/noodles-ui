@@ -103,8 +103,8 @@ export const logProjectData = (project: ProjectContext): void => {
     logInfo('Project data', count, hint);
 
     if (shouldExpand(project, 'project')) {
-        logMessage('  Name:', project.resource?.name);
-        logMessage('  Module:', project.resource?.module);
+        logMessage('  Name:', project.entities.project.name);
+        logMessage('  Module:', project.entities.project.module);
         console.info('');
     }
 
