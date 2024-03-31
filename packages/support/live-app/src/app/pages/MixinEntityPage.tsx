@@ -1,4 +1,4 @@
-import { getItemDiagnostics, getResourceTypedKey } from '@noodles-ui/support-types';
+import { getItemDiagnostics, getMixinByKey, getResourceTypedKey } from '@noodles-ui/support-types';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
@@ -9,13 +9,12 @@ import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { mixinByKey } from '../providers/SnapshotContextProvider/mixinByKey';
 
 export const MixinEntityPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
-    const mixin = () => mixinByKey(lastSnapshot(), params.key);
+    const mixin = () => getMixinByKey(lastSnapshot(), params.key);
     const entity = () => mixin().entity;
 
     const diagnostics = () =>

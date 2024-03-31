@@ -1,4 +1,4 @@
-import { ComponentBuildContext } from '@noodles-ui/support-types';
+import { ComponentBuildContext, getComponents, getProject } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -9,7 +9,6 @@ import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { components } from '../providers/SnapshotContextProvider/components';
 
 export const ComponentsPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
@@ -20,14 +19,12 @@ export const ComponentsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Components</PageTitle>
                 </PageHeader>
                 <SectionLayout>
                     <CardGrid>
-                        <For each={components(lastSnapshot()).filter(isPublicComponent)}>
+                        <For each={getComponents(lastSnapshot()).filter(isPublicComponent)}>
                             {component => <ComponentCard component={component} />}
                         </For>
                     </CardGrid>

@@ -1,3 +1,4 @@
+import { getProject, getTokens } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -9,7 +10,6 @@ import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { tokens } from '../providers/SnapshotContextProvider/tokens';
 
 export const TokensPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
@@ -18,15 +18,13 @@ export const TokensPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Tokens</PageTitle>
                 </PageHeader>
                 <SectionLayout>
                     <SectionTitle>Tokens</SectionTitle>
                     <CardGrid>
-                        <For each={tokens(lastSnapshot())}>
+                        <For each={getTokens(lastSnapshot())}>
                             {token => <TokenCard token={token} />}
                         </For>
                     </CardGrid>

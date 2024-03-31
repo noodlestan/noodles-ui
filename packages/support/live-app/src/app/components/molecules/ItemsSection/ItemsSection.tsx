@@ -4,10 +4,10 @@ import {
     getDiagnosticByResourcetype,
     getDiagnosticErrors,
     getDiagnosticWarnings,
+    getEntitiesByType,
 } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
-import { entitiesByType } from '../../../providers/SnapshotContextProvider/entitiesByType';
 import { DiagnosticCounts } from '../../atoms/DiagnosticCounts';
 import { EntityLink } from '../../atoms/EntityLink';
 import { Link } from '../../atoms/Link';
@@ -25,7 +25,8 @@ type DiagnosticSourceItemProps = {
 };
 
 export const ItemsSection: Component<DiagnosticSourceItemProps> = props => {
-    const entities = () => entitiesByType(props.snapshot, props.type, item => item.context.public);
+    const entities = () =>
+        getEntitiesByType(props.snapshot, props.type, item => item.context.public);
     const diagnostics = () => getDiagnosticByResourcetype(props.type, props.snapshot?.diagnostics);
     const warnings = () => getDiagnosticWarnings(diagnostics());
     const errors = () => getDiagnosticErrors(diagnostics());

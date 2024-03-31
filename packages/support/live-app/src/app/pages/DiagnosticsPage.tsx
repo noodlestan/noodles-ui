@@ -1,4 +1,4 @@
-import { getAllDiagnosticSourceKeys } from '@noodles-ui/support-types';
+import { getAllDiagnosticSourceKeys, getProject } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -20,9 +20,7 @@ export const DiagnosticsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Diagnostics</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} noLink />

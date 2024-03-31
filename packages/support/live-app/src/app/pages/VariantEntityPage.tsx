@@ -1,5 +1,9 @@
 import { VariantEntity } from '@noodles-ui/core-types';
-import { getItemDiagnostics, getResourceTypedKey } from '@noodles-ui/support-types';
+import {
+    getItemDiagnostics,
+    getResourceTypedKey,
+    getVariantByKey,
+} from '@noodles-ui/support-types';
 import { useParams } from '@solidjs/router';
 import { Component, For, Show } from 'solid-js';
 
@@ -12,13 +16,12 @@ import { SectionLayout } from '../components/layouts/SectionLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { variantByKey } from '../providers/SnapshotContextProvider/variantByKey';
 
 export const VariantEntityPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
-    const variant = () => variantByKey(lastSnapshot(), params.key);
+    const variant = () => getVariantByKey(lastSnapshot(), params.key);
     const entity = () => variant().entity as VariantEntity;
 
     const diagnostics = () =>

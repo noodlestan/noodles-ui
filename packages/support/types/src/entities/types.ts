@@ -13,8 +13,8 @@ import {
     VariantResource,
 } from '@noodles-ui/core-types';
 
-import { ResourceContext } from './context';
-import { UnknownResource } from './resources';
+import { ResourceContext } from '../context';
+import { UnknownResource } from '../resources';
 
 export type EntityBuildContext<T, V> = {
     context: T;

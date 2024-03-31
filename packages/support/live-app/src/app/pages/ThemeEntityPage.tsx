@@ -1,4 +1,4 @@
-import { getItemDiagnostics, getResourceTypedKey } from '@noodles-ui/support-types';
+import { getItemDiagnostics, getResourceTypedKey, getThemeByKey } from '@noodles-ui/support-types';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
@@ -9,13 +9,12 @@ import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { themeByKey } from '../providers/SnapshotContextProvider/themeByKey';
 
 export const ThemeEntityPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
     const params = useParams();
 
-    const theme = () => themeByKey(lastSnapshot(), params.key);
+    const theme = () => getThemeByKey(lastSnapshot(), params.key);
     const entity = () => theme().entity;
 
     const diagnostics = () =>

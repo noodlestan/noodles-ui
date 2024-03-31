@@ -1,3 +1,4 @@
+import { getProject } from '@noodles-ui/support-types';
 import { Component, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -16,12 +17,8 @@ export const HomePage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
-                    <PageTitle>
-                        {lastSnapshot()?.entities.project.get('')?.entity.name || '?'}
-                    </PageTitle>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
+                    <PageTitle>{getProject(lastSnapshot()).entity.name || '?'}</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} />
                 <DashboardGrid>

@@ -1,4 +1,4 @@
-import { VariantBuildContext } from '@noodles-ui/support-types';
+import { VariantBuildContext, getProject, getVariants } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -10,7 +10,6 @@ import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { variants } from '../providers/SnapshotContextProvider/variants';
 
 export const VariantsPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
@@ -21,15 +20,13 @@ export const VariantsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Variants</PageTitle>
                 </PageHeader>
                 <SectionLayout>
                     <SectionTitle>Variants</SectionTitle>
                     <CardGrid>
-                        <For each={variants(lastSnapshot()).filter(isPublicVariant)}>
+                        <For each={getVariants(lastSnapshot()).filter(isPublicVariant)}>
                             {variant => <VariantCard variant={variant} />}
                         </For>
                     </CardGrid>

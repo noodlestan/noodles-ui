@@ -1,4 +1,4 @@
-import { getDiagnosticByResourcetype } from '@noodles-ui/support-types';
+import { getDiagnosticByResourcetype, getProject, getThemes } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -10,7 +10,6 @@ import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { themes } from '../providers/SnapshotContextProvider/themes';
 
 export const ThemesPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
@@ -21,16 +20,14 @@ export const ThemesPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Themes</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={diagnostics()} />
                 <SectionLayout>
                     <></>
                     <CardGrid>
-                        <For each={themes(lastSnapshot())}>
+                        <For each={getThemes(lastSnapshot())}>
                             {theme => <ThemeCard snapshot={lastSnapshot()} theme={theme} />}
                         </For>
                     </CardGrid>

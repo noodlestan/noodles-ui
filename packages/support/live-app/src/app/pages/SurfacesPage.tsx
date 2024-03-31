@@ -1,3 +1,4 @@
+import { getProject, getSurfaces } from '@noodles-ui/support-types';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -8,7 +9,6 @@ import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
-import { surfaces } from '../providers/SnapshotContextProvider/surfaces';
 
 export const SurfacesPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
@@ -17,14 +17,12 @@ export const SurfacesPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>
-                        {lastSnapshot()?.entities.project.get('')?.entity.module || '?'}
-                    </ModuleName>
+                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
                     <PageTitle>Surfaces</PageTitle>
                 </PageHeader>
                 <SectionLayout>
                     <CardGrid>
-                        <For each={surfaces(lastSnapshot())}>
+                        <For each={getSurfaces(lastSnapshot())}>
                             {surface => <SurfaceCard surface={surface} />}
                         </For>
                     </CardGrid>
