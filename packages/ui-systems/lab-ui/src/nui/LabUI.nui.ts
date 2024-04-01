@@ -1,5 +1,5 @@
 import { ProjectResource } from '@noodles-ui/core-resources';
-import { SurfaceColor } from '@noodles-ui/core-styled';
+import { SurfaceColor } from '@noodles-ui/solidjs-styled';
 
 import components from './components/components.nui';
 import surfaces from './surfaces/surfaces.nui';

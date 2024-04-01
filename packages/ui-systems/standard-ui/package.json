@@ -39,9 +39,11 @@
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
-    "@noodles-ui/core-services": "0.0.1",
-    "@noodles-ui/core-styled": "0.0.1",
+    "@noodles-ui/core-resources": "0.0.1",
     "@noodles-ui/core-types": "0.0.1",
+    "@noodles-ui/solidjs-services": "0.0.1",
+    "@noodles-ui/solidjs-styled": "0.0.1",
+    "@noodles-ui/solidjs-unstyled": "0.0.1",
     "@noodles-ui/lib-tools": "0.0.1"
   },
   "peerDependencies": {

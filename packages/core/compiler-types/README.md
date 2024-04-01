@@ -8,12 +8,12 @@ Early days. See [root README](../../../README.md) for an introduction.
 
 Provide core domain types consistently across all systems.
 
-Some runtime code, such as [@noodles-ui/core-services](../types/README.md), reference types such as `Themes`, `ColourSchemeName`, or `Surface`.
+Both backend and frontend consume `BuildSnapshotDto` alongside with `serializeSnapshot()` and `deserializeSnapshot()`
 
-Compiler types are consumed in:
+- server code, such as [@noodles-ui/lib-tools](../../support/lib-tools/README.md)
+- UI code, such as [@noodles-ui/live-app](../../support/live-app/README.md)
 
-- compiler code, such as [@noodles-ui/lib-tools](../../support/lib-tools/README.md)
-- compiler UI code, such as [@noodles-ui/live-app](../../support/live-app/README.md)
+Tooling code [@noodles-ui/core-compiler](../compiler/README.md), reference types such as `GeneratedSourceFile`, `ColourSchemeName`, or `Surface`.
 
 ## License
 

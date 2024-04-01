@@ -31,7 +31,7 @@ export const generateRootComponent = async (
     const themesPath = relativePath(fileName, themesIndexFileName(targetDir), true);
 
     const internalTypes: TypesToImport = [
-        ['@noodles-ui/core-services', ['RootProvider, surfacesStore, themesStore']],
+        ['@noodles-ui/solidjs-services', ['RootProvider, surfacesStore, themesStore']],
         ['@noodles-ui/core-types', ['ColourSchemeName']],
     ];
 

@@ -1,4 +1,4 @@
-# Noodles UI / Core Resources
+# Noodles UI / Core / Resources
 
 > Types for modeling design systems
 

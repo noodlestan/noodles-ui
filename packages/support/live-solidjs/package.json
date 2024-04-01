@@ -12,10 +12,10 @@
     "dev": "concurrently -k -p \"[{name}]\" -n \"dev:tsc\",\"dev:vite\" -c \"cyan.bold\",\"blue.bold\" \"npm run dev:tsc\" \"npm run dev:vite\""
   },
   "dependencies": {
-    "@noodles-ui/core-services": "0.0.1",
-    "@noodles-ui/core-styled": "0.0.1",
     "@noodles-ui/core-types": "0.0.1",
-    "@noodles-ui/core-unstyled": "0.0.1",
+    "@noodles-ui/solidjs-services": "0.0.1",
+    "@noodles-ui/solidjs-styled": "0.0.1",
+    "@noodles-ui/solidjs-unstyled": "0.0.1",
     "@solidjs/router": "^0.13.0",
     "solid-js": "^1.8.15",
     "typescript": "5.3.3",

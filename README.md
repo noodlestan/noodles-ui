@@ -21,9 +21,18 @@ See each package's README for more details.
 ### Core packages
 
 - [Types](./packages/core/types/README.md) - For modeling design systems
+
+### SolidJS
+
 - [Services](./packages/core/services/README.md) - Core services and providers
 - [Unstyled](./packages/core/unstyled/README.md) - Headless (unstyled) components and primitives
 - [Styled](./packages/core/styled/README.md) - Styling components and primitives
+
+### Catalogue
+
+Use high quality components and primitives from headless libraries
+
+- [Kobalte](./packages/catalog/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
 
 ### UI libraries
 
@@ -31,12 +40,6 @@ See each package's README for more details.
 - [Standard UI Library](./packages/ui-systems/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
 - [Proto UI Library](./packages/ui-systems/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel
-
-### Catalogue
-
-Use high quality components and primitives from headless libraries
-
-- [Kobalte](./packages/catalog/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
 
 ### Support packages
 

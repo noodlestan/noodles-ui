@@ -1,0 +1,59 @@
+{
+  "name": "@noodles-ui/solidjs-styled",
+  "version": "0.0.1",
+  "description": "Noodles UI style primitives for SolidJS",
+  "author": "Andre Torgal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noodlestan/noodles-ui"
+  },
+  "keywords": [
+    "tokens",
+    "design-tokens",
+    "themes",
+    "design-system",
+    "ui-library",
+    "solid",
+    "solidjs"
+  ],
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./src/*.scss": {
+      "import": "./src/*.scss",
+      "require": "./src/*.scss"
+    }
+  },
+  "scripts": {
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:lib\" -c \"blue.bold\" \"npm run dev:lib\"",
+    "dev:test": "vitest",
+    "dev:lib": "vite build --watch --mode development",
+    "test": "vitest --run --coverage",
+    "build": "vite build",
+    "ci": "rm -rf dist/ && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@noodles-ui/core-resources": "0.0.1",
+    "@noodles-ui/solidjs-services": "0.0.1",
+    "@noodles-ui/solidjs-unstyled": "0.0.1"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.15"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.6",
+    "@vitest/coverage-v8": "^1.2.2",
+    "jsdom": "^24.0.0",
+    "sass": "latest",
+    "vite": "^5.1.0",
+    "vite-plugin-solid": "^2.10.1",
+    "vitest": "^1.3.1"
+  }
+}

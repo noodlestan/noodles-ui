@@ -1,5 +1,5 @@
 import { ComponentExtendResource } from '@noodles-ui/core-resources';
-import { HeadingResource as HeadingStyledResource } from '@noodles-ui/core-styled';
+import { HeadingResource as HeadingStyledResource } from '@noodles-ui/solidjs-styled';
 
 export const HeadingResource: ComponentExtendResource = {
     module: '@noodles-ui/lab-ui',
