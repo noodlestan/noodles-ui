@@ -1,9 +1,13 @@
 import { ComponentContext, NUI } from '@noodles-ui/core-entities';
-import { ComponentOwnResource, MixinResource } from '@noodles-ui/core-resources';
+import {
+    ComponentOwnResource,
+    MixinResource,
+    getResourceTypedKey,
+} from '@noodles-ui/core-resources';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { CompilerContext } from '../../../types';
-import { loadMixin } from '../../mixins/loadMixin';
+import { loadMixin } from '../../mixin/loadMixin';
 
 export const loadComponentMixin = (
     compiler: CompilerContext,
@@ -16,7 +20,6 @@ export const loadComponentMixin = (
         type: NUI.mixin as 'mixin',
     };
     const newContext = newResourceContextPublicWithConsumer<MixinResource>(context, newResource);
-
     const mixin = loadMixin(compiler, newContext);
     if (!mixin) {
         compiler.addError(
@@ -25,6 +28,7 @@ export const loadComponentMixin = (
         );
         return;
     }
+    context.consumes.add(getResourceTypedKey(mixin));
 
     return mixin;
 };

@@ -9,8 +9,8 @@ import {
 import {
     ComponentEntityMap,
     MixinEntityMap,
-    ProjectEntityMap,
     SurfaceEntityMap,
+    SystemEntityMap,
     ThemeEntityMap,
     TokenEntityMap,
     VariantEntityMap,
@@ -52,7 +52,7 @@ export const createCompiler = async (
     const addGeneratedSourceFile = (source: GeneratedSourceFile) =>
         generatedSourceFiles.push(source);
 
-    const project: ProjectEntityMap = new Map();
+    const system: SystemEntityMap = new Map();
     const theme: ThemeEntityMap = new Map();
     const surface: SurfaceEntityMap = new Map();
     const variant: VariantEntityMap = new Map();
@@ -65,6 +65,7 @@ export const createCompiler = async (
     const compiler: CompilerContext = {
         projectFile,
         projectPath,
+        project: { type: 'project', name: '', module: '' },
         rootPath,
         build: { timestamp: new Date(), files: [], modules: new Map(), fileNames: [] },
         diagnostics,
@@ -84,7 +85,7 @@ export const createCompiler = async (
             expand,
         },
         entities: {
-            project,
+            system,
             surface,
             theme,
             variant,

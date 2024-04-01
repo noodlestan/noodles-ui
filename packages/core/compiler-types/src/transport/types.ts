@@ -5,10 +5,11 @@ import {
     EntityBuildContext,
     MixinContext,
     MixinEntity,
-    ProjectContext,
     ProjectEntity,
     SurfaceContext,
     SurfaceEntity,
+    SystemContext,
+    SystemEntity,
     ThemeContext,
     ThemeEntity,
     TokenContext,
@@ -37,8 +38,8 @@ export type EntityContextDto<T extends ResourceContext<UnknownResource>> = Omit<
     consumers: string[];
 };
 
-export type ProjectContextDto = EntityContextDto<ProjectContext>;
-export type ProjectBuildContextDto = EntityBuildContext<ProjectContextDto, ProjectEntity>;
+export type SystemContextDto = EntityContextDto<SystemContext>;
+export type SystemBuildContextDto = EntityBuildContext<SystemContextDto, SystemEntity>;
 
 export type SurfaceContextDto = EntityContextDto<SurfaceContext>;
 export type SurfaceBuildContextDto = EntityBuildContext<SurfaceContextDto, SurfaceEntity>;
@@ -63,13 +64,14 @@ export type EntityBuildMapDto<
 > = { [key: string]: T };
 
 export type BuildSnapshotAttributesDto = {
+    project: ProjectEntity;
     success: boolean;
     timestamp: string;
 };
 
 // export type EntitiesMapDto = Record<EntityType, EntityBuildMapDto<UnknownBuildContextDto>>;
 export type EntitiesMapDto = {
-    project: EntityBuildMapDto<ProjectBuildContextDto>;
+    system: EntityBuildMapDto<SystemBuildContextDto>;
     surface: EntityBuildMapDto<SurfaceBuildContextDto>;
     mixin: EntityBuildMapDto<MixinBuildContextDto>;
     variant: EntityBuildMapDto<VariantBuildContextDto>;

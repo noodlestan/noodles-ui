@@ -1,4 +1,4 @@
-import { ComponentBuildContext, getComponents, getProject } from '@noodles-ui/core-entities';
+import { ComponentBuildContext, getComponents } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -19,7 +19,7 @@ export const ComponentsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
                     <PageTitle>Components</PageTitle>
                 </PageHeader>
                 <SectionLayout>

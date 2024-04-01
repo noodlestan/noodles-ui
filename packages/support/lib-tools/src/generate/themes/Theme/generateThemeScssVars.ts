@@ -10,7 +10,7 @@ import {
     makeNoodlesClassName,
 } from '@noodles-ui/core-types';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { themeCssVarsFileName } from '../paths/themeCssVarsFileName';
@@ -40,7 +40,7 @@ export const generateThemeScssVars = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = themeCssVarsFileName(targetDir, theme);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const themeName = getThemeName(theme.entity);
 

@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
@@ -19,7 +19,7 @@ export const generateThemesIndex = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = themesIndexFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const statements = [...importThemeStatements(compiler), exportThemesStatement(compiler)];
 

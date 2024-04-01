@@ -1,4 +1,3 @@
-import { getProject } from '@noodles-ui/core-entities';
 import { Component, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -8,6 +7,7 @@ import { DashboardGrid } from '../components/layouts/DashboardGrid';
 import { StageLayout } from '../components/layouts/StageLayout';
 import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
 import { ItemsSection } from '../components/molecules/ItemsSection/ItemsSection';
+import { SystemSection } from '../components/molecules/SystemSection/SystemSection';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
 export const HomePage: Component = () => {
@@ -17,10 +17,11 @@ export const HomePage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
-                    <PageTitle>{getProject(lastSnapshot()).entity.name || '?'}</PageTitle>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
+                    <PageTitle>{lastSnapshot()?.project.name || '?'}</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} />
+                <SystemSection snapshot={lastSnapshot()} />
                 <DashboardGrid>
                     <ItemsSection
                         snapshot={lastSnapshot()}

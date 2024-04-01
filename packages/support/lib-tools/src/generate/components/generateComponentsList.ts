@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
@@ -33,7 +33,7 @@ export const generateComponentsList = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = componentIndexFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const lines = Array.from(compiler.entities.component.entries())
         // eslint-disable-next-line @typescript-eslint/no-unused-vars

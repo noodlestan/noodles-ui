@@ -13,7 +13,7 @@ import {
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { CompilerContext } from '../../../types';
-import { loadToken } from '../../tokens/loadToken';
+import { loadToken } from '../../token/loadToken';
 
 const loadNamedToken = (
     compiler: CompilerContext,

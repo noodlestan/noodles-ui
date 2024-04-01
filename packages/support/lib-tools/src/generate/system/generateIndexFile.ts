@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import ts from 'typescript';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { componentIndexFileName } from '../components/paths/componentIndexFileName';
@@ -54,7 +54,7 @@ export const generateIndexFile = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = systemIndexFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const statements = [
         exportProvider(compiler, fileName, targetDir),

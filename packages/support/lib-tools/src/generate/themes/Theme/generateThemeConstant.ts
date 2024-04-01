@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ThemeBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../../internal/createImportStatements';
@@ -24,7 +24,7 @@ export const generateThemeConstant = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = themeComponentFileName(targetDir, theme);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const internalTypes: TypesToImport = [['@noodles-ui/core-types', ['Theme']]];
     const statements = [

@@ -1,8 +1,8 @@
 import {
     ComponentBuildContext,
     MixinBuildContext,
-    ProjectBuildContext,
     SurfaceBuildContext,
+    SystemBuildContext,
     ThemeBuildContext,
     TokenBuildContext,
     UnknownBuildContext,
@@ -15,8 +15,8 @@ import {
     BuildSnapshotDto,
     ComponentBuildContextDto,
     MixinBuildContextDto,
-    ProjectBuildContextDto,
     SurfaceBuildContextDto,
+    SystemBuildContextDto,
     ThemeBuildContextDto,
     TokenBuildContextDto,
     UnknownBuildContextDto,
@@ -46,11 +46,11 @@ function transform<T extends UnknownBuildContextDto, V extends UnknownBuildConte
 }
 
 export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): BuildSnapshot => {
-    const { entities, diagnostics, timestamp, success } = snapshotDto;
-    const { project, surface, mixin, variant, component, token, theme } = entities;
+    const { project, timestamp, success, entities, diagnostics } = snapshotDto;
+    const { system, surface, mixin, variant, component, token, theme } = entities;
 
     const entityMaps = {
-        project: toMap<ProjectBuildContext, ProjectBuildContextDto>(project, transform),
+        system: toMap<SystemBuildContext, SystemBuildContextDto>(system, transform),
         surface: toMap<SurfaceBuildContext, SurfaceBuildContextDto>(surface, transform),
         mixin: toMap<MixinBuildContext, MixinBuildContextDto>(mixin, transform),
         variant: toMap<VariantBuildContext, VariantBuildContextDto>(variant, transform),
@@ -59,5 +59,5 @@ export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): BuildSnapsho
         theme: toMap<ThemeBuildContext, ThemeBuildContextDto>(theme, transform),
     };
 
-    return { entities: entityMaps, diagnostics, timestamp: new Date(timestamp), success };
+    return { project, timestamp: new Date(timestamp), success, entities: entityMaps, diagnostics };
 };

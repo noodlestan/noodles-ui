@@ -10,7 +10,7 @@ export const loadThemes = async (
     project: ProjectResource,
     options: CompilerOptions,
 ): Promise<void> => {
-    const { themes } = project.resources;
+    const { themes = [] } = project.resources;
     for (const theme of themes) {
         const context = newResourceContextPublic<ThemeResource>(theme);
         await loadTheme(compiler, context, options);

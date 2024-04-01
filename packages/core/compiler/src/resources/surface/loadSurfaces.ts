@@ -6,7 +6,7 @@ import { CompilerContext } from '../../types';
 import { loadSurface } from './loadSurface';
 
 export const loadSurfaces = (compiler: CompilerContext, resource: ProjectResource): void => {
-    const { surfaces } = resource.resources;
+    const { surfaces = [] } = resource.resources;
     surfaces.forEach(surface => {
         const context = newResourceContextPublic(surface);
         loadSurface(compiler, context);

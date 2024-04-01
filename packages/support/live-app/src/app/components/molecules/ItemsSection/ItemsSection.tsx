@@ -36,7 +36,7 @@ export const ItemsSection: Component<DiagnosticSourceItemProps> = props => {
         <SectionLayout classList={{ [styles.ItemsSection]: true }}>
             <SectionTitle>
                 <Link href={props.link}>{props.title}</Link> ({entities().length})
-                <div class={styles['ItemsSection--details']}>
+                <div class={styles['ItemsSection--diagnostics']}>
                     <DiagnosticCounts warnings={warnings().length} errors={errors().length} mini />
                 </div>
             </SectionTitle>

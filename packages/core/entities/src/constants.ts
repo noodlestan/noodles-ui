@@ -1,7 +1,7 @@
 import { EntityType } from './types';
 
 export const NUI: Record<EntityType, EntityType> = {
-    project: 'project',
+    system: 'system',
     surface: 'surface',
     theme: 'theme',
     variant: 'variant',

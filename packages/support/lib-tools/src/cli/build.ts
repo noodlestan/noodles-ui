@@ -20,7 +20,7 @@ import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { copyFiles } from '../util/copyFiles';
-import { ensuredFiledir } from '../util/ensuredFiledir';
+import { ensureFileDir } from '../util/ensureFileDir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { getNoEmit } from './arguments/getNoEmit';
@@ -66,7 +66,7 @@ export const build = async (
     compiler.compileProjectFile();
     timings.push([Date.now(), 'TS compilation of project file']);
 
-    await ensuredFiledir(join(compiler.projectPath, NUI_RESOURCES_DIR, 'file'));
+    await ensureFileDir(join(compiler.projectPath, NUI_RESOURCES_DIR, 'file'));
     logProjectBasicInfo(compiler);
     logProgramDiagnostics(compiler);
     logBuildOutcome(compiler);

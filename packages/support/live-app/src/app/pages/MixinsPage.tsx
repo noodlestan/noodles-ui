@@ -1,4 +1,4 @@
-import { getMixins, getProject } from '@noodles-ui/core-entities';
+import { getMixins } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -17,7 +17,7 @@ export const MixinsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
                     <PageTitle>Mixins</PageTitle>
                 </PageHeader>
                 <SectionLayout>

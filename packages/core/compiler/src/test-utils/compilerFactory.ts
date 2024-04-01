@@ -30,6 +30,7 @@ export const compilerFactory = (overides?: Partial<CompilerContext>): CompilerCo
     return {
         projectFile: '',
         projectPath: '',
+        project: { type: 'project', name: '', module: '' },
         build: {
             program: {} as ts.Program,
             success: true,
@@ -54,7 +55,7 @@ export const compilerFactory = (overides?: Partial<CompilerContext>): CompilerCo
         generatedSourceFiles: [{ fileName: '' }],
         addGeneratedSourceFile,
         entities: {
-            project: new Map(),
+            system: new Map(),
             surface: new Map(),
             theme: new Map(),
             component: new Map(),

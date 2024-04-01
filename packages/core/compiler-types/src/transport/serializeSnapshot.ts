@@ -2,8 +2,8 @@ import {
     ComponentBuildContext,
     EntityBuildMap,
     MixinBuildContext,
-    ProjectBuildContext,
     SurfaceBuildContext,
+    SystemBuildContext,
     ThemeBuildContext,
     TokenBuildContext,
     UnknownBuildContext,
@@ -16,8 +16,8 @@ import {
     BuildSnapshotDto,
     ComponentBuildContextDto,
     MixinBuildContextDto,
-    ProjectBuildContextDto,
     SurfaceBuildContextDto,
+    SystemBuildContextDto,
     ThemeBuildContextDto,
     TokenBuildContextDto,
     UnknownBuildContextDto,
@@ -49,13 +49,14 @@ function transform<T extends UnknownBuildContext, V extends UnknownBuildContextD
 }
 
 export const serializeSnapshot = (snapshot: BuildSnapshot): BuildSnapshotDto => {
-    const { success, timestamp, entities } = snapshot;
-    const { project, surface, mixin, variant, component, token, theme } = entities;
+    const { project, success, timestamp, entities } = snapshot;
+    const { system, surface, mixin, variant, component, token, theme } = entities;
     const data = {
+        project,
         success,
         timestamp: timestamp.toJSON(),
         entities: {
-            project: mapToObject<ProjectBuildContext, ProjectBuildContextDto>(project, transform),
+            system: mapToObject<SystemBuildContext, SystemBuildContextDto>(system, transform),
             surface: mapToObject<SurfaceBuildContext, SurfaceBuildContextDto>(surface, transform),
             mixin: mapToObject<MixinBuildContext, MixinBuildContextDto>(mixin, transform),
             variant: mapToObject<VariantBuildContext, VariantBuildContextDto>(variant, transform),

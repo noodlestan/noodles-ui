@@ -12,7 +12,7 @@ import {
 } from '@noodles-ui/core-entities';
 import { MixinInlineResource } from '@noodles-ui/core-resources';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { createMixinImportStatement } from '../../mixins/createMixinImportStatement';
 import { createMixinStatement } from '../../mixins/createMixinStatement';
@@ -84,7 +84,7 @@ export const generateComponentScssModule = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = componentScssModuleFileName(targetDir, component.entity);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const { entity } = component;
     const name = entity.name;

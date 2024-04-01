@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../internal/createImportStatements';
@@ -20,7 +20,7 @@ export const generateSurfacesIndex = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = surfacesIndexFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const internalTypes = [['@noodles-ui/core-resources', ['SurfaceResource']]] as TypesToImport;
 

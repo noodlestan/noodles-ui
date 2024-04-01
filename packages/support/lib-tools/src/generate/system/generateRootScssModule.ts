@@ -1,9 +1,9 @@
 import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
-import { getProject } from '@noodles-ui/core-entities';
+import { getSystem } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { createMixinImportStatement } from '../mixins/createMixinImportStatement';
 import { createMixinStatement } from '../mixins/createMixinStatement';
@@ -13,12 +13,12 @@ import { tsFileHeader } from '../typescript/tsFileHeader';
 import { systemRootModuleFileName } from './paths/systemRootModuleFileName';
 
 const mixinImplementationStatements = (compiler: CompilerContext): string[] => {
-    const { use } = getProject(compiler).entity;
+    const { use } = getSystem(compiler).entity;
     return [...(use || [])].map(mixin => createMixinStatement(compiler, mixin));
 };
 
 const mixinImportStatements = (compiler: CompilerContext): string[] => {
-    const { use } = getProject(compiler).entity;
+    const { use } = getSystem(compiler).entity;
     return [...(use || [])].map(mixin => createMixinImportStatement(compiler, mixin));
 };
 
@@ -28,7 +28,7 @@ export const generateRootScssModule = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = systemRootModuleFileName(compiler, targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const content = [
         ...mixinImportStatements(compiler),

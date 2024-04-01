@@ -8,6 +8,7 @@ import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader/PageHeader';
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
+import { ComponentMixins } from '../components/molecules/ComponentMixins/ComponentMixins';
 import { ComponentProps } from '../components/molecules/ComponentProps/ComponentProps';
 import { ComponentRenderer } from '../components/molecules/ComponentRenderer/ComponentRenderer';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
@@ -35,6 +36,7 @@ export const ComponentEntityPage: Component = () => {
                 <Show when={component().context.public}>
                     <ComponentRenderer component={component()} />
                 </Show>
+                <ComponentMixins component={component()} />
                 <ComponentProps component={component()} />
                 <EntityReferences item={component()} key="consumers" />
                 <EntityReferences item={component()} key="consumes" />

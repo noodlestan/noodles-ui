@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ThemeBuildContext, getThemesInTopologicalOrder } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
@@ -17,7 +17,7 @@ export const generateRootCssTokens = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = systemRootTokensFileName(compiler, targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const themes = getThemesInTopologicalOrder(compiler);
 

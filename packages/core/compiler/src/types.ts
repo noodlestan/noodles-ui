@@ -1,12 +1,13 @@
 import { GeneratedSourceFile } from '@noodles-ui/core-compiler-types';
 import { ProjectDiagnosticSource, ProjectDiagnostics } from '@noodles-ui/core-diagnostics';
-import { ProjectEntities } from '@noodles-ui/core-entities';
+import { ProjectEntities, ProjectEntity } from '@noodles-ui/core-entities';
 import { ThemeResource } from '@noodles-ui/core-resources';
 import { ThemeTokens } from '@noodles-ui/core-types';
 
 import { BuildContext } from './program/types';
 
 type CompilerAttributes = {
+    project: ProjectEntity;
     projectFile: string;
     projectPath: string;
     rootPath?: string;

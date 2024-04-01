@@ -74,6 +74,7 @@ export const DevServer: Component<DevServerProps> = props => {
                 setBuilds(data => [...data, status]);
             })
             .catch(error => {
+                console.error(error);
                 setError(error);
             });
     });

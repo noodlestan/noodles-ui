@@ -50,7 +50,7 @@
           "--color-content-primary-color": "#eeeeff",
           "--color-content-muted-color": "#ccccdd",
           "--color-content-disabled-color": "#888899",
-          "--surface-base-fg": "{--color-content-primary-color}",
+          "--surface-base-fg": "#ffffff",
           "--surface-base-bg": "#111122"
         },
         "card": {

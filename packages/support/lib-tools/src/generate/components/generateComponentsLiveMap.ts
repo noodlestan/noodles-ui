@@ -4,7 +4,7 @@ import { CompilerContext } from '@noodles-ui/core-compiler';
 import { getPublicComponents } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
 import { importFrameworkTypes } from '../targets/solid-js/importFrameworkTypes';
@@ -22,7 +22,7 @@ export const generateComponentsLiveMap = async (
     targetDir: string,
 ): Promise<void> => {
     const fileName = componentsLiveMapFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const components = getPublicComponents(compiler);
     const importComponents = components.map(component => importComponent(component, targetDir));

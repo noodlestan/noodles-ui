@@ -4,12 +4,7 @@ import {
     getItemsWithErrors,
     getItemsWithWarnings,
 } from '@noodles-ui/core-diagnostics';
-import {
-    EntityBuildContext,
-    EntityBuildMap,
-    UnknownBuildContext,
-    getProject,
-} from '@noodles-ui/core-entities';
+import { EntityBuildContext, EntityBuildMap, UnknownBuildContext } from '@noodles-ui/core-entities';
 import {
     ResourceContext,
     UnknownResource,
@@ -94,7 +89,7 @@ const countProjectEntities = (compiler: CompilerContext): number => {
 };
 
 export const logProjectData = (compiler: CompilerContext): void => {
-    const { surface, theme, mixin, variant, component, token } = compiler.entities;
+    const { system, surface, mixin, variant, component, token, theme } = compiler.entities;
 
     const itemsWithWarnings = getItemsWithWarnings(compiler.diagnostics);
     const itemsWithErrors = getItemsWithErrors(compiler.diagnostics);
@@ -108,8 +103,8 @@ export const logProjectData = (compiler: CompilerContext): void => {
     logInfo('Project data', count, hint);
 
     if (shouldExpand(compiler, 'project')) {
-        logMessage('  Name:', getProject(compiler).entity.name);
-        logMessage('  Module:', getProject(compiler).entity.module);
+        logMessage('  Name:', compiler.project.name);
+        logMessage('  Module:', compiler.project.module);
         console.info('');
     }
 
@@ -122,6 +117,7 @@ export const logProjectData = (compiler: CompilerContext): void => {
     }
 
     console.info('');
+    logResourceGroup(compiler, 'System', system, itemsWithWarnings, itemsWithErrors);
     logResourceGroup(compiler, 'Surfaces', surface, itemsWithWarnings, itemsWithErrors);
     logResourceGroup(compiler, 'Mixins', mixin, itemsWithWarnings, itemsWithErrors);
     logResourceGroup(compiler, 'Variants', variant, itemsWithWarnings, itemsWithErrors);

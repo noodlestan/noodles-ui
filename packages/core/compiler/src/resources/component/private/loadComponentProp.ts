@@ -18,7 +18,7 @@ import {
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { CompilerContext } from '../../../types';
-import { loadVariant } from '../../variants/loadVariant';
+import { loadVariant } from '../../variant/loadVariant';
 
 import { isVariantInlineExtendResourceProp } from './getters/isVariantInlineExtendResourceProp';
 import { isVariantInlineProp } from './getters/isVariantInlineProp';

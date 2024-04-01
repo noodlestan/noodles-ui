@@ -3,7 +3,7 @@ import { MixinResource, VariantOwnResource } from '@noodles-ui/core-resources';
 
 import { newResourceContextPublicWithConsumer } from '../../../context/newResourceContextPublicWithConsumer';
 import { CompilerContext } from '../../../types';
-import { loadMixin } from '../../mixins/loadMixin';
+import { loadMixin } from '../../mixin/loadMixin';
 
 export const loadVariantMixin = (
     compiler: CompilerContext,

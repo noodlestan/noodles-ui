@@ -1,24 +1,27 @@
 import { ProjectResource } from '@noodles-ui/core-resources';
 
-import { newResourceContextPublic } from '../context/newResourceContextPublic';
 import { CompilerContext, CompilerOptions } from '../types';
 
-import { loadComponents } from './components/loadComponents';
-import { loadMixins } from './mixins/loadMixins';
-import { loadSurfaces } from './surfaces/loadSurfaces';
-import { loadThemes } from './themes/loadThemes';
-import { loadTokens } from './tokens/loadTokens';
-import { loadVariants } from './variants/loadVariants';
+import { loadComponents } from './component/loadComponents';
+import { loadMixins } from './mixin/loadMixins';
+import { loadSurfaces } from './surface/loadSurfaces';
+import { loadSystem } from './system/loadSystem';
+import { loadThemes } from './theme/loadThemes';
+import { loadTokens } from './token/loadTokens';
+import { loadVariants } from './variant/loadVariants';
+
+export const loadProjectEntity = (compiler: CompilerContext, project: ProjectResource): void => {
+    const { type, name, module } = project;
+    compiler.project = { type, name, module };
+};
 
 export const loadProject = async (
     compiler: CompilerContext,
     project: ProjectResource,
     options: CompilerOptions,
 ): Promise<void> => {
-    const context = newResourceContextPublic(project);
-    const entity = structuredClone(project);
-    compiler.entities.project.set('', { context, entity });
-
+    loadProjectEntity(compiler, project);
+    loadSystem(compiler, project);
     loadSurfaces(compiler, project);
     loadMixins(compiler, project);
     loadVariants(compiler, project);

@@ -1,4 +1,4 @@
-import { VariantBuildContext, getProject, getVariants } from '@noodles-ui/core-entities';
+import { VariantBuildContext, getVariants } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -20,7 +20,7 @@ export const VariantsPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
                     <PageTitle>Variants</PageTitle>
                 </PageHeader>
                 <SectionLayout>

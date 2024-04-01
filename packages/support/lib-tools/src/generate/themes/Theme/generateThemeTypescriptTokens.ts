@@ -5,7 +5,7 @@ import { ThemeBuildContext } from '@noodles-ui/core-entities';
 import { ThemeModeTokens, TokenMap } from '@noodles-ui/core-types';
 import ts from 'typescript';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../../internal/createImportStatements';
@@ -107,7 +107,7 @@ export const generateThemeTypescriptTokens = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = themeTypescriptTokensFileName(targetDir, theme);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const internalTypes: TypesToImport = [['@noodles-ui/core-types', ['ThemeTokens']]];
     const internalImports = createImportStatements(internalTypes);

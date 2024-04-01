@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
@@ -26,7 +26,7 @@ export const generateRootComponent = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = systemRootFileName(compiler, targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const surfacesPath = relativePath(fileName, surfacesIndexFileName(targetDir), true);
     const themesPath = relativePath(fileName, themesIndexFileName(targetDir), true);

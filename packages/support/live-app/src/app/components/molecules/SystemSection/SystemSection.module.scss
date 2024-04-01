@@ -1,0 +1,32 @@
+.SystemSection {
+    display: flex;
+    flex-direction: column;
+
+    &--diagnostics {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    &--items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 0px;
+        padding: 0;
+
+        li {
+            list-style: none;
+        }
+
+        span {
+            padding: 2px;
+            padding: 0;
+        }
+
+        > a {
+            max-width: max-content;
+        }
+    }
+}

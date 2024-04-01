@@ -1,9 +1,9 @@
 import {
     ComponentResource,
     MixinResource,
-    ProjectResource,
     ResourceContext,
     SurfaceResource,
+    SystemResource,
     ThemeResource,
     TokenResource,
     VariantResource,
@@ -12,15 +12,15 @@ import {
 import { ComponentEntity } from '../component';
 import { EntityBuildContext, EntityBuildMap } from '../context/types';
 import { MixinEntity } from '../mixin';
-import { ProjectEntity } from '../project/types';
 import { SurfaceEntity } from '../surface';
+import { SystemEntity } from '../system';
 import { ThemeEntity } from '../theme';
 import { TokenEntity } from '../token';
 import { VariantEntity } from '../variant';
 
-export type ProjectContext = ResourceContext<ProjectResource>;
-export type ProjectBuildContext = EntityBuildContext<ProjectContext, ProjectEntity>;
-export type ProjectEntityMap = EntityBuildMap<ProjectBuildContext>;
+export type SystemContext = ResourceContext<SystemResource>;
+export type SystemBuildContext = EntityBuildContext<SystemContext, SystemEntity>;
+export type SystemEntityMap = EntityBuildMap<SystemBuildContext>;
 
 export type SurfaceContext = ResourceContext<SurfaceResource>;
 export type SurfaceBuildContext = EntityBuildContext<SurfaceContext, SurfaceEntity>;
@@ -48,7 +48,7 @@ export type ThemeEntityMap = EntityBuildMap<ThemeBuildContext>;
 
 // export type ProjectEntitiesMap = Record<EntityType, EntityBuildMap<UnknownBuildContext>>;
 export type ProjectEntitiesMap = {
-    project: ProjectEntityMap;
+    system: SystemEntityMap;
     surface: SurfaceEntityMap;
     mixin: MixinEntityMap;
     variant: VariantEntityMap;

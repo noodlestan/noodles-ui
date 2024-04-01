@@ -4,7 +4,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { relativePath } from '../../../util/relativePath';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentFileName } from '../paths/componentFileName';
@@ -16,7 +16,7 @@ export const generateComponentPublic = async (
     targetDir: string,
 ): Promise<void> => {
     const fileName = componentPublicFileName(compiler, component.entity);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const { entity } = component;
     const name = entity.name;

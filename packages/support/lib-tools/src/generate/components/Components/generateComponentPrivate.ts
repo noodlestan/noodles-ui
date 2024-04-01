@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { ensureFileDir } from '../../../util/ensureFileDir';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
 import { importFrameworkTypes } from '../../targets/solid-js/importFrameworkTypes';
@@ -27,7 +27,7 @@ export const generateComponentPrivate = async (
 ): Promise<void> => {
     const { entity } = component;
     const fileName = componentFileName(targetDir, entity);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const importJSX = !!entity.props?.children;
     const statements = [

@@ -6,7 +6,7 @@ import { CompilerContext } from '../../types';
 import { loadVariant } from './loadVariant';
 
 export const loadVariants = (context: CompilerContext, project: ProjectResource): void => {
-    const { variants } = project.resources;
+    const { variants = [] } = project.resources;
 
     variants.forEach(variant => {
         const newContext = newResourceContextPublic<VariantResource>(variant);

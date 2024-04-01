@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { VariantBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
@@ -21,7 +21,7 @@ export const generateVariantsScssVars = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = variantsScssFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const variants = Array.from(compiler.entities.variant.values()).filter(item => {
         return item.context.public;

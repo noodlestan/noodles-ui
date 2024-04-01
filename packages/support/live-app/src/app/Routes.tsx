@@ -10,6 +10,7 @@ import { MixinsPage } from './pages/MixinsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { SurfaceEntityPage } from './pages/SurfaceEntityPage';
 import { SurfacesPage } from './pages/SurfacesPage';
+import { SystemEntityPage } from './pages/SystemEntityPage';
 import { ThemeEntityPage } from './pages/ThemeEntityPage';
 import { ThemesPage } from './pages/ThemesPage';
 import { TokenEntityPage } from './pages/TokenEntityPage';
@@ -21,6 +22,8 @@ export const Routes: Component = () => {
     return (
         <>
             <Route path={'/'} component={HomePage} />
+            <Route path={'/system'} component={SystemEntityPage} />
+            <Route path={'/system/*'} component={SystemEntityPage} />
             <Route path={'/surfaces'} component={SurfacesPage} />
             <Route path={'/surface/*key'} component={SurfaceEntityPage} />
             <Route path={'/mixins'} component={MixinsPage} />

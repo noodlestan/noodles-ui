@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
 
-import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { ensureFileDir } from '../../util/ensureFileDir';
 import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { tsFileHeader } from '../typescript/tsFileHeader';
@@ -16,7 +16,7 @@ export const generateGlobalScssFile = async (
 ): Promise<void> => {
     const time = getDateNow();
     const fileName = systemGlobalsScssFileName(targetDir);
-    await ensuredFiledir(fileName);
+    await ensureFileDir(fileName);
 
     const variantsFileName = variantsScssFileName(targetDir);
     const importVariants = `@import '${relativePath(fileName, variantsFileName)}';`;

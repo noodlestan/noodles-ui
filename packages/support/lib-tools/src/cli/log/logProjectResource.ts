@@ -1,5 +1,10 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
-import { ProjectResource } from '@noodles-ui/core-resources';
+import {
+    ProjectResource,
+    UnknownResource,
+    getResourceModule,
+    getResourceName,
+} from '@noodles-ui/core-resources';
 import { gray, yellow } from 'kleur';
 
 import { plural } from '../../util/plural';
@@ -10,8 +15,15 @@ import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
 export const logProjectResource = (compiler: CompilerContext, project: ProjectResource): void => {
-    const { surfaces, variants, components, themes } = project.resources;
-    const total = [...surfaces, ...variants, ...components, ...themes].length;
+    const {
+        surfaces = [],
+        mixins = [],
+        variants = [],
+        components = [],
+        tokens = [],
+        themes = [],
+    } = project.resources;
+    const total = [...surfaces, ...mixins, ...variants, ...components, ...tokens, ...themes].length;
 
     if (!shouldExpand(compiler, 'resources')) {
         const counts = yellow(total) + plural(total, ' resource');
@@ -20,42 +32,22 @@ export const logProjectResource = (compiler: CompilerContext, project: ProjectRe
         return;
     }
     logInfo(`Project resources`);
-    const surfaceCount = Object.keys(surfaces).length;
-    const variantCount = Object.keys(variants).length;
-    const componentCount = Object.keys(components).length;
-    const themeCount = Object.keys(themes).length;
-
-    logMessage(`Surfaces (${surfaceCount})`);
-    if (!surfaceCount) {
-        logMessage('  ' + gray('<empty>'));
+    const resources = {
+        surface: surfaces,
+        mixin: mixins,
+        variant: variants,
+        component: components,
+        token: tokens,
+        theme: themes,
+    };
+    for (const key in resources) {
+        const type = key as keyof typeof resources;
+        const count = resources[type].length;
+        logMessage(`${key}s`, count);
+        for (const item of resources[type]) {
+            const resource = item as UnknownResource;
+            logMessage('  ' + gray(getResourceModule(resource)), getResourceName(resource));
+        }
     }
-    for (const item of surfaces) {
-        logMessage('  ' + gray(item.module), item.name);
-    }
-
-    logMessage(`Themes (${themeCount})`);
-    if (!themeCount) {
-        logMessage('  ' + gray('<empty>'));
-    }
-    for (const item of themes) {
-        logMessage('  ' + gray(item.module), item.name);
-    }
-
-    logMessage(`Variants (${variantCount})`);
-    if (!variantCount) {
-        logMessage('  ' + gray('<empty>'));
-    }
-    for (const item of variants) {
-        logMessage('  ' + gray(item.module), item.name);
-    }
-
-    logMessage(`Components (${componentCount})`);
-    if (!componentCount) {
-        logMessage('  ' + gray('<empty>'));
-    }
-    for (const item of components) {
-        logMessage('  ' + gray(item.module), item.name);
-    }
-
     console.info('');
 };

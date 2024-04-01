@@ -1,13 +1,13 @@
 import { ComponentEntity } from './component';
 import { MixinEntity } from './mixin';
-import { ProjectEntity } from './project';
 import { SurfaceEntity } from './surface';
+import { SystemEntity } from './system';
 import { ThemeEntity } from './theme';
 import { TokenEntity } from './token';
 import { VariantEntity } from './variant';
 
 export type EntityType =
-    | 'project'
+    | 'system'
     | 'surface'
     | 'mixin'
     | 'variant'
@@ -16,7 +16,7 @@ export type EntityType =
     | 'theme';
 
 export type UnknownEntity =
-    | ProjectEntity
+    | SystemEntity
     | SurfaceEntity
     | MixinEntity
     | VariantEntity

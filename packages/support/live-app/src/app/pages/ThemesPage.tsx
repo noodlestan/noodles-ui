@@ -1,5 +1,5 @@
 import { getDiagnosticByResourceType } from '@noodles-ui/core-diagnostics';
-import { getProject, getThemes } from '@noodles-ui/core-entities';
+import { getThemes } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -21,7 +21,7 @@ export const ThemesPage: Component = () => {
         <Show when={lastSnapshot()}>
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{getProject(lastSnapshot()).entity.module || '?'}</ModuleName>
+                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
                     <PageTitle>Themes</PageTitle>
                 </PageHeader>
                 <DiagnosticsBanner diagnostics={diagnostics()} />
