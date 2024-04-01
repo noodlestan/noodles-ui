@@ -62,6 +62,7 @@ export const build = async (
     const showHints = getShowHints();
     options.interactive.expand = options.interactive.expand || [];
     options.interactive.hints = showHints;
+
     const compiler = await createCompiler(projectFile, options);
     compiler.compileProjectFile();
     timings.push([Date.now(), 'TS compilation of project file']);

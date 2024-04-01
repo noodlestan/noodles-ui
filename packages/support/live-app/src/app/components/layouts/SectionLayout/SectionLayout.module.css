@@ -4,4 +4,9 @@
     gap: 10px;
     margin: 0;
     padding: 0;
+
+    > * {
+        width: max-content;
+        max-width: 100%;
+    }
 }

@@ -30,34 +30,51 @@ export const ItemsSection: Component<DiagnosticSourceItemProps> = props => {
     const warnings = () => getDiagnosticWarnings(diagnostics());
     const errors = () => getDiagnosticErrors(diagnostics());
 
+    const count = () => entities().length;
     const truncated = () => entities().splice(0, 5);
     const rest = () => entities().length - 5;
     return (
-        <SectionLayout classList={{ [styles.ItemsSection]: true }}>
-            <SectionTitle>
-                <Link href={props.link}>{props.title}</Link> ({entities().length})
-                <div class={styles['ItemsSection--diagnostics']}>
-                    <DiagnosticCounts warnings={warnings().length} errors={errors().length} mini />
-                </div>
-            </SectionTitle>
-            <ul class={styles['ItemsSection--items']}>
-                <For each={truncated()}>
-                    {(entry, index) => {
-                        return (
-                            <li>
-                                <EntityLink entity={entry.entity} />
-                                <Show when={index() < truncated().length - 1}>
-                                    <span>,</span>{' '}
-                                </Show>
-                            </li>
-                        );
-                    }}
-                </For>
-                <Show when={rest() > 0}>
-                    and {rest()} more <Plural count={rest()}>{props.type}</Plural>
+        <Show when={count() === 0}>
+            <SectionLayout classList={{ [styles.ItemsSection]: true }}>
+                <SectionTitle>
+                    <Link href={props.link}>{props.title}</Link>
+                    <Show when={count() > 0}>({count()})</Show>
+                    <div class={styles['ItemsSection--diagnostics']}>
+                        <DiagnosticCounts
+                            warnings={warnings().length}
+                            errors={errors().length}
+                            mini
+                        />
+                    </div>
+                </SectionTitle>
+                <Show when={count() > 0}>
+                    <ul class={styles['ItemsSection--items']}>
+                        <For each={truncated()}>
+                            {(entry, index) => {
+                                return (
+                                    <li>
+                                        <EntityLink entity={entry.entity} />
+                                        <Show when={index() < truncated().length - 1}>
+                                            <span>,</span>{' '}
+                                        </Show>
+                                    </li>
+                                );
+                            }}
+                        </For>
+                    </ul>
                 </Show>
-            </ul>
-            <Link href={props.link}>See all</Link>
-        </SectionLayout>
+                <Show when={rest() > 0}>
+                    and{' '}
+                    <Link href={props.link}>
+                        {rest()} more <Plural count={rest()}>{props.type}</Plural>
+                    </Link>
+                </Show>
+                <Show when={count() === 0}>
+                    <p>
+                        No <Plural count={0}>{props.type}</Plural> yet.
+                    </p>
+                </Show>
+            </SectionLayout>
+        </Show>
     );
 };
