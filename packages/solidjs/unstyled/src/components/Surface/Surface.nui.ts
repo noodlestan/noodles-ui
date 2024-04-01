@@ -2,7 +2,7 @@ import { ComponentImportResource } from '@noodles-ui/core-resources';
 
 export const SurfaceResource: ComponentImportResource = {
     type: 'component',
-    name: 'Text',
+    name: 'Surface',
     module: '@noodles-ui/solidjs-unstyled',
     parts: [
         {

@@ -86,7 +86,7 @@ export const build = async (
         timings.push([Date.now(), 'Loading resources from project']);
 
         const loadingErrors = getDiagnosticErrors(compiler.diagnostics);
-        if (!loadingErrors.length) {
+        if (!loadingErrors.length && compiler.project.generate) {
             const tmpDir = join(compiler.projectPath, NUI_TMP_DIR);
             await rm(tmpDir, { recursive: true, force: true });
             await generateRoot(compiler, tmpDir);
@@ -100,7 +100,7 @@ export const build = async (
             timings.push([Date.now(), 'Generating code']);
         }
 
-        if (!compiler.hasErrors() && !getNoEmit()) {
+        if (!compiler.hasErrors() && !getNoEmit() && compiler.project.generate) {
             await updateLib(compiler);
             logSuccess('Updated target', white().bold('./' + NUI_GENERATED_DIR));
             timings.push([Date.now(), 'Updating target']);

@@ -9,9 +9,7 @@ import ts from 'typescript';
 
 const factory = ts.factory;
 
-export const getPropsDefaults = (
-    entity: ComponentEntity,
-): { prop: PropEntity; defaultValue: Value }[] =>
+const getPropsDefaults = (entity: ComponentEntity): { prop: PropEntity; defaultValue: Value }[] =>
     Object.values(entity.props)
         .filter(prop => prop.name === 'children' || hasPropDefaultValue(prop))
         .map(prop => {

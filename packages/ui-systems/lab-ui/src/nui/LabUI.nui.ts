@@ -10,6 +10,7 @@ const LabUIResource: ProjectResource = {
     type: 'project',
     name: 'Lab UI',
     module: '@noodles-ui/lab-ui',
+    generate: true,
     system: {
         use: [SurfaceColor],
     },

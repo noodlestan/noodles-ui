@@ -7,7 +7,9 @@ import { TokenResource } from '../token';
 import { Resource } from '../types';
 import { VariantResource } from '../variant';
 
-export type ProjectOwnResource = Resource<'project'>;
+export type ProjectOwnResource = Resource<'project'> & {
+    generate?: boolean;
+};
 
 type ResourceMap = {
     surfaces?: SurfaceResource[];
