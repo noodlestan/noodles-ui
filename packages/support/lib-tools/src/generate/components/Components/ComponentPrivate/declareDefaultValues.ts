@@ -41,7 +41,7 @@ const defaultValueStatement = (
     );
 };
 
-export const exportDefaultValues = (component: ComponentBuildContext): ts.Statement[] => {
+export const declareDefaultValues = (component: ComponentBuildContext): ts.Statement[] => {
     const { entity } = component;
     const propsWithDefaultValuesExcludingVariants = getPropsWithDefaultValues(entity).filter(
         prop => !isPropVariant(prop),

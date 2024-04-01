@@ -11,10 +11,10 @@ import { printTypescriptStatements } from '../../typescript/printTypescriptState
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentFileName } from '../paths/componentFileName';
 
+import { declareDefaultValues } from './ComponentPrivate/declareDefaultValues';
 import { declareRenderedProps } from './ComponentPrivate/declareRenderedProps';
 import { exportComponent } from './ComponentPrivate/exportComponent';
 import { exportComponentProps } from './ComponentPrivate/exportComponentProps';
-import { exportDefaultValues } from './ComponentPrivate/exportDefaultValues';
 import { importComponentStyles } from './ComponentPrivate/importComponentStyles';
 import { importDefaultOptions } from './ComponentPrivate/importDefaultOptions';
 import { importRenderedComponent } from './ComponentPrivate/importRenderedComponent';
@@ -36,7 +36,7 @@ export const generateComponentPrivate = async (
         ...importDefaultOptions(component, targetDir),
         ...importVariantTypes(component, targetDir),
         importComponentStyles(component),
-        ...exportDefaultValues(component),
+        ...declareDefaultValues(component),
         declareRenderedProps(compiler, component),
         exportComponentProps(compiler, component),
         exportComponent(component),

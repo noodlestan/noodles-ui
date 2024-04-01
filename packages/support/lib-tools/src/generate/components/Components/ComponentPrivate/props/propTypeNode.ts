@@ -48,5 +48,5 @@ export const propTypeNode = (
             undefined,
         );
     }
-    return factory.createLiteralTypeNode(factory.createStringLiteral('string'));
+    return factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
 };

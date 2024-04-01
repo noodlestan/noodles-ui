@@ -45,7 +45,7 @@ export const declareRenderedProps = (
     const typeDef = isOmit
         ? omitProps(extendedPropsType, Object.keys(resource.hides || {}))
         : isPick
-          ? pickProps(extendedPropsType, Object.keys(resource.hides || {}))
+          ? pickProps(extendedPropsType, Object.values(resource.exposes || {}))
           : factory.createTypeReferenceNode(factory.createIdentifier(extendedPropsType), undefined);
 
     return factory.createTypeAliasDeclaration(
