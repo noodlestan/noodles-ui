@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { ComponentBuildContext, getComponents } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
@@ -25,7 +26,12 @@ export const ComponentsPage: Component = () => {
                 <SectionLayout>
                     <CardGrid>
                         <For each={getComponents(lastSnapshot()).filter(isPublicComponent)}>
-                            {component => <ComponentCard component={component} />}
+                            {component => (
+                                <ComponentCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    component={component}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

@@ -25,6 +25,7 @@ export const DevBarTools: Component = () => {
         [styles['DevBarTools-is-building']]: !!isBuilding(),
         [styles['DevBarTools-is-success']]: isSuccess(),
         [styles['DevBarTools-has-error']]: !!error(),
+        [styles['DevBarTools-no-diagnostics']]: lastSnapshot()?.diagnostics.length === 0,
     });
 
     return (

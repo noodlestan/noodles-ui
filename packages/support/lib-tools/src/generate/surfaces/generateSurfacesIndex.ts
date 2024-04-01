@@ -10,8 +10,8 @@ import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPr
 import { printTypescriptStatements } from '../typescript/printTypescriptStatements';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
+import { createSurfaceStatements } from './SurfacesIndex/createSurfaceStatements';
 import { exportSurfacesStatement } from './SurfacesIndex/exportSurfacesStatement';
-import { surfaceStatements } from './SurfacesIndex/surfaceStatements';
 import { surfacesIndexFileName } from './paths/surfacesIndexFileName';
 
 export const generateSurfacesIndex = async (
@@ -24,11 +24,12 @@ export const generateSurfacesIndex = async (
 
     const internalTypes = [['@noodles-ui/core-resources', ['SurfaceResource']]] as TypesToImport;
 
-    const statements = [
-        ...createImportStatements(internalTypes),
-        ...surfaceStatements(compiler),
-        exportSurfacesStatement(compiler),
-    ];
+    const hasSurfaces = compiler.entities.surface.size > 0;
+
+    const imports = hasSurfaces ? createImportStatements(internalTypes) : [];
+    const surfaces = hasSurfaces ? createSurfaceStatements(compiler) : [];
+
+    const statements = [...imports, ...surfaces, exportSurfacesStatement(compiler)];
 
     const content = await printTypescriptStatements(statements);
     const output = tsFileHeader(compiler, fileName) + content + '\n';

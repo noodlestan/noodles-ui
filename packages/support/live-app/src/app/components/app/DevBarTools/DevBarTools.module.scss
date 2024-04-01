@@ -4,49 +4,53 @@
     align-items: center;
     flex: 1;
     gap: 10px;
-}
 
-.DevBarTools--Snapshot {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
-.DevBarTools--Outcome {
-    color: orangered;
-}
-
-.DevBarTools-is-success .DevBarTools--Outcome {
-    color: limegreen;
-}
-
-.DevBarTools--diagnostics {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 5px;
-    opacity: 0.9;
-}
-
-.DevBarTools--diagnostics {
-    &:global(.active) {
-        background-color: lighten(black, 20);
-        opacity: 1;
+    &--Snapshot {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
 
-    &:hover {
-        background-color: lighten(black, 20);
-        opacity: 1;
+    &--Outcome {
+        color: orangered;
     }
-}
 
-.DevBarTools--Actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    flex: 1;
+    &-is-success &--Outcome {
+        color: limegreen;
+    }
+
+    &--diagnostics {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 5px;
+        border-radius: 5px;
+        opacity: 0.9;
+    }
+
+    &--diagnostics {
+        &:global(.active) {
+            background-color: lighten(black, 20);
+            opacity: 1;
+        }
+
+        &:hover {
+            background-color: lighten(black, 20);
+            opacity: 1;
+        }
+    }
+
+    &-no-diagnostics &--diagnostics {
+        background-color: limegreen;
+    }
+
+    .DevBarTools--Actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        flex: 1;
+    }
 }

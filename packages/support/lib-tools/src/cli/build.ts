@@ -84,7 +84,6 @@ export const build = async (
 
         await loadProject(compiler, resourceData, options);
         timings.push([Date.now(), 'Loading resources from project']);
-        await saveBuildSnapshot(compiler);
 
         const loadingErrors = getDiagnosticErrors(compiler.diagnostics);
         if (!loadingErrors.length) {
@@ -121,6 +120,7 @@ export const build = async (
         }
     }
 
+    await saveBuildSnapshot(compiler);
     if (!compiler.hasErrors()) {
         logMessage('\n \\o/\n  |\n / \\\n\n');
     }

@@ -10,5 +10,7 @@ export * from './getItemDiagnostics';
 export * from './getItemErrors';
 export * from './getItemWarnings';
 export * from './getResourceDiagnostics';
+export * from './getResourceErrors';
+export * from './getResourceWarnings';
 export * from './hasDiagnostics';
 export * from './resourceFromDiagnosticSource';

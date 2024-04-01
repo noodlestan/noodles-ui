@@ -1,13 +1,17 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { MixinBuildContext } from '@noodles-ui/core-entities';
 import { Component } from 'solid-js';
 
+import { EntityDiagnosticCounts } from '../../../atoms/EntityDiagnosticCounts';
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
 import { EntityCard } from '../../../molecules/EntityCard';
+import { EntityCardTitle } from '../../../molecules/EntityCardTitle';
 
 import styles from './MixinCard.module.css';
 
 type MixinCardProps = {
+    snapshot: BuildSnapshot;
     mixin: MixinBuildContext;
 };
 
@@ -21,8 +25,12 @@ export const MixinCard: Component<MixinCardProps> = props => {
 
     return (
         <EntityCard classList={classList()} public={props.mixin.context.public} href={path()}>
-            <ModuleName>{entity().module}</ModuleName>
-            <EntityName>{entity().name}</EntityName>
+            <EntityCardTitle>
+                <ModuleName>{entity().module}</ModuleName>
+                <EntityName>{entity().name}</EntityName>
+            </EntityCardTitle>
+
+            <EntityDiagnosticCounts snapshot={props.snapshot} context={props.mixin} />
         </EntityCard>
     );
 };

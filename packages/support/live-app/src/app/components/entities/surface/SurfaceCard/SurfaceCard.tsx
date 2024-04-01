@@ -1,13 +1,17 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { SurfaceBuildContext } from '@noodles-ui/core-entities';
 import { Component } from 'solid-js';
 
+import { EntityDiagnosticCounts } from '../../../atoms/EntityDiagnosticCounts';
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
 import { EntityCard } from '../../../molecules/EntityCard';
+import { EntityCardTitle } from '../../../molecules/EntityCardTitle';
 
 import styles from './SurfaceCard.module.css';
 
 type SurfaceCardProps = {
+    snapshot: BuildSnapshot;
     surface: SurfaceBuildContext;
 };
 
@@ -21,8 +25,12 @@ export const SurfaceCard: Component<SurfaceCardProps> = props => {
 
     return (
         <EntityCard classList={classList()} public={props.surface.context.public} href={path()}>
-            <ModuleName>{entity().module}</ModuleName>
-            <EntityName>{entity().name}</EntityName>
+            <EntityCardTitle>
+                <ModuleName>{entity().module}</ModuleName>
+                <EntityName>{entity().name}</EntityName>
+            </EntityCardTitle>
+
+            <EntityDiagnosticCounts snapshot={props.snapshot} context={props.surface} />
         </EntityCard>
     );
 };

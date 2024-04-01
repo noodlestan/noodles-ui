@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { getMixins } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
@@ -23,7 +24,12 @@ export const MixinsPage: Component = () => {
                 <SectionLayout>
                     <CardGrid>
                         <For each={getMixins(lastSnapshot())}>
-                            {mixin => <MixinCard mixin={mixin} />}
+                            {mixin => (
+                                <MixinCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    mixin={mixin}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

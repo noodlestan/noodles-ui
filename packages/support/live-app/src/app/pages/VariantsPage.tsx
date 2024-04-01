@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { VariantBuildContext, getVariants } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
@@ -27,7 +28,12 @@ export const VariantsPage: Component = () => {
                     <SectionTitle>Variants</SectionTitle>
                     <CardGrid>
                         <For each={getVariants(lastSnapshot()).filter(isPublicVariant)}>
-                            {variant => <VariantCard variant={variant} />}
+                            {variant => (
+                                <VariantCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    variant={variant}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

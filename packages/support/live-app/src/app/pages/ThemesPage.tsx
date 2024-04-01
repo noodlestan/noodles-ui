@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { getDiagnosticByResourceType } from '@noodles-ui/core-diagnostics';
 import { getThemes } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
@@ -29,7 +30,12 @@ export const ThemesPage: Component = () => {
                     <></>
                     <CardGrid>
                         <For each={getThemes(lastSnapshot())}>
-                            {theme => <ThemeCard snapshot={lastSnapshot()} theme={theme} />}
+                            {theme => (
+                                <ThemeCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    theme={theme}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

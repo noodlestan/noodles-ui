@@ -46,7 +46,7 @@ const surfaceStatement = (surface: SurfaceBuildContext): ts.Statement => {
     );
 };
 
-export const surfaceStatements = (compiler: CompilerContext): ts.Statement[] => {
+export const createSurfaceStatements = (compiler: CompilerContext): ts.Statement[] => {
     const surfaces = Array.from(compiler.entities.surface.values());
 
     return surfaces.map(surface => surfaceStatement(surface));

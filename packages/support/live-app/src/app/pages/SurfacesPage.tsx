@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { getSurfaces } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
@@ -23,7 +24,12 @@ export const SurfacesPage: Component = () => {
                 <SectionLayout>
                     <CardGrid>
                         <For each={getSurfaces(lastSnapshot())}>
-                            {surface => <SurfaceCard surface={surface} />}
+                            {surface => (
+                                <SurfaceCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    surface={surface}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

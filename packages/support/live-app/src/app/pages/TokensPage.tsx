@@ -1,3 +1,4 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { getTokens } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
@@ -25,7 +26,12 @@ export const TokensPage: Component = () => {
                     <SectionTitle>Tokens</SectionTitle>
                     <CardGrid>
                         <For each={getTokens(lastSnapshot())}>
-                            {token => <TokenCard token={token} />}
+                            {token => (
+                                <TokenCard
+                                    snapshot={lastSnapshot() as BuildSnapshot}
+                                    token={token}
+                                />
+                            )}
                         </For>
                     </CardGrid>
                 </SectionLayout>

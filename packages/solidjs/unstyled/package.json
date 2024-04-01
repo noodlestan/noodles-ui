@@ -20,7 +20,6 @@
     "solid",
     "solidjs"
   ],
-  "type": "module",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "sideEffects": false,
@@ -32,8 +31,11 @@
     "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
     "dev:test": "vitest",
     "dev:lib": "vite build --watch --mode development",
+    "nui": "ts-node ./nui.dev.ts",
     "test": "vitest --run --coverage",
-    "build": "vite build",
+    "build": "npm run build:nui && npm run build:lib",
+    "build:nui": "ts-node ./nui.build.ts",
+    "build:lib": "vite build",
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
@@ -43,6 +45,7 @@
     "solid-js": "^1.8.15"
   },
   "devDependencies": {
+    "@noodles-ui/lib-tools": "0.0.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "@solidjs/testing-library": "^0.8.6",
     "@vitest/coverage-v8": "^1.2.2",

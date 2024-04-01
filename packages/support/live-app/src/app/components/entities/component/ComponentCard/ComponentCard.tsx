@@ -1,13 +1,17 @@
+import { BuildSnapshot } from '@noodles-ui/core-compiler-types';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import { Component } from 'solid-js';
 
+import { EntityDiagnosticCounts } from '../../../atoms/EntityDiagnosticCounts';
 import { EntityName } from '../../../atoms/EntityName';
 import { ModuleName } from '../../../atoms/ModuleName';
 import { EntityCard } from '../../../molecules/EntityCard';
+import { EntityCardTitle } from '../../../molecules/EntityCardTitle';
 
 import styles from './ComponentCard.module.css';
 
 type ComponentCardProps = {
+    snapshot: BuildSnapshot;
     component: ComponentBuildContext;
 };
 
@@ -21,8 +25,12 @@ export const ComponentCard: Component<ComponentCardProps> = props => {
 
     return (
         <EntityCard classList={classList()} public={props.component.context.public} href={path()}>
-            <ModuleName>{entity().module}</ModuleName>
-            <EntityName>{entity().name}</EntityName>
+            <EntityCardTitle>
+                <ModuleName>{entity().module}</ModuleName>
+                <EntityName>{entity().name}</EntityName>
+            </EntityCardTitle>
+
+            <EntityDiagnosticCounts snapshot={props.snapshot} context={props.component} />
         </EntityCard>
     );
 };

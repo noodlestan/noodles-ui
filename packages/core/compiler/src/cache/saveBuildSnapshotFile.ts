@@ -10,7 +10,7 @@ export const saveBuildSnapshotFile = async (compiler: CompilerContext): Promise<
     const { entities, diagnostics } = compiler;
     const snapshot = {
         project: compiler.project,
-        success: !!compiler.build.success,
+        success: !!compiler.build.success && !compiler.hasErrors(),
         timestamp: compiler.build.timestamp,
         entities,
         diagnostics,

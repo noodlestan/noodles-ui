@@ -86,7 +86,7 @@ const loadOwnComponent = (
             ?.map(mixin => loadComponentMixin(compiler, context, component, mixin))
             .filter(Boolean) as MixinResource[]) || [];
 
-    const entity = {
+    const entity: ComponentOwnEntity = {
         ...structuredClone(component),
         props: actualProps,
         use: actualMixins,
