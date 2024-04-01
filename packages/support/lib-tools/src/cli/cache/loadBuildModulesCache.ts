@@ -9,7 +9,7 @@ import { logSuccess } from '../logger/logSuccess';
 
 export const loadBuildModulesCache = async (compiler: CompilerContext): Promise<void> => {
     const modules = compiler.build.modules;
-    const data = loadBuildModulesCacheFile(compiler);
+    const data = await loadBuildModulesCacheFile(compiler);
 
     modules.clear();
     const entries = Array.from(Object.entries(data));
