@@ -1,6 +1,5 @@
-import { getItemDiagnostics } from '@noodles-ui/core-diagnostics';
+import { getResourceDiagnostics } from '@noodles-ui/core-diagnostics';
 import { getTokenByKey } from '@noodles-ui/core-entities';
-import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
@@ -19,8 +18,7 @@ export const TokenEntityPage: Component = () => {
     const token = () => getTokenByKey(lastSnapshot(), params.key);
     const entity = () => token().entity;
 
-    const diagnostics = () =>
-        getItemDiagnostics(getResourceTypedKey(entity()), lastSnapshot()?.diagnostics);
+    const diagnostics = () => getResourceDiagnostics(entity(), lastSnapshot()?.diagnostics);
 
     return (
         <Show when={lastSnapshot()}>

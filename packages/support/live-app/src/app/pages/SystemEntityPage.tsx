@@ -1,6 +1,5 @@
-import { getItemDiagnostics } from '@noodles-ui/core-diagnostics';
+import { getResourceDiagnostics } from '@noodles-ui/core-diagnostics';
 import { getSystem } from '@noodles-ui/core-entities';
-import { getResourceTypedKey } from '@noodles-ui/core-resources';
 import { Component, Show } from 'solid-js';
 
 import { ModuleName } from '../components/atoms/ModuleName';
@@ -18,8 +17,7 @@ export const SystemEntityPage: Component = () => {
     const system = () => getSystem(lastSnapshot());
     const entity = () => system().entity;
 
-    const diagnostics = () =>
-        getItemDiagnostics(getResourceTypedKey(entity()), lastSnapshot()?.diagnostics);
+    const diagnostics = () => getResourceDiagnostics(entity(), lastSnapshot()?.diagnostics);
 
     return (
         <Show when={lastSnapshot()}>
