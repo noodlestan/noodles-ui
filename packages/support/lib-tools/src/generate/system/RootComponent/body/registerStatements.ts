@@ -1,6 +1,6 @@
 import ts from 'typescript';
 
-import { capitalize } from '../../../../util/string';
+import { capitalize } from '../../../../util/capitalize';
 
 const factory = ts.factory;
 

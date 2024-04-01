@@ -2,7 +2,7 @@ import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ProjectResource } from '@noodles-ui/core-resources';
 import { gray, yellow } from 'kleur';
 
-import { plural } from '../../util/string';
+import { plural } from '../../util/plural';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 

@@ -11,16 +11,16 @@ import {
     ComponentOwnResource,
     ComponentResource,
     MixinResource,
+    getComponentRenderedPart,
     getResourceTypedKey,
+    isComponentExtendResource,
+    isComponentImportResource,
+    isComponentOwnResource,
 } from '@noodles-ui/core-resources';
 
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
 import { CompilerContext } from '../../types';
 
-import { getRenderedPart } from './getters/getRenderedPart';
-import { isComponentExtendResource } from './getters/isComponentExtendResource';
-import { isComponentImportResource } from './getters/isComponentImportResource';
-import { isComponentOwnResource } from './getters/isComponentOwnResource';
 import { addComponent } from './private/addComponent';
 import { extendComponent } from './private/extendComponent';
 import { extendRenderedComponent } from './private/extendRenderedComponent';
@@ -110,7 +110,7 @@ const loadComponentRenders = (
         );
         return;
     }
-    const part = getRenderedPart(component, loadedParent);
+    const part = getComponentRenderedPart(component, loadedParent);
     if (!part) {
         compiler.addError(
             component,

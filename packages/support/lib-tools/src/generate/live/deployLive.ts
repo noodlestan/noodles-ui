@@ -2,11 +2,11 @@ import { readFile, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
+import { getSystemComponentName } from '@noodles-ui/core-entities';
 
 import { locateDependencyDir } from '../../monorepo/locateDependencyDir';
 import { copyFiles } from '../../util/copyFiles';
 import { NUI_LIVE_DIR } from '../constants';
-import { systemComponentName } from '../system/RootComponent/systemComponentName';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 
 const copyUIRootFile = async (
@@ -17,7 +17,7 @@ const copyUIRootFile = async (
     const sourceFile = join(source, 'src/UIRoot.tsx');
     const destinationFile = join(target, 'src/UIRoot.tsx');
 
-    const componentName = systemComponentName(compiler);
+    const componentName = getSystemComponentName(compiler);
     const contents = (await readFile(sourceFile)).toString();
     const output =
         tsFileHeader(compiler, destinationFile) + contents.replace(/UIRoot_/g, componentName);

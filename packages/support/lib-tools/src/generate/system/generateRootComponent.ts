@@ -2,7 +2,8 @@ import { writeFile } from 'fs/promises';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
 
-import { ensuredFiledir, relativePath } from '../../util/fs';
+import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { TypesToImport, createImportStatements } from '../internal/createImportStatements';

@@ -5,7 +5,7 @@ import {
 } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { relativePath } from '../../../../util/fs';
+import { relativePath } from '../../../../util/relativePath';
 import { variantsConstantsFileName } from '../../../variants/paths/variantsConstantsFileName';
 import { componentFileName } from '../../paths/componentFileName';
 

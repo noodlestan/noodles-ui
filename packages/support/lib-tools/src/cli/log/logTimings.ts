@@ -1,7 +1,7 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { gray, yellow } from 'kleur';
 
-import { formatSeconds } from '../../util/string';
+import { formatSeconds } from '../../util/formatSeconds';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 

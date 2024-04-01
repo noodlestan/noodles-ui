@@ -1,10 +1,9 @@
 import { join } from 'path';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
-
-import { systemComponentName } from '../RootComponent/systemComponentName';
+import { getSystemComponentName } from '@noodles-ui/core-entities';
 
 export const systemRootModuleFileName = (compiler: CompilerContext, target: string): string => {
-    const componentName = systemComponentName(compiler);
+    const componentName = getSystemComponentName(compiler);
     return join(target, `/providers/${componentName}/${componentName}.module.scss`);
 };

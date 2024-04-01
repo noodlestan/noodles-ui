@@ -1,6 +1,6 @@
 import { bold, gray, red, yellow } from 'kleur';
 
-import { plural } from '../../util/string';
+import { plural } from '../../util/plural';
 
 export const formatWarningsAndErrors = (warnCount: number, errorCount: number): string => {
     const warnings = warnCount ? yellow(bold(warnCount) + plural(warnCount, ' warning')) : '';

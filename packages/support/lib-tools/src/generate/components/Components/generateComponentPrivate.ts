@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../../util/fs';
+import { ensuredFiledir } from '../../../util/ensuredFiledir';
 import { formatTypescriptFile } from '../../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../../prettier/formatSourceCodeWithPrettier';
 import { importFrameworkTypes } from '../../targets/solid-js/importFrameworkTypes';

@@ -20,7 +20,7 @@ import {
 } from '@noodles-ui/core-resources';
 import { blue, gray, red, white, yellow } from 'kleur';
 
-import { plural } from '../../util/string';
+import { plural } from '../../util/plural';
 import { logInfo } from '../logger/logInfo';
 import { logMessage } from '../logger/logMessage';
 import { logWarning } from '../logger/logWarning';

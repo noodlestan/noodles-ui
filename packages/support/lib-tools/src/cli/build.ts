@@ -20,7 +20,7 @@ import { generateVariants } from '../generate/generateVariants';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { copyFiles } from '../util/copyFiles';
-import { ensuredFiledir } from '../util/fs';
+import { ensuredFiledir } from '../util/ensuredFiledir';
 
 import { getExpandPatterns } from './arguments/getExpandPatterns';
 import { getNoEmit } from './arguments/getNoEmit';

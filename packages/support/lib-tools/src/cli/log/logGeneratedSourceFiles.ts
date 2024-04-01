@@ -1,7 +1,7 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { gray, green, red, yellow } from 'kleur';
 
-import { plural } from '../../util/string';
+import { plural } from '../../util/plural';
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logError } from '../logger/logError';
 import { logInfo } from '../logger/logInfo';

@@ -5,8 +5,8 @@ import {
 } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { filterOutDuplicates } from '../../../../util/array';
-import { relativePath } from '../../../../util/fs';
+import { filterOutDuplicates } from '../../../../util/filterOutDuplicates';
+import { relativePath } from '../../../../util/relativePath';
 import { variantsTypesFileName } from '../../../variants/paths/variantsTypesFileName';
 import { componentFileName } from '../../paths/componentFileName';
 

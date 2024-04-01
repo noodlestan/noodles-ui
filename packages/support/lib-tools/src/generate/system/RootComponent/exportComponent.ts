@@ -1,11 +1,11 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
+import { getSystemComponentName } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 import { classListStatement } from './body/classListStatement';
 import { registerStatements } from './body/registerStatements';
 import { renderStatement } from './body/renderStatement';
 import { storeStatements } from './body/storeStatements';
-import { systemComponentName } from './systemComponentName';
 
 const factory = ts.factory;
 
@@ -35,7 +35,7 @@ export const exportComponent = (compiler: CompilerContext): ts.Statement => {
     const classList = classListStatement();
     const render = renderStatement();
 
-    const name = systemComponentName(compiler);
+    const name = getSystemComponentName(compiler);
 
     const statements: ts.Statement[] = [...stores, ...registers, classList, render];
     const componentDeclaration = factory.createVariableDeclaration(

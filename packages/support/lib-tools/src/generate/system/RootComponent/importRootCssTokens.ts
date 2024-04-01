@@ -1,7 +1,7 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import ts from 'typescript';
 
-import { relativePath } from '../../../util/fs';
+import { relativePath } from '../../../util/relativePath';
 import { systemRootTokensFileName } from '../paths/systemRootTokensFileName';
 
 const factory = ts.factory;

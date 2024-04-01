@@ -1,7 +1,7 @@
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { relativePath } from '../../../util/fs';
+import { relativePath } from '../../../util/relativePath';
 import { componentLiveFileName } from '../paths/componentLiveFileName';
 import { componentsLiveMapFileName } from '../paths/componentsLiveMapFileName';
 

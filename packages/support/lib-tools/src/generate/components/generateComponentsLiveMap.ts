@@ -4,7 +4,7 @@ import { CompilerContext } from '@noodles-ui/core-compiler';
 import { getPublicComponents } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
-import { ensuredFiledir } from '../../util/fs';
+import { ensuredFiledir } from '../../util/ensuredFiledir';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 import { formatSourceCodeWithPrettier } from '../prettier/formatSourceCodeWithPrettier';
 import { importFrameworkTypes } from '../targets/solid-js/importFrameworkTypes';

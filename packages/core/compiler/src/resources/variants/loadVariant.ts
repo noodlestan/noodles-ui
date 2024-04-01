@@ -5,13 +5,13 @@ import {
     VariantResource,
     VariantVars,
     getResourceKey,
+    isVariantExtendResource,
+    isVariantOwnResource,
 } from '@noodles-ui/core-resources';
 
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
 import { CompilerContext } from '../../types';
 
-import { isVariantExtendResource } from './getters/isVariantExtendResource';
-import { isVariantOwnResource } from './getters/isVariantOwnResource';
 import { addVariant } from './private/addVariant';
 import { extendVariantExtends } from './private/extendVariantExtends';
 import { loadVariantMixin } from './private/loadVariantMixin';

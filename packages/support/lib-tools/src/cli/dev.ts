@@ -21,7 +21,7 @@ import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execBuild } from '../exec/execBuild';
 import { execLive } from '../exec/execLive';
 import { ServerOptions, createServer } from '../server/createServer';
-import { formatSeconds } from '../util/string';
+import { formatSeconds } from '../util/formatSeconds';
 
 import { getNoLive } from './arguments/getNoLive';
 import { loadBuildModulesCache } from './cache/loadBuildModulesCache';

@@ -2,9 +2,9 @@ import {
     ComponentImportPartResource,
     ComponentImportResource,
     ComponentOwnResource,
-} from '@noodles-ui/core-resources';
+} from '../component';
 
-export const getRenderedPart = (
+export const getComponentRenderedPart = (
     component: ComponentOwnResource,
     rendered?: ComponentImportResource,
 ): ComponentImportPartResource | undefined => {

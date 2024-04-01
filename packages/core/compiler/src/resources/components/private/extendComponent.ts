@@ -1,4 +1,8 @@
-import { ComponentContext, ComponentOwnEntity, getRenderedProps } from '@noodles-ui/core-entities';
+import {
+    ComponentContext,
+    ComponentOwnEntity,
+    getComponentRenderedProps,
+} from '@noodles-ui/core-entities';
 import { ComponentExtendResource, ComponentOwnResource } from '@noodles-ui/core-resources';
 
 import { CompilerContext } from '../../../types';
@@ -20,7 +24,7 @@ export const extendComponent = (
     }
 
     const render = parent.render;
-    const renderedProps = getRenderedProps(parent);
+    const renderedProps = getComponentRenderedProps(parent);
     const parentProps = { ...renderedProps, ...parent.props };
     const parentVars = parent.vars;
 

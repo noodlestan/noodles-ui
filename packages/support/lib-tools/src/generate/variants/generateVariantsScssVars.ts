@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { VariantBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir } from '../../util/fs';
+import { ensuredFiledir } from '../../util/ensuredFiledir';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { tsFileHeader } from '../typescript/tsFileHeader';
 

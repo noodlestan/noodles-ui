@@ -12,7 +12,7 @@ import {
 } from '@noodles-ui/core-entities';
 import { MixinInlineResource } from '@noodles-ui/core-resources';
 
-import { ensuredFiledir } from '../../../util/fs';
+import { ensuredFiledir } from '../../../util/ensuredFiledir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { createMixinImportStatement } from '../../mixins/createMixinImportStatement';
 import { createMixinStatement } from '../../mixins/createMixinStatement';

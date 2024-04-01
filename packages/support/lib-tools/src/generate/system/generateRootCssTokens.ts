@@ -3,7 +3,8 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ThemeBuildContext, getThemesInTopologicalOrder } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir, relativePath } from '../../util/fs';
+import { ensuredFiledir } from '../../util/ensuredFiledir';
+import { relativePath } from '../../util/relativePath';
 import { diffDateNow, getDateNow } from '../../util/time';
 import { themeCssVarsFileName } from '../themes/paths/themeCssVarsFileName';
 import { tsFileHeader } from '../typescript/tsFileHeader';

@@ -10,7 +10,7 @@ import {
     makeNoodlesClassName,
 } from '@noodles-ui/core-types';
 
-import { ensuredFiledir } from '../../../util/fs';
+import { ensuredFiledir } from '../../../util/ensuredFiledir';
 import { diffDateNow, getDateNow } from '../../../util/time';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { themeCssVarsFileName } from '../paths/themeCssVarsFileName';

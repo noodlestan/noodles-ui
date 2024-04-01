@@ -4,7 +4,8 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
 
-import { ensuredFiledir, relativePath } from '../../../util/fs';
+import { ensuredFiledir } from '../../../util/ensuredFiledir';
+import { relativePath } from '../../../util/relativePath';
 import { tsFileHeader } from '../../typescript/tsFileHeader';
 import { componentFileName } from '../paths/componentFileName';
 import { componentPublicFileName } from '../paths/componentPublicFileName';
