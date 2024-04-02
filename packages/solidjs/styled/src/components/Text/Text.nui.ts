@@ -1,7 +1,7 @@
 import { ComponentOwnResource, VariantInlineExtendResource } from '@noodles-ui/core-resources';
 import { TextResource as TextUnstyledResource } from '@noodles-ui/solidjs-unstyled';
 
-import { TypeReset } from '../../mixins/index.nui';
+import { TypeResetResource } from '../../mixins/index.nui';
 import { TypographyFamilyVariants } from '../../variants/index.nui';
 
 export const TextTypeVariantResource: VariantInlineExtendResource = {
@@ -15,7 +15,7 @@ export const TextResource: ComponentOwnResource = {
     type: 'component',
     name: 'Text',
     module: '@noodles-ui/solidjs-styled',
-    use: [TypeReset],
+    use: [TypeResetResource],
     props: {
         variant: TextTypeVariantResource,
     },

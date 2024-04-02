@@ -1,7 +1,7 @@
 import { ComponentOwnResource, VariantExtendResource } from '@noodles-ui/core-resources';
 import { HeadingResource as HeadingUnstyledResource } from '@noodles-ui/solidjs-unstyled';
 
-import { TypeReset } from '../../mixins/index.nui';
+import { TypeResetResource } from '../../mixins/index.nui';
 import { TypographyFamilyVariants } from '../../variants/index.nui';
 
 export const HeadingTypeVariantResource: VariantExtendResource = {
@@ -17,7 +17,7 @@ export const HeadingResource: ComponentOwnResource = {
     type: 'component',
     name: 'Heading',
     module: '@noodles-ui/solidjs-styled',
-    use: [TypeReset],
+    use: [TypeResetResource],
     props: {
         variant: HeadingTypeVariantResource,
     },

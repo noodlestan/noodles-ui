@@ -1,6 +1,6 @@
 import { MixinResource } from '@noodles-ui/core-resources';
 
-export const TypeReset: MixinResource = {
+export const TypeResetResource: MixinResource = {
     type: 'mixin',
     name: 'TypeReset',
     module: '@noodles-ui/solidjs-styled',

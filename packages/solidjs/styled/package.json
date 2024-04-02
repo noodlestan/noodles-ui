@@ -17,27 +17,23 @@
     "solid",
     "solidjs"
   ],
-  "type": "module",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "sideEffects": false,
   "exports": {
-    ".": {
-      "import": "./src/index.ts",
-      "require": "./dist/index.umd.cjs"
-    },
-    "./src/*.scss": {
-      "import": "./src/*.scss",
-      "require": "./src/*.scss"
-    }
+    "import": "./src/index.ts",
+    "require": "./dist/index.umd.js"
   },
   "scripts": {
-    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:lib\" -c \"blue.bold\" \"npm run dev:lib\"",
-    "dev:test": "vitest",
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:NUI\",\"dev:test\",\"dev:lib\" -c \"yellow.bold\",\"green.bold\",\"blue.bold\" \"npm run dev:nui\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:nui": "nui dev",
+    "dev:test": "vitest --passWithNoTests",
     "dev:lib": "vite build --watch --mode development",
-    "test": "vitest --run --coverage",
-    "build": "vite build",
-    "ci": "rm -rf dist/ && npm run test && npm run build"
+    "test": "vitest --run --coverage --passWithNoTests",
+    "build": "npm run build:nui && npm run build:lib",
+    "build:nui": "nui build",
+    "build:lib": "vite build",
+    "ci": "rm -rf dist/ && npm run build:nui && npm run test && npm run build:lib"
   },
   "dependencies": {
     "@noodles-ui/core-resources": "0.0.1",
@@ -48,6 +44,7 @@
     "solid-js": "^1.8.15"
   },
   "devDependencies": {
+    "@noodles-ui/lib-tools": "0.0.1",
     "@solidjs/testing-library": "^0.8.6",
     "@vitest/coverage-v8": "^1.2.2",
     "jsdom": "^24.0.0",

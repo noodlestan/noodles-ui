@@ -1,5 +1,7 @@
-import { ComponentOwnResource, VariantInlineReferenceResource } from '@noodles-ui/core-resources';
-import { SurfaceResource as SurfaceUnstyledResource } from '@noodles-ui/solidjs-unstyled';
+import {
+    ComponentImportResource,
+    VariantInlineReferenceResource,
+} from '@noodles-ui/core-resources';
 
 import { SurfaceVariant } from '../../variants/SurfaceVariant/SurfaceVariant.nui';
 
@@ -7,15 +9,16 @@ const variant: VariantInlineReferenceResource = {
     reference: SurfaceVariant,
 };
 
-export const SurfaceResource: ComponentOwnResource = {
+export const SurfaceResource: ComponentImportResource = {
     type: 'component',
     name: 'Surface',
     module: '@noodles-ui/solidjs-styled',
-    props: {
-        variant,
-    },
-    render: {
-        name: 'Surface',
-        from: SurfaceUnstyledResource,
-    },
+    parts: [
+        {
+            name: 'Surface',
+            props: {
+                variant,
+            },
+        },
+    ],
 };
