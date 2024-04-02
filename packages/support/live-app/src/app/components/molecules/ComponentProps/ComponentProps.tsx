@@ -1,4 +1,5 @@
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
+import { isComponentImportResource } from '@noodles-ui/core-resources';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';
@@ -10,7 +11,12 @@ type ComponentPropsProps = {
 };
 
 export const ComponentProps: Component<ComponentPropsProps> = props => {
-    const componentProps = () => Object.values(props.component.entity.props);
+    const componentProps = () => {
+        if (!isComponentImportResource(props.component.entity)) {
+            return Object.values(props.component.entity.props);
+        }
+        return [];
+    };
 
     return (
         <Show when={componentProps().length}>

@@ -3,6 +3,7 @@ import {
     ComponentOwnEntity,
     getComponentMixins,
 } from '@noodles-ui/core-entities';
+import { isComponentImportResource } from '@noodles-ui/core-resources';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';
@@ -14,7 +15,12 @@ type ComponentMixinsProps = {
 };
 
 export const ComponentMixins: Component<ComponentMixinsProps> = props => {
-    const componentMixins = () => getComponentMixins(props.component.entity as ComponentOwnEntity);
+    const componentMixins = () => {
+        if (!isComponentImportResource(props.component.entity)) {
+            return getComponentMixins(props.component.entity as ComponentOwnEntity);
+        }
+        return [];
+    };
 
     return (
         <Show when={componentMixins().length}>

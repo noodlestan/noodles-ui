@@ -1,5 +1,6 @@
 import { getResourceDiagnostics } from '@noodles-ui/core-diagnostics';
 import { getComponentByKey } from '@noodles-ui/core-entities';
+import { isComponentImportResource } from '@noodles-ui/core-resources';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
@@ -22,6 +23,7 @@ export const ComponentEntityPage: Component = () => {
     const entity = () => component().entity;
 
     const diagnostics = () => getResourceDiagnostics(entity(), lastSnapshot()?.diagnostics);
+    const showRenderer = () => component().context.public && !isComponentImportResource(entity());
 
     return (
         <Show when={lastSnapshot()}>
@@ -31,7 +33,7 @@ export const ComponentEntityPage: Component = () => {
                     <PageTitle>Component: {entity().name}</PageTitle>
                 </PageHeader>
                 <EntityDiagnostics diagnostics={diagnostics()} />
-                <Show when={component().context.public}>
+                <Show when={showRenderer()}>
                     <ComponentRenderer component={component()} />
                 </Show>
                 <ComponentMixins component={component()} />
