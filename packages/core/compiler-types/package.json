@@ -38,6 +38,7 @@
     "ci": "rm -rf dist/ && npm run test && npm run build"
   },
   "dependencies": {
+    "@noodles-ui/core-compiler": "0.0.1",
     "@noodles-ui/core-diagnostics": "0.0.1",
     "@noodles-ui/core-entities": "0.0.1",
     "@noodles-ui/core-resources": "0.0.1",

@@ -1,1 +1,1 @@
-export const bar = 'bar';
+export * from './generated/system';

@@ -14,6 +14,9 @@
     "design-system",
     "code-generator"
   ],
+  "bin": {
+    "nui": "./src/nui-cli.ts"
+  },
   "main": "dist/cjs/index.js",
   "module": "src/index.ts",
   "sideEffects": false,
