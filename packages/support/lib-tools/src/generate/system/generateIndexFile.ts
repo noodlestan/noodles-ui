@@ -2,6 +2,7 @@ import { writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
 import { CompilerContext } from '@noodles-ui/core-compiler';
+import { getComponents } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 import { ensureFileDir } from '../../util/ensureFileDir';
@@ -18,7 +19,7 @@ import { systemRootFileName } from './paths/systemRootFileName';
 
 const factory = ts.factory;
 
-const exportStarFrom = (moduleName: string): ts.Statement => {
+const createExportStarFrom = (moduleName: string): ts.Statement => {
     return factory.createExportDeclaration(
         undefined,
         false,
@@ -28,24 +29,24 @@ const exportStarFrom = (moduleName: string): ts.Statement => {
     );
 };
 
-const exportProvider = (
+const createExportProvider = (
     compiler: CompilerContext,
     fileName: string,
     targetDir: string,
 ): ts.Statement => {
     const providerFileName = systemRootFileName(compiler, targetDir);
     const path = relativePath(fileName, providerFileName, true);
-    return exportStarFrom(path);
+    return createExportStarFrom(path);
 };
 
-const exportComponents = (
+const createExportComponents = (
     compiler: CompilerContext,
     fileName: string,
     targetDir: string,
 ): ts.Statement => {
     const indexFileName = componentIndexFileName(targetDir);
     const path = relativePath(fileName, dirname(indexFileName));
-    return exportStarFrom(path);
+    return createExportStarFrom(path);
 };
 
 export const generateIndexFile = async (
@@ -56,10 +57,14 @@ export const generateIndexFile = async (
     const fileName = systemIndexFileName(targetDir);
     await ensureFileDir(fileName);
 
-    const statements = [
-        exportProvider(compiler, fileName, targetDir),
-        exportComponents(compiler, fileName, targetDir),
-    ];
+    const hasComponents = getComponents(compiler).length > 0;
+
+    const exportProvider = [createExportProvider(compiler, fileName, targetDir)];
+    const exportComponents = hasComponents
+        ? [createExportComponents(compiler, fileName, targetDir)]
+        : [];
+
+    const statements = [...exportProvider, ...exportComponents];
 
     const content = await printTypescriptStatements(statements);
     const output = tsFileHeader(compiler, fileName) + content + '\n';

@@ -28,11 +28,15 @@ const copyUIRootFile = async (
 
 const fileFilter = (file: string) => !file.startsWith('_') && !file.endsWith('_');
 
-export const deployLive = async (compiler: CompilerContext): Promise<string> => {
+export const deployLive = async (compiler: CompilerContext, sourceDir: string): Promise<string> => {
     const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
     const live = join(compiler.projectPath, NUI_LIVE_DIR);
     await rm(live, { recursive: true, force: true });
     await copyFiles(sketleton, live, { fileFilter });
     await copyUIRootFile(compiler, sketleton, live);
-    return join(live, 'src/');
+
+    const liveDir = join(live, 'src/');
+    await copyFiles(sourceDir, liveDir);
+
+    return liveDir;
 };

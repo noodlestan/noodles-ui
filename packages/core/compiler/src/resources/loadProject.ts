@@ -11,8 +11,8 @@ import { loadTokens } from './token/loadTokens';
 import { loadVariants } from './variant/loadVariants';
 
 export const loadProjectEntity = (compiler: CompilerContext, project: ProjectResource): void => {
-    const { type, name, module } = project;
-    compiler.project = { type, name, module };
+    const { type, name, module, generate } = project;
+    compiler.project = { type, name, module, generate };
 };
 
 export const loadProject = async (

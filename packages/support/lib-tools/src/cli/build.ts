@@ -1,4 +1,3 @@
-import { rm } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import {
@@ -12,19 +11,13 @@ import { getDiagnosticErrors } from '@noodles-ui/core-diagnostics';
 import { white } from 'kleur';
 
 import { NUI_GENERATED_DIR, NUI_TMP_DIR } from '../generate/constants';
-import { generateComponents } from '../generate/generateComponents';
-import { generateRoot } from '../generate/generateRoot';
-import { generateSurfaces } from '../generate/generateSurfaces';
-import { generateThemes } from '../generate/generateThemes';
-import { generateVariants } from '../generate/generateVariants';
+import { generateAll } from '../generate/generateAll';
 import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
-import { copyFiles } from '../util/copyFiles';
 import { ensureFileDir } from '../util/ensureFileDir';
 
-import { getExpandPatterns } from './arguments/getExpandPatterns';
+import { addArgsToOptions } from './arguments/addArgsToOptions';
 import { getNoEmit } from './arguments/getNoEmit';
-import { getShowHints } from './arguments/getShowHints';
 import { saveBuildModulesCache } from './cache/saveBuildModulesCache';
 import { saveBuildSnapshot } from './cache/saveBuildSnapshot';
 import { saveProjectResourceCache } from './cache/saveProjectResourceCache';
@@ -47,7 +40,7 @@ import { logSuccess } from './logger/logSuccess';
 
 export const build = async (
     fileName: string,
-    options: CompilerOptions,
+    clientOptions: CompilerOptions,
 ): Promise<CompilerContext> => {
     logHeader('build');
     const timings: Array<[number, string]> = [[Date.now(), 'start']];
@@ -55,14 +48,7 @@ export const build = async (
     const projectFile = resolve(fileName);
     logInfo(`Build project`, stripFilename(projectFile, resolve('.')));
 
-    const expandPatterns = getExpandPatterns();
-    options.interactive = options.interactive || {};
-    options.interactive.expand = options.interactive.expand || [];
-    options.interactive.expand.push(...expandPatterns);
-    const showHints = getShowHints();
-    options.interactive.expand = options.interactive.expand || [];
-    options.interactive.hints = showHints;
-
+    const options = addArgsToOptions(clientOptions);
     const compiler = await createCompiler(projectFile, options);
     compiler.compileProjectFile();
     timings.push([Date.now(), 'TS compilation of project file']);
@@ -89,15 +75,9 @@ export const build = async (
         const loadingErrors = getDiagnosticErrors(compiler.diagnostics);
         if (!loadingErrors.length && compiler.project.generate) {
             const tmpDir = join(compiler.projectPath, NUI_TMP_DIR);
-            await rm(tmpDir, { recursive: true, force: true });
-            await generateRoot(compiler, tmpDir);
-            await generateSurfaces(compiler, tmpDir);
-            await generateThemes(compiler, tmpDir);
-            await generateComponents(compiler, tmpDir);
-            await generateVariants(compiler, tmpDir);
+            await generateAll(compiler, tmpDir);
             logGeneratedSourceFiles(compiler);
-            const liveDir = await deployLive(compiler);
-            await copyFiles(tmpDir, liveDir);
+            await deployLive(compiler, tmpDir);
             timings.push([Date.now(), 'Generating code']);
         }
 

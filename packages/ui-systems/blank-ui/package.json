@@ -31,7 +31,7 @@
     "dev:nui": "ts-node ./nui.dev.ts",
     "dev:test": "vitest",
     "dev:lib": "vite build --watch --mode development",
-    "test": "vitest --run --coverage",
+    "test": "vitest --run --coverage --passWithNoTests",
     "build": "npm run build:nui && npm run build:lib",
     "build:nui": "ts-node ./nui.build.ts",
     "build:lib": "vite build",

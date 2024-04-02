@@ -28,6 +28,10 @@ export const generateVariantsTypes = async (
         return item.context.public;
     });
 
+    if (!variants.length) {
+        return;
+    }
+
     const lines = variants.map(item => generateVariantLine(compiler, item));
     const content = [...lines].join('\n');
 

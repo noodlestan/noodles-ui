@@ -38,6 +38,10 @@ export const generateVariantsConstants = async (
         return item.entity.defaultValue;
     });
 
+    if (!variants.length) {
+        return;
+    }
+
     const importsLine = generateTypeImportLine(compiler, variants);
     const constantsLines = variants.map(item => generateVariantLine(compiler, item));
     const content = [importsLine, '\n', ...constantsLines].join('\n');

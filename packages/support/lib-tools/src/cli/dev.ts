@@ -94,7 +94,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         persistent: true,
     });
 
-    let lastSnapshot: BuildFinishedEvent | undefined;
+    let latestSnapshot: BuildFinishedEvent | undefined;
 
     const refreshWatchers = async (): Promise<void> => {
         logInfo('...reloading project...', undefined, hintExpandPattern(compiler, 'watcher'));
@@ -128,27 +128,27 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         try {
             proc?.kill('SIGINT');
             await execBuild();
-            const snapshot = await loadBuildSnapshotFile(compiler);
-            lastSnapshot = snapshot;
-            PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
+            latestSnapshot = await loadBuildSnapshotFile(compiler);
+            PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
             logSuccess('Build successful');
-            proc = execLive(compiler);
+            if (latestSnapshot.project.generate) {
+                proc = execLive(compiler);
+            }
         } catch (err) {
-            const snapshot = await loadBuildSnapshotFile(compiler);
-            lastSnapshot = snapshot;
-            PubSub.publish(EVENT_BUILD_FINISHED, snapshot);
+            latestSnapshot = await loadBuildSnapshotFile(compiler);
+            PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
             logError('Build error(s)', 'exit code: ' + err);
         }
     };
 
     const queue = new Queue(async (_: string, done) => {
-        const lastBuild = formatBuildResult(lastSnapshot);
+        const lastBuild = formatBuildResult(latestSnapshot);
         const re = lastBuild ? 're' : '';
         logInfo(`...${re}building...`, lastBuild ? 'last build: ' + lastBuild : '');
         await buildNow();
         await refreshWatchers();
         done();
-        const color = !lastSnapshot?.success ? red : hasWarnings(lastSnapshot) ? yellow : green;
+        const color = !latestSnapshot?.success ? red : hasWarnings(latestSnapshot) ? yellow : green;
         logHeader('dev', color);
         server?.nudge();
         setTimeout(() => {
@@ -156,7 +156,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             const { length: queueLength } = queue as QueueSized;
             const { total: buildCount, average: avgBuildTime } = queue.getStats();
             logInfo('Build');
-            logMessage('  Last build:', formatBuildResult(lastSnapshot));
+            logMessage('  Last build:', formatBuildResult(latestSnapshot));
 
             logMessage('  Watched files:', fileCount);
             logMessage('  Build count:', buildCount);

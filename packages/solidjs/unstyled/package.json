@@ -28,7 +28,8 @@
     "require": "./dist/index.umd.cjs"
   },
   "scripts": {
-    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:test\",\"dev:lib\" -c \"green.bold\",\"blue.bold\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev": "concurrently -k --restart-tries -1 --restart-after 1000 -p \"[{name}]\" -n \"dev:NUI\",\"dev:test\",\"dev:lib\" -c \"yellow.bold\",\"green.bold\",\"blue.bold\" \"npm run dev:nui\" \"npm run dev:test\" \"npm run dev:lib\"",
+    "dev:nui": "ts-node ./nui.dev.ts",
     "dev:test": "vitest",
     "dev:lib": "vite build --watch --mode development",
     "nui": "ts-node ./nui.dev.ts",

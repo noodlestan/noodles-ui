@@ -5,22 +5,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Lab UI / build:nui",
+      "name": "Blank UI / build:nui",
       "request": "launch",
       "runtimeArgs": ["run", "build:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/ui-systems/lab-ui"
+      "cwd": "${workspaceFolder}/packages/ui-systems/blank-ui"
     },
     {
-      "name": "Lab UI / dev:nui",
+      "name": "Blank UI / dev:nui",
       "request": "launch",
       "runtimeArgs": ["run", "dev:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "cwd": "${workspaceFolder}/packages/ui-systems/lab-ui"
+      "cwd": "${workspaceFolder}/packages/ui-systems/blank-ui"
     }
   ]
 }
