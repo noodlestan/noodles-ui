@@ -65,7 +65,7 @@ export const createCompiler = async (
     const compiler: CompilerContext = {
         projectFile,
         projectPath,
-        project: { type: 'project', name: '', module: '' },
+        project: { type: 'project', name: '', module: '', resources: {} },
         rootPath,
         build: { timestamp: new Date(), files: [], modules: new Map(), fileNames: [] },
         diagnostics,

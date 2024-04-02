@@ -77,9 +77,10 @@ const loadOwnComponent = (
         );
     }
 
-    const actualProps = context.public
-        ? loadComponentProps(compiler, context, component, component.props || {})
-        : (component.props as ComponentEntityProps);
+    const actualProps =
+        context.public && compiler.project.generate
+            ? loadComponentProps(compiler, context, component, component.props || {})
+            : (component.props as ComponentEntityProps);
 
     const actualMixins: MixinResource[] =
         (component.use

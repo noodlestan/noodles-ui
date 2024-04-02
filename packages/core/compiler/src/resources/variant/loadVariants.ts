@@ -1,15 +1,15 @@
-import { ProjectResource, VariantResource } from '@noodles-ui/core-resources';
+import { VariantResource } from '@noodles-ui/core-resources';
 
 import { newResourceContextPublic } from '../../context/newResourceContextPublic';
 import { CompilerContext } from '../../types';
 
 import { loadVariant } from './loadVariant';
 
-export const loadVariants = (context: CompilerContext, project: ProjectResource): void => {
-    const { variants = [] } = project.resources;
+export const loadVariants = (compiler: CompilerContext): void => {
+    const { variants = [] } = compiler.project.resources;
 
     variants.forEach(variant => {
         const newContext = newResourceContextPublic<VariantResource>(variant);
-        loadVariant(context, newContext);
+        loadVariant(compiler, newContext);
     });
 };

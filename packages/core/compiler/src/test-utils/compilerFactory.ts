@@ -30,7 +30,7 @@ export const compilerFactory = (overides?: Partial<CompilerContext>): CompilerCo
     return {
         projectFile: '',
         projectPath: '',
-        project: { type: 'project', name: '', module: '' },
+        project: { type: 'project', name: '', module: '', resources: {} },
         build: {
             program: {} as ts.Program,
             success: true,

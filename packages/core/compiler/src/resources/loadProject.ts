@@ -11,8 +11,7 @@ import { loadTokens } from './token/loadTokens';
 import { loadVariants } from './variant/loadVariants';
 
 export const loadProjectEntity = (compiler: CompilerContext, project: ProjectResource): void => {
-    const { type, name, module, generate } = project;
-    compiler.project = { type, name, module, generate };
+    compiler.project = project;
 };
 
 export const loadProject = async (
@@ -21,11 +20,11 @@ export const loadProject = async (
     options: CompilerOptions,
 ): Promise<void> => {
     loadProjectEntity(compiler, project);
-    loadSystem(compiler, project);
-    loadSurfaces(compiler, project);
-    loadMixins(compiler, project);
-    loadVariants(compiler, project);
-    loadComponents(compiler, project);
-    loadTokens(compiler, project);
-    await loadThemes(compiler, project, options);
+    loadSystem(compiler);
+    loadSurfaces(compiler);
+    loadMixins(compiler);
+    loadVariants(compiler);
+    loadComponents(compiler);
+    loadTokens(compiler);
+    await loadThemes(compiler, options);
 };

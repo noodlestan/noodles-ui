@@ -13,7 +13,7 @@ type ComponentPropsProps = {
 export const ComponentProps: Component<ComponentPropsProps> = props => {
     const componentProps = () => {
         if (!isComponentImportResource(props.component.entity)) {
-            return Object.values(props.component.entity.props);
+            return Object.values(props.component.entity.props || {});
         }
         return [];
     };

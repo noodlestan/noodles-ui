@@ -7,7 +7,7 @@
     {
       "name": "Blank UI /nui build",
       "request": "launch",
-      "runtimeArgs": ["run", "nui", "build"],
+      "runtimeArgs": ["run", "build:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
@@ -16,7 +16,7 @@
     {
       "name": "Blank UI /nui dev",
       "request": "launch",
-      "runtimeArgs": ["run", "nui", "dev"],
+      "runtimeArgs": ["run", "dev:nui"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",

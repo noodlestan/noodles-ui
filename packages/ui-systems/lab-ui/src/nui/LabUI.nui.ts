@@ -1,5 +1,5 @@
 import { ProjectResource } from '@noodles-ui/core-resources';
-import { SurfaceColor } from '@noodles-ui/solidjs-styled';
+import { SurfaceColorResource } from '@noodles-ui/solidjs-styled';
 
 import components from './components/components.nui';
 import surfaces from './surfaces/surfaces.nui';
@@ -12,7 +12,7 @@ const LabUIResource: ProjectResource = {
     module: '@noodles-ui/lab-ui',
     generate: true,
     system: {
-        use: [SurfaceColor],
+        use: [SurfaceColorResource],
     },
     resources: {
         surfaces,

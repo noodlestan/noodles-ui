@@ -7,7 +7,6 @@
       },
       "surfaces": {
         "stage": {
-          "--type-text-base-fontFamily": "#ffeedd",
           "--color-content-muted-color": "#ddccbb",
           "--color-content-disabled-color": "#888877",
           "--surface-base-bg": "#221100"
