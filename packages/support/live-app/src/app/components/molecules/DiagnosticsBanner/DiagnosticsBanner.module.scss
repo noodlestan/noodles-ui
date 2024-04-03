@@ -1,32 +1,48 @@
 .DiagnosticsBanner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
-.DiagnosticsBanner h3 {
-    border-left: 20px solid limegreen;
-    height: 20px;
-    width: 0;
     overflow: hidden;
-}
-
-.DiagnosticsBanner-has-warnings h3 {
-    border-left-color: orange;
-}
-
-.DiagnosticsBanner-has-errors h3 {
-    border-left-color: orangered;
-}
-
-.DiagnosticsBanner--details {
     display: flex;
     flex-direction: row;
-    gap: 5px;
-    font-size: 20px;
-}
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
 
-.DiagnosticsBanner--items {
-    display: block;
+    & h3 {
+        border-left: 20px solid limegreen;
+        height: 20px;
+        width: 0;
+        overflow: hidden;
+    }
+
+    &-has-warnings h3 {
+        border-left-color: orange;
+    }
+
+    &-has-errors h3 {
+        border-left-color: orangered;
+    }
+
+    &--details {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    &--counts {
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        white-space: nowrap;
+        font-size: 20px;
+    }
+
+    &--items {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+
+    > a {
+        white-space: nowrap;
+    }
 }

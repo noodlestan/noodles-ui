@@ -27,7 +27,9 @@ export const DiagnosticCounts: Component<DiagnosticCountsProps> = props => {
                         <Icon size="s" icon={OctagonAlert} />
                         {props.errors}{' '}
                         <Show when={!props.mini}>
-                            <Plural count={props.errors}>error</Plural>
+                            <span class={styles['DiagnosticCounts--label']}>
+                                <Plural count={props.errors}>error</Plural>
+                            </span>
                         </Show>
                     </span>
                 </Show>
@@ -39,7 +41,9 @@ export const DiagnosticCounts: Component<DiagnosticCountsProps> = props => {
                         <Icon size="s" icon={TriangleAlert} />
                         {props.warnings}{' '}
                         <Show when={!props.mini}>
-                            <Plural count={props.warnings}>warning</Plural>
+                            <span class={styles['DiagnosticCounts--label']}>
+                                <Plural count={props.warnings}>warning</Plural>
+                            </span>
                         </Show>
                     </span>
                 </Show>

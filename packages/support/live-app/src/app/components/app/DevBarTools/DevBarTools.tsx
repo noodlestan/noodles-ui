@@ -44,7 +44,11 @@ export const DevBarTools: Component = () => {
                         <div>{timestamp() ? <TimeAgo date={timestamp()} /> : 'x,x'}</div>
                     </div>
                     <A class={styles['DevBarTools--diagnostics']} href="/diagnostics">
-                        <DiagnosticCounts warnings={warnings().length} errors={errors().length} />
+                        <DiagnosticCounts
+                            mini
+                            warnings={warnings().length}
+                            errors={errors().length}
+                        />
                     </A>
                 </Show>
 
