@@ -7,6 +7,7 @@ export * from './getMixins';
 export * from './getSurfaceByKey';
 export * from './getSurfaces';
 export * from './getSystem';
+export * from './getSystemSurfaceComponent';
 export * from './getThemeByKey';
 export * from './getThemes';
 export * from './getTokenByKey';

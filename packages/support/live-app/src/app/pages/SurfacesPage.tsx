@@ -5,8 +5,8 @@ import { Component, For, Show } from 'solid-js';
 import { ModuleName } from '../components/atoms/ModuleName';
 import { PageHeader } from '../components/atoms/PageHeader';
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
-import { SurfaceCard } from '../components/entities/surface/SurfaceCard';
-import { CardGrid } from '../components/layouts/CardGrid/CardGrid';
+import { SurfaceCardRow } from '../components/entities/surface/SurfaceCardRow';
+import { ListLayout } from '../components/layouts/ListLayout';
 import { SectionLayout } from '../components/layouts/SectionLayout';
 import { StageLayout } from '../components/layouts/StageLayout/StageLayout';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
@@ -22,16 +22,16 @@ export const SurfacesPage: Component = () => {
                     <PageTitle>Surfaces</PageTitle>
                 </PageHeader>
                 <SectionLayout>
-                    <CardGrid>
+                    <ListLayout>
                         <For each={getSurfaces(lastSnapshot())}>
                             {surface => (
-                                <SurfaceCard
+                                <SurfaceCardRow
                                     snapshot={lastSnapshot() as BuildSnapshot}
                                     surface={surface}
                                 />
                             )}
                         </For>
-                    </CardGrid>
+                    </ListLayout>
                 </SectionLayout>
             </StageLayout>
         </Show>

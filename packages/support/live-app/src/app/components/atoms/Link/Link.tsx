@@ -1,7 +1,7 @@
 import { A } from '@solidjs/router';
 import { Component, JSX } from 'solid-js';
 
-import styles from './Link.module.css';
+import styles from './Link.module.scss';
 
 type LinkProps = {
     children: JSX.Element;

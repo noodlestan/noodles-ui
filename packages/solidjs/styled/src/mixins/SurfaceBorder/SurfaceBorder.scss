@@ -5,27 +5,27 @@
     border-radius: var(--surface-base-border-radius);
     box-shadow: var(--surface-base-box-shadow);
 
-    &[data-is-interactive] {
-        border-color: var(--surface-interactive-border-color);
-        border-style: var(--surface-interactive-border-style);
-        border-width: var(--surface-interactive-border-width);
-        border-radius: var(--surface-interactive-border-radius);
-        box-shadow: var(--surface-interactive-box-shadow);
-    }
+    // &[data-is-interactive] {
+    //     border-color: var(--surface-interactive-border-color);
+    //     border-style: var(--surface-interactive-border-style);
+    //     border-width: var(--surface-interactive-border-width);
+    //     border-radius: var(--surface-interactive-border-radius);
+    //     box-shadow: var(--surface-interactive-box-shadow);
+    // }
 
-    &[data-is-active] {
-        border-color: var(--surface-active-border-color);
-        border-style: var(--surface-active-border-style);
-        border-width: var(--surface-active-border-width);
-        border-radius: var(--surface-active-border-radius);
-        box-shadow: var(--surface-active-box-shadow);
-    }
+    // &[data-is-active] {
+    //     border-color: var(--surface-active-border-color);
+    //     border-style: var(--surface-active-border-style);
+    //     border-width: var(--surface-active-border-width);
+    //     border-radius: var(--surface-active-border-radius);
+    //     box-shadow: var(--surface-active-box-shadow);
+    // }
 
-    &[data-is-disabled] {
-        border-color: var(--surface-disabled-border-color);
-        border-style: var(--surface-disabled-border-style);
-        border-width: var(--surface-disabled-border-width);
-        border-radius: var(--surface-disabled-border-radius);
-        box-shadow: var(--surface-disabled-box-shadow);
-    }
+    // &[data-is-disabled] {
+    //     border-color: var(--surface-disabled-border-color);
+    //     border-style: var(--surface-disabled-border-style);
+    //     border-width: var(--surface-disabled-border-width);
+    //     border-radius: var(--surface-disabled-border-radius);
+    //     box-shadow: var(--surface-disabled-box-shadow);
+    // }
 }

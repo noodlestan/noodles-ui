@@ -9,6 +9,7 @@ import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
 import { SystemMixins } from '../components/molecules/SystemMixins/SystemMixins';
+import { SystemSurface } from '../components/molecules/SystemSurface/SystemSurface';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
 export const SystemEntityPage: Component = () => {
@@ -27,6 +28,7 @@ export const SystemEntityPage: Component = () => {
                     <PageTitle>System Root: {entity().name}</PageTitle>
                 </PageHeader>
                 <EntityDiagnostics diagnostics={diagnostics()} />
+                <SystemSurface snapshot={lastSnapshot()} system={system()} />
                 <SystemMixins system={system()} />
                 <EntityReferences item={system()} key="consumers" />
                 <EntityReferences item={system()} key="consumes" />

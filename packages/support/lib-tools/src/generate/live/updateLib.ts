@@ -7,7 +7,7 @@ import { copyFiles } from '../../util/copyFiles';
 import { NUI_GENERATED_DIR, NUI_SOURCE_DIR } from '../constants';
 import { formatTypescriptFile } from '../eslint/formatTypescriptFile';
 
-const SKIP_LIST = ['root.tsx', 'UIRoot.tsx', 'live.map.ts'];
+const SKIP_LIST = ['root.tsx', 'root.css', 'UIRoot.tsx', 'live.map.ts'];
 
 const fileFilter = (fileName: string): boolean => {
     if (SKIP_LIST.find(name => basename(fileName) === name)) {

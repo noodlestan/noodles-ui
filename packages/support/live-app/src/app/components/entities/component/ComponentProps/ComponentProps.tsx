@@ -2,8 +2,8 @@ import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import { isComponentImportResource } from '@noodles-ui/core-resources';
 import { Component, Show } from 'solid-js';
 
-import { SectionTitle } from '../../atoms/SectionTitle';
-import { Collapsible } from '../Collapsible';
+import { SectionTitle } from '../../../atoms/SectionTitle';
+import { Collapsible } from '../../../molecules/Collapsible';
 import { ComponentPropList } from '../ComponentPropList/ComponentPropList';
 
 type ComponentPropsProps = {

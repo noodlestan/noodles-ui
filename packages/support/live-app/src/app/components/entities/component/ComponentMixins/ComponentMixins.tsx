@@ -6,8 +6,8 @@ import {
 import { isComponentImportResource } from '@noodles-ui/core-resources';
 import { Component, Show } from 'solid-js';
 
-import { SectionTitle } from '../../atoms/SectionTitle';
-import { Collapsible } from '../Collapsible';
+import { SectionTitle } from '../../../atoms/SectionTitle';
+import { Collapsible } from '../../../molecules/Collapsible';
 import { ComponentMixinList } from '../ComponentMixinList/ComponentMixinList';
 
 type ComponentMixinsProps = {

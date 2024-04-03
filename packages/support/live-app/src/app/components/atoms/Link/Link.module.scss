@@ -1,0 +1,13 @@
+.Link {
+    max-width: max-content;
+
+    &,
+    &:visited {
+        color: white;
+        cursor: pointer;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

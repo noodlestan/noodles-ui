@@ -1,7 +1,7 @@
 import { PropEntity } from '@noodles-ui/core-entities';
 import { Component, For, Show } from 'solid-js';
 
-import { ListLayout } from '../../layouts/ListLayout';
+import { ListLayout } from '../../../layouts/ListLayout';
 
 type ComponentPropListProps = {
     props: PropEntity[];

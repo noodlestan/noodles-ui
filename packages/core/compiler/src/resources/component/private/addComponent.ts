@@ -33,7 +33,7 @@ export const addComponent = (
             return;
         }
         items.set(key, { context, entity });
-        return;
+        return entity;
     }
 
     const item = items.get(key);

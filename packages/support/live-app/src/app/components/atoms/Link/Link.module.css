@@ -1,9 +1,0 @@
-.Link,
-.Link:visited {
-    color: white;
-    cursor: pointer;
-}
-
-.Link:hover {
-    opacity: 0.9;
-}

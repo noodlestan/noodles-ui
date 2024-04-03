@@ -7,7 +7,7 @@ import { componentsLiveMapFileName } from '../paths/componentsLiveMapFileName';
 
 const factory = ts.factory;
 
-export const importComponent = (
+export const createImportDemoComponent = (
     component: ComponentBuildContext,
     targetDir: string,
 ): ts.Statement => {

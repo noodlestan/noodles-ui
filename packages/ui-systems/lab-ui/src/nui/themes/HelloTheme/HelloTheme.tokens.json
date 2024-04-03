@@ -50,13 +50,27 @@
           "--color-content-primary-color": "#eeeeff",
           "--color-content-muted-color": "#ccccdd",
           "--color-content-disabled-color": "#888899",
-          "--surface-base-fg": "#ffffff",
+          "--surface-base-fg": "#cccccc",
           "--surface-base-bg": "#111122"
         },
+        "page": {
+          "--surface-base-fg": "#eeeeee",
+          "--surface-base-bg": "#000011"
+        },
+        "dialog": {
+          "--surface-base-fg": "#eeeeee",
+          "--surface-base-bg": "#111111"
+        },
         "card": {
-          "--surface-base-bg": "#000000"
+          "--surface-base-fg": "#eeeeee",
+          "--surface-base-bg": "#111111"
+        },
+        "banner": {
+          "--surface-base-fg": "#ffffff",
+          "--surface-base-bg": "#222233"
         },
         "inverse": {
+          "--surface-base-fg": "#ffffff",
           "--surface-base-bg": "#000000"
         }
       }

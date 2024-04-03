@@ -1,5 +1,5 @@
-import { Component } from 'solid-js';
+import { UnknwonComponent } from '../root';
 
-const map: Record<string, Component<never>> = {};
+const map: Record<string, UnknwonComponent> = {};
 
 export default map;

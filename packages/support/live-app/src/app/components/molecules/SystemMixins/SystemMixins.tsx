@@ -2,8 +2,8 @@ import { SystemBuildContext } from '@noodles-ui/core-entities';
 import { Component, Show } from 'solid-js';
 
 import { SectionTitle } from '../../atoms/SectionTitle';
+import { ComponentMixinList } from '../../entities/component/ComponentMixinList/ComponentMixinList';
 import { Collapsible } from '../Collapsible';
-import { ComponentMixinList } from '../ComponentMixinList/ComponentMixinList';
 
 type SystemMixinsProps = {
     system: SystemBuildContext;
