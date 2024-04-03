@@ -1,5 +1,5 @@
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
-import { ComponentOwnResource } from '@noodles-ui/core-resources';
+import { ComponentRenderResource } from '@noodles-ui/core-resources';
 import ts from 'typescript';
 
 const factory = ts.factory;
@@ -53,7 +53,7 @@ const actualPropsStatement = (): ts.Statement => {
 };
 
 const renderStatement = (component: ComponentBuildContext): ts.Statement => {
-    const entity = component.entity as ComponentOwnResource;
+    const entity = component.entity as ComponentRenderResource;
     const { name } = entity;
 
     return factory.createReturnStatement(
@@ -68,7 +68,7 @@ const renderStatement = (component: ComponentBuildContext): ts.Statement => {
 };
 
 export const exportComponent = (component: ComponentBuildContext): ts.Statement => {
-    const entity = component.entity as ComponentOwnResource;
+    const entity = component.entity as ComponentRenderResource;
     const { name } = entity;
 
     const statements: ts.Statement[] = [actualPropsStatement(), renderStatement(component)];

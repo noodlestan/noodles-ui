@@ -1,7 +1,7 @@
 import { MixinResource } from '@noodles-ui/core-resources';
 
-import { ComponentOwnEntity } from '../types';
+import { ComponentRenderEntity } from '../types';
 
-export const getComponentMixins = (entity: ComponentOwnEntity): MixinResource[] => {
+export const getComponentMixins = (entity: ComponentRenderEntity): MixinResource[] => {
     return entity.use;
 };

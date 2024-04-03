@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
     ComponentBuildContext,
-    ComponentOwnEntity,
+    ComponentRenderEntity,
     PropEntity,
     getComponentMixins,
     getPropMixin,
@@ -24,7 +24,7 @@ const mixinImportStatements = (
     compiler: CompilerContext,
     component: ComponentBuildContext,
 ): string[] => {
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
 
     const componentMixins = getComponentMixins(entity);
     const props = getVariantPropsWithMixin(entity);
@@ -40,7 +40,7 @@ const mixinImplementationStatements = (
     component: ComponentBuildContext,
     mixin: MixinInlineResource,
 ): string[] => {
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
     return [createMixinStatement(compiler, mixin, entity.vars)];
 };
 
@@ -51,7 +51,7 @@ const variantImplementationStatements = (
     mixin: MixinInlineResource,
 ): string[] => {
     const variantName = getPropVariantName(prop);
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
     const extraVars = { ...entity.vars, VARIANTS: variantName };
     const code = [createMixinStatement(compiler, mixin, extraVars)];
     return [`&-${prop.name}- {`, ...indent(code), '}'];
@@ -61,7 +61,7 @@ const componentStatements = (
     compiler: CompilerContext,
     component: ComponentBuildContext,
 ): string[] => {
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
 
     const componentMixinStatements = getComponentMixins(entity).map(mixin =>
         mixinImplementationStatements(compiler, component, mixin),

@@ -2,8 +2,8 @@ import { ComponentImportResource } from '@noodles-ui/core-resources';
 
 export const AccordionResource: ComponentImportResource = {
     type: 'component',
-    module: '@kobalte/core',
     name: 'Accordion',
+    module: '@kobalte/core',
     docs: 'https://kobalte.dev/docs/core/components/accordion',
     parts: [
         {

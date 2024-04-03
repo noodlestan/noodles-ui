@@ -1,4 +1,4 @@
-import { ComponentOwnEntity } from '@noodles-ui/core-entities';
+import { ComponentRenderEntity } from '@noodles-ui/core-entities';
 import ts, { JsxAttributeLike } from 'typescript';
 
 import { renderedComponentAlias } from '../util/renderedComponentAlias';
@@ -6,7 +6,7 @@ import { renderedComponentAlias } from '../util/renderedComponentAlias';
 const factory = ts.factory;
 
 export const componentRenderStatement = (
-    entity: ComponentOwnEntity,
+    entity: ComponentRenderEntity,
     jsxProps: JsxAttributeLike[],
 ): ts.Statement => {
     const alias = renderedComponentAlias(entity.render);

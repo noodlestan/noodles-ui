@@ -1,5 +1,5 @@
 import { ComponentContext, ComponentEntityProps } from '@noodles-ui/core-entities';
-import { ComponentOwnResource, ComponentPropsResource } from '@noodles-ui/core-resources';
+import { ComponentPropsResource, ComponentRenderResource } from '@noodles-ui/core-resources';
 
 import { CompilerContext } from '../../../types';
 
@@ -8,7 +8,7 @@ import { loadComponentProp } from './loadComponentProp';
 export const loadComponentProps = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     props: ComponentPropsResource,
 ): ComponentEntityProps => {
     const loadedProps: ComponentEntityProps = {};

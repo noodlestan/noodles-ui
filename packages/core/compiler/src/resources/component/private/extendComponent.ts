@@ -1,9 +1,9 @@
 import {
     ComponentContext,
-    ComponentOwnEntity,
+    ComponentRenderEntity,
     getComponentRenderedProps,
 } from '@noodles-ui/core-entities';
-import { ComponentExtendResource, ComponentOwnResource } from '@noodles-ui/core-resources';
+import { ComponentExtendResource, ComponentRenderResource } from '@noodles-ui/core-resources';
 
 import { CompilerContext } from '../../../types';
 
@@ -13,8 +13,8 @@ export const extendComponent = (
     compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentExtendResource,
-    parent: ComponentOwnEntity,
-): ComponentOwnResource | undefined => {
+    parent: ComponentRenderEntity,
+): ComponentRenderResource | undefined => {
     const { module, name, use, vars = {} } = component;
 
     const actualName = name || parent.name;

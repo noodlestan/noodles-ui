@@ -6,7 +6,7 @@ import {
     PropVariantReference,
 } from '@noodles-ui/core-entities';
 import {
-    ComponentOwnResource,
+    ComponentRenderResource,
     LocalPropResource,
     PropOwnResource,
     VariantInlineExtendResource,
@@ -27,7 +27,7 @@ import { isVariantInlineReferenceResourceProp } from './getters/isVariantInlineR
 const loadVariantInlineProp = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     key: string,
     inlineVariant: VariantInlineResource,
 ): PropVariantEntity | undefined => {
@@ -57,7 +57,7 @@ const loadVariantInlineProp = (
 const loadVariantExtendProp = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     key: string,
     extendVariant: VariantInlineExtendResource,
 ): PropVariantEntity | undefined => {
@@ -87,7 +87,7 @@ const loadVariantExtendProp = (
 const loadVariantReferenceProp = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     key: string,
     variantReference: VariantInlineReferenceResource,
 ): PropVariantReference | undefined => {
@@ -117,7 +117,7 @@ const loadVariantReferenceProp = (
 export const loadComponentProp = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     key: string,
     prop: LocalPropResource,
 ): PropEntity | undefined => {

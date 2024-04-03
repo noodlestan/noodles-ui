@@ -1,11 +1,11 @@
 import {
     ComponentImportPartResource,
     ComponentImportResource,
-    ComponentOwnResource,
+    ComponentRenderResource,
 } from '../component';
 
 export const getComponentRenderedPart = (
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     rendered?: ComponentImportResource,
 ): ComponentImportPartResource | undefined => {
     const { from, name } = component.render;

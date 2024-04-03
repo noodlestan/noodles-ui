@@ -2,6 +2,7 @@ import { ComponentExtendResource } from '@noodles-ui/core-resources';
 import { HeadingResource as HeadingStyledResource } from '@noodles-ui/solidjs-styled';
 
 export const HeadingResource: ComponentExtendResource = {
+    type: 'component',
     module: '@noodles-ui/lab-ui',
     extend: HeadingStyledResource,
     hides: {

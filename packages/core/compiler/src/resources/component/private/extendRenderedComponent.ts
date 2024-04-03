@@ -1,7 +1,7 @@
 import { ComponentContext } from '@noodles-ui/core-entities';
 import {
     ComponentImportPartResource,
-    ComponentOwnResource,
+    ComponentRenderResource,
     LocalPropResource,
 } from '@noodles-ui/core-resources';
 
@@ -16,9 +16,9 @@ export type Props = {
 export const extendRenderedComponent = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     part: ComponentImportPartResource,
-): ComponentOwnResource | undefined => {
+): ComponentRenderResource | undefined => {
     const { name, module, use, render, vars } = component;
 
     const actualProps = mergeProps(compiler, context, component, part.props || {});

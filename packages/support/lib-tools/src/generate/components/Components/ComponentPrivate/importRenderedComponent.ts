@@ -1,5 +1,5 @@
 import { ComponentBuildContext } from '@noodles-ui/core-entities';
-import { ComponentOwnResource, RenderedComponentResource } from '@noodles-ui/core-resources';
+import { ComponentRenderResource, RenderedComponentResource } from '@noodles-ui/core-resources';
 import ts from 'typescript';
 
 import { renderedComponentAlias } from './util/renderedComponentAlias';
@@ -7,7 +7,7 @@ import { renderedComponentAlias } from './util/renderedComponentAlias';
 const factory = ts.factory;
 
 export const importRenderedComponent = (component: ComponentBuildContext): ts.Statement => {
-    const entity = component.entity as ComponentOwnResource;
+    const entity = component.entity as ComponentRenderResource;
     const rendered = entity.render as RenderedComponentResource;
     const { name = '', from } = rendered;
     const alias = renderedComponentAlias(rendered);

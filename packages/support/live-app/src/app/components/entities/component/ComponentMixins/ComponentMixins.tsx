@@ -1,6 +1,6 @@
 import {
     ComponentBuildContext,
-    ComponentOwnEntity,
+    ComponentRenderEntity,
     getComponentMixins,
 } from '@noodles-ui/core-entities';
 import { isComponentImportResource } from '@noodles-ui/core-resources';
@@ -17,7 +17,7 @@ type ComponentMixinsProps = {
 export const ComponentMixins: Component<ComponentMixinsProps> = props => {
     const componentMixins = () => {
         if (!isComponentImportResource(props.component.entity)) {
-            return getComponentMixins(props.component.entity as ComponentOwnEntity);
+            return getComponentMixins(props.component.entity as ComponentRenderEntity);
         }
         return [];
     };

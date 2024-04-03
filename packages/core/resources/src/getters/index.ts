@@ -6,7 +6,7 @@ export * from './getResourceType';
 export * from './getResourceTypedKey';
 export * from './isComponentExtendResource';
 export * from './isComponentImportResource';
-export * from './isComponentOwnResource';
+export * from './isComponentRenderResource';
 export * from './isVariantExtendResource';
 export * from './isVariantOwnResource';
 

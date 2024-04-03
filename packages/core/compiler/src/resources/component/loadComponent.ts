@@ -3,19 +3,19 @@ import {
     ComponentEntity,
     ComponentEntityProps,
     ComponentImportEntity,
-    ComponentOwnEntity,
+    ComponentRenderEntity,
 } from '@noodles-ui/core-entities';
 import {
     ComponentExtendResource,
     ComponentImportResource,
-    ComponentOwnResource,
+    ComponentRenderResource,
     ComponentResource,
     MixinResource,
     getComponentRenderedPart,
     getResourceTypedKey,
     isComponentExtendResource,
     isComponentImportResource,
-    isComponentOwnResource,
+    isComponentRenderResource,
 } from '@noodles-ui/core-resources';
 
 import { newResourceContextWithConsumer } from '../../context/newResourceContextWithConsumer';
@@ -50,8 +50,8 @@ const loadParentComponent = (
 const loadOwnComponent = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
-): ComponentOwnEntity | undefined => {
+    component: ComponentRenderResource,
+): ComponentRenderEntity | undefined => {
     if (component.exposes) {
         compiler.addError(
             component,
@@ -87,21 +87,21 @@ const loadOwnComponent = (
             ?.map(mixin => loadComponentMixin(compiler, context, component, mixin))
             .filter(Boolean) as MixinResource[]) || [];
 
-    const entity: ComponentOwnEntity = {
+    const entity: ComponentRenderEntity = {
         ...structuredClone(component),
         props: actualProps,
         use: actualMixins,
         vars: component.vars || {},
     };
 
-    return addComponent(compiler, context, entity) as ComponentOwnEntity;
+    return addComponent(compiler, context, entity) as ComponentRenderEntity;
 };
 
 const loadComponentRenders = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
-): ComponentOwnEntity | undefined => {
+    component: ComponentRenderResource,
+): ComponentRenderEntity | undefined => {
     const { from: parent, name } = component.render;
     const loadedParent = loadRenderedComponent(compiler, context, parent);
     if (!loadedParent) {
@@ -131,12 +131,12 @@ const loadComponentExtend = (
     compiler: CompilerContext,
     context: ComponentContext,
     component: ComponentExtendResource,
-): ComponentOwnEntity | undefined => {
+): ComponentRenderEntity | undefined => {
     const loadedParent = loadParentComponent(
         compiler,
         context,
         component.extend,
-    ) as ComponentOwnEntity;
+    ) as ComponentRenderEntity;
     if (!loadedParent) {
         compiler.addError(
             component,
@@ -168,7 +168,7 @@ export const loadComponent = (
 ): ComponentEntity | undefined => {
     const { resource } = context;
 
-    const component = isComponentOwnResource(resource);
+    const component = isComponentRenderResource(resource);
     if (component) {
         return loadComponentRenders(compiler, context, component);
     }

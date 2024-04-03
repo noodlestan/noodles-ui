@@ -1,6 +1,6 @@
 import { ComponentContext, NUI } from '@noodles-ui/core-entities';
 import {
-    ComponentOwnResource,
+    ComponentRenderResource,
     MixinResource,
     getResourceTypedKey,
 } from '@noodles-ui/core-resources';
@@ -12,7 +12,7 @@ import { loadMixin } from '../../mixin/loadMixin';
 export const loadComponentMixin = (
     compiler: CompilerContext,
     context: ComponentContext,
-    component: ComponentOwnResource,
+    component: ComponentRenderResource,
     mixinResource: MixinResource,
 ): MixinResource | undefined => {
     const newResource = {

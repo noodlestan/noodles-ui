@@ -1,9 +1,9 @@
 import { ComponentImportPartResource } from '@noodles-ui/core-resources';
 
-import { ComponentImportEntity, ComponentOwnEntity } from '../types';
+import { ComponentImportEntity, ComponentRenderEntity } from '../types';
 
 export const getComponentRenderedPart = (
-    component: ComponentOwnEntity,
+    component: ComponentRenderEntity,
     rendered?: ComponentImportEntity,
 ): ComponentImportPartResource | undefined => {
     const { from, name } = component.render;

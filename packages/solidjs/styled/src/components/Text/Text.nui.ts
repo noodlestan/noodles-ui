@@ -1,4 +1,4 @@
-import { ComponentOwnResource, VariantInlineExtendResource } from '@noodles-ui/core-resources';
+import { ComponentRenderResource, VariantInlineExtendResource } from '@noodles-ui/core-resources';
 import { TextResource as TextUnstyledResource } from '@noodles-ui/solidjs-unstyled';
 
 import { TypeResetResource } from '../../mixins/index.nui';
@@ -11,17 +11,17 @@ export const TextTypeVariantResource: VariantInlineExtendResource = {
     defaultValue: 'large',
 };
 
-export const TextResource: ComponentOwnResource = {
+export const TextResource: ComponentRenderResource = {
     type: 'component',
     name: 'Text',
     module: '@noodles-ui/solidjs-styled',
-    use: [TypeResetResource],
-    props: {
-        variant: TextTypeVariantResource,
-    },
-    exposes: '*',
     render: {
         name: 'Text',
         from: TextUnstyledResource,
+    },
+    use: [TypeResetResource],
+    exposes: '*',
+    props: {
+        variant: TextTypeVariantResource,
     },
 };

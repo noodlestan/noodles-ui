@@ -1,6 +1,6 @@
 import {
     ComponentBuildContext,
-    ComponentOwnEntity,
+    ComponentRenderEntity,
     getComponentRenderedProps,
     getPropsWithDefaultValues,
 } from '@noodles-ui/core-entities';
@@ -44,7 +44,7 @@ const expressionCallProp = (propName: string): ts.JsxAttribute => {
 
 const getPropsForRenderedComponent = (component: ComponentBuildContext): JsxAttribute[] => {
     const { entity } = component;
-    const renderedProps = getComponentRenderedProps(entity as ComponentOwnEntity);
+    const renderedProps = getComponentRenderedProps(entity as ComponentRenderEntity);
     const propsWithDefaults = getPropsWithDefaultValues(entity);
 
     const props = propsWithDefaults
@@ -69,7 +69,7 @@ const getPropsForRenderedComponent = (component: ComponentBuildContext): JsxAttr
 };
 
 export const exportComponent = (component: ComponentBuildContext): ts.Statement => {
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
     const name = entity.name || '';
     const jsxProps = getPropsForRenderedComponent(component);
 

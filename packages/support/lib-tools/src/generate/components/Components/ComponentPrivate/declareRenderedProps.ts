@@ -1,5 +1,5 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
-import { ComponentBuildContext, ComponentOwnEntity } from '@noodles-ui/core-entities';
+import { ComponentBuildContext, ComponentRenderEntity } from '@noodles-ui/core-entities';
 import { RenderedComponentResource } from '@noodles-ui/core-resources';
 import ts from 'typescript';
 
@@ -31,7 +31,7 @@ export const declareRenderedProps = (
     component: ComponentBuildContext,
 ): ts.TypeAliasDeclaration => {
     const { resource } = component.context;
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
     const rendered = entity.render as RenderedComponentResource;
 
     const alias = renderedComponentAlias(rendered);

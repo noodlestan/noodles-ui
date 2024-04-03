@@ -31,7 +31,7 @@ export type ComponentPropsResource = {
     [name: string]: LocalPropResource;
 };
 
-export type ComponentOwnResource = Resource<'component'> & {
+export type ComponentRenderResource = Resource<'component'> & {
     params?: string[];
     use?: MixinResource[];
     hides?: {
@@ -55,25 +55,25 @@ export type ComponentOwnResource = Resource<'component'> & {
     vars?: ComponentVars;
 };
 
-export type ComponentExtendResource = Omit<ComponentOwnResource, 'type' | 'name' | 'render'> & {
+export type ComponentExtendResource = Omit<ComponentRenderResource, 'name' | 'render'> & {
     name?: string;
-    extend: ComponentOwnResource | ComponentExtendResource;
+    extend: ComponentRenderResource | ComponentExtendResource;
 };
 
 export type ComponentImportPartResource = Omit<
-    ComponentOwnResource,
+    ComponentRenderResource,
     'type' | 'module' | 'render'
 > & {
     // TODO alias
 };
 
-export type ComponentImportResource = Omit<ComponentOwnResource, 'render'> & {
+export type ComponentImportResource = Omit<ComponentRenderResource, 'render'> & {
     alias?: string;
     docs?: string;
     parts: ComponentImportPartResource[];
 };
 
 export type ComponentResource =
-    | ComponentOwnResource
+    | ComponentRenderResource
     | ComponentImportResource
     | ComponentExtendResource;

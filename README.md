@@ -20,32 +20,36 @@ See each package's README for more details.
 
 ### Core packages
 
-- [Types](./packages/core/types/README.md) - For modeling design systems
+- [Types](./packages/core/types/README.md) - Core domain types
+- [Types](./packages/core/resources/README.md) - Types for modeling design systems
+- [Types](./packages/core/entities/README.md) - Types to support the design system build tools
+- [Types](./packages/core/diagnostics/README.md) - Types for modeling build diagnostics
+- [Types](./packages/core/compiler-types/README.md) - More types to support the design system build tools
+- [Types](./packages/core/compiler/README.md) - Design system project compiler.
 
 ### SolidJS
 
-- [Services](./packages/core/services/README.md) - Core services and providers
-- [Unstyled](./packages/core/unstyled/README.md) - Headless (unstyled) components and primitives
-- [Styled](./packages/core/styled/README.md) - Styling components and primitives
+High quality components from headless libraries and catalogue of styling primitives
 
-### Catalogue
-
-Use high quality components and primitives from headless libraries
-
-- [Kobalte](./packages/catalog/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
+- [Services](./packages/solidjs/services/README.md) - Core services and providers
+- [Kobalte](./packages/solidjs/kobalte/README.md) - Catalogue of [Kobalte](https://kobalte.dev/) components
+- [Unstyled](./packages/solidjs/unstyled/README.md) - Headless (unstyled) components and primitives
+- [Styled](./packages/solidjs/styled/README.md) - Styling components and primitives
 
 ### UI libraries
+
+Libraries built with NUI
 
 - [Lab UI Library](./packages/ui-systems/lab-ui/README.md) - Noodles UI experimentation & playground library
 - [Standard UI Library](./packages/ui-systems/standard-ui/README.md) - Production ready UI library with a token based, fully customizable, modern design
 - [Proto UI Library](./packages/ui-systems/proto-ui/README.md) - UI library for building prototypes with a neutral "wireframe-ish" look
   and feel
+- [Blank UI Library](./packages/ui-systems/blank-ui/README.md) - A blank state library used to test the DevX.
 
 ### Support packages
 
-- [Lib tools](./packages/support/lib-tools/README.md) - Tools for building and managing design systems
+- [Lib tools](./packages/support/lib-tools/README.md) - CLI Tools for building and managing design systems
 - [Live app](./packages/support/live-app/README.md) - Lib tools web interface
-- [Types](./packages/support/types/README.md) - Types to support the design system build tools
 - [Sandbox components](./packages/support/sandbox-components-solid/README.md) - SolidJS Components for Noodles UI Sandboxes
 
 ### Sandbox apps

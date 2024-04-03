@@ -1,5 +1,5 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
-import { ComponentBuildContext, ComponentOwnEntity } from '@noodles-ui/core-entities';
+import { ComponentBuildContext, ComponentRenderEntity } from '@noodles-ui/core-entities';
 import ts from 'typescript';
 
 import { NUI_RENDERED_PROPS_NAME } from '../../../constants';
@@ -12,7 +12,7 @@ export const exportComponentProps = (
     compiler: CompilerContext,
     component: ComponentBuildContext,
 ): ts.TypeAliasDeclaration => {
-    const entity = component.entity as ComponentOwnEntity;
+    const entity = component.entity as ComponentRenderEntity;
 
     const name = entity.name || '';
     const inheritedType = factory.createTypeReferenceNode(
