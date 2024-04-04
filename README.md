@@ -21,11 +21,12 @@ See each package's README for more details.
 ### Core packages
 
 - [Types](./packages/core/types/README.md) - Core domain types
-- [Types](./packages/core/resources/README.md) - Types for modeling design systems
-- [Types](./packages/core/entities/README.md) - Types to support the design system build tools
-- [Types](./packages/core/diagnostics/README.md) - Types for modeling build diagnostics
-- [Types](./packages/core/compiler-types/README.md) - More types to support the design system build tools
-- [Types](./packages/core/compiler/README.md) - Design system project compiler.
+- [Resources](./packages/core/resources/README.md) - Types for modeling design systems
+- [Entities](./packages/core/entities/README.md) - Types to support the design system build tools
+- [Diagnostics](./packages/core/diagnostics/README.md) - Types for modeling build diagnostics
+- [Compiler Types](./packages/core/compiler-types/README.md) - More types to support the design system build tools
+- [Compiler](./packages/core/compiler/README.md) - Design system project compiler.
+- TODO extract `core-generator` from lib-tools
 
 ### SolidJS
 
@@ -49,6 +50,8 @@ Libraries built with NUI
 ### Support packages
 
 - [Lib tools](./packages/support/lib-tools/README.md) - CLI Tools for building and managing design systems
+  - TODO extract `/generator` to `@noodles-ui/core-generator`
+  - TODO rename to  `@noodles-ui/cli`
 - [Live app](./packages/support/live-app/README.md) - Lib tools web interface
 - [Sandbox components](./packages/support/sandbox-components-solid/README.md) - SolidJS Components for Noodles UI Sandboxes
 
