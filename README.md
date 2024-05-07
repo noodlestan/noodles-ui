@@ -1,13 +1,21 @@
 # Noodles UI
 
-> Tokens first UI library framework
->
-> ~ \o/ early days \o/ ~
+> Tokens first design system generator
+
+Still early days, but already useful for my own projects.
+
+| NUI CLI                                                                                        | NUI Live Preview                                                                              |
+| ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| ![](https://raw.githubusercontent.com/noodlestan/.github/main/profile/assets/nui-devx-cli.png) | ![](https://raw.githubusercontent.com/noodlestan/.github/main/profile/assets/nui-devx-ui.png) |
+
+- Comfortable CLI and live preview experience
+- Currently capable of generating SolidJS components with SCSS modules styles.
+- Could potentially target React, Vue, Svelte or native libraries, as well as Tailwind, PandaCSS, Vanilla, and other styling stacks.
 
 **Goals:**
 
 - Support the creation and management of large, complex, and/or many design system UI libraries
-- Build quickly on top of high quality headless components and primitives (Kobalte, Ark UI, and Noodles own catalogue)
+- Build quickly on top of high quality headless components and primitives ([Kobalte](https://kobalte.dev/) and Noodles own catalogue)
 - Use a tokens first approach to all things design, style, themes, code, and tools
 - Auto generate high performance and platform specific code, while preserving the ability to extend it
 - Supreme authoring experience for developers, designers, and documentation authors alike
