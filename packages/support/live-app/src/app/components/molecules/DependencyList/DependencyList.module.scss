@@ -1,0 +1,11 @@
+.DependencyList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}

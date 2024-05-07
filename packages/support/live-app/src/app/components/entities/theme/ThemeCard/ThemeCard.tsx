@@ -27,7 +27,7 @@ export const ThemeCard: Component<ThemeCardProps> = props => {
         <EntityCard classList={classList()} public={props.theme.context.public} href={path()}>
             <EntityCardTitle>
                 <ModuleName>{entity().module}</ModuleName>
-                <EntityName>{entity().name}</EntityName>
+                <EntityName type="theme">{entity().name}</EntityName>
             </EntityCardTitle>
             <EntityDiagnosticCounts snapshot={props.snapshot} context={props.theme} />
         </EntityCard>

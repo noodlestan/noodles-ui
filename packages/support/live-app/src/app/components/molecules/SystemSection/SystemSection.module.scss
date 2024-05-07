@@ -8,25 +8,22 @@
         gap: 5px;
     }
 
-    &--items {
+    &--details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &--details > div {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 10px;
         margin: 0px;
         padding: 0;
+    }
 
-        li {
-            list-style: none;
-        }
-
-        span {
-            padding: 2px;
-            padding: 0;
-        }
-
-        > a {
-            max-width: max-content;
-        }
+    h4 {
+        margin: 0;
     }
 }

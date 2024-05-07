@@ -49,7 +49,7 @@ function transform<T extends UnknownBuildContext, V extends UnknownBuildContextD
 }
 
 export const serializeSnapshot = (snapshot: BuildSnapshot): BuildSnapshotDto => {
-    const { project, success, timestamp, entities } = snapshot;
+    const { project, success, timestamp, entities, dependencies } = snapshot;
     const { system, surface, mixin, variant, component, token, theme } = entities;
     const data = {
         project,
@@ -68,6 +68,7 @@ export const serializeSnapshot = (snapshot: BuildSnapshot): BuildSnapshotDto => 
             token: mapToObject<TokenBuildContext, TokenBuildContextDto>(token, transform),
         },
         diagnostics: snapshot.diagnostics,
+        dependencies,
     };
     return data;
 };

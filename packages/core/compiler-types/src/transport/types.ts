@@ -67,6 +67,7 @@ export type BuildSnapshotAttributesDto = {
     project: ProjectEntity;
     success: boolean;
     timestamp: string;
+    dependencies: string[];
 };
 
 // export type EntitiesMapDto = Record<EntityType, EntityBuildMapDto<UnknownBuildContextDto>>;

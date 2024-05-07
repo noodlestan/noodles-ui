@@ -12,6 +12,7 @@ import {
     ComponentResource,
     MixinResource,
     getComponentRenderedPart,
+    getResourceKey,
     getResourceTypedKey,
     isComponentExtendResource,
     isComponentImportResource,
@@ -78,7 +79,7 @@ const loadOwnComponent = (
     }
 
     const actualProps =
-        context.public && compiler.project.generate
+        context.public && compiler.project.system
             ? loadComponentProps(compiler, context, component, component.props || {})
             : (component.props as ComponentEntityProps);
 
@@ -102,29 +103,30 @@ const loadComponentRenders = (
     context: ComponentContext,
     component: ComponentRenderResource,
 ): ComponentRenderEntity | undefined => {
-    const { from: parent, name } = component.render;
-    const loadedParent = loadRenderedComponent(compiler, context, parent);
-    if (!loadedParent) {
+    const { from: parent } = component.render;
+    const renderedComponent = loadRenderedComponent(compiler, context, parent);
+    if (!renderedComponent) {
+        const name = getResourceKey(parent);
         compiler.addError(
             component,
-            'Could not extend component because resolution of rendered component failed.',
+            `Could not extend component because resolution of rendered component "${name}" failed.`,
         );
         return;
     }
-    const part = getComponentRenderedPart(component, loadedParent);
+    context.consumes.add(getResourceTypedKey(renderedComponent));
+
+    const part = getComponentRenderedPart(component, renderedComponent);
     if (!part) {
         compiler.addError(
             component,
-            `Could not extend rendered component because could not resolve part "${name}".`,
+            `Could not extend rendered component because could not resolve part "${component.render.name}".`,
         );
         return;
     }
-    const extended = extendRenderedComponent(compiler, context, component, part);
-    if (extended) {
-        context.consumes.add(getResourceTypedKey(parent));
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        return loadOwnComponent(compiler, context, extended);
-    }
+    const entity = extendRenderedComponent(compiler, context, component, part);
+
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    return loadOwnComponent(compiler, context, entity);
 };
 
 const loadComponentExtend = (
@@ -132,21 +134,21 @@ const loadComponentExtend = (
     context: ComponentContext,
     component: ComponentExtendResource,
 ): ComponentRenderEntity | undefined => {
-    const loadedParent = loadParentComponent(
+    const extendedComponent = loadParentComponent(
         compiler,
         context,
         component.extend,
     ) as ComponentRenderEntity;
-    if (!loadedParent) {
+    if (!extendedComponent) {
         compiler.addError(
             component,
             'Could not extend component because resolution of extended component failed.',
         );
         return;
     }
-    const extended = extendComponent(compiler, context, component, loadedParent);
+    const extended = extendComponent(compiler, context, component, extendedComponent);
     if (extended) {
-        context.consumes.add(getResourceTypedKey(loadedParent));
+        context.consumes.add(getResourceTypedKey(extendedComponent));
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         return loadOwnComponent(compiler, context, extended);
     }

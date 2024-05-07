@@ -1,6 +1,6 @@
 import { Component, JSX } from 'solid-js';
 
-import styles from './PageTitle.module.css';
+import styles from './PageTitle.module.scss';
 
 type PageTitleProps = {
     children: JSX.Element;

@@ -18,7 +18,7 @@ export const extendRenderedComponent = (
     context: ComponentContext,
     component: ComponentRenderResource,
     part: ComponentImportPartResource,
-): ComponentRenderResource | undefined => {
+): ComponentRenderResource => {
     const { name, module, use, render, vars } = component;
 
     const actualProps = mergeProps(compiler, context, component, part.props || {});

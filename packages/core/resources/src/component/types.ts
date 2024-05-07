@@ -68,9 +68,10 @@ export type ComponentImportPartResource = Omit<
 };
 
 export type ComponentImportResource = Omit<ComponentRenderResource, 'render'> & {
+    package?: string;
+    parts: ComponentImportPartResource[];
     alias?: string;
     docs?: string;
-    parts: ComponentImportPartResource[];
 };
 
 export type ComponentResource =

@@ -8,6 +8,7 @@ import styles from './DiagnosticCounts.module.scss';
 
 type DiagnosticCountsProps = {
     mini?: boolean;
+    noIcons?: boolean;
     warnings: number;
     errors: number;
 };
@@ -24,7 +25,9 @@ export const DiagnosticCounts: Component<DiagnosticCountsProps> = props => {
             <p classList={classList()}>
                 <Show when={props.errors}>
                     <span class={styles['DiagnosticCounts--errors']}>
-                        <Icon size="s" icon={OctagonAlert} />
+                        <Show when={!props.noIcons}>
+                            <Icon size="s" icon={OctagonAlert} />
+                        </Show>
                         {props.errors}{' '}
                         <Show when={!props.mini}>
                             <span class={styles['DiagnosticCounts--label']}>
@@ -38,7 +41,9 @@ export const DiagnosticCounts: Component<DiagnosticCountsProps> = props => {
                 </Show>
                 <Show when={props.warnings}>
                     <span class={styles['DiagnosticCounts--warnings']}>
-                        <Icon size="s" icon={TriangleAlert} />
+                        <Show when={!props.noIcons}>
+                            <Icon size="s" icon={TriangleAlert} />
+                        </Show>
                         {props.warnings}{' '}
                         <Show when={!props.mini}>
                             <span class={styles['DiagnosticCounts--label']}>

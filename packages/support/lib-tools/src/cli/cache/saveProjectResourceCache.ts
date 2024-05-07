@@ -1,12 +1,12 @@
 import { CompilerContext, saveProjectResourceCacheFile } from '@noodles-ui/core-compiler';
-import { ProjectResource } from '@noodles-ui/core-resources';
+import { NUIProjectResource } from '@noodles-ui/core-resources';
 
 import { formatFileNameRelativeToProject } from '../format/formatFileNameRelativeToProject';
 import { logSuccess } from '../logger/logSuccess';
 
 export const saveProjectResourceCache = async (
     compiler: CompilerContext,
-    resource: ProjectResource,
+    resource: NUIProjectResource,
 ): Promise<void> => {
     const fileName = await saveProjectResourceCacheFile(compiler, resource);
 

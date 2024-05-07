@@ -77,7 +77,7 @@ const makeMatrix = (mixin: MixinEntity): TokenVars[] => {
     }, tokenVars);
 };
 
-const loadVariantTokenTokens = (
+const loadMixinTokenTokens = (
     compiler: CompilerContext,
     context: MixinContext,
     mixin: MixinEntity,
@@ -109,13 +109,13 @@ const loadVariantTokenTokens = (
     return [];
 };
 
-const loadVariantToken = (
+const loadMixinToken = (
     compiler: CompilerContext,
     context: MixinContext,
     mixin: MixinEntity,
     token: InlineTokenResource,
 ): void => {
-    const tokens = loadVariantTokenTokens(compiler, context, mixin, token);
+    const tokens = loadMixinTokenTokens(compiler, context, mixin, token);
     const filtered = tokens.filter(token => Boolean(token)) as TokenEntity[];
     filtered.forEach(token => context.consumes.add(getResourceTypedKey(token)));
 };
@@ -125,5 +125,5 @@ export const loadMixinTokens = (
     context: MixinContext,
     mixin: MixinEntity,
 ): void => {
-    mixin.tokens?.forEach(token => loadVariantToken(compiler, context, mixin, token));
+    mixin.tokens?.forEach(token => loadMixinToken(compiler, context, mixin, token));
 };

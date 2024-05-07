@@ -5,6 +5,7 @@ import {
     VariantResource,
     VariantVars,
     getResourceKey,
+    getResourceTypedKey,
     isVariantExtendResource,
     isVariantOwnResource,
 } from '@noodles-ui/core-resources';
@@ -26,6 +27,9 @@ const loadVariantOwnResource = (
     const actualVars = { ...variant.vars, ...vars };
 
     const actualMixin = loadVariantMixin(compiler, context, variant);
+    if (actualMixin) {
+        context.consumes.add(getResourceTypedKey(actualMixin));
+    }
     const actualOptions = variant.options || [];
     const actualParams = [...(variant.params || []), ...(actualMixin?.params || [])];
     const actualTokens = [...(variant.tokens || []), ...(actualMixin?.tokens || [])];
@@ -66,18 +70,15 @@ const loadVariantExtend = (
     extendVariant: VariantInlineExtendResource,
     vars?: VariantVars,
 ): VariantEntity | undefined => {
-    const parent = loadExtendedVariant(compiler, context, extendVariant);
-    if (!parent) {
+    const extendedVariant = loadExtendedVariant(compiler, context, extendVariant);
+    if (!extendedVariant) {
         const name = getResourceKey(extendVariant);
         compiler.addError(extendVariant, `Could not load extended variant "${name}".`);
         return;
     }
+    context.consumes.add(getResourceTypedKey(extendedVariant));
 
-    const entity = extendVariantExtends(compiler, context, extendVariant, parent, vars);
-    if (!entity) {
-        compiler.addError(extendVariant, 'Could not load variant');
-        return;
-    }
+    const entity = extendVariantExtends(compiler, context, extendVariant, extendedVariant, vars);
 
     if (context.public) {
         loadVariantTokens(compiler, context, entity);

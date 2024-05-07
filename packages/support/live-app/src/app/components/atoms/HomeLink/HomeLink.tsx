@@ -9,7 +9,7 @@ export const HomeLink: Component = () => {
     });
 
     return (
-        <A end classList={classList()} href="/">
+        <A end classList={classList()} href="/nui">
             NUI
         </A>
     );

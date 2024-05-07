@@ -27,7 +27,7 @@ export const MixinCard: Component<MixinCardProps> = props => {
         <EntityCard classList={classList()} public={props.mixin.context.public} href={path()}>
             <EntityCardTitle>
                 <ModuleName>{entity().module}</ModuleName>
-                <EntityName>{entity().name}</EntityName>
+                <EntityName type="mixin">{entity().name}</EntityName>
             </EntityCardTitle>
 
             <EntityDiagnosticCounts snapshot={props.snapshot} context={props.mixin} />

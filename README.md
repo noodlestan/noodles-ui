@@ -51,7 +51,7 @@ Libraries built with NUI
 
 - [Lib tools](./packages/support/lib-tools/README.md) - CLI Tools for building and managing design systems
   - TODO extract `/generator` to `@noodles-ui/core-generator`
-  - TODO rename to  `@noodles-ui/cli`
+  - TODO rename to `@noodles-ui/cli`
 - [Live app](./packages/support/live-app/README.md) - Lib tools web interface
 - [Sandbox components](./packages/support/sandbox-components-solid/README.md) - SolidJS Components for Noodles UI Sandboxes
 

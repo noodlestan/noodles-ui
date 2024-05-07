@@ -3,12 +3,15 @@ import { getTokenByKey } from '@noodles-ui/core-entities';
 import { useParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
-import { ModuleName } from '../components/atoms/ModuleName';
+import { Icon } from '../components/atoms/Icon';
 import { PageHeader } from '../components/atoms/PageHeader/PageHeader';
 import { PageTitle } from '../components/atoms/PageTitle/PageTitle';
+import { ENTITY_TYPE_ICONS } from '../components/entities/ENTITY_TYPE_ICONS';
+import { EntityPageLayout } from '../components/layouts/EntityPageLayout';
 import { PageLayout } from '../components/layouts/PageLayout/PageLayout';
 import { EntityDiagnostics } from '../components/molecules/EntityDiagnostics/EntityDiagnostics';
 import { EntityReferences } from '../components/molecules/EntityReferences/EntityReferences';
+import { PageCrumbs } from '../components/molecules/PageCrumbs';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
 export const TokenEntityPage: Component = () => {
@@ -22,16 +25,21 @@ export const TokenEntityPage: Component = () => {
 
     return (
         <Show when={lastSnapshot()}>
-            <PageLayout tag="main">
-                <PageHeader>
-                    <ModuleName>{entity().module}</ModuleName>
-                    <PageTitle>Token: {entity().name}</PageTitle>
-                </PageHeader>
-                <EntityDiagnostics diagnostics={diagnostics()} />
+            <EntityPageLayout>
+                <PageCrumbs project={lastSnapshot()?.project} entity={entity()} />
+                <PageLayout>
+                    <PageHeader>
+                        <PageTitle>
+                            <Icon icon={ENTITY_TYPE_ICONS.token} />
+                            {entity().name}
+                        </PageTitle>
+                    </PageHeader>
+                    <EntityDiagnostics diagnostics={diagnostics()} />
 
-                <EntityReferences item={token()} key="consumers" />
-                <EntityReferences item={token()} key="consumes" />
-            </PageLayout>
+                    <EntityReferences item={token()} key="consumers" />
+                    <EntityReferences item={token()} key="consumes" />
+                </PageLayout>
+            </EntityPageLayout>
         </Show>
     );
 };

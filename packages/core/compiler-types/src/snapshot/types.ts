@@ -5,6 +5,7 @@ export type BuildSnapshotAttributes = {
     project: ProjectEntity;
     success: boolean;
     timestamp: Date;
+    dependencies: string[];
 };
 
 export type BuildSnapshot = BuildSnapshotAttributes & ProjectEntities & ProjectDiagnostics;

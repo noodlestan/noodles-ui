@@ -3,22 +3,19 @@ import { Component, For, Show } from 'solid-js';
 import { EntityKeyLink } from '../../atoms/EntityKeyLink';
 import { ListLayout } from '../../layouts/ListLayout';
 
-type EntityDiagnosticsProps = {
+type EntityKeyListProps = {
     keys: string[];
 };
 
-export const EntityKeyList: Component<EntityDiagnosticsProps> = props => {
+export const EntityKeyList: Component<EntityKeyListProps> = props => {
     return (
         <Show when={props.keys.length}>
             <ListLayout tag="ul">
                 <For each={props.keys}>
-                    {(key, index) => {
+                    {key => {
                         return (
                             <li>
                                 <EntityKeyLink key={key} />
-                                <Show when={index() < props.keys.length - 1}>
-                                    <span>,</span>{' '}
-                                </Show>
                             </li>
                         );
                     }}

@@ -39,12 +39,15 @@ export const DiagnosticsBanner: Component<DiagnosticSourceItemProps> = props => 
                 <div class={styles['DiagnosticsBanner--details']}>
                     <SectionTitle>Diagnostics</SectionTitle>
                     <div class={styles['DiagnosticsBanner--counts']}>
-                        <DiagnosticCounts warnings={warnings().length} errors={errors().length} />
+                        <DiagnosticCounts
+                            warnings={warnings().length}
+                            errors={errors().length}
+                            noIcons={props.noLink}
+                        />
                         <div class={styles['DiagnosticsBanner--items']}>
                             <Show when={!props.onItem}>
                                 in {items().length} <Plural count={items().length}>item</Plural>
                             </Show>
-                            <Show when={props.onItem}>in this item</Show>
                         </div>
                     </div>
                 </div>

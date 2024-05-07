@@ -46,7 +46,7 @@ function transform<T extends UnknownBuildContextDto, V extends UnknownBuildConte
 }
 
 export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): BuildSnapshot => {
-    const { project, timestamp, success, entities, diagnostics } = snapshotDto;
+    const { project, timestamp, success, entities, diagnostics, dependencies } = snapshotDto;
     const { system, surface, mixin, variant, component, token, theme } = entities;
 
     const entityMaps = {
@@ -59,5 +59,12 @@ export const deserializeSnapshot = (snapshotDto: BuildSnapshotDto): BuildSnapsho
         theme: toMap<ThemeBuildContext, ThemeBuildContextDto>(theme, transform),
     };
 
-    return { project, timestamp: new Date(timestamp), success, entities: entityMaps, diagnostics };
+    return {
+        project,
+        timestamp: new Date(timestamp),
+        success,
+        entities: entityMaps,
+        diagnostics,
+        dependencies,
+    };
 };

@@ -2,13 +2,15 @@ import { ComponentBuildContext } from '@noodles-ui/core-entities';
 import { getResourceKey } from '@noodles-ui/core-resources';
 import { Component } from 'solid-js';
 
+import { Renderer } from '../../../atoms/Renderer/Renderer';
+
 import styles from './ComponentRenderer.module.scss';
 
-type EntityDiagnosticsProps = {
+type ComponentRendererrops = {
     component: ComponentBuildContext;
 };
 
-export const ComponentRenderer: Component<EntityDiagnosticsProps> = props => {
+export const ComponentRenderer: Component<ComponentRendererrops> = props => {
     const path = () => getResourceKey(props.component.entity).replace(':', '/');
 
     const classList = () => ({
@@ -17,7 +19,7 @@ export const ComponentRenderer: Component<EntityDiagnosticsProps> = props => {
 
     return (
         <div classList={classList()}>
-            <iframe src={`http://localhost:3133/component/${path()}`} />
+            <Renderer src={`http://localhost:3133/component/${path()}`} />
         </div>
     );
 };

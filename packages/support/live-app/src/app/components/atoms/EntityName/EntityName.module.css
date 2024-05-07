@@ -1,4 +1,7 @@
 .EntityName {
+    display: flex;
+    gap: 5px;
+    align-items: center;
     margin: 0;
     font-size: 20px;
     font-weight: normal;

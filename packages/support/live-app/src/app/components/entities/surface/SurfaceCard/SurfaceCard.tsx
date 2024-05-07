@@ -27,7 +27,7 @@ export const SurfaceCard: Component<SurfaceCardProps> = props => {
         <EntityCard classList={classList()} public={props.surface.context.public} href={path()}>
             <EntityCardTitle>
                 <ModuleName>{entity().module}</ModuleName>
-                <EntityName>{entity().name}</EntityName>
+                <EntityName type="surface">{entity().name}</EntityName>
             </EntityCardTitle>
 
             <EntityDiagnosticCounts snapshot={props.snapshot} context={props.surface} />

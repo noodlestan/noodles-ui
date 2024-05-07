@@ -1,6 +1,6 @@
 import { Component, JSX, Show } from 'solid-js';
 
-import styles from './EntityCard.module.css';
+import styles from './EntityCard.module.scss';
 
 type EntityCardProps = {
     children: JSX.Element;

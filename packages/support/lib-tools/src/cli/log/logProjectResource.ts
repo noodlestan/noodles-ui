@@ -1,6 +1,6 @@
 import { CompilerContext } from '@noodles-ui/core-compiler';
 import {
-    ProjectResource,
+    NUIProjectResource,
     UnknownResource,
     getResourceModule,
     getResourceName,
@@ -14,7 +14,10 @@ import { logMessage } from '../logger/logMessage';
 import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
-export const logProjectResource = (compiler: CompilerContext, project: ProjectResource): void => {
+export const logProjectResource = (
+    compiler: CompilerContext,
+    project: NUIProjectResource,
+): void => {
     const {
         surfaces = [],
         mixins = [],

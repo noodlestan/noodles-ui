@@ -1,11 +1,17 @@
-import { ProjectResource } from '@noodles-ui/core-resources';
+import { NUIProjectResource } from '@noodles-ui/core-resources';
 
-const LabUIResource: ProjectResource = {
+const LabUIResource: NUIProjectResource = {
     type: 'project',
     name: 'Blank UI',
     module: '@noodles-ui/blank-ui',
-    generate: true,
-    resources: {},
+    system: {},
+    resources: {
+        surfaces: [],
+        mixins: [],
+        variants: [],
+        components: [],
+        themes: [],
+    },
 };
 
 export default LabUIResource;

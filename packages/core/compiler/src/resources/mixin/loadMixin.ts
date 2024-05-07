@@ -12,6 +12,8 @@ export const loadMixin = (
 ): MixinResource | undefined => {
     const { resource: mixin } = context;
     const entity = structuredClone(mixin);
-    loadMixinTokens(compiler, context, entity);
+    if (context.public) {
+        loadMixinTokens(compiler, context, entity);
+    }
     return addMixin(compiler, context, entity);
 };

@@ -3,7 +3,7 @@ import { MixinResource } from '@noodles-ui/core-resources';
 export const SurfaceColorResource: MixinResource = {
     type: 'mixin',
     name: 'SurfaceColor',
-    module: '@noodles-ui/styled',
+    module: '@noodles-ui/solidjs-styled',
     role: 'scss:mixin',
     source: '@noodles-ui/solidjs-styled/src/mixins/SurfaceColor/SurfaceColor.scss',
     implementation: '@include SurfaceColor();',

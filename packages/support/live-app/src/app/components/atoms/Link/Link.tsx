@@ -4,13 +4,15 @@ import { Component, JSX } from 'solid-js';
 import styles from './Link.module.scss';
 
 type LinkProps = {
-    children: JSX.Element;
     href: string;
     onClick?: (ev: MouseEvent) => void;
+    classList?: { [key: string]: boolean };
+    children: JSX.Element;
 };
 
 export const Link: Component<LinkProps> = props => {
     const classList = () => ({
+        ...props.classList,
         [styles.Link]: true,
     });
 

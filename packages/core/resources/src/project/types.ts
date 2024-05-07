@@ -7,8 +7,8 @@ import { TokenResource } from '../token';
 import { Resource } from '../types';
 import { VariantResource } from '../variant';
 
-export type ProjectOwnResource = Resource<'project'> & {
-    generate?: boolean;
+export type ProjectResource = Resource<'project'> & {
+    system?: InlineSystemResource;
 };
 
 type ResourceMap = {
@@ -20,7 +20,6 @@ type ResourceMap = {
     themes?: ThemeResource[];
 };
 
-export type ProjectResource = ProjectOwnResource & {
-    system?: InlineSystemResource;
+export type NUIProjectResource = ProjectResource & {
     resources: ResourceMap;
 };

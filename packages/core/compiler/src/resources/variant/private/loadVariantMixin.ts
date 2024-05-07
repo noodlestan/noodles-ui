@@ -20,6 +20,8 @@ export const loadVariantMixin = (
             context,
             newResource,
         );
+        // TODO better API to create private/public contexts
+        newContext.public = context.public;
         return loadMixin(compiler, newContext);
     }
 };

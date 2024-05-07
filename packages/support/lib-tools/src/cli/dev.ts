@@ -131,7 +131,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
             latestSnapshot = await loadBuildSnapshotFile(compiler);
             PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
             logSuccess('Build successful');
-            if (latestSnapshot.project.generate) {
+            if (latestSnapshot.project.system) {
                 proc = execLive(compiler);
             }
         } catch (err) {

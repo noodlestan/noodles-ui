@@ -1,4 +1,4 @@
-import { ProjectResource } from '@noodles-ui/core-resources';
+import { NUIProjectResource } from '@noodles-ui/core-resources';
 
 import { CompilerContext, CompilerOptions } from '../types';
 
@@ -10,13 +10,13 @@ import { loadThemes } from './theme/loadThemes';
 import { loadTokens } from './token/loadTokens';
 import { loadVariants } from './variant/loadVariants';
 
-export const loadProjectEntity = (compiler: CompilerContext, project: ProjectResource): void => {
+export const loadProjectEntity = (compiler: CompilerContext, project: NUIProjectResource): void => {
     compiler.project = project;
 };
 
 export const loadProject = async (
     compiler: CompilerContext,
-    project: ProjectResource,
+    project: NUIProjectResource,
     options: CompilerOptions,
 ): Promise<void> => {
     loadProjectEntity(compiler, project);

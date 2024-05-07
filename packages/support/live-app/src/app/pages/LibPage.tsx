@@ -1,63 +1,69 @@
-import { Component, Show } from 'solid-js';
+import { useNavigate, useParams } from '@solidjs/router';
+import { PackageIcon } from 'lucide-solid';
+import { Component, Show, createEffect } from 'solid-js';
 
-import { ModuleName } from '../components/atoms/ModuleName';
+import { Icon } from '../components/atoms/Icon';
 import { PageHeader } from '../components/atoms/PageHeader';
 import { PageTitle } from '../components/atoms/PageTitle';
 import { DashboardGrid } from '../components/layouts/DashboardGrid';
 import { StageLayout } from '../components/layouts/StageLayout';
-import { DiagnosticsBanner } from '../components/molecules/DiagnosticsBanner/DiagnosticsBanner';
 import { ItemsSection } from '../components/molecules/ItemsSection/ItemsSection';
-import { SystemSection } from '../components/molecules/SystemSection/SystemSection';
+import { PageCrumbs } from '../components/molecules/PageCrumbs';
 import { useSnapshotContext } from '../providers/SnapshotContextProvider';
 
-export const HomePage: Component = () => {
+export const LibPage: Component = () => {
     const { lastSnapshot } = useSnapshotContext();
+
+    const params = useParams();
+
+    const hasModule = () => !!params.module;
+    const module = () => params.module;
+    const link = (base: string) => `/${base}/${module()}`;
+
+    const navigate = useNavigate();
+    createEffect(() => {
+        if (!hasModule()) {
+            navigate('/nui', { replace: true });
+        }
+    });
 
     return (
         <Show when={lastSnapshot()}>
+            <PageCrumbs project={lastSnapshot()?.project} module={module()} />
             <StageLayout tag="main">
                 <PageHeader>
-                    <ModuleName>{lastSnapshot()?.project.module || '?'}</ModuleName>
-                    <PageTitle>{lastSnapshot()?.project.name || '?'}</PageTitle>
+                    <PageTitle>
+                        <Icon size="m" icon={PackageIcon} /> {module()}
+                    </PageTitle>
                 </PageHeader>
-                <DiagnosticsBanner diagnostics={lastSnapshot()?.diagnostics} />
-                <SystemSection snapshot={lastSnapshot()} />
                 <DashboardGrid>
-                    <ItemsSection
-                        snapshot={lastSnapshot()}
-                        type="surface"
-                        title="Surfaces"
-                        link="/surfaces"
-                    />{' '}
                     <ItemsSection
                         snapshot={lastSnapshot()}
                         type="mixin"
                         title="Mixins"
-                        link="/mixins"
+                        link={link('mixins')}
+                        module={module()}
                     />
                     <ItemsSection
                         snapshot={lastSnapshot()}
                         type="variant"
                         title="Variants"
-                        link="/variants"
+                        link={link('variants')}
+                        module={module()}
                     />
                     <ItemsSection
                         snapshot={lastSnapshot()}
                         type="component"
                         title="Components"
-                        link="/components"
-                    />
-                    <ItemsSection
-                        snapshot={lastSnapshot()}
-                        type="theme"
-                        title="Themes"
-                        link="/themes"
+                        link={link('components')}
+                        module={module()}
                     />
                     <ItemsSection
                         snapshot={lastSnapshot()}
                         type="token"
                         title="Tokens"
-                        link="/tokens"
+                        link={link('tokens')}
+                        module={module()}
                     />
                 </DashboardGrid>
             </StageLayout>

@@ -29,7 +29,7 @@ export const importRenderedComponent = (component: ComponentBuildContext): ts.St
                 ),
             ]),
         ),
-        factory.createStringLiteral(from.module),
+        factory.createStringLiteral(from.package || from.module),
         undefined,
     );
 };

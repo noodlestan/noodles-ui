@@ -3,7 +3,7 @@ import { MixinResource } from '@noodles-ui/core-resources';
 export const SurfaceBorderResource: MixinResource = {
     type: 'mixin',
     name: 'SurfaceBorder',
-    module: '@noodles-ui/styled',
+    module: '@noodles-ui/solidjs-styled',
     role: 'scss:mixin',
     source: '@noodles-ui/solidjs-styled/src/mixins/SurfaceBorder/SurfaceBorder.scss',
     implementation: '@include SurfaceBorder();',

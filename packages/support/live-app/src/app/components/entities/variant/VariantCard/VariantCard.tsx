@@ -27,7 +27,7 @@ export const VariantCard: Component<VariantCardProps> = props => {
         <EntityCard classList={classList()} public={props.variant.context.public} href={path()}>
             <EntityCardTitle>
                 <ModuleName>{entity().module}</ModuleName>
-                <EntityName>{entity().name}</EntityName>
+                <EntityName type="variant">{entity().name}</EntityName>
             </EntityCardTitle>
             <EntityDiagnosticCounts snapshot={props.snapshot} context={props.variant} />
         </EntityCard>

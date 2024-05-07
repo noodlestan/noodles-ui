@@ -11,7 +11,7 @@ export const extendVariantExtends = (
     extendVariant: VariantInlineExtendResource,
     resolvedParent: VariantEntity,
     overrideVars?: VariantVars,
-): VariantEntity | undefined => {
+): VariantEntity => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { vars: parentVars, params: parentParams, tokens: parentTokens } = resolvedParent;
     const {

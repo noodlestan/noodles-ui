@@ -25,7 +25,9 @@ export const TokenCard: Component<TokenCardProps> = props => {
     return (
         <EntityCard classList={classList()} public={props.token.context.public} href={path()}>
             <EntityCardTitle>
-                <EntityName small>{entity().name}</EntityName>
+                <EntityName type="token" small>
+                    {entity().name}
+                </EntityName>
             </EntityCardTitle>
 
             <EntityDiagnosticCounts snapshot={props.snapshot} context={props.token} />

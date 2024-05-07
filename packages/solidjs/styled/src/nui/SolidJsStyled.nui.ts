@@ -1,4 +1,4 @@
-import { ProjectResource } from '@noodles-ui/core-resources';
+import { NUIProjectResource } from '@noodles-ui/core-resources';
 
 import {
     HeadingResource,
@@ -9,7 +9,7 @@ import {
 import { SurfaceColorResource, TypeResetResource } from '../index.nui';
 import { SurfaceBorderResource } from '../mixins/SurfaceBorder/SurfaceBorder.nui';
 
-const LabUIResource: ProjectResource = {
+const LabUIResource: NUIProjectResource = {
     type: 'project',
     name: 'Solid JS Styled',
     module: '@noodles-ui/solidjs-styled',

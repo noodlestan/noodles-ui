@@ -2,13 +2,15 @@ import { SurfaceBuildContext } from '@noodles-ui/core-entities';
 import { getResourceKey } from '@noodles-ui/core-resources';
 import { Component } from 'solid-js';
 
+import { Renderer } from '../../../atoms/Renderer/Renderer';
+
 import styles from './SurfaceRenderer.module.scss';
 
-type EntityDiagnosticsProps = {
+type SurfaceRendererProps = {
     surface: SurfaceBuildContext;
 };
 
-export const SurfaceRenderer: Component<EntityDiagnosticsProps> = props => {
+export const SurfaceRenderer: Component<SurfaceRendererProps> = props => {
     const path = () => getResourceKey(props.surface.entity).replace(':', '/');
 
     const classList = () => ({
@@ -17,7 +19,7 @@ export const SurfaceRenderer: Component<EntityDiagnosticsProps> = props => {
 
     return (
         <div classList={classList()}>
-            <iframe src={`http://localhost:3133/surface/${path()}`} />
+            <Renderer src={`http://localhost:3133/surface/${path()}`} />
         </div>
     );
 };

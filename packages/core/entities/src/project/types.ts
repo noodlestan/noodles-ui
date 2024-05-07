@@ -1,3 +1,3 @@
-import { ProjectOwnResource } from '@noodles-ui/core-resources';
+import { ProjectResource } from '@noodles-ui/core-resources';
 
-export type ProjectEntity = ProjectOwnResource;
+export type ProjectEntity = ProjectResource;

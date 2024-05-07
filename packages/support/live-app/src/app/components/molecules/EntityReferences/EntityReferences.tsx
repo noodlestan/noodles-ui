@@ -10,12 +10,12 @@ const TITLE = {
     consumers: 'Used by',
 };
 
-type EntityDiagnosticsProps = {
+type EntityReferencesProps = {
     item: UnknownBuildContext;
     key: 'consumes' | 'consumers';
 };
 
-export const EntityReferences: Component<EntityDiagnosticsProps> = props => {
+export const EntityReferences: Component<EntityReferencesProps> = props => {
     const keys = () => Array.from(props.item.context[props.key]);
 
     return (

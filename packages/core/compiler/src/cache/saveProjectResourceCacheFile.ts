@@ -1,14 +1,14 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-import { ProjectResource } from '@noodles-ui/core-resources';
+import { NUIProjectResource } from '@noodles-ui/core-resources';
 
 import { NUI_RESOURCES_CACHE_FILE, NUI_RESOURCES_DIR } from '../resources/constants';
 import { CompilerContext } from '../types';
 
 export const saveProjectResourceCacheFile = async (
     compiler: CompilerContext,
-    resource: ProjectResource,
+    resource: NUIProjectResource,
 ): Promise<string> => {
     const data = resource;
     const json = JSON.stringify(data);
