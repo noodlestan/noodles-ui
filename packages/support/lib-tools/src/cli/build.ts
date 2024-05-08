@@ -13,7 +13,6 @@ import { white } from 'kleur';
 
 import { NUI_GENERATED_DIR, NUI_TMP_DIR } from '../generate/constants';
 import { generateAll } from '../generate/generateAll';
-import { deployLive } from '../generate/live/deployLive';
 import { updateLib } from '../generate/live/updateLib';
 import { ensureFileDir } from '../util/ensureFileDir';
 
@@ -83,7 +82,6 @@ export const build = async (
             const tmpDir = join(compiler.projectPath, NUI_TMP_DIR);
             await generateAll(compiler, tmpDir);
             logGeneratedSourceFiles(compiler);
-            await deployLive(compiler, tmpDir);
             timings.push([Date.now(), 'Generating code']);
         }
 

@@ -20,6 +20,8 @@ import {
 } from '../events/constants';
 import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
 import { execLive } from '../exec/execLive';
+import { NUI_TMP_DIR } from '../generate/constants';
+import { deployLive, redeployLive } from '../generate/live/deployLive';
 import { ServerOptions, createServer } from '../server/createServer';
 import { formatSeconds } from '../util/formatSeconds';
 
@@ -92,7 +94,7 @@ export const dev = async (
 
     const projectFile = resolve(fileName);
     logInfo(`Watch project`, stripFilename(projectFile, resolve('.')));
-    const compiler = await createCompiler(projectFile);
+    let compiler = await createCompiler(projectFile);
 
     const watcher = chok(projectFile, {
         ignored: /(^|[/\\])\../,
@@ -131,17 +133,21 @@ export const dev = async (
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
         try {
-            const compilerContext = await build(projectFile, compilerOptions);
-            const snapshot = await createBuildSnapshot(compilerContext);
+            compiler = await build(projectFile, compilerOptions);
+            const snapshot = await createBuildSnapshot(compiler);
             latestSnapshot = serializeSnapshot(snapshot);
             PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
-            if (compilerContext.hasErrors()) {
+            const tmpDir = join(compiler.projectPath, NUI_TMP_DIR);
+            if (latestSnapshot.project.system && !proc) {
+                await deployLive(compiler, tmpDir);
+                proc = execLive(compiler);
+            } else if (latestSnapshot.project.system) {
+                await redeployLive(compiler, tmpDir);
+            }
+            if (compiler.hasErrors()) {
                 throw new Error('Build completed with errors');
             }
             logSuccess('Build successful');
-            if (latestSnapshot.project.system && !proc) {
-                proc = execLive(compiler);
-            }
         } catch (err) {
             PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
             logError('Build error(s)', 'exit code: ' + err);

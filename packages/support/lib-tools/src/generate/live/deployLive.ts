@@ -28,15 +28,41 @@ const copyUIRootFile = async (
 
 const fileFilter = (file: string) => !file.startsWith('_') && !file.endsWith('_');
 
-export const deployLive = async (compiler: CompilerContext, sourceDir: string): Promise<string> => {
-    const sketleton = locateDependencyDir('@noodles-ui/live-solidjs');
+const deployLiveSkeleton = async (
+    compiler: CompilerContext,
+    sketletonDir: string,
+): Promise<void> => {
     const live = join(compiler.projectPath, NUI_LIVE_DIR);
     await rm(live, { recursive: true, force: true });
-    await copyFiles(sketleton, live, { fileFilter });
-    await copyUIRootFile(compiler, sketleton, live);
+    await copyFiles(sketletonDir, live, { fileFilter });
+};
 
-    const liveDir = join(live, 'src/');
-    await copyFiles(sourceDir, liveDir);
+const deployLiveSrc = async (
+    compiler: CompilerContext,
+    sketletonDir: string,
+    sourceDir: string,
+): Promise<string> => {
+    const liveDir = join(compiler.projectPath, NUI_LIVE_DIR);
+    await copyUIRootFile(compiler, sketletonDir, liveDir);
 
-    return liveDir;
+    const liveSrcDir = join(liveDir, 'src/');
+    await copyFiles(sourceDir, liveSrcDir);
+
+    return liveSrcDir;
+};
+
+export const deployLive = async (compiler: CompilerContext, sourceDir: string): Promise<string> => {
+    const sketletonDir = locateDependencyDir('@noodles-ui/live-solidjs');
+    await deployLiveSkeleton(compiler, sketletonDir);
+    const liveSrcDir = await deployLiveSrc(compiler, sketletonDir, sourceDir);
+    return liveSrcDir;
+};
+
+export const redeployLive = async (
+    compiler: CompilerContext,
+    sourceDir: string,
+): Promise<string> => {
+    const sketletonDir = locateDependencyDir('@noodles-ui/live-solidjs');
+    const liveSrcDir = await deployLiveSrc(compiler, sketletonDir, sourceDir);
+    return liveSrcDir;
 };
