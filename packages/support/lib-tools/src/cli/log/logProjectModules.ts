@@ -1,4 +1,4 @@
-import { CompilerContext, getProjectFilenamesWatchlist } from '@noodles-ui/core-compiler';
+import { CompilerContext, getProjectWatchedFilenames } from '@noodles-ui/core-compiler';
 import { green, yellow } from 'kleur';
 
 import { plural } from '../../util/plural';
@@ -10,7 +10,7 @@ import { hintExpandPattern } from './hintExpandPattern';
 import { shouldExpand } from './shouldExpand';
 
 export const logProjectModules = (compiler: CompilerContext): void => {
-    const sources = getProjectFilenamesWatchlist(compiler);
+    const sources = getProjectWatchedFilenames(compiler);
     const modules = compiler.build.modules;
 
     const relevantModules = Array.from(modules.values()).filter(m => m.filenames.length > 0);

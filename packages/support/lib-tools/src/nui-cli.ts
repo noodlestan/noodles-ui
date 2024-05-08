@@ -19,7 +19,7 @@ export const getCommand = (): string | undefined => {
 const main = async () => {
     const command = getCommand();
     if (command === 'dev') {
-        return dev(options.projectFile);
+        return dev(options.projectFile, options.compilerOptions);
     }
     if (command === 'build') {
         const project = await build(options.projectFile, options.compilerOptions);

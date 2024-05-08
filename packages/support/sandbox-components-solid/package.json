@@ -20,7 +20,6 @@
     "solid",
     "solidjs"
   ],
-  "type": "module",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "sideEffects": false,

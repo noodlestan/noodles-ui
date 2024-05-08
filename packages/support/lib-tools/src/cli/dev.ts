@@ -2,11 +2,12 @@ import { ChildProcess } from 'child_process';
 import { join, resolve } from 'path';
 
 import {
+    CompilerOptions,
+    createBuildSnapshot,
     createCompiler,
-    getProjectFilenamesWatchlist,
-    loadBuildSnapshotFile,
+    getProjectWatchedFilenames,
 } from '@noodles-ui/core-compiler';
-import { BuildSnapshotDto } from '@noodles-ui/core-compiler-types';
+import { BuildSnapshotDto, serializeSnapshot } from '@noodles-ui/core-compiler-types';
 import Queue from 'better-queue';
 import { FSWatcher, watch as chok } from 'chokidar';
 import { blue, bold, green, red, yellow } from 'kleur';
@@ -18,12 +19,12 @@ import {
     EVENT_REQUEST_BUILD,
 } from '../events/constants';
 import { BuildFinishedEvent, BuildStartedEvent } from '../events/types';
-import { execBuild } from '../exec/execBuild';
 import { execLive } from '../exec/execLive';
 import { ServerOptions, createServer } from '../server/createServer';
 import { formatSeconds } from '../util/formatSeconds';
 
 import { getNoLive } from './arguments/getNoLive';
+import { build } from './build';
 import { loadBuildModulesCache } from './cache/loadBuildModulesCache';
 import { stripFilename } from './format/stripFilename';
 import { hintExpandPattern } from './log/hintExpandPattern';
@@ -78,7 +79,11 @@ const formatBuildResult = (snapshot?: BuildSnapshotDto): string | undefined => {
     );
 };
 
-export const dev = async (fileName: string, options?: Partial<DevOptions>): Promise<void> => {
+export const dev = async (
+    fileName: string,
+    compilerOptions: CompilerOptions,
+    options?: Partial<DevOptions>,
+): Promise<void> => {
     logHeader('dev', blue);
 
     const port = options?.server?.port || defaultOptions.server?.port;
@@ -100,7 +105,7 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         logInfo('...reloading project...', undefined, hintExpandPattern(compiler, 'watcher'));
         logProjectBasicInfo(compiler);
         await loadBuildModulesCache(compiler);
-        const sources = getProjectFilenamesWatchlist(compiler);
+        const sources = getProjectWatchedFilenames(compiler);
         const watched = getWatcherWatchedFiles(watcher);
 
         watched.forEach(filename => {
@@ -126,16 +131,18 @@ export const dev = async (fileName: string, options?: Partial<DevOptions>): Prom
         PubSub.publish(EVENT_BUILD_STARTED, event);
 
         try {
-            proc?.kill('SIGINT');
-            await execBuild();
-            latestSnapshot = await loadBuildSnapshotFile(compiler);
+            const compilerContext = await build(projectFile, compilerOptions);
+            const snapshot = await createBuildSnapshot(compilerContext);
+            latestSnapshot = serializeSnapshot(snapshot);
             PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
+            if (compilerContext.hasErrors()) {
+                throw new Error('Build completed with errors');
+            }
             logSuccess('Build successful');
-            if (latestSnapshot.project.system) {
+            if (latestSnapshot.project.system && !proc) {
                 proc = execLive(compiler);
             }
         } catch (err) {
-            latestSnapshot = await loadBuildSnapshotFile(compiler);
             PubSub.publish(EVENT_BUILD_FINISHED, latestSnapshot);
             logError('Build error(s)', 'exit code: ' + err);
         }

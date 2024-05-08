@@ -5,6 +5,7 @@ import {
     CompilerOptions,
     NUI_RESOURCES_DIR,
     createCompiler,
+    getProjectWatchedFilenames,
     loadProject,
 } from '@noodles-ui/core-compiler';
 import { getDiagnosticErrors } from '@noodles-ui/core-diagnostics';
@@ -62,8 +63,13 @@ export const build = async (
         logProjectModules(compiler);
         await saveBuildModulesCache(compiler);
 
+        const sources = getProjectWatchedFilenames(compiler);
+        for (const file of sources) {
+            delete require.cache[file];
+        }
+        const resolvedFileName = require.resolve(resolve(fileName));
         // eslint-disable-next-line security/detect-non-literal-require, @typescript-eslint/no-var-requires
-        const resourceData = require(resolve(fileName)).default;
+        const resourceData = require(resolvedFileName).default;
         timings.push([Date.now(), 'Loading project file']);
 
         logProjectResource(compiler, resourceData);

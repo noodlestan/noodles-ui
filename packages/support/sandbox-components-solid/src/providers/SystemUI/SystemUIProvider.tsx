@@ -9,12 +9,10 @@ export const createSystemUIContext = (initialTheme: string): SystemUIContextStat
     // // window !== undefined && window.matchMedia('(prefers-color-scheme: dark)')
     //   'dark'
     // : 'light';
-    const [colourScheme, setColourScheme] = // makePersisted(
-        // eslint-disable-next-line solid/reactivity
-        createSignal<ColourSchemeName>(initialColourScheme());
-    const [theme, setTheme] = // makePersisted(
-        // eslint-disable-next-line solid/reactivity
-        createSignal<string>(initialTheme);
+    // makePersisted()
+    const [colourScheme, setColourScheme] = createSignal<ColourSchemeName>(initialColourScheme());
+    // makePersisted()
+    const [theme, setTheme] = createSignal<string>(initialTheme);
 
     return {
         colourScheme,

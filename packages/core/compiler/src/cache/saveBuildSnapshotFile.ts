@@ -5,9 +5,13 @@ import { ProjectEntitiesMap } from '@noodles-ui/core-entities';
 
 import { CompilerContext } from '../types';
 
+import { createBuildSnapshot } from './createBuildSnapshot';
 import { getBuildSnapshotFileName } from './paths/getBuildSnapshotFileName';
 
-const getSnapshotDependencies = (entities: ProjectEntitiesMap, exclude: string): string[] => {
+export const getSnapshotDependencies = (
+    entities: ProjectEntitiesMap,
+    exclude: string,
+): string[] => {
     const names = Object.values(entities || {}).reduce((names, item) => {
         [...item.values()].forEach(item => names.add(item.entity.module));
         return names;
@@ -17,15 +21,7 @@ const getSnapshotDependencies = (entities: ProjectEntitiesMap, exclude: string):
 };
 
 export const saveBuildSnapshotFile = async (compiler: CompilerContext): Promise<string> => {
-    const { entities, diagnostics } = compiler;
-    const snapshot = {
-        project: compiler.project,
-        success: !!compiler.build.success && !compiler.hasErrors(),
-        timestamp: compiler.build.timestamp,
-        entities,
-        diagnostics,
-        dependencies: getSnapshotDependencies(entities, compiler.project.module),
-    };
+    const snapshot = createBuildSnapshot(compiler);
     const data = serializeSnapshot(snapshot);
     const json = JSON.stringify(data);
     const fileName = getBuildSnapshotFileName(compiler);

@@ -19,6 +19,7 @@ export const TextResource: ComponentExtendResource = {
             name: 'TextTag',
             options: ['p', 'span'],
         },
+        // foo: {},
     },
     vars: {
         family: 'text',
